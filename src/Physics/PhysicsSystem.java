@@ -1,6 +1,7 @@
 package Physics;
 
 import Engine.Object.MonoBehavior;
+import Engine.Object.Tag;
 import Physics.Bodies.Cell.CellGroup;
 import Physics.Forces.Force;
 
@@ -33,8 +34,8 @@ public class PhysicsSystem extends MonoBehavior
     }
 
     @Override
-    public void start() {
-
+    public void awake() {
+        this.addTag(Tag.PHYSICS);
     }
 
     public void update()
@@ -50,6 +51,13 @@ public class PhysicsSystem extends MonoBehavior
 
     }
 
+    public <T extends Force> Force getComponent(Class<T> forceClass)
+    {
+        for (Force force:forces) {
+            if(forceClass.isAssignableFrom(force.getClass())) return force;
+        }
+        return null;
+    }
 
 
     public PhysicsSystem(){}

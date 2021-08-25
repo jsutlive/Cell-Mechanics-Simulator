@@ -21,4 +21,13 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    }
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){this.tag = tag;}
+
+   public void awake()
+   {
+
+   }
+
+   public void start(){}
+
+   public void render(){}
 }

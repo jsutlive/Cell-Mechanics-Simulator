@@ -3,7 +3,12 @@ package Engine.Object;
 public interface IBehavior
 {
     /**
-     * This method is called a single time before the physics system initializes
+     * Called by each object upon its creation.
+     */
+    void awake();
+
+    /**
+     * This method is called a single time before the physics loop begins
      */
     void start();
 
@@ -17,5 +22,6 @@ public interface IBehavior
      */
     void destroy();
 
-    //<T extends MonoBehavior> T createObject();
+    void render();
+
 }

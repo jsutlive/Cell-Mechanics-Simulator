@@ -2,5 +2,5 @@ package Engine.Object;
 
 public enum Tag
 {
-    ORGANISM, PHYSICS, BOUNDARY
+    ORGANISM, PHYSICS, BOUNDARY, RENDERABLE
 }

@@ -25,11 +25,15 @@ public abstract class Force
 
     public void attach(CellGroup group)
     {
+        for (Cell cell: group.getCells()) {
+            cell.attachForce(this);
+        }
         listeners.addAll(group.getCells());
     }
 
     public void attach(Cell cell)
     {
+        cell.attachForce(this);
         listeners.add(cell);
     }
 

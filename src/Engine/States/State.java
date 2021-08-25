@@ -17,7 +17,8 @@ public abstract class State
         state = _state;
     }
 
-    private static HashSet<MonoBehavior> allObjects = new HashSet<>();
+    protected static HashSet<MonoBehavior> allObjects = new HashSet<>();
+    protected static HashSet<MonoBehavior> renderBatch = new HashSet<>();
 
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
         RunState runState = (RunState)state;
@@ -50,6 +51,7 @@ public abstract class State
         MonoBehavior mono = MonoBehavior.createObject(type);
         MonoBehavior.setGlobalID(mono);
         allObjects.add(mono);
+        mono.awake();
         return mono;
     }
 
@@ -59,6 +61,11 @@ public abstract class State
             if(mono.getTag() == tag) return mono;
         }
         return null;
+    }
+
+    public static void setFlagToRender(MonoBehavior mono)
+    {
+        renderBatch.add(mono);
     }
 
 }

@@ -1,9 +1,13 @@
 package Physics.Bodies.Cell;
 
 import Engine.Object.MonoBehavior;
+import Engine.Object.Tag;
+import Engine.States.State;
+import GUI.Painter;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Polygon;
 import Physics.Bodies.Vertex;
+import Physics.Forces.Force;
 import Utilities.Geometry.Vector2f;
 
 import java.awt.*;
@@ -16,6 +20,18 @@ public class Cell extends Polygon{
     private int cellID;
     List<CellNode> nodes;
     List<CellEdge> allEdges;
+    List<Force> attachedForces;
+
+    @Override
+    public void awake() {
+        State.setFlagToRender(this);
+    }
+
+    @Override
+    public void render()
+    {
+        Painter.drawCell(this);
+    }
 
     public static Cell create(Collection<Vertex> vertices, Collection<Edge> edges)
     {
@@ -24,12 +40,18 @@ public class Cell extends Polygon{
         cell.attachEdges(edges);
         cell.cellID = NEXT_AVAILABLE_ID;
         NEXT_AVAILABLE_ID ++;
+        cell.awake();
         return cell;
     }
 
-    private Cell(){}
+    public Cell(){}
 
     public int getID(){return this.cellID;}
+
+    public void attachForce(Force force)
+    {
+        attachedForces.add(force);
+    }
 
     @Override
     protected void MovePosition(Vector2f deltaPosition)

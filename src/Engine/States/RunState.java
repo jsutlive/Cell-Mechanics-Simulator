@@ -19,23 +19,25 @@ public class RunState extends State
     public void Init() throws InstantiationException, IllegalAccessException {
         model = (Model)State.create(Model.class);
         physicsSystem = State.create(PhysicsSystem.class);
-        physicsSystem.addTag(Tag.PHYSICS);
-
-        model.start();
-        renderedCells = model.getOrganism().getAllCells();
+        for (MonoBehavior obj: allObjects) {
+            obj.start();
+        }
     }
 
     @Override
-    public void Tick() {
-        model.update();
+    public void Tick()
+    {
+        for (MonoBehavior obj: allObjects) {
+            obj.update();
+        }
     }
 
     @Override
     public void Render()
     {
-        for(Cell cell: renderedCells.getCells())
+        for(MonoBehavior mono: renderBatch)
         {
-            Painter.drawCell(cell);
+            mono.render();
         }
         Painter.drawPoint(new Vector2i(400,400));
         System.out.println("--------");

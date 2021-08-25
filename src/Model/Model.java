@@ -26,7 +26,6 @@ public class Model extends MonoBehavior
         embryo.lateralConstrictingCells.setColor(Color.GREEN);
         embryo.apicalConstrictingCells.setColor(Color.BLUE);
         physicsSystem.addForce(apicalSprings, embryo.apicalConstrictingCells);
-
     }
 
     private void designOrganism()
@@ -38,7 +37,6 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        physicsSystem.update();
         organism.getAllCells().update();
     }
 
