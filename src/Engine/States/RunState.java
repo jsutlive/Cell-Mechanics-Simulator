@@ -1,5 +1,7 @@
 package Engine.States;
 
+import Engine.Object.MonoBehavior;
+import Engine.Object.Tag;
 import GUI.Painter;
 import Model.Model;
 import Physics.Bodies.Cell.Cell;
@@ -9,13 +11,16 @@ import Utilities.Geometry.Vector2i;
 
 public class RunState extends State
 {
-    Model model = new Model();
-    PhysicsSystem physicsSystem = new PhysicsSystem();
+    Model model;
+    MonoBehavior physicsSystem;
     CellGroup renderedCells;
 
     @Override
-    public void Init()
-    {
+    public void Init() throws InstantiationException, IllegalAccessException {
+        model = (Model)State.create(Model.class);
+        physicsSystem = State.create(PhysicsSystem.class);
+        physicsSystem.addTag(Tag.PHYSICS);
+
         model.start();
         renderedCells = model.getOrganism().getAllCells();
     }

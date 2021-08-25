@@ -1,5 +1,6 @@
 package Physics.Bodies.Cell;
 
+import Engine.Object.MonoBehavior;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Vertex;
 import Utilities.Geometry.Vector2f;
@@ -31,5 +32,16 @@ public class CellEdge extends Edge{
     {
         this.cell = cell;
     }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package Physics.Bodies.Cell;
 
+import Engine.Object.MonoBehavior;
 import Physics.Bodies.Vertex;
 import Utilities.Geometry.Vector2f;
 
@@ -31,11 +32,22 @@ public class CellNode extends Vertex
     }
 
     @Override
+    public void start() {
+
+    }
+
+    @Override
     public void update()
     {
         super.update();
         //if(forceMap.size()>= 1)
         //System.out.println(this.cell.getID() + ":::" + forceMap.size());
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
 
 }

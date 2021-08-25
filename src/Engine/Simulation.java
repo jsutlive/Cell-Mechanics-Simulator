@@ -27,8 +27,7 @@ public class Simulation implements Runnable
         title = _title;
     }
 
-    private void init()
-    {
+    private void init() throws InstantiationException, IllegalAccessException {
         renderer = Renderer.getInstance();
         render = new Thread(renderer);
         Time.getInstance();
@@ -46,7 +45,13 @@ public class Simulation implements Runnable
     @Override
     public void run()
     {
-        init();
+        try {
+            init();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         while(applicationIsRunning)
         {
             Time.Advance();

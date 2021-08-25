@@ -1,5 +1,10 @@
 package Engine.States;
 
+import Engine.Object.MonoBehavior;
+import Engine.Object.Tag;
+
+import java.util.HashSet;
+
 public abstract class State
 {
     public static State state = null;
@@ -12,8 +17,9 @@ public abstract class State
         state = _state;
     }
 
-    public static void ChangeState()
-    {
+    private static HashSet<MonoBehavior> allObjects = new HashSet<>();
+
+    public static void ChangeState() throws InstantiationException, IllegalAccessException {
         RunState runState = (RunState)state;
         if(runState != null)
         {
@@ -29,7 +35,7 @@ public abstract class State
     /**
      * Initializes entities when the state starts. Only called once.
      */
-    public abstract void Init();
+    public abstract void Init() throws InstantiationException, IllegalAccessException;
 
     public abstract void Render();
 
@@ -37,5 +43,22 @@ public abstract class State
      * Performs all calculations to be updated once per frame cycle.
      */
     public abstract void Tick();
+
+    public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
+            throws InstantiationException, IllegalAccessException {
+
+        MonoBehavior mono = MonoBehavior.createObject(type);
+        MonoBehavior.setGlobalID(mono);
+        allObjects.add(mono);
+        return mono;
+    }
+
+    public static <T extends MonoBehavior<T>> MonoBehavior<T> findObjectWithTag(Tag tag)
+    {
+        for (MonoBehavior mono: allObjects) {
+            if(mono.getTag() == tag) return mono;
+        }
+        return null;
+    }
 
 }

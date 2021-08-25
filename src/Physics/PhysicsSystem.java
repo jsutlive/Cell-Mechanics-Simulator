@@ -1,11 +1,12 @@
 package Physics;
 
+import Engine.Object.MonoBehavior;
 import Physics.Bodies.Cell.CellGroup;
 import Physics.Forces.Force;
 
 import java.util.HashSet;
 
-public class PhysicsSystem
+public class PhysicsSystem extends MonoBehavior
 {
     private HashSet<Force> forces = new HashSet<>();
 
@@ -31,6 +32,11 @@ public class PhysicsSystem
         forces.remove(force);
     }
 
+    @Override
+    public void start() {
+
+    }
+
     public void update()
     {
         for(Force force: forces)
@@ -38,4 +44,13 @@ public class PhysicsSystem
             force.update();
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
+
+
+    public PhysicsSystem(){}
 }

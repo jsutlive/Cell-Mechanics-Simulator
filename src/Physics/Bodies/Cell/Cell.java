@@ -1,5 +1,6 @@
 package Physics.Bodies.Cell;
 
+import Engine.Object.MonoBehavior;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Polygon;
 import Physics.Bodies.Vertex;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class Cell extends Polygon{
     private static int NEXT_AVAILABLE_ID = 0;
-    private int uID;
+    private int cellID;
     List<CellNode> nodes;
     List<CellEdge> allEdges;
 
@@ -21,14 +22,14 @@ public class Cell extends Polygon{
         Cell cell = new Cell();
         cell.attachNodes(vertices);
         cell.attachEdges(edges);
-        cell.uID = NEXT_AVAILABLE_ID;
+        cell.cellID = NEXT_AVAILABLE_ID;
         NEXT_AVAILABLE_ID ++;
         return cell;
     }
 
     private Cell(){}
 
-    public int getID(){return this.uID;}
+    public int getID(){return this.cellID;}
 
     @Override
     protected void MovePosition(Vector2f deltaPosition)
@@ -84,6 +85,11 @@ public class Cell extends Polygon{
         }
     }
 
+    @Override
+    public void start() {
+
+    }
+
     public void update()
     {
         for(CellNode node: nodes)
@@ -95,5 +101,11 @@ public class Cell extends Polygon{
             edge.update();
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
 
 }
