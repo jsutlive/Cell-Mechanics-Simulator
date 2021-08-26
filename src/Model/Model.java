@@ -18,8 +18,7 @@ public class Model extends MonoBehavior
     Force apicalSprings = ApicalSpring.configureNew(new float[]{0.75f, 1.75f}, new float[]{0.01f, 0.01f});
 
     @Override
-    public void start()
-    {
+    public void start() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
         DrosophilaEmbryo embryo = (DrosophilaEmbryo)organism;
         designOrganism();
@@ -28,8 +27,7 @@ public class Model extends MonoBehavior
         physicsSystem.addForce(apicalSprings, embryo.apicalConstrictingCells);
     }
 
-    private void designOrganism()
-    {
+    private void designOrganism() throws InstantiationException, IllegalAccessException {
         organism.generateOrganism();
         TOTAL_CELLS = organism.getAllCells().getCells().size();
     }

@@ -27,7 +27,7 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
 
    }
 
-   public void start(){}
+   public void start() throws InstantiationException, IllegalAccessException {}
 
    public void render(){}
 }

@@ -1,9 +1,9 @@
 package Physics.Bodies.Cell;
 
-import Engine.Object.MonoBehavior;
-import Engine.Object.Tag;
 import Engine.States.State;
 import GUI.Painter;
+import Model.DrosophilaEmbryo;
+import Model.IOrganism;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Polygon;
 import Physics.Bodies.Vertex;
@@ -18,8 +18,6 @@ import java.util.List;
 public class Cell extends Polygon{
     private static int NEXT_AVAILABLE_ID = 0;
     private int cellID;
-    List<CellNode> nodes;
-    List<CellEdge> allEdges;
     List<Force> attachedForces;
 
     @Override
@@ -33,7 +31,7 @@ public class Cell extends Polygon{
         Painter.drawCell(this);
     }
 
-    public static Cell create(Collection<Vertex> vertices, Collection<Edge> edges)
+    public static Cell createCellStructure(Collection<Vertex> vertices, Collection<Edge> edges)
     {
         Cell cell = new Cell();
         cell.attachNodes(vertices);
@@ -44,7 +42,17 @@ public class Cell extends Polygon{
         return cell;
     }
 
-    public Cell(){}
+    public Cell clone(Cell cell)
+    {
+        Cell clonedCell = new Cell();
+        clonedCell.attachNodes(cell.getNodes());
+        clonedCell.attachEdges(cell.getAllEdges());
+        clonedCell.cellID = this.cellID;
+        cell.awake();
+        return cell;
+    }
+
+
 
     public int getID(){return this.cellID;}
 
@@ -59,36 +67,34 @@ public class Cell extends Polygon{
 
     }
 
-    public List<CellNode> getNodes()
+    public Collection<Vertex> getNodes()
     {
-        return nodes;
+        return vertices;
     }
 
-    public List<CellEdge> getAllEdges()
+    public Collection<Edge> getAllEdges()
     {
-        return allEdges;
+        return edges;
     }
-
-
 
     public void attachNodes(Collection<Vertex> vertices)
     {
-        nodes = new ArrayList<>();
+        this.vertices = new ArrayList<>();
         for(Vertex v: vertices)
         {
+            this.vertices.add(v);
             CellNode cn = (CellNode)v;
-            nodes.add(cn);
             cn.setCell(this);
         }
     }
 
     public void attachEdges(Collection<Edge> edges)
     {
-        allEdges = new ArrayList<>();
+        this.edges = new ArrayList<>();
         for(Edge e: edges)
         {
             CellEdge ce = (CellEdge)e;
-            allEdges.add(ce);
+            this.edges.add(e);
             ce.setCell(this);
         }
     }
@@ -97,11 +103,12 @@ public class Cell extends Polygon{
     public void setColor(Color color)
     {
         this.color = color;
-        for(CellNode node: nodes)
+        System.out.println("====" + vertices);
+        for(Vertex vertex: vertices)
         {
-            node.setColor(color);
+            vertex.setColor(color);
         }
-        for(CellEdge edge: allEdges)
+        for(Edge edge: edges)
         {
             edge.setColor(color);
         }
@@ -114,11 +121,11 @@ public class Cell extends Polygon{
 
     public void update()
     {
-        for(CellNode node: nodes)
+        for(Vertex node: vertices)
         {
             node.update();
         }
-        for(CellEdge edge: allEdges)
+        for(Edge edge: edges)
         {
             edge.update();
         }

@@ -4,6 +4,8 @@ import Engine.Renderer;
 import Physics.Bodies.Cell.Cell;
 import Physics.Bodies.Cell.CellEdge;
 import Physics.Bodies.Cell.CellNode;
+import Physics.Bodies.Edge;
+import Physics.Bodies.Vertex;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 
@@ -14,11 +16,11 @@ public class Painter {
 
     public static void drawCell(Cell cell)
     {
-        for(CellNode node: cell.getNodes())
+        for(Vertex node: cell.getNodes())
         {
             drawPoint(node.getPosition().asInt(), node.getColor());
         }
-        for(CellEdge edge: cell.getAllEdges())
+        for(Edge edge: cell.getAllEdges())
         {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), cell.getColor());

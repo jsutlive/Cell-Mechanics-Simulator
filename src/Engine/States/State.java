@@ -47,7 +47,6 @@ public abstract class State
 
     public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
             throws InstantiationException, IllegalAccessException {
-
         MonoBehavior mono = MonoBehavior.createObject(type);
         MonoBehavior.setGlobalID(mono);
         allObjects.add(mono);

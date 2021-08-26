@@ -5,6 +5,7 @@ import Physics.Bodies.Cell.ApicalEdge;
 import Physics.Bodies.Cell.Cell;
 import Physics.Bodies.Cell.CellEdge;
 import Physics.Bodies.Cell.CellGroup;
+import Physics.Bodies.Edge;
 import Physics.Bodies.PhysicsBody;
 import Utilities.Math.CustomMath;
 
@@ -37,7 +38,7 @@ public class ApicalSpring extends DynamicSpring
     {
         for(Cell cell: cellGroup.getCells())
         {
-            for(CellEdge edge: cell.getAllEdges())
+            for(Edge edge: cell.getAllEdges())
             {
                 if(edge instanceof ApicalEdge)
                 {

@@ -41,6 +41,8 @@ public class DrosophilaEmbryo implements IOrganism
      */
     public int lateralResolution = 4;
 
+    private Cell activeCell;
+
     @Override
     public CellGroup getAllCells() {
         return allCells;
@@ -51,6 +53,7 @@ public class DrosophilaEmbryo implements IOrganism
         allCells = new CellGroup();
     }
 
+
     @Override
     public void generateOrganism() {
         generateTissueRing();
@@ -60,6 +63,7 @@ public class DrosophilaEmbryo implements IOrganism
             if(i < numberOfConstrictingCells || i > numberOfSegments - numberOfConstrictingCells - 1)
             {
                 apicalConstrictingCells.addCell(allCells.getCell(i));
+
             }
             else
             {
@@ -145,7 +149,7 @@ public class DrosophilaEmbryo implements IOrganism
         edges.add(basalEdge);
 
         // compile and create the cell object
-        Cell cell = Cell.create(vertices, edges);
+        Cell cell = Cell.createCellStructure(vertices, edges);
         return cell;
     }
 

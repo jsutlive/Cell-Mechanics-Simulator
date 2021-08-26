@@ -5,9 +5,9 @@ import java.util.Collection;
 
 public abstract class Polygon extends PhysicsBody
 {
-    private Collection<Edge> edges;
-    private Collection<Edge> vertices;
-    private float area;
+    protected Collection<Edge> edges;
+    protected Collection<Vertex> vertices;
+    protected float area;
 
 
 
