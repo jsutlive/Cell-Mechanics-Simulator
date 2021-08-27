@@ -19,7 +19,7 @@ public class DrosophilaEmbryo implements IOrganism
     /**
      * Number of cells that the embryo will have in the tissue ring, default = 80
      */
-    public int numberOfSegments = 80;
+    public static int numberOfSegments = 80;
 
     /**
      * Number of cells which undergo apical constriction(one side), default = 8 (16 total cells)
@@ -113,7 +113,7 @@ public class DrosophilaEmbryo implements IOrganism
 
             if(i == numberOfSegments - 1)
             {
-                Cell newCell = createCell(zeroEdge, edges);
+                Cell newCell = createCell(edges, zeroEdge);
                 allCells.addCell(newCell);
             }
 

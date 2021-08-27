@@ -27,10 +27,23 @@ public abstract class Spring extends Force
 
     private void applyForceToVertices(CellEdge edge, Vector2f force) {
         Vertex[] vertices = edge.getVertices();
+        /*if(edge.getCell().getID() == 79)
+        {
+            force.mul(-1);
+        }*/
+        if(edge.getCell().getID() > 10) {
+            force = new Vector2f(-1f, 1f);
+        }else
+        {
+            force = new Vector2f(1f, 1f);
+        }
+        System.out.println("FORCE::" + force.x +"|||" + force.y);
+        System.out.println("CELL ID:" + edge.getCell().getID());
+        System.out.println("-----/////-----");
         vertices[1].addForce(this, force);
         // Flip sign of force so vertices move opposite to each other
         force.mul(-1);
-        vertices[0].addForce(this, force);
+        //vertices[0].addForce(this, force);
     }
 
 

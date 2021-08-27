@@ -1,5 +1,6 @@
 package Physics.Bodies.Cell;
 
+import Physics.Bodies.Edge;
 import Physics.Forces.Force;
 
 import java.awt.*;
@@ -49,5 +50,15 @@ public class CellGroup
         {
             cell.update();
         }
+    }
+
+    public <T extends CellEdge<T>> Collection<CellEdge<T>> findAllEdgesOfType(Class<T> edgeClass)
+    {
+        Collection<CellEdge<T>> edgesOfRequestedType = new HashSet<>();
+        for(Cell cell: getCells())
+        {
+            edgesOfRequestedType.addAll(cell.findAllEdgesOfType(edgeClass));
+        }
+        return edgesOfRequestedType;
     }
 }

@@ -3,9 +3,10 @@ package Physics.Bodies.Cell;
 import Engine.Object.MonoBehavior;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Vertex;
+import Physics.Forces.Force;
 import Utilities.Geometry.Vector2f;
 
-public class CellEdge extends Edge{
+public class CellEdge <T extends CellEdge<T>> extends Edge{
 
     private Cell cell;
     public final float initialLength;

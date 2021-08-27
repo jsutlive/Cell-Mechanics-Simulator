@@ -126,11 +126,15 @@ public class ApicalSpring extends DynamicSpring
             int loc;
             if(id < Model.TOTAL_CELLS / 2)
             {
-                loc = id;
+                loc = id + 1;
+            }
+            else if (id == Model.TOTAL_CELLS - 1)
+            {
+                loc = 0;
             }
             else
             {
-                loc = (Model.TOTAL_CELLS -1) - id;
+                loc = (Model.TOTAL_CELLS -2) - id;
             }
 
             return loc;

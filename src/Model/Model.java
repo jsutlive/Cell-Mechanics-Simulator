@@ -3,11 +3,16 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
+import Physics.Bodies.Cell.ApicalEdge;
+import Physics.Bodies.Cell.CellEdge;
+import Physics.Bodies.Edge;
 import Physics.Forces.Force;
 import Physics.Forces.Springs.ApicalSpring;
 import Physics.PhysicsSystem;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class Model extends MonoBehavior
 {
@@ -23,7 +28,10 @@ public class Model extends MonoBehavior
         DrosophilaEmbryo embryo = (DrosophilaEmbryo)organism;
         designOrganism();
         embryo.lateralConstrictingCells.setColor(Color.GREEN);
-        embryo.apicalConstrictingCells.setColor(Color.BLUE);
+        embryo.apicalConstrictingCells.setColor(Color.MAGENTA);
+        //Collection<CellEdge<ApicalEdge>> apicalEdges =
+          //      embryo.lateralConstrictingCells.findAllEdgesOfType(ApicalEdge.class);
+        embryo.getAllCells().getCell(79).setColor(Color.MAGENTA);
         physicsSystem.addForce(apicalSprings, embryo.apicalConstrictingCells);
     }
 
@@ -36,6 +44,8 @@ public class Model extends MonoBehavior
     public void update()
     {
         organism.getAllCells().update();
+
+
     }
 
     @Override

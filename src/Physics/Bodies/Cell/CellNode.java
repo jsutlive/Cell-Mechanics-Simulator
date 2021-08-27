@@ -2,6 +2,7 @@ package Physics.Bodies.Cell;
 
 import Engine.Object.MonoBehavior;
 import Physics.Bodies.Vertex;
+import Physics.Forces.Force;
 import Utilities.Geometry.Vector2f;
 
 public class CellNode extends Vertex

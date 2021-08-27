@@ -2,6 +2,7 @@ package Physics.Bodies;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.HashSet;
 
 public abstract class Polygon extends PhysicsBody
 {
@@ -17,5 +18,7 @@ public abstract class Polygon extends PhysicsBody
     {
 
     }
+
+
 
 }

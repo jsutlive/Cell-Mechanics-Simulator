@@ -26,6 +26,7 @@ public abstract class PhysicsBody extends MonoBehavior
     public void addForce(Force force, Vector2f vector)
     {
         forceMap.put(force, vector);
+
     }
 
     protected void clearForce(Force force)

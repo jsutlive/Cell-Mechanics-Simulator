@@ -13,6 +13,7 @@ import Utilities.Geometry.Vector2f;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class Cell extends Polygon{
@@ -37,6 +38,7 @@ public class Cell extends Polygon{
         cell.attachNodes(vertices);
         cell.attachEdges(edges);
         cell.cellID = NEXT_AVAILABLE_ID;
+
         NEXT_AVAILABLE_ID ++;
         cell.awake();
         return cell;
@@ -59,6 +61,7 @@ public class Cell extends Polygon{
     public void attachForce(Force force)
     {
         attachedForces.add(force);
+
     }
 
     @Override
@@ -112,6 +115,20 @@ public class Cell extends Polygon{
         {
             edge.setColor(color);
         }
+
+    }
+
+    public <T extends CellEdge<T>> Collection<CellEdge<T>> findAllEdgesOfType(Class<T> edgeType)
+    {
+        Collection<CellEdge<T>> edgesOfRequestedType = new HashSet<>();
+        for (Edge edge:edges)
+        {
+            if(edgeType.isAssignableFrom(edge.getClass()))
+            {
+                edgesOfRequestedType.add((CellEdge<T>) edge);
+            }
+        }
+        return edgesOfRequestedType;
     }
 
     @Override
