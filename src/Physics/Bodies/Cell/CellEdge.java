@@ -18,6 +18,11 @@ public class CellEdge <T extends CellEdge<T>> extends Edge{
         initialLength = getLength();
     }
 
+    public CellEdge()
+    {
+        initialLength = 0;
+    }
+
     @Override
     protected void MovePosition(Vector2f deltaPosition) {
         vertices[0].getPosition().add(deltaPosition);

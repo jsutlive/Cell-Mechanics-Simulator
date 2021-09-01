@@ -5,10 +5,12 @@ import Physics.Bodies.Cell.*;
 import Physics.Bodies.Edge;
 import Physics.Bodies.Vertex;
 import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Vector;
 
 public class DrosophilaEmbryo implements IOrganism
 {
@@ -40,6 +42,7 @@ public class DrosophilaEmbryo implements IOrganism
      * How many nodes make up the lateral edge of each cell, default is 4
      */
     public int lateralResolution = 4;
+    final Vector2i boundingBox;
 
     private Cell activeCell;
 
@@ -51,6 +54,13 @@ public class DrosophilaEmbryo implements IOrganism
     public DrosophilaEmbryo()
     {
         allCells = new CellGroup();
+        boundingBox = Simulation.bounds;
+    }
+
+    public DrosophilaEmbryo(Vector2i bounds)
+    {
+        allCells = new CellGroup();
+        boundingBox = bounds;
     }
 
 
@@ -89,7 +99,7 @@ public class DrosophilaEmbryo implements IOrganism
             Vertex lastVertex = new CellNode();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
                 float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;
-                position = CustomMath.TransformToWorldSpace(unitVector, nodeRadius, Simulation.bounds.asFloat());
+                position = CustomMath.TransformToWorldSpace(unitVector, nodeRadius, boundingBox.asFloat());
                 Vertex thisVertex = new CellNode(position);
                 if (lastVertex.getPosition() != null) {
                     edges.add(new LateralEdge(thisVertex, lastVertex));
