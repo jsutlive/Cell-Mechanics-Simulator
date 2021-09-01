@@ -15,14 +15,14 @@ public abstract class Spring extends Force
     @Override
     public void calculateForce(PhysicsBody body) {
         CellEdge edge = (CellEdge) body;
-        float f = constant * (length - (ratio * edge.initialLength));
+        float f = getForceMagnitude(edge);
         Vector2f force = new Vector2f(f * edge.getXLength()/length, f* edge.getYLength()/length);
         applyForceToVertices(edge, force);
-        /*System.out.println(edge.getCell().getID() + "::constant::" + constant);
-        System.out.println(edge.getCell().getID() + "::LengthX::" + edge.getXLength());
-        System.out.println(edge.getCell().getID() + "::LengthY::" + edge.getYLength());
-        System.out.println(edge.getCell().getID() + "::force::" + f);
-        System.out.println("-----/////-----");*/
+    }
+
+    public float getForceMagnitude(CellEdge edge) {
+        float f = constant * (length - (ratio * edge.initialLength));
+        return f;
     }
 
     private void applyForceToVertices(CellEdge edge, Vector2f force) {
@@ -30,7 +30,7 @@ public abstract class Spring extends Force
         /*if(edge.getCell().getID() == 79)
         {
             force.mul(-1);
-        }*/
+        }
         if(edge.getCell().getID() > 10) {
             force = new Vector2f(-1f, 1f);
         }else
@@ -39,7 +39,7 @@ public abstract class Spring extends Force
         }
         System.out.println("FORCE::" + force.x +"|||" + force.y);
         System.out.println("CELL ID:" + edge.getCell().getID());
-        System.out.println("-----/////-----");
+        System.out.println("-----/////-----");*/
         vertices[1].addForce(this, force);
         // Flip sign of force so vertices move opposite to each other
         force.mul(-1);

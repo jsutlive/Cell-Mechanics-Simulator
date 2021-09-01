@@ -68,21 +68,13 @@ public class DrosophilaEmbryo implements IOrganism
     public void generateOrganism() {
         generateTissueRing();
         int numberOfCells = allCells.getCells().size();
-        for(int i = 0; i < numberOfCells; i++)
-        {
-            if(i < numberOfConstrictingCells || i > numberOfSegments - numberOfConstrictingCells - 1)
-            {
+        for(int i = 0; i < numberOfCells; i++) {
+            if (i < numberOfConstrictingCells || i > numberOfSegments - numberOfConstrictingCells - 1) {
                 apicalConstrictingCells.addCell(allCells.getCell(i));
 
-            }
-            else
-            {
+            } else {
                 lateralConstrictingCells.addCell(allCells.getCell(i));
             }
-        }
-        for(Cell cell: apicalConstrictingCells.getCells())
-        {
-            System.out.println(cell.getID());
         }
     }
 
