@@ -17,6 +17,18 @@ public class EdgeTests {
         CellEdge edge = new CellEdge(a,b);
         assertEquals(1f, edge.getLength());
     }
+    @Test
+    void calculate_edge_length_no_difference_vertex_order()
+    {
+        Vertex a = new CellNode();
+        a.setPosition(0f,1f);
+
+        Vertex b = new CellNode();
+        b.setPosition(0f,0f);
+
+        CellEdge edge = new CellEdge(b,a);
+        assertEquals(1f, edge.getLength());
+    }
 
     @Test
     void calculate_edge_length_xy_difference() {
