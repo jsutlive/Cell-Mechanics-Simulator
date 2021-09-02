@@ -23,6 +23,11 @@ public abstract class Force
         }
     }
 
+    public Collection<PhysicsBody> getListeners()
+    {
+        return listeners;
+    }
+
     public void attach(CellGroup group)
     {
         for (Cell cell: group.getCells()) {

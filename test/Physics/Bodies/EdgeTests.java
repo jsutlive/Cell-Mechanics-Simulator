@@ -1,7 +1,13 @@
 package Physics.Bodies;
+import Physics.Bodies.Cell.ApicalEdge;
+import Physics.Bodies.Cell.Cell;
 import Physics.Bodies.Cell.CellEdge;
 import Physics.Bodies.Cell.CellNode;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EdgeTests {
@@ -40,6 +46,25 @@ public class EdgeTests {
 
         CellEdge edge = new CellEdge(a, b);
         assertEquals(5, edge.getLength());
+    }
+
+    @Test
+    void calculate_edge_id_equals_cell_id()
+    {
+        CellNode a =new CellNode();
+        a.setPosition(0,0);
+        CellNode b =new CellNode();
+        b.setPosition(0,1);
+        ApicalEdge testEdge = new ApicalEdge<>(a, b);
+
+        ArrayList<Edge> edge = new ArrayList<>();
+        edge.add(testEdge);
+        ArrayList<Vertex> vertices = new ArrayList<>();
+        vertices.add(a); vertices.add(b);
+        Cell testCell = Cell.createCellStructure(vertices, edge);
+        Cell.resetID();
+
+        assertEquals(testCell.getID(), testEdge.getCell().getID());
     }
 
 }

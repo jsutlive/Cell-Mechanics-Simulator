@@ -46,5 +46,23 @@ public abstract class Spring extends Force
         //vertices[0].addForce(this, force);
     }
 
+    public float getRatio()
+    {
+        return ratio;
+    }
 
+    public float getConstant()
+    {
+        return constant;
+    }
+
+    public float getLength()
+    {
+        return length;
+    }
+
+
+    public void setLength(float length) {
+        this.length = length;
+    }
 }

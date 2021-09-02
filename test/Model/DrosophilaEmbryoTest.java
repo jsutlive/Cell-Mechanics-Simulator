@@ -4,6 +4,7 @@ import Physics.Bodies.Cell.ApicalEdge;
 import Physics.Bodies.Cell.BasalEdge;
 import Physics.Bodies.Cell.Cell;
 import Physics.Bodies.Edge;
+import Physics.Bodies.Vertex;
 import Utilities.Geometry.Vector2i;
 import org.junit.jupiter.api.Test;
 
@@ -101,5 +102,55 @@ class DrosophilaEmbryoTest {
         assertEquals(edge0.getVertices()[1], edge1.getVertices()[0]);
     }
 
+    @Test
+    void check_cell_id_0()
+    {
+        Vector2i bounds = new Vector2i(800);
+        DrosophilaEmbryo embryo = new DrosophilaEmbryo(bounds);
+        embryo.generateOrganism();
+        Cell cell0 = embryo.getAllCells().getCell(0);
+        assertEquals(0, cell0.getID());
+    }
+
+    @Test
+    void check_cell_id_53()
+    {
+        Vector2i bounds = new Vector2i(800);
+        DrosophilaEmbryo embryo = new DrosophilaEmbryo(bounds);
+        embryo.generateOrganism();
+        Cell cell53 = embryo.getAllCells().getCell(53);
+        assertEquals(53, cell53.getID());
+    }
+
+    @Test
+    void check_cell_id_79()
+    {
+        Vector2i bounds = new Vector2i(800);
+        DrosophilaEmbryo embryo = new DrosophilaEmbryo(bounds);
+        embryo.generateOrganism();
+        Cell cell79 = embryo.getAllCells().getCell(79);
+        assertEquals(79, cell79.getID());
+    }
+
+    @Test
+    void check_same_nodes_between_adjacent_cells()
+    {
+        Vector2i bounds = new Vector2i(800);
+        DrosophilaEmbryo embryo = new DrosophilaEmbryo(bounds);
+        embryo.generateOrganism();
+        Cell cell0 = embryo.getAllCells().getCell(0);
+        Cell cell79 = embryo.getAllCells().getCell(79);
+
+        int identicalCount = 0;
+        for(Vertex v: cell0.getNodes())
+        {
+            for (Vertex w: cell79.getNodes())
+            {
+                if(v == w) identicalCount++;
+            }
+        }
+
+        assertEquals(5, identicalCount);
+    }
 
 }

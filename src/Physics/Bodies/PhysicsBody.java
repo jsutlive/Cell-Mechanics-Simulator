@@ -14,6 +14,7 @@ public abstract class PhysicsBody extends MonoBehavior
 {
     protected Map<Force, Vector2f> forceMap = new HashMap<Force, Vector2f>();
     protected Color color = DEFAULT_COLOR;
+    public float timesForceAdded;
 
     public Color getColor() {
         return color;
@@ -25,8 +26,19 @@ public abstract class PhysicsBody extends MonoBehavior
 
     public void addForce(Force force, Vector2f vector)
     {
+        timesForceAdded++;
+        if(forceMap.containsKey(force))
+        {
+            Vector2f temp = forceMap.get(force);
+            forceMap.remove(force);
+            vector.add(temp);
+        }
         forceMap.put(force, vector);
+    }
 
+    public Vector2f getForce(Force force)
+    {
+        return forceMap.get(force);
     }
 
     protected void clearForce(Force force)

@@ -76,6 +76,7 @@ public class DrosophilaEmbryo implements IOrganism
                 lateralConstrictingCells.addCell(allCells.getCell(i));
             }
         }
+        Cell.resetID();
     }
 
     private void generateTissueRing() {

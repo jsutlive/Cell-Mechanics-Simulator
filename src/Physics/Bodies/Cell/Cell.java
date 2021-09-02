@@ -44,6 +44,11 @@ public class Cell extends Polygon{
         return cell;
     }
 
+    public static void resetID()
+    {
+        NEXT_AVAILABLE_ID = 0;
+    }
+
     public Cell clone(Cell cell)
     {
         Cell clonedCell = new Cell();

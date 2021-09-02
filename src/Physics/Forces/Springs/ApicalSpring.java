@@ -57,6 +57,7 @@ public class ApicalSpring extends DynamicSpring
             ApicalEdge apicalEdge = (ApicalEdge)p;
             int id = apicalEdge.getCell().getID();
             params.put(apicalEdge, new ApicalConstrictionParameters(cutoff, halfListeners, id));
+
         }
     }
 
@@ -75,16 +76,28 @@ public class ApicalSpring extends DynamicSpring
         super.calculateForce(edge);
     }
 
-    private float getConstant(ApicalEdge edge)
+    public float getCutoff(ApicalEdge edge)
+    {
+        ApicalConstrictionParameters apicalConstrictionParameters = params.get(edge);
+        return apicalConstrictionParameters.getCutoff();
+    }
+
+    public float getConstant(ApicalEdge edge)
     {
         ApicalConstrictionParameters apicalConstrictionParameters = params.get(edge);
         return apicalConstrictionParameters.getConstrictConstant();
     }
 
-    private float getRatio(ApicalEdge edge)
+    public float getRatio(ApicalEdge edge)
     {
         ApicalConstrictionParameters apicalConstrictionParameters = params.get(edge);
         return apicalConstrictionParameters.getConstrictRatio();
+    }
+
+    public int getLoc(ApicalEdge edge)
+    {
+        ApicalConstrictionParameters apicalConstrictionParameters = params.get(edge);
+        return apicalConstrictionParameters.getLocValue();
     }
 
 
@@ -92,10 +105,14 @@ public class ApicalSpring extends DynamicSpring
     {
         private float constrictConstant;
         private float constrictRatio;
+        private int loc;
+        private float cutoff;
+        private int sign;
 
         public ApicalConstrictionParameters(float cutoff, float halfListeners, int id)
         {
-            int loc = getLoc(id);
+            loc = getLoc(id);
+            this.cutoff = cutoff;
             calculateConstrictConstant(cutoff, halfListeners, loc);
             calculateConstrictRatio(loc);
         }
@@ -109,7 +126,12 @@ public class ApicalSpring extends DynamicSpring
 
         private void calculateConstrictConstant(float cutoff, float halfListeners, int loc) {
             float locationFactorConstriction = springConstant[1] / halfListeners * loc;
-            constrictConstant = (float) (springConstant[0] * Math.exp( -0.5f * CustomMath.sq(locationFactorConstriction)) - cutoff);
+            constrictConstant = (float) (sign * springConstant[0] * Math.exp( -0.5f * CustomMath.sq(locationFactorConstriction)) - cutoff);
+        }
+
+        public float getCutoff()
+        {
+            return cutoff;
         }
 
         public float getConstrictConstant()
@@ -122,22 +144,22 @@ public class ApicalSpring extends DynamicSpring
             return constrictRatio;
         }
 
+        public int getLocValue(){return loc;}
+
         private int getLoc(int id) {
-            int loc;
-            if(id < Model.TOTAL_CELLS / 2)
+            int loc = 0;
+            if(id < 80/ 2) //Model.TOTAL_CELLS
             {
                 loc = id + 1;
-            }
-            else if (id == Model.TOTAL_CELLS - 1)
-            {
-                loc = 0;
+                sign = 1;
+                return loc;
             }
             else
             {
-                loc = (Model.TOTAL_CELLS -2) - id;
+                sign = -1;
+                loc = 80-id; //Model.TOTAL_CELLS
+                return loc;
             }
-
-            return loc;
         }
     }
 }
