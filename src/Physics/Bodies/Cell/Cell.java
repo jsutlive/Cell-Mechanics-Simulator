@@ -19,7 +19,7 @@ import java.util.List;
 public class Cell extends Polygon{
     private static int NEXT_AVAILABLE_ID = 0;
     private int cellID;
-    List<Force> attachedForces;
+    List<Force> attachedForces = new ArrayList<>();
 
     @Override
     public void awake() {
