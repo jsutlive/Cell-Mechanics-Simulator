@@ -5,9 +5,12 @@ import Physics.Bodies.Vertex;
 import Physics.Forces.Force;
 import Utilities.Geometry.Vector2f;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CellNode extends Vertex
 {
-    private Cell cell;
+    private List<Cell> cell =  new ArrayList<>();
 
     public CellNode(Vector2f position) {
         this.position = position;
@@ -22,14 +25,14 @@ public class CellNode extends Vertex
         position.add(deltaPosition);
     }
 
-    public Cell getCell()
+    public List<Cell> getCell()
     {
         return cell;
     }
 
     protected void setCell(Cell cell)
     {
-        this.cell = cell;
+        this.cell.add(cell);
     }
 
     @Override
@@ -41,8 +44,6 @@ public class CellNode extends Vertex
     public void update()
     {
         super.update();
-        //if(forceMap.size()>= 1)
-        //System.out.println(this.cell.getID() + ":::" + forceMap.size());
     }
 
     @Override

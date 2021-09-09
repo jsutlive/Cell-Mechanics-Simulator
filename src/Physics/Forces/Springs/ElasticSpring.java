@@ -1,5 +1,8 @@
 package Physics.Forces.Springs;
 
+import Physics.Bodies.Cell.Cell;
+import Physics.Bodies.Edge;
+
 import java.util.HashSet;
 
 public class ElasticSpring extends Spring
@@ -19,4 +22,11 @@ public class ElasticSpring extends Spring
     public void start() {
 
     }
+
+    @Override
+    public void attach(Cell cell)
+    {
+        for(Edge edge: cell.getAllEdges()) listeners.add(edge);
+    }
+
 }
