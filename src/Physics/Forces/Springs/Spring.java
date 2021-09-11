@@ -21,7 +21,7 @@ public abstract class Spring extends Force
     }
 
     public float getForceMagnitude(CellEdge edge) {
-        float f = constant * (length - (ratio * edge.initialLength));
+        float f = constant * (edge.getLength() - (ratio * edge.initialLength));
         return f;
     }
 

@@ -1,6 +1,8 @@
 package Physics.Forces.Springs;
 
+import Physics.Bodies.Cell.ApicalEdge;
 import Physics.Bodies.Cell.Cell;
+import Physics.Bodies.Cell.CellGroup;
 import Physics.Bodies.Edge;
 
 import java.util.HashSet;
@@ -28,5 +30,6 @@ public class ElasticSpring extends Spring
     {
         for(Edge edge: cell.getAllEdges()) listeners.add(edge);
     }
+
 
 }

@@ -2,6 +2,7 @@ package Physics;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Physics.Bodies.Cell.Cell;
 import Physics.Bodies.Cell.CellGroup;
 import Physics.Forces.Force;
 
@@ -25,6 +26,13 @@ public class PhysicsSystem extends MonoBehavior
     {
         forces.add(force);
         force.attach(group);
+        force.start();
+    }
+
+    public void addForce(Force force, Cell cell)
+    {
+        forces.add(force);
+        force.attach(cell);
         force.start();
     }
 
