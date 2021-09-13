@@ -1,11 +1,9 @@
 package GUI;
 
 import Engine.Renderer;
-import Physics.Bodies.Cell.Cell;
-import Physics.Bodies.Cell.CellEdge;
-import Physics.Bodies.Cell.CellNode;
-import Physics.Bodies.Edge;
-import Physics.Bodies.Vertex;
+import Model.Cell;
+import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 
@@ -16,11 +14,11 @@ public class Painter {
 
     public static void drawCell(Cell cell)
     {
-        for(Vertex node: cell.getNodes())
+        for(Node node: cell.getNodes())
         {
             drawPoint(node.getPosition().asInt(), node.getColor());
         }
-        for(Edge edge: cell.getAllEdges())
+        for(Edge edge: cell.getEdges())
         {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), cell.getColor());
