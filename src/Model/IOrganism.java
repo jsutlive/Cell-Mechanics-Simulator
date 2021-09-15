@@ -1,11 +1,14 @@
 package Model;
 
+import Physics.Rigidbodies.Node;
+
+import java.util.HashSet;
 import java.util.List;
 
-public interface IOrganism
-{
+public interface IOrganism {
     /**
      * Generate the organism and any cell data objects associated with it. Does not bind physics.
+     *
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
@@ -15,4 +18,9 @@ public interface IOrganism
      * @return all cells in the organism
      */
     List<Cell> getAllCells();
+
+    /**
+     * @return all nodes in the organism
+     */
+    HashSet<Node> getAllNodes();
 }

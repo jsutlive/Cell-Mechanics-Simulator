@@ -6,15 +6,24 @@ import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
+/**
+ * Edge: A container of two nodes which acts as a mechanism to apply physics forces between them.
+ * This class is abstract, different physics characteristics can be configured depending on the type of edge
+ * selected.
+ */
 public abstract class Edge implements IRigidbody, IColor
 {
     protected Color color;
     protected Node[] nodes = new Node[2];
     protected float initialLength;
 
+    /**
+     * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
+     * @param forceVector
+     */
     @Override
     public void AddForceVector(Vector2f forceVector) {
-
+        for(Node node: nodes) node.AddForceVector(forceVector);
     }
 
     protected void MakeNewEdge(Node a, Node b)
@@ -55,8 +64,20 @@ public abstract class Edge implements IRigidbody, IColor
     {
         Vector2f a = nodes[0].getPosition();
         Vector2f b = nodes[1].getPosition();
-        float dist = (float)Math.hypot(b.x -a.x, b.y - a.y);
+        float dist = Vector2f.dist(a, b);
         return CustomMath.round(dist, 3);
+    }
+
+    public float getXUnit()
+    {
+        Vector2f[] pos = getPositions();
+        return (pos[1].x - pos[0].x)/getLength();
+    }
+
+    public float getYUnit()
+    {
+        Vector2f[] pos = getPositions();
+        return (pos[1].y - pos[0].y)/getLength();
     }
 
     @Override
@@ -72,5 +93,16 @@ public abstract class Edge implements IRigidbody, IColor
             }
         }
         this.color = color;
+    }
+
+    public void constrict(float constant, float ratio)
+    {
+        float forceMag = constant * (this.getLength() - (ratio * this.initialLength));
+        Vector2f forceVector = new Vector2f(getXUnit(), getYUnit());
+        forceVector.mul(forceMag);
+        nodes[0].AddForceVector(forceVector);
+
+        forceVector.mul(-1);
+        nodes[1].AddForceVector(forceVector);
     }
 }

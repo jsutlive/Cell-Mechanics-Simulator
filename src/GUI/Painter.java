@@ -46,7 +46,18 @@ public class Painter {
     public static void drawPoint(Vector2i point, Color color)
     {
         setColor(color);
-        Renderer.g.drawOval(point.x, point.y, 2, 2);
+        Renderer.g.drawOval(point.x-1, point.y-1, 2, 2);
+    }
+
+    public static void drawCircle(Vector2i center, int radius){
+        setColor(DEFAULT_COLOR);
+        Renderer.g.drawOval(center.x, center.y, radius, radius);
+
+    }
+
+    public static void drawCircle(Vector2i center, int radius, Color color){
+        setColor(color);
+        Renderer.g.drawOval(center.x - radius/2, center.y - radius/2, radius, radius);
     }
 
     public static void setColor(Color color)

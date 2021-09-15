@@ -70,4 +70,9 @@ public class Vector2f
     {
         return Math.min(x,y);
     }
+
+    public static float dist(Vector2f a, Vector2f b){
+        return (float)Math.hypot(b.x -a.x, b.y - a.y);
+    }
+
 }

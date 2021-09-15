@@ -6,6 +6,8 @@ import Model.Model;
 import Physics.PhysicsSystem;
 import Utilities.Geometry.Vector2i;
 
+import java.awt.*;
+
 public class RunState extends State
 {
     Model model;
@@ -34,6 +36,7 @@ public class RunState extends State
             mono.render();
         }
         Painter.drawPoint(new Vector2i(400,400));
+        Painter.drawCircle(new Vector2i(400), 604, Color.gray);
         System.out.println("--------");
     }
 }

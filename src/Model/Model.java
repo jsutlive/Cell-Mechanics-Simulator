@@ -4,13 +4,23 @@ import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
 import Physics.PhysicsSystem;
+import Physics.Rigidbodies.BasicEdge;
+import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Boundary;
+import Utilities.Geometry.Vector2f;
 
 public class Model extends MonoBehavior
 {
-    public static int TOTAL_CELLS = 4;
     PhysicsSystem physicsSystem;
     IOrganism organism = new SimpleFourCell();
 
+    /**
+     * In the Model Monobehavior object, start is used to generate the cells and other physical components
+     * of the simulation.
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @Override
     public void start() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
@@ -21,6 +31,23 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
+        Edge e;
+        float maxRadius = 50f;
+        float ljConstant = .06f;
+        for(Node node: organism.getAllNodes())
+        {
+            for(Node t: organism.getAllNodes())
+            {
+                if(node!=t && Boundary.ContainsNode(t, node.getPosition(), maxRadius))
+                {
+                    e = new BasicEdge(node, t);
+                    float forceMagnitude = ljConstant * (1f/e.getLength());
+                    Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
+                    forceVector.mul(forceMagnitude);
+                    node.AddForceVector(forceVector);
+                }
+            }
+        }
         for(Cell cell: organism.getAllCells()) cell.update();
     }
 

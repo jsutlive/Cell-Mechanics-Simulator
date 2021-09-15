@@ -51,4 +51,5 @@ public class CustomMath {
         double scale = Math.pow(10, places);
         return (float)( Math.round(val*scale)/scale);
     }
+
 }

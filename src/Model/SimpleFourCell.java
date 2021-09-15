@@ -23,17 +23,23 @@ import java.util.List;
 public class SimpleFourCell implements IOrganism{
     int lateralResolution = 4;
 
-    /**
-     * if the model were to be extrapolated out to make an entire ring, how many segments would it have
-     */
+
+     //if the model were to be extrapolated out to make an entire ring, how many segments would it have
     int numberOfSegmentsInTotalCircle = 80;
 
     float outerRadius = 300;
     float innerRadius = 200;
     List<Cell> allCells = new ArrayList<>();
+    HashSet<Node> allNodes = new HashSet<>();
 
+    //bounding box dimensions that determine where and how large the image will be drawn.
     final Vector2i boundingBox;
 
+    /**
+     * Simple constructor wherein the boundaries of the simulation object are spoofed in order to maintain simplicity.
+     * Will not scale if the simulation window size is changed. If using this object for debugging purposes, please
+     * check the size of the simulation prior to altering the boundingBox size, and vice-versa.
+     */
     public SimpleFourCell()
     {
         boundingBox = new Vector2i(800);
@@ -62,6 +68,7 @@ public class SimpleFourCell implements IOrganism{
                 if (j >= 1) {
                     edges.add(new LateralEdge(currentNode, lastNode));
                 }
+                allNodes.add(currentNode);
                 lastNode = currentNode;
             }
 
@@ -97,6 +104,28 @@ public class SimpleFourCell implements IOrganism{
         edges.addAll(sideA);
         edges.addAll(sideB);
 
+        // Create internal lattice:
+        //  0   0
+        //  1   1
+        //  2   2
+        //  3   3
+        //  4   4
+        Edge edgeA;
+        Edge edgeB;
+        List<Edge> internalEdges = new ArrayList<>();
+        for(int i = 0; i < sideA.size(); i++)
+        {
+            edgeA = sideA.get(i);
+            edgeB = sideB.get(i);
+            Node a = edgeA.getNodes()[0];
+            Node b = edgeA.getNodes()[1];
+            Node c = edgeB.getNodes()[0];
+            Node d = edgeB.getNodes()[1];
+
+            internalEdges.add(new BasicEdge(a,d));
+            internalEdges.add(new BasicEdge(b,c));
+        }
+
         // Create the apical edges of the cell
         Node apicalA = sideA.get(0).getNodes()[1];
         Node apicalB = sideB.get(0).getNodes()[1];
@@ -114,6 +143,7 @@ public class SimpleFourCell implements IOrganism{
         Cell cell = (Cell)State.create(Cell.class);
         cell.setNodes(nodes);
         cell.setEdges(edges);
+        cell.setInternalEdges(internalEdges);
         State.setFlagToRender(cell);
         cell.setColor(Renderer.defaultColor);
         return cell;
@@ -133,5 +163,10 @@ public class SimpleFourCell implements IOrganism{
     @Override
     public List<Cell> getAllCells() {
         return allCells;
+    }
+
+    @Override
+    public HashSet<Node> getAllNodes(){
+        return allNodes;
     }
 }
