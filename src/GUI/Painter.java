@@ -21,7 +21,7 @@ public class Painter {
         for(Edge edge: cell.getEdges())
         {
             Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].asInt(), positions[1].asInt(), cell.getColor());
+            drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
         }
     }
 

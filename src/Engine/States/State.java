@@ -45,6 +45,14 @@ public abstract class State
      */
     public abstract void Tick();
 
+    /**
+     * Base method to create an object and assign it to the given state
+     * @param type
+     * @param <T>
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
             throws InstantiationException, IllegalAccessException {
         MonoBehavior mono = MonoBehavior.createObject(type);
@@ -65,6 +73,12 @@ public abstract class State
     public static void setFlagToRender(MonoBehavior mono)
     {
         renderBatch.add(mono);
+    }
+
+    public static void destroy(MonoBehavior mono)
+    {
+        if(allObjects.contains(mono)) allObjects.remove(mono);
+        if(renderBatch.contains(mono)) renderBatch.remove(mono);
     }
 
 }

@@ -1,5 +1,7 @@
 package Engine.Object;
 
+import Engine.States.State;
+
 public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior
 {
    private static int _ID_COUNTER = 0;
@@ -30,4 +32,12 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    public void start() throws InstantiationException, IllegalAccessException {}
 
    public void render(){}
+
+   /**
+    * Removes the object and its references from the current state
+    */
+   public void destroy()
+   {
+      State.destroy(this);
+   }
 }

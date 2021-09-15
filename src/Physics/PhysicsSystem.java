@@ -2,11 +2,10 @@ package Physics;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
-import Physics.Bodies.Cell.Cell;
-import Physics.Bodies.Cell.CellGroup;
-import Physics.Forces.Force;
+import Model.Cell;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class PhysicsSystem extends MonoBehavior
 {
@@ -17,45 +16,19 @@ public class PhysicsSystem extends MonoBehavior
         return forces;
     }
 
-    public void addForce(Force force)
-    {
-        forces.add(force);
-    }
-
-    public void addForce(Force force, CellGroup group)
-    {
-        forces.add(force);
-        force.attach(group);
-        force.start();
-    }
-
-    public void addForce(Force force, Cell cell)
-    {
-        forces.add(force);
-        force.attach(cell);
-        force.start();
-    }
-
-    public void removeForce(Force force)
-    {
-        forces.remove(force);
-    }
-
     @Override
     public void awake() {
         this.addTag(Tag.PHYSICS);
     }
 
-    public void update()
-    {
-        for(Force force: forces)
-        {
-            force.update();
-        }
+    @Override
+    public void update() {
+
     }
 
     @Override
-    public void destroy() {
+    public void destroy()
+    {
 
     }
 

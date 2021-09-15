@@ -1,11 +1,8 @@
 package Engine.States;
 
 import Engine.Object.MonoBehavior;
-import Engine.Object.Tag;
 import GUI.Painter;
 import Model.Model;
-import Physics.Bodies.Cell.Cell;
-import Physics.Bodies.Cell.CellGroup;
 import Physics.PhysicsSystem;
 import Utilities.Geometry.Vector2i;
 
@@ -13,15 +10,11 @@ public class RunState extends State
 {
     Model model;
     MonoBehavior physicsSystem;
-    CellGroup renderedCells;
 
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
         physicsSystem = State.create(PhysicsSystem.class);
         model = (Model)State.create(Model.class);
-        for (MonoBehavior obj: allObjects) {
-            obj.start();
-        }
     }
 
     @Override
@@ -35,6 +28,7 @@ public class RunState extends State
     @Override
     public void Render()
     {
+        System.out.println(renderBatch.size());
         for(MonoBehavior mono: renderBatch)
         {
             mono.render();

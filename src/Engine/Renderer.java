@@ -10,6 +10,7 @@ public class Renderer implements Runnable
 {
     public static Renderer instance;
     public static Graphics g;
+    public static final Color defaultColor = Color.white;
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
     String title;

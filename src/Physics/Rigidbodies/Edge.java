@@ -2,20 +2,26 @@ package Physics.Rigidbodies;
 
 import GUI.IColor;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
-public class Edge implements IRigidbody, IColor
+public abstract class Edge implements IRigidbody, IColor
 {
-    private Color color;
-    private Node[] nodes;
-    public Edge()
-    {
+    protected Color color;
+    protected Node[] nodes = new Node[2];
+    protected float initialLength;
 
-    }
     @Override
     public void AddForceVector(Vector2f forceVector) {
 
+    }
+
+    protected void MakeNewEdge(Node a, Node b)
+    {
+        nodes[0] = a;
+        nodes[1] = b;
+        initialLength = getLength();
     }
 
     public Vector2f[] getPositions(){
@@ -45,13 +51,26 @@ public class Edge implements IRigidbody, IColor
 
     }
 
-    @Override
-    public void getColor() {
+    public float getLength()
+    {
+        Vector2f a = nodes[0].getPosition();
+        Vector2f b = nodes[1].getPosition();
+        float dist = (float)Math.hypot(b.x -a.x, b.y - a.y);
+        return CustomMath.round(dist, 3);
+    }
 
+    @Override
+    public Color getColor() {
+        return color;
     }
 
     @Override
     public void setColor(Color color) {
-
+        for(Node node: nodes){
+            if(node instanceof IColor){
+                ((IColor)node).setColor(color);
+            }
+        }
+        this.color = color;
     }
 }

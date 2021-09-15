@@ -5,11 +5,6 @@ import Engine.Object.Tag;
 import Engine.States.State;
 import Physics.PhysicsSystem;
 
-import java.awt.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
 public class Model extends MonoBehavior
 {
     public static int TOTAL_CELLS = 4;
@@ -20,29 +15,20 @@ public class Model extends MonoBehavior
     public void start() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
         SimpleFourCell embryo = (SimpleFourCell) organism;
+        embryo.generateOrganism();
     }
 
     @Override
     public void update()
     {
-        organism.getAllCells().update();
-
-
+        for(Cell cell: organism.getAllCells()) cell.update();
     }
 
-    @Override
-    public void destroy() {
-
+    /**
+     * Use State.create(Model.class) instead to ensure a proper reference to the state is established.
+     * When established, this object immediately runs start functions.
+     */
+    public Model() throws InstantiationException, IllegalAccessException {
+        this.start();
     }
-
-    public IOrganism getOrganism()
-    {
-        return organism;
-    }
-
-    public static Model createObject() {
-        return new Model();
-    }
-
-    public Model(){}
 }

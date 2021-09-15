@@ -1,5 +1,7 @@
 package Model;
 
+import Engine.Object.MonoBehavior;
+import Engine.Renderer;
 import GUI.IColor;
 import GUI.IRender;
 import GUI.Painter;
@@ -10,18 +12,39 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell implements IRender, IColor {
+public class Cell extends MonoBehavior implements IRender, IColor {
 
     private Color color;
     private List<Node> nodes = new ArrayList<>();
     private List<Edge> edges = new ArrayList<>();
+    private int ringLocation;
 
     public List<Edge> getEdges(){
         return edges;
     }
 
+    public void setEdges(List<Edge> edges){
+        this.edges = edges;
+    }
+
+    public void setNodes(List<Node> nodes){
+        this.nodes = nodes;
+    }
+
+    public void setRingLocation(int i){ringLocation = i;}
+
+    public int getRingLocation(){
+        return ringLocation;
+    }
+
     public List<Node> getNodes(){
         return nodes;
+    }
+
+    @Override
+    public void update()
+    {
+
     }
 
     @Override

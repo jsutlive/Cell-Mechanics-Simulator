@@ -1,10 +1,18 @@
 package Model;
 
-import Physics.Bodies.Cell.Cell;
-import Physics.Bodies.Cell.CellGroup;
+import java.util.List;
 
 public interface IOrganism
 {
-    void generateOrganism();
-    CellGroup getAllCells();
+    /**
+     * Generate the organism and any cell data objects associated with it. Does not bind physics.
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    void generateOrganism() throws InstantiationException, IllegalAccessException;
+
+    /**
+     * @return all cells in the organism
+     */
+    List<Cell> getAllCells();
 }
