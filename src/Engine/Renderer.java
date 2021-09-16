@@ -8,7 +8,11 @@ import java.awt.image.BufferStrategy;
 
 public class Renderer implements Runnable
 {
-    public static Renderer instance;
+    private static Renderer instance;
+
+    /**
+     * Graphics object that our painter class references to draw objects
+     */
     public static Graphics g;
     public static final Color defaultColor = Color.white;
     DisplayWindow displayWindow;
@@ -16,6 +20,10 @@ public class Renderer implements Runnable
     String title;
     int width, height;
 
+    /**
+     * Used to generate a singleton instance of our Renderer.
+     * @return the current Renderer, or create and return a new renderer if it is currently null.
+     */
     public static Renderer getInstance()
     {
         if(instance == null)
@@ -31,6 +39,10 @@ public class Renderer implements Runnable
         title = Simulation.title;
         displayWindow = new DisplayWindow(title, width, height);
     }
+
+    /**
+     * Renders graphics to the screen. Should only be accessed from the Simulation object.
+     */
     @Override
     public void run()
     {
