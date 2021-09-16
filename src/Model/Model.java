@@ -14,7 +14,7 @@ import Utilities.Geometry.Vector2f;
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
-    IOrganism organism = new SimpleFourCell();
+    IOrganism organism = new SimpleFourCellBox();
     //IOrganism organism = new DrosophilaEmbryo();
 
     /**
@@ -29,6 +29,9 @@ public class Model extends MonoBehavior
         organism.generateOrganism();
     }
 
+    /**
+     * Update all forces, at node level and cellular level.
+     */
     @Override
     public void update()
     {

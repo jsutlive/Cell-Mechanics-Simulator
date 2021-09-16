@@ -32,4 +32,12 @@ public class SimpleFourCellTest
         assertEquals(2, count1);
         assertEquals(2, count2);
     }
+
+    @Test
+    void all_nodes_count_equals_25() throws InstantiationException, IllegalAccessException {
+        SimpleFourCell model = new SimpleFourCell();
+        model.generateOrganism();
+        assertEquals(25, model.getAllNodes().size());
+    }
+
 }

@@ -7,6 +7,7 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
+import Utilities.Model.Builder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -69,18 +70,20 @@ public class SimpleFourCell implements IOrganism{
                 if (j >= 1) {
                     edges.add(new LateralEdge(currentNode, lastNode));
                 }
+                if (i == 1 || i == 2 || i == 79 || i == 80 || i == 0 || i == 78) {
                 allNodes.add(currentNode);
+                }
                 lastNode = currentNode;
             }
 
             if (i == 1 || i == 2 || i == 79 || i == 80) {
                 Cell newCell;
                 if (i ==79) {
-                    newCell = createCell(edges, oldEdges);
+                    newCell = Builder.createCell(edges, oldEdges);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {
-                    newCell = createCell(oldEdges, edges);
+                    newCell = Builder.createCell(oldEdges, edges);
                     newCell.setRingLocation(i);
                 }
                 allCells.add(newCell);
@@ -92,7 +95,7 @@ public class SimpleFourCell implements IOrganism{
             oldEdges = edges;
         }
 
-        Cell newCell = createCell(oldEdges, zeroEdge);
+        Cell newCell = Builder.createCell(oldEdges, zeroEdge);
         newCell.setRingLocation(1);
         allCells.add(newCell);
 
