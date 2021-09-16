@@ -1,14 +1,14 @@
 package Engine.Timer;
 
 public class Time {
-    public static final int fps = 2;
+    public static final int fps = 30;
     public static long time;
     public static long deltaTime;
 
     private static double timePerTickNanoseconds;
     private static long lastTime = System.nanoTime();
 
-    private int ticks = 0;
+    public static int ticks = 0;
     private double countUpToNextFrame;
     private long frameTimer = 0;
 
@@ -41,7 +41,7 @@ public class Time {
         if(instance.countUpToNextFrame >= 1)
         {
             instance.countUpToNextFrame--;
-            instance.ticks++;
+            Time.ticks++;
             return true;
         }
 
@@ -52,8 +52,8 @@ public class Time {
     {
         if(instance.frameTimer >= 1000000000)
         {
-            System.out.println("Frame Rate: "+instance.ticks);
-            instance.ticks = 0;
+            System.out.println("Frame Rate: "+Time.ticks);
+            Time.ticks = 0;
             instance.frameTimer = 0;
         }
     }

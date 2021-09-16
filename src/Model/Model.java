@@ -9,11 +9,13 @@ import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
     IOrganism organism = new SimpleFourCell();
+    //IOrganism organism = new DrosophilaEmbryo();
 
     /**
      * In the Model Monobehavior object, start is used to generate the cells and other physical components
@@ -24,16 +26,15 @@ public class Model extends MonoBehavior
     @Override
     public void start() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
-        SimpleFourCell embryo = (SimpleFourCell) organism;
-        embryo.generateOrganism();
+        organism.generateOrganism();
     }
 
     @Override
     public void update()
     {
         Edge e;
-        float maxRadius = 50f;
-        float ljConstant = .06f;
+        float maxRadius = 30f;
+        float ljConstant = 2.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())
@@ -41,7 +42,7 @@ public class Model extends MonoBehavior
                 if(node!=t && Boundary.ContainsNode(t, node.getPosition(), maxRadius))
                 {
                     e = new BasicEdge(node, t);
-                    float forceMagnitude = ljConstant * (1f/e.getLength());
+                    float forceMagnitude = Math.min(3f, ljConstant * (1f/ e.getLength()));
                     Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
                     forceVector.mul(forceMagnitude);
                     node.AddForceVector(forceVector);

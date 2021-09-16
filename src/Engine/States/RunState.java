@@ -10,6 +10,7 @@ import java.awt.*;
 
 public class RunState extends State
 {
+    int count = 1;
     Model model;
     MonoBehavior physicsSystem;
 
@@ -30,7 +31,8 @@ public class RunState extends State
     @Override
     public void Render()
     {
-        System.out.println(renderBatch.size());
+        System.out.println("FRAME " + count + ":");
+        count++;
         for(MonoBehavior mono: renderBatch)
         {
             mono.render();

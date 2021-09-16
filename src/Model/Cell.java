@@ -16,17 +16,17 @@ import java.util.List;
 public class Cell extends MonoBehavior implements IRender, IColor {
 
     private Color color;
-    private List<Node> nodes = new ArrayList<>();
-    private List<Edge> edges = new ArrayList<>();
-    private List<Edge> internalEdges = new ArrayList<>();
+    protected List<Node> nodes = new ArrayList<>();
+    protected List<Edge> edges = new ArrayList<>();
+    protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
-    float constant = .5f;
+    float constant = .45f;
     float ratio = 0.05f;
 
-    float elasticConstant = .1f;
+    float elasticConstant = .2f;
     float elasticRatio = 1f;
 
-    float internalConstant = .13f;
+    float internalConstant = .15f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -61,13 +61,8 @@ public class Cell extends MonoBehavior implements IRender, IColor {
         // Edges have multiple varieties. We can target specific edge types to apply unique forces to them,
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
-        for(Edge edge: edges)
-        {
+        for(Edge edge: edges) {
             edge.constrict(elasticConstant, elasticRatio);
-            if(edge instanceof ApicalEdge)
-            {
-                edge.constrict(constant, ratio);
-            }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
         for(Node node: nodes)
