@@ -3,13 +3,13 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
+import Model.Organisms.*;
 import Physics.PhysicsSystem;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.CustomMath;
 
 public class Model extends MonoBehavior
 {
@@ -34,7 +34,7 @@ public class Model extends MonoBehavior
     {
         Edge e;
         float maxRadius = 30f;
-        float ljConstant = 2.6f;
+        float ljConstant = 0.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())

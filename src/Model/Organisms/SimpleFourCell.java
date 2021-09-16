@@ -1,6 +1,7 @@
-package Model;
+package Model.Organisms;
 
 import Engine.Renderer;
+import Model.*;
 import Engine.States.State;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
@@ -11,22 +12,36 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class DrosophilaEmbryo implements  IOrganism {
-
+/**
+ * A simple four-cell model which can be used for debugging and testing.
+ * Cells arranged in the same manner like they appear at the "seam" of the Drosophila ring model:
+ * i.e.,
+ *       _____ _____ _____ ______
+ *      |     |     |     |     |
+ *      |  1  |  0  |  3  |  2  |
+ *      |_____|_____|_____|_____|
+ */
+public class SimpleFourCell implements IOrganism{
     int lateralResolution = 4;
 
 
+     //if the model were to be extrapolated out to make an entire ring, how many segments would it have
     int numberOfSegmentsInTotalCircle = 80;
 
     float outerRadius = 300;
     float innerRadius = 200;
     List<Cell> allCells = new ArrayList<>();
-    HashSet<Node> allNodes = new HashSet<>();
+    List<Node> allNodes = new ArrayList<>();
 
     //bounding box dimensions that determine where and how large the image will be drawn.
     final Vector2i boundingBox;
 
-    public DrosophilaEmbryo()
+    /**
+     * Simple constructor wherein the boundaries of the simulation object are spoofed in order to maintain simplicity.
+     * Will not scale if the simulation window size is changed. If using this object for debugging purposes, please
+     * check the size of the simulation prior to altering the boundingBox size, and vice-versa.
+     */
+    public SimpleFourCell()
     {
         boundingBox = new Vector2i(800);
     }
@@ -58,16 +73,14 @@ public class DrosophilaEmbryo implements  IOrganism {
                 lastNode = currentNode;
             }
 
-            if (i > 0) {
+            if (i == 1 || i == 2 || i == 79 || i == 80) {
                 Cell newCell;
-                if (i >=40) {
-                    if(i>=71) newCell = createCell(edges, oldEdges, ApicalConstrictingCell.class);
-                    else newCell = createCell(edges, oldEdges, Cell.class);
+                if (i ==79) {
+                    newCell = createCell(edges, oldEdges);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {
-                    if(i<=10)newCell = createCell(oldEdges, edges, ApicalConstrictingCell.class);
-                    else newCell = createCell(oldEdges, edges, Cell.class);
+                    newCell = createCell(oldEdges, edges);
                     newCell.setRingLocation(i);
                 }
                 allCells.add(newCell);
@@ -79,13 +92,13 @@ public class DrosophilaEmbryo implements  IOrganism {
             oldEdges = edges;
         }
 
-        Cell newCell = createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
+        Cell newCell = createCell(oldEdges, zeroEdge);
         newCell.setRingLocation(1);
         allCells.add(newCell);
 
     }
 
-    private Cell createCell(ArrayList<Edge> sideA, ArrayList<Edge> sideB, Class cellType) throws InstantiationException, IllegalAccessException {
+    private Cell createCell(ArrayList<Edge> sideA, ArrayList<Edge> sideB) throws InstantiationException, IllegalAccessException {
         // Get vertices from edge segments, which make up the lateral edges
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
@@ -131,7 +144,7 @@ public class DrosophilaEmbryo implements  IOrganism {
         edges.add(basalEdge);
 
         // compile and create the cell object
-        Cell cell = (Cell) State.create(cellType);
+        Cell cell = (Cell)State.create(ApicalConstrictingCell.class);
         cell.setNodes(nodes);
         cell.setEdges(edges);
         cell.setInternalEdges(internalEdges);
@@ -157,9 +170,7 @@ public class DrosophilaEmbryo implements  IOrganism {
     }
 
     @Override
-    public HashSet<Node> getAllNodes(){
+    public List<Node> getAllNodes(){
         return allNodes;
     }
 }
-
-

@@ -5,4 +5,5 @@ public class BasicEdge extends Edge{
     {
         MakeNewEdge(a, b);
     }
+    public BasicEdge(){}
 }

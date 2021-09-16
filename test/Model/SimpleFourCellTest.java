@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Organisms.SimpleFourCell;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

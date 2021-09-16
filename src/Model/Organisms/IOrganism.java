@@ -1,7 +1,7 @@
-package Model;
+package Model.Organisms;
 
 import Physics.Rigidbodies.Node;
-
+import Model.*;
 import java.util.HashSet;
 import java.util.List;
 
@@ -22,5 +22,5 @@ public interface IOrganism {
     /**
      * @return all nodes in the organism
      */
-    HashSet<Node> getAllNodes();
+    List<Node> getAllNodes();
 }
