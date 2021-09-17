@@ -36,8 +36,8 @@ public class Model extends MonoBehavior
     public void update()
     {
         Edge e;
-        float maxRadius = 30f;
-        float ljConstant = 0.6f;
+        float maxRadius = 200f;
+        float ljConstant = 10.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())

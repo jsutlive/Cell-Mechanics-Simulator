@@ -1,11 +1,16 @@
 package Engine.Object;
 
 import Engine.States.State;
+import Model.Components.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;
+   private List<Component> components = new ArrayList<>();
    private Tag tag;
 
    public static <T extends MonoBehavior> T createObject(Class<T> monoClass)
@@ -39,5 +44,21 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    public void destroy()
    {
       State.destroy(this);
+   }
+
+   public void addComponent(Component c){
+      components.add(c);
+   }
+
+   public void getComponent() {
+
+   }
+
+   public void removeComponent(Class componentClass){
+      for(Component c: components){
+        // if(c instanceof  componentClass){
+        //    components.remove(c);
+        // }
+      }
    }
 }

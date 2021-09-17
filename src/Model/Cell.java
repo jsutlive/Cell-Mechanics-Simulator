@@ -2,10 +2,11 @@ package Model;
 
 import Engine.Object.MonoBehavior;
 import Engine.Renderer;
+import Engine.States.State;
 import GUI.IColor;
 import GUI.IRender;
 import GUI.Painter;
-import Physics.Rigidbodies.ApicalEdge;
+import Model.Components.CellRenderer;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 
@@ -50,6 +51,16 @@ public class Cell extends MonoBehavior implements IRender, IColor {
 
     public List<Node> getNodes(){
         return nodes;
+    }
+
+    /**
+     * Add components here that are needed for all cells. This includes more generic forces
+     * and the rendering mechanism.
+     * In each unique cell tyoe's start method, configure type-specific physics and characteristics.
+     */
+    @Override
+    public void start(){
+        addRenderer(new CellRenderer());
     }
 
     /**
@@ -100,5 +111,9 @@ public class Cell extends MonoBehavior implements IRender, IColor {
                 ((IColor) edge).setColor(color);
             }
         }
+    }
+    public void addRenderer(CellRenderer renderer){
+        addComponent(renderer);
+        State.setFlagToRender(this);
     }
 }
