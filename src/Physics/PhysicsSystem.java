@@ -32,13 +32,13 @@ public class PhysicsSystem extends MonoBehavior
 
     }
 
-    public <T extends Force> Force getComponent(Class<T> forceClass)
+    /*public <T extends Force> Force getComponent(Class<T> forceClass)
     {
         for (Force force:forces) {
             if(forceClass.isAssignableFrom(force.getClass())) return force;
         }
         return null;
-    }
+    }*/
 
 
     public PhysicsSystem(){}

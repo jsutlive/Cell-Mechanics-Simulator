@@ -3,9 +3,9 @@ package Engine.Object;
 public interface IBehavior
 {
     /**
-     * Called by each object upon its creation.
+     * Called by the state for each object upon its creation.
      */
-    void awake();
+    void awake() throws InstantiationException, IllegalAccessException;
 
     /**
      * This method is called a single time before the physics loop begins

@@ -2,6 +2,7 @@ package Engine.States;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Model.Components.CellRenderer;
 
 import java.util.HashSet;
 
@@ -18,7 +19,7 @@ public abstract class State
     }
 
     protected static HashSet<MonoBehavior> allObjects = new HashSet<>();
-    protected static HashSet<MonoBehavior> renderBatch = new HashSet<>();
+    protected static HashSet<CellRenderer> renderBatch = new HashSet<>();
 
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
         RunState runState = (RunState)state;
@@ -72,13 +73,15 @@ public abstract class State
 
     public static void setFlagToRender(MonoBehavior mono)
     {
-        renderBatch.add(mono);
+        CellRenderer rend = (CellRenderer)mono.getComponent(CellRenderer.class);
+        renderBatch.add(rend);
     }
 
     public static void destroy(MonoBehavior mono)
     {
         if(allObjects.contains(mono)) allObjects.remove(mono);
-        if(renderBatch.contains(mono)) renderBatch.remove(mono);
+        if(renderBatch.contains((CellRenderer) mono.getComponent(CellRenderer.class)))
+            renderBatch.remove((CellRenderer) mono.getComponent(CellRenderer.class));
     }
 
 }

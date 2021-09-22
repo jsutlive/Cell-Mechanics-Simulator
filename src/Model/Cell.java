@@ -14,9 +14,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell extends MonoBehavior implements IRender, IColor {
+public class Cell extends MonoBehavior {
 
-    private Color color;
     protected List<Node> nodes = new ArrayList<>();
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
@@ -56,10 +55,10 @@ public class Cell extends MonoBehavior implements IRender, IColor {
     /**
      * Add components here that are needed for all cells. This includes more generic forces
      * and the rendering mechanism.
-     * In each unique cell tyoe's start method, configure type-specific physics and characteristics.
+     * In each unique cell type's awake method, configure type-specific physics and characteristics.
      */
     @Override
-    public void start(){
+    public void awake(){
         addRenderer(new CellRenderer());
     }
 
@@ -82,36 +81,11 @@ public class Cell extends MonoBehavior implements IRender, IColor {
         }
     }
 
-    @Override
-    public void render()
-    {
-        Painter.drawCell(this);
+    public void setColor(Color color){
+        CellRenderer rend = (CellRenderer)getComponent(CellRenderer.class);
+        rend.setColor(color);
     }
 
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        // set color for all nodes in the cell
-        for(Node node : nodes )
-        {
-            if(node instanceof IColor)
-            {
-                ((IColor) node).setColor(color);
-            }
-        }
-        // set color for all edges in the cell
-        for(Edge edge: edges)
-        {
-            if(edge instanceof  IColor)
-            {
-                ((IColor) edge).setColor(color);
-            }
-        }
-    }
     public void addRenderer(CellRenderer renderer){
         addComponent(renderer);
         State.setFlagToRender(this);

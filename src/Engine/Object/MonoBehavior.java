@@ -29,11 +29,6 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){this.tag = tag;}
 
-   public void awake()
-   {
-
-   }
-
    public void start() throws InstantiationException, IllegalAccessException {}
 
    public void render(){}
@@ -48,17 +43,30 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
 
    public void addComponent(Component c){
       components.add(c);
+      c.setParent(this);
+      c.init();
    }
 
-   public void getComponent() {
+   public <T extends Component> T getComponent(Class<T> componentClass) {
+      for (Component c : components) {
+         if (componentClass.isAssignableFrom(c.getClass())) {
+            try {
+               return componentClass.cast(c);
+            } catch (ClassCastException e) {
+               e.printStackTrace();
+               assert false : "Error: Casting component.";
+            }
+         }
+      }
 
+      return null;
    }
 
    public void removeComponent(Class componentClass){
       for(Component c: components){
-        // if(c instanceof  componentClass){
-        //    components.remove(c);
-        // }
+         if(componentClass.isAssignableFrom(c.getClass())){
+            components.remove(c);
+         }
       }
    }
 }

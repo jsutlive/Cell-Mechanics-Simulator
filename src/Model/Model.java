@@ -14,19 +14,24 @@ import Utilities.Geometry.Vector2f;
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
-    IOrganism organism = new SimpleFourCellBox();
+    IOrganism organism = new SimpleFourCell();
     //IOrganism organism = new DrosophilaEmbryo();
 
     /**
-     * In the Model Monobehavior object, start is used to generate the cells and other physical components
+     * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
     @Override
-    public void start() throws InstantiationException, IllegalAccessException {
+    public void awake() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
         organism.generateOrganism();
+    }
+
+
+    @Override
+    public void start() {
     }
 
     /**
@@ -36,8 +41,8 @@ public class Model extends MonoBehavior
     public void update()
     {
         Edge e;
-        float maxRadius = 200f;
-        float ljConstant = 10.6f;
+        float maxRadius = 20f;
+        float ljConstant = 5.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())
