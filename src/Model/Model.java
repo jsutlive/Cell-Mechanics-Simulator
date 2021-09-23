@@ -14,7 +14,7 @@ import Utilities.Geometry.Vector2f;
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
-    IOrganism organism = new SimpleFourCell();
+    IOrganism organism = new SimpleFourCellBox();
     //IOrganism organism = new DrosophilaEmbryo();
 
     /**
@@ -41,8 +41,8 @@ public class Model extends MonoBehavior
     public void update()
     {
         Edge e;
-        float maxRadius = 20f;
-        float ljConstant = 5.6f;
+        float maxRadius = 30f;
+        float ljConstant = 7.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())

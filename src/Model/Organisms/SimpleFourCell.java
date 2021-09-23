@@ -79,11 +79,11 @@ public class SimpleFourCell implements IOrganism{
             if (i == 1 || i == 2 || i == 79 || i == 80) {
                 Cell newCell;
                 if (i ==79) {
-                    newCell = Builder.createCell(edges, oldEdges);
+                    newCell = Builder.createCell(edges, oldEdges, ApicalConstrictingCell.class);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {
-                    newCell = Builder.createCell(oldEdges, edges);
+                    newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
                     newCell.setRingLocation(i);
                 }
                 allCells.add(newCell);
@@ -95,7 +95,7 @@ public class SimpleFourCell implements IOrganism{
             oldEdges = edges;
         }
 
-        Cell newCell = Builder.createCell(oldEdges, zeroEdge);
+        Cell newCell = Builder.createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
         newCell.setRingLocation(1);
         allCells.add(newCell);
 

@@ -4,14 +4,15 @@ import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Model.Cell;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class PhysicsSystem extends MonoBehavior
 {
-    private HashSet<Force> forces = new HashSet<>();
+    private ArrayList<Force> forces = new ArrayList<>();
 
-    public HashSet<Force> getForces()
+    public ArrayList<Force> getForces()
     {
         return forces;
     }
