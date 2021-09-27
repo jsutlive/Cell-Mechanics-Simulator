@@ -15,7 +15,7 @@ public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
     IOrganism organism = new SimpleFourCellBox();
-    //IOrganism organism = new DrosophilaEmbryo();
+    //IOrganism organism = new DrosophilaEmbryoSplitGenerate();
 
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
@@ -41,7 +41,7 @@ public class Model extends MonoBehavior
     public void update()
     {
         Edge e;
-        float maxRadius = 30f;
+        float maxRadius = 0.1f;
         float ljConstant = 7.6f;
         for(Node node: organism.getAllNodes())
         {

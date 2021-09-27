@@ -1,12 +1,10 @@
 package Physics;
 
-import Model.ApicalConstrictingCell;
 import Model.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Model.Builder;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

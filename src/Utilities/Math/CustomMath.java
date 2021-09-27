@@ -51,5 +51,16 @@ public class CustomMath {
         double scale = Math.pow(10, places);
         return (float)( Math.round(val*scale)/scale);
     }
+    public static float abs(float val)
+    {
+        if(val<0) val *= -1f;
+        return val;
+    }
 
+    public static Vector2f abs(Vector2f vec)
+    {
+        vec.x = abs(vec.x);
+        vec.y = abs(vec.y);
+        return vec;
+    }
 }

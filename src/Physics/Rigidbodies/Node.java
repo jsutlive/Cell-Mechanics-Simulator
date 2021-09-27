@@ -36,22 +36,31 @@ public class Node implements IRigidbody, IColor {
 
     public Node(float a, float b){position = new Vector2f(a, b);}
 
+    /**
+     * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
+     * forces acting on this specific node.
+     * @param forceVector
+     */
     @Override
     public void AddForceVector(Vector2f forceVector) {
         resultantForce.add(forceVector);
     }
 
+    /**
+     * Override the current position of the node and move it to a new position
+     * @param newPosition
+     */
     @Override
     public void MoveTo(Vector2f newPosition) {
         position = newPosition;
     }
 
+    /**
+     * Move the node based on its resultant force
+     */
     @Override
     public void Move() {
         position.add(resultantForce);
-        /*if(!Boundary.ContainsPosition(position, new Vector2f(400), 302f)){
-            MoveTo(Boundary.getClampedPosition(position, new Vector2f(400), 302f));
-        }*/
         resultantForce.x = 0; resultantForce.y = 0;
     }
 
@@ -62,12 +71,6 @@ public class Node implements IRigidbody, IColor {
 
     @Override
     public void setColor(Color color) {
-
-    }
-
-    public void lennardJones()
-    {
-        float maxRadius = 10f;
-
+        this.color = color;
     }
 }

@@ -49,7 +49,7 @@ public class RunState extends State
     @Override
     public void Render()
     {
-        System.out.println("FRAME " + count + ":");
+        //System.out.println("FRAME " + count + ":");
         count++;
         for(CellRenderer rend: renderBatch)
         {
@@ -57,6 +57,6 @@ public class RunState extends State
         }
         Painter.drawPoint(new Vector2i(400,400));
         Painter.drawCircle(new Vector2i(400), 604, Color.gray);
-        System.out.println("--------");
+        //System.out.println("--------");
     }
 }

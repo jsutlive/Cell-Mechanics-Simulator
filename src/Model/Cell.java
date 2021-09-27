@@ -20,7 +20,7 @@ public class Cell extends MonoBehavior {
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
-    float constant = .45f;
+    float constant = .15f;
     float ratio = 0.05f;
 
     float elasticConstant = .2f;

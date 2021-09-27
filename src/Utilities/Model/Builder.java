@@ -159,15 +159,15 @@ public class Builder {
         }
 
         // Create the apical edges of the cell
-        Node apicalA = sideA.get(0).getNodes()[1];
-        Node apicalB = sideB.get(0).getNodes()[1];
+        Node apicalA = sideA.get(0).getNodes()[0];
+        Node apicalB = sideB.get(0).getNodes()[0];
         Edge apicalEdge = new ApicalEdge(apicalA, apicalB);
         edges.add(apicalEdge);
 
         // Create the basal edges of the cell
         int n = 4;
-        Node basalB = sideA.get(n-1).getNodes()[0];
-        Node basalA = sideB.get(n-1).getNodes()[0];
+        Node basalB = sideA.get(n-1).getNodes()[1];
+        Node basalA = sideB.get(n-1).getNodes()[1];
         Edge basalEdge = new BasalEdge(basalA, basalB);
         edges.add(basalEdge);
 
