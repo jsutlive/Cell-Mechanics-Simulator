@@ -14,8 +14,8 @@ import Utilities.Geometry.Vector2f;
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
-    IOrganism organism = new SimpleFourCellBox();
-    //IOrganism organism = new DrosophilaEmbryoSplitGenerate();
+    //IOrganism organism = new SimpleFourCellBox();
+    IOrganism organism = new DrosophilaEmbryo();
 
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
@@ -41,8 +41,8 @@ public class Model extends MonoBehavior
     public void update()
     {
         Edge e;
-        float maxRadius = 0.1f;
-        float ljConstant = 7.6f;
+        float maxRadius = 10f;
+        float ljConstant = 5.6f;
         for(Node node: organism.getAllNodes())
         {
             for(Node t: organism.getAllNodes())
@@ -52,7 +52,7 @@ public class Model extends MonoBehavior
                     e = new BasicEdge(node, t);
                     float forceMagnitude = Math.min(3f, ljConstant * (1f/ e.getLength()));
                     Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
-                    forceVector.mul(forceMagnitude);
+                    forceVector.mul(-forceMagnitude);
                     node.AddForceVector(forceVector);
                 }
             }

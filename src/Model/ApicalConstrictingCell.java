@@ -6,6 +6,10 @@ import Physics.Rigidbodies.Node;
 
 public class ApicalConstrictingCell extends Cell
 {
+    public ApicalConstrictingCell()
+    {
+        internalConstant = .1f;
+    }
     @Override
     public void update() {
         for(Edge edge: edges)
