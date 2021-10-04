@@ -9,6 +9,7 @@ import GUI.Painter;
 import Model.Components.CellRenderer;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Math.Gauss;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,13 +21,13 @@ public class Cell extends MonoBehavior {
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
-    float constant = .25f;
-    float ratio = 0.001f;
+    float constant = .45f;
+    float ratio = 0.00000001f;
 
-    float elasticConstant = .1f;
+    float elasticConstant = .12f;
     float elasticRatio = 1f;
 
-    float internalConstant = .1f;
+    float internalConstant = .5f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -72,13 +73,18 @@ public class Cell extends MonoBehavior {
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
         for(Edge edge: edges) {
-            edge.constrict(elasticConstant, elasticRatio);
+            edge.constrict(edge.getElasticConstant(), elasticRatio);
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
         for(Node node: nodes)
         {
             node.Move();
         }
+    }
+
+    public float getArea()
+    {
+        return Gauss.nShoelace(nodes);
     }
 
     public void setColor(Color color){

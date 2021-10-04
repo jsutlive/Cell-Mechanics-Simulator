@@ -14,7 +14,7 @@ public class ApicalConstrictingCell extends Cell
     public void update() {
         for(Edge edge: edges)
         {
-            edge.constrict(elasticConstant, elasticRatio);
+            edge.constrict(edge.getElasticConstant(), elasticRatio);
             if(edge instanceof ApicalEdge)
             {
                 edge.constrict(constant, ratio);

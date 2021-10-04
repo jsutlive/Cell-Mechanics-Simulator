@@ -7,5 +7,6 @@ public class ApicalEdge extends Edge{
     public ApicalEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
+        elasticConstant = .12f;
     }
 }

@@ -5,9 +5,12 @@ import GUI.IRender;
 
 import java.awt.*;
 
-public class Force implements IColor, IRender
+public abstract class Force extends Component implements IColor, IRender
 {
     protected Color color;
+
+    public abstract void Act();
+
     @Override
     public Color getColor() {
         return null;

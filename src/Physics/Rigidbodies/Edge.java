@@ -16,6 +16,12 @@ public abstract class Edge implements IRigidbody, IColor
     protected Color color;
     protected Node[] nodes = new Node[2];
     protected float initialLength;
+    protected float elasticConstant;
+
+    public float getElasticConstant()
+    {
+        return elasticConstant;
+    }
 
     /**
      * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
