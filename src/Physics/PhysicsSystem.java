@@ -2,11 +2,9 @@ package Physics;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
-import Model.Cell;
+import Physics.Forces.Force;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public class PhysicsSystem extends MonoBehavior
 {

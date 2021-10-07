@@ -1,4 +1,4 @@
-package Physics;
+package Physics.Forces;
 
 import GUI.IColor;
 import GUI.IRender;
