@@ -17,7 +17,7 @@ public class ApicalConstrictingCell extends Cell
             edge.constrict(edge.getElasticConstant(), elasticRatio);
             if(edge instanceof ApicalEdge)
             {
-                edge.constrict(constant, ratio);
+                edge.constrict(constant * (1 - getRingLocation()/40), ratio);
             }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);

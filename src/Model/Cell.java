@@ -96,4 +96,6 @@ public class Cell extends MonoBehavior {
         addComponent(renderer);
         State.setFlagToRender(this);
     }
+
+    public void determineNormals(){}
 }

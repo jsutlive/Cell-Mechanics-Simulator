@@ -28,7 +28,7 @@ public class GaussTests {
     }
 
     /**
-     * We create a convex shape that appears like this:
+     * We create a concave shape that appears like this:
      *       _______
      *      |  __  |
      *      |_| |_|
