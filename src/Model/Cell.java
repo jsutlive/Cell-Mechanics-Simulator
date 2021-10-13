@@ -21,8 +21,6 @@ public class Cell extends MonoBehavior {
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
-    private float restingArea;
-
     float constant = .45f;
     float ratio = 0.00000001f;
 
@@ -65,11 +63,6 @@ public class Cell extends MonoBehavior {
         addRenderer(new CellRenderer());
     }
 
-    @Override
-    public void start() {
-        restingArea = getArea();
-    }
-
     /**
      * In Cell objects, this is where we update the forces acting on the cells.
      */
@@ -104,7 +97,5 @@ public class Cell extends MonoBehavior {
         State.setFlagToRender(this);
     }
 
-    protected void osmosis(){
-        float currentArea = getArea();
-    }
+    public void determineNormals(){}
 }
