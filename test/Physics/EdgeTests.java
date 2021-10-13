@@ -44,7 +44,7 @@ public class EdgeTests
                     //ASSERT: last apical edge equal to current apical edge
                     //        apical edge = 0;
                     if(lastLength!=0f){assertEquals(lastLength, currentLength);}
-                    assertEquals(currentLength, 100f);
+                    assertEquals(100f, currentLength);
                     lastLength = currentLength;
                 }
             }

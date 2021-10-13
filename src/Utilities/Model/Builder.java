@@ -130,11 +130,13 @@ public class Builder {
         // Get vertices from edge segments, which make up the lateral edges
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
+        sideB = reverse(sideB);
         nodes.addAll(addVerticesFromEdgeList(sideB));
         nodes.addAll(addVerticesFromEdgeList(sideA));
 
         edges.addAll(sideA);
-        edges.addAll(sideB);
+
+        edges.addAll(reverse(sideB));
 
         // Create internal lattice:
         //  0   0
@@ -166,8 +168,8 @@ public class Builder {
 
         // Create the basal edges of the cell
         int n = 4;
-        Node basalB = sideA.get(n-1).getNodes()[1];
-        Node basalA = sideB.get(n-1).getNodes()[1];
+        Node basalB = sideA.get(0).getNodes()[1];
+        Node basalA = sideB.get(0).getNodes()[1];
         Edge basalEdge = new BasalEdge(basalA, basalB);
         edges.add(basalEdge);
 
@@ -181,8 +183,17 @@ public class Builder {
         return cell;
     }
 
-    private static HashSet<Node> addVerticesFromEdgeList(List<Edge> edgeList) {
-        HashSet<Node> vertices = new HashSet<>();
+    private static List <Edge> reverse(List<Edge> sideB) {
+        List<Edge> c = new ArrayList<>();
+        int len = sideB.size();
+        for(int i = 0; i < len; i++){
+            c.add(sideB.get(len - i - 1));
+        }
+        return c;
+    }
+
+    private static List<Node> addVerticesFromEdgeList(List<Edge> edgeList) {
+        List<Node> vertices = new ArrayList<>();
         for (Edge edge: edgeList)
         {
             Node[] vtxArray = edge.getNodes();

@@ -1,5 +1,6 @@
 package Utilities.Math;
 
+import Physics.Rigidbodies.Edge;
 import Utilities.Geometry.Vector2f;
 
 public class CustomMath {
@@ -62,5 +63,43 @@ public class CustomMath {
         vec.x = abs(vec.x);
         vec.y = abs(vec.y);
         return vec;
+    }
+
+    public static float slope(Vector2f a, Vector2f b){
+        return (b.y - a.y)/ (b.x - a.x);
+    }
+
+    /**
+     * Returns a unit vector corresponding to the normal of an edge
+     * @param edge
+     * @return
+     */
+    public static Vector2f normal(Edge edge){
+        Vector2f[] positions = edge.getPositions();
+        return normal(positions[0], positions[1]);
+    }
+
+    public static Vector2f normalFlipped(Edge edge){
+        Vector2f[] positions = edge.getPositions();
+        return normalFlipped(positions[0], positions[1]);
+    }
+
+    public static float inv(float val){
+        return -1 * (1/val);
+    }
+
+    public static Vector2f normal(Vector2f a, Vector2f b){
+        Vector2f unit = new Vector2f();
+        float slope = inv(slope(a, b));
+        System.out.println(slope);
+        unit.x = 1/(float)(Math.sqrt(sq(slope) + 1));
+        unit.y = (float)Math.sqrt(sq(1 - unit.x));
+        return unit;
+    }
+
+    public static Vector2f normalFlipped(Vector2f a, Vector2f b){
+        Vector2f unit = normal(a,b);
+        unit.mul(-1);
+        return unit;
     }
 }

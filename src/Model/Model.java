@@ -13,6 +13,9 @@ import Utilities.Geometry.Vector2f;
 
 public class Model extends MonoBehavior
 {
+    //TODO: Add yolk conservation
+    //TODO: Add osmosis force
+    //TODO: Fix LJ-type forces
     PhysicsSystem physicsSystem;
     //IOrganism organism = new SimpleFourCellBox();
     IOrganism organism = new DrosophilaEmbryo();
