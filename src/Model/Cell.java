@@ -1,11 +1,7 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
-import Engine.Renderer;
 import Engine.States.State;
-import GUI.IColor;
-import GUI.IRender;
-import GUI.Painter;
 import Model.Components.CellRenderer;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
