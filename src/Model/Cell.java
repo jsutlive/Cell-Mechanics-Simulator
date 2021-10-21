@@ -19,7 +19,7 @@ public class Cell extends MonoBehavior {
     private int ringLocation;
     private float restingArea;
 
-    float constant = .45f;
+    float constant = .25f;
     float ratio = 0.00000001f;
 
     float elasticConstant = .12f;

@@ -9,6 +9,7 @@ public class ApicalConstrictingCell extends Cell
     public ApicalConstrictingCell()
     {
         internalConstant = .1f;
+        elasticConstant = .05f;
     }
     @Override
     public void update() {
