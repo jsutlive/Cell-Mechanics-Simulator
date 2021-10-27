@@ -18,6 +18,7 @@ public abstract class Edge implements IRigidbody, IColor
     protected float initialLength;
     protected float elasticConstant;
     protected Vector2f normal;
+    public boolean hasActed;
 
     public float getElasticConstant()
     {

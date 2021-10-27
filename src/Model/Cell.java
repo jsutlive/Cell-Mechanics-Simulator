@@ -3,6 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.CellRenderer;
+import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Math.Gauss;
@@ -19,10 +20,10 @@ public class Cell extends MonoBehavior {
     private int ringLocation;
     private float restingArea;
 
-    float constant = .25f;
+    float constant = .38f;
     float ratio = 0.00000001f;
 
-    float elasticConstant = .12f;
+    float elasticConstant = .02f;
     float elasticRatio = 1f;
 
     float internalConstant = .5f;
@@ -33,6 +34,10 @@ public class Cell extends MonoBehavior {
 
     public void setEdges(List<Edge> edges){
         this.edges = edges;
+    }
+
+    public List<Edge> getInternalEdges(){
+        return internalEdges;
     }
 
     public void setInternalEdges(List<Edge> edges) {this.internalEdges = edges;}
@@ -76,7 +81,12 @@ public class Cell extends MonoBehavior {
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
         for(Edge edge: edges) {
-            edge.constrict(edge.getElasticConstant(), elasticRatio);
+            if(edge instanceof BasalEdge){
+                edge.constrict(elasticConstant, elasticRatio);
+            }
+            else {
+                edge.constrict(edge.getElasticConstant(), elasticRatio);
+            }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
         for(Node node: nodes)
