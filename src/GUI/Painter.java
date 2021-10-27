@@ -23,6 +23,12 @@ public class Painter {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
         }
+
+        /*for(Edge edge: cell.getInternalEdges())
+        {
+            Vector2f[] positions = edge.getPositions();
+            drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
+        }*/
     }
 
     public static void drawLine(Vector2i pointA, Vector2i pointB)

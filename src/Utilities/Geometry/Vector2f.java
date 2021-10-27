@@ -75,4 +75,11 @@ public class Vector2f
         return (float)Math.hypot(b.x -a.x, b.y - a.y);
     }
 
+    public static Vector2f unit(Vector2f a, Vector2f b)
+    {
+        float d = Vector2f.dist(a, b);
+        float x = b.x-a.x;
+        float y = b.y - a.y;
+        return new Vector2f(x/d,y/d);
+    }
 }

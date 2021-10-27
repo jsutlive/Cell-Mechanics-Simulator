@@ -1,24 +1,33 @@
 package Model;
 
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.*;
 
 public class ApicalConstrictingCell extends Cell
 {
     public ApicalConstrictingCell()
     {
         internalConstant = .1f;
-        elasticConstant = .05f;
+        elasticConstant = .005f;
     }
     @Override
     public void update() {
         for(Edge edge: edges)
         {
-            edge.constrict(edge.getElasticConstant(), elasticRatio);
-            if(edge instanceof ApicalEdge)
+            if(edge.hasActed)continue;
+            if(edge instanceof LateralEdge) {
+                edge.constrict(.35f, elasticRatio);
+                edge.hasActed = true;
+            }
+            else if (edge instanceof BasalEdge)
             {
+                edge.constrict(.40f, elasticRatio);
+                edge.hasActed = true;
+            }
+            else if(edge instanceof ApicalEdge)
+            {
+                edge.constrict(elasticConstant, elasticRatio);
                 edge.constrict(constant * (1 - getRingLocation()/40), ratio);
+                edge.hasActed = true;
             }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);

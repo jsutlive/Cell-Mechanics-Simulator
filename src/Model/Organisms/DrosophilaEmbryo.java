@@ -116,6 +116,11 @@ public class DrosophilaEmbryo implements  IOrganism {
 
             internalEdges.add(new BasicEdge(a,d));
             internalEdges.add(new BasicEdge(b,c));
+
+            if(i>0)
+            {
+                internalEdges.add(new BasicEdge(b,d));
+            }
         }
 
         // Create the apical edges of the cell

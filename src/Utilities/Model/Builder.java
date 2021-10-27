@@ -158,6 +158,10 @@ public class Builder {
 
             internalEdges.add(new BasicEdge(a,d));
             internalEdges.add(new BasicEdge(b,c));
+            if(i< sideA.size() - 1)
+            {
+                internalEdges.add(new BasicEdge(b,d));
+            }
         }
 
         // Create the apical edges of the cell

@@ -5,11 +5,17 @@ import Engine.Object.Tag;
 import Engine.States.State;
 import Model.Organisms.*;
 import Physics.PhysicsSystem;
+import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
+import Utilities.Math.Gauss;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Model extends MonoBehavior
 {
@@ -19,6 +25,10 @@ public class Model extends MonoBehavior
     PhysicsSystem physicsSystem;
     //IOrganism organism = new SimpleFourCellBox();
     IOrganism organism = new DrosophilaEmbryo();
+    float shellRadius = 302f;
+    List<Node> yolkNodes = new ArrayList<>();
+    Vector2f center = new Vector2f(400);
+    float yolkArea;
 
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
@@ -30,6 +40,16 @@ public class Model extends MonoBehavior
     public void awake() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
         organism.generateOrganism();
+        for(Cell cell: organism.getAllCells())
+        {
+            for(Edge edge: cell.getEdges()){
+                if(edge instanceof BasalEdge){
+                    yolkNodes.add(edge.getNodes()[0]);
+                    break;
+                }
+            }
+        }
+        System.out.println(yolkNodes.size() + "YOLKNODES");
     }
 
 
@@ -46,10 +66,39 @@ public class Model extends MonoBehavior
         Edge e;
         float maxRadius = 35f;
         float ljConstant = 5.6f;
+        int yolkSmaller = 0; // false
+        float currentYolkArea = Gauss.nShoelace(yolkNodes);
+        if( currentYolkArea< yolkArea)
+        {
+            for (Node n: yolkNodes)
+            {
+                Vector2f yolkConservationForce = Vector2f.unit(n.getPosition(), center);
+                yolkConservationForce.mul(.25f);
+                n.AddForceVector(yolkConservationForce);
+            }
+        }
+        else if(currentYolkArea == yolkArea){
+        }
+        else
+        {
+            for (Node n: yolkNodes)
+            {
+                Vector2f yolkConservationForce = Vector2f.unit(n.getPosition(), center);
+                yolkConservationForce.mul(-.25f);
+                n.AddForceVector(yolkConservationForce);
+            }
+        }
         for(Node node: organism.getAllNodes())
         {
+            if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
+            {
+                Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
+                //System.out.println(node.getPosition().x + "," + node.getPosition().y);
+            }
+
             for(Node t: organism.getAllNodes())
             {
+
                 if(node!=t && Boundary.ContainsNode(t, node.getPosition(), maxRadius))
                 {
                     e = new BasicEdge(node, t);
@@ -60,7 +109,13 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        //for(Cell cell: organism.getAllCells()) cell.update();
+        for(Cell cell: organism.getAllCells())
+        {
+            for (Edge edge: cell.getEdges())
+            {
+                edge.hasActed = false;
+            }
+        }
     }
 
     /**

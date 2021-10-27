@@ -57,6 +57,10 @@ public class RunState extends State
         }
         Painter.drawPoint(new Vector2i(400,400));
         Painter.drawCircle(new Vector2i(400), 604, Color.gray);
+        Painter.drawCircle(new Vector2i(400), 605, Color.gray);
+        Painter.drawCircle(new Vector2i(400), 606, Color.gray);
+
+
         //System.out.println("--------");
     }
 }

@@ -3,6 +3,7 @@ package Utilities;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector2i;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,5 +31,15 @@ public class BoundaryTests {
         Vector2f test = new Vector2f(5f,0f);
         assertTrue(Boundary.ContainsPosition(test, center, radius));
     }
+
+    @Test
+    void node_correctly_moves_to_new_position(){
+        Node a = new Node(new Vector2f(0));
+        a.MoveTo(new Vector2f(2));
+
+        assertEquals(2, a.getPosition().x);
+        assertEquals(2, a.getPosition().y);
+    }
+
 
 }
