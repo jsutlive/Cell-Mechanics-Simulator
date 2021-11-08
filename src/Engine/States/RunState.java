@@ -1,6 +1,8 @@
 package Engine.States;
 
 import Engine.Object.MonoBehavior;
+import Engine.Timer.Time;
+import GUI.IRender;
 import GUI.Painter;
 import Model.Components.CellRenderer;
 import Model.Model;
@@ -13,6 +15,7 @@ import java.awt.*;
 public class RunState extends State
 {
     int count = 1;
+    int frameCount = 0;
     Model model;
     MonoBehavior physicsSystem;
 
@@ -36,9 +39,21 @@ public class RunState extends State
     @Override
     public void Tick()
     {
-        for (MonoBehavior obj: allObjects) {
-            obj.update();
+        model.update();
+
+        if(frameCount < Time.fps)
+        {
+            //frameCount++;
         }
+        else
+        {
+            model.update();
+            frameCount = 0;
+        }
+        for (MonoBehavior obj: allObjects) {
+            if(obj != model) obj.update();
+        }
+
     }
 
     /**
@@ -51,7 +66,7 @@ public class RunState extends State
     {
         //System.out.println("FRAME " + count + ":");
         count++;
-        for(CellRenderer rend: renderBatch)
+        for(IRender rend: renderBatch)
         {
             rend.render();
         }

@@ -1,5 +1,7 @@
 package Utilities.Geometry;
 
+import java.util.Vector;
+
 public class Vector2f
 {
     public float x;
@@ -81,5 +83,17 @@ public class Vector2f
         float x = b.x-a.x;
         float y = b.y - a.y;
         return new Vector2f(x/d,y/d);
+    }
+
+    public static Vector2f unit(Vector2f vec){
+        return unit(new Vector2f(0), vec);
+    }
+
+    public static Vector2f unit(float f){
+        return unit(new Vector2f(f, 1f));
+    }
+
+    public String print(){
+        return x + "," + y;
     }
 }

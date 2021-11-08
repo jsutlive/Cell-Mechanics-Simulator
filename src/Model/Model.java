@@ -3,6 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
+import GUI.Painter;
 import Model.Organisms.*;
 import Physics.PhysicsSystem;
 import Physics.Rigidbodies.BasalEdge;
@@ -29,7 +30,6 @@ public class Model extends MonoBehavior
     List<Node> yolkNodes = new ArrayList<>();
     Vector2f center = new Vector2f(400);
     float yolkArea;
-
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
@@ -49,7 +49,7 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        System.out.println(yolkNodes.size() + "YOLKNODES");
+        System.out.println(yolkNodes.size() + " YOLKNODES");
     }
 
 
@@ -63,29 +63,52 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
+
         Edge e;
-        float maxRadius = 35f;
-        float ljConstant = 5.6f;
+        float maxRadius = 60f;
+        float ljConstant = .1f;
         int yolkSmaller = 0; // false
         float currentYolkArea = Gauss.nShoelace(yolkNodes);
         if( currentYolkArea< yolkArea)
         {
-            for (Node n: yolkNodes)
+            /*for (int i = 0; i < yolkNodes.size(); i++)
             {
-                Vector2f yolkConservationForce = Vector2f.unit(n.getPosition(), center);
-                yolkConservationForce.mul(.25f);
-                n.AddForceVector(yolkConservationForce);
+                AddSimpleHydrostaticForce(i, .55f, .05f);
+            }*/
+
+            for(Cell cell: organism.getAllCells())
+            {
+                for(Edge edge:cell.getEdges())
+                {
+                    if(edge instanceof BasalEdge)
+                    {
+                        Vector2f force = CustomMath.normal(edge);
+                        force.mul(-.25f);
+                        edge.AddForceVector(force);
+                    }
+                }
             }
         }
         else if(currentYolkArea == yolkArea){
         }
         else
         {
-            for (Node n: yolkNodes)
+            /*for (int i = 0; i < yolkNodes.size(); i++)
             {
-                Vector2f yolkConservationForce = Vector2f.unit(n.getPosition(), center);
-                yolkConservationForce.mul(-.25f);
-                n.AddForceVector(yolkConservationForce);
+                AddSimpleHydrostaticForce(i, -.55f, -.05f);
+            }*/
+
+            for(Cell cell: organism.getAllCells())
+            {
+                for(Edge edge:cell.getEdges())
+                {
+                    if(edge instanceof BasalEdge)
+                    {
+                        Vector2f force = CustomMath.normal(edge);
+                        force.mul(.25f);
+                        edge.AddForceVector(force);
+                    }
+                }
             }
         }
         for(Node node: organism.getAllNodes())
@@ -96,26 +119,64 @@ public class Model extends MonoBehavior
                 //System.out.println(node.getPosition().x + "," + node.getPosition().y);
             }
 
-            for(Node t: organism.getAllNodes())
+            /*for(Node t: organism.getAllNodes())
             {
 
                 if(node!=t && Boundary.ContainsNode(t, node.getPosition(), maxRadius))
                 {
-                    e = new BasicEdge(node, t);
-                    float forceMagnitude = Math.min(3f, ljConstant * (1f/ e.getLength()));
-                    Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
-                    forceVector.mul(-forceMagnitude);
-                    node.AddForceVector(forceVector);
+                    addLJForceBasicNodeSystem(ljConstant, node, t);
                 }
-            }
+            }*/
         }
         for(Cell cell: organism.getAllCells())
         {
             for (Edge edge: cell.getEdges())
             {
+                for(Node n: organism.getAllNodes()){
+                    if(edge.contains(n)) continue;
+                    float dist = CustomMath.pDistanceSq(n, edge);
+                    if(Float.isNaN(dist)) continue;
+                    if(dist < maxRadius){
+                       Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
+                       Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+                        forceVector.mul(ljConstant);
+                        Edge temp;
+                        Node t = new Node(pointOnEdge);
+                        temp = new BasicEdge(n, t);
+                        float forceMagnitude = Math.min(4f, ljConstant * (1f/ (float)Math.pow(temp.getLength(), 3)));
+                        forceVector.mul(forceMagnitude);
+                       if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
+                           System.out.println(forceVector.print());
+                           n.AddForceVector(forceVector);
+                       }
+                    }
+                }
                 edge.hasActed = false;
             }
+            for(Node node: cell.getNodes())
+            {
+                //node.hasMoved = true;
+            }
         }
+    }
+
+    private void addLJForceBasicNodeSystem(float ljConstant, Node node, Node t) {
+        Edge e;
+        e = new BasicEdge(node, t);
+        float forceMagnitude = Math.min(3f, ljConstant * (1f/ e.getLength()));
+        Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
+        forceVector.mul(-forceMagnitude);
+        node.AddForceVector(forceVector);
+    }
+
+    private void AddSimpleHydrostaticForce(int i, float v, float v2) {
+        Vector2f yolkConservationForce = Vector2f.unit(yolkNodes.get(i).getPosition(), center);
+        if (i >= 8 || i < 71) {
+            yolkConservationForce.mul(v);
+        } else {
+            yolkConservationForce.mul(v2);
+        }
+        yolkNodes.get(i).AddForceVector(yolkConservationForce);
     }
 
     /**

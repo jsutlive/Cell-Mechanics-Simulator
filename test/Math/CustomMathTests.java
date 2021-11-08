@@ -51,4 +51,18 @@ public class CustomMathTests {
         //assertEquals(-root2, norm.y);
         assertEquals(root2, norm.x);
     }
+
+    @Test
+    void calculate_inverse()
+    {
+        assertEquals(.2f, CustomMath.inv(-5f));
+        assertEquals(Float.NEGATIVE_INFINITY, CustomMath.inv(0f));
+        assertEquals(-10f, CustomMath.inv(0.1f));
+    }
+
+    @Test
+    void calculate_slope()
+    {
+        assertEquals(.75f, CustomMath.slope(new Vector2f(0), new Vector2f(4,3)));
+    }
 }

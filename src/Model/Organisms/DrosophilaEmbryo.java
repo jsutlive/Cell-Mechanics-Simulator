@@ -7,6 +7,7 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
+import Utilities.Model.Mesh;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,6 +36,13 @@ public class DrosophilaEmbryo implements  IOrganism {
     @Override
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
+        //allCells = Mesh.circle(80, innerRadius, outerRadius, boundingBox.asFloat());
+        for(Cell cell: allCells)
+        {
+            for(Node node: cell.getNodes()){
+                if(!allNodes.contains(node)) allNodes.add(node);
+            }
+        }
     }
 
     private void generateTissueRing() throws InstantiationException, IllegalAccessException {
@@ -62,8 +70,8 @@ public class DrosophilaEmbryo implements  IOrganism {
             if (i > 0) {
                 Cell newCell;
                 if (i >=40) {
-                    if(i>=71) newCell = createCell(edges, oldEdges, ApicalConstrictingCell.class);
-                    else newCell = createCell(edges, oldEdges, Cell.class);
+                    if(i>=71) newCell = createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                    else newCell = createCell(oldEdges, edges, Cell.class);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {

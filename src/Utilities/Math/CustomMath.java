@@ -1,6 +1,7 @@
 package Utilities.Math;
 
 import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 
 public class CustomMath {
@@ -34,6 +35,11 @@ public class CustomMath {
     public static int sq(int i)
     {
         return i*i;
+    }
+
+    public static float avg(float a, float b){
+        float[] floats = new float[]{a,b};
+        return avg(floats);
     }
 
     public static float avg(float[] floats)
@@ -76,7 +82,7 @@ public class CustomMath {
      */
     public static Vector2f normal(Edge edge){
         Vector2f[] positions = edge.getPositions();
-        return normal(positions[0], positions[1]);
+        return normal(positions[1], positions[0]);
     }
 
     public static Vector2f normalFlipped(Edge edge){
@@ -85,16 +91,17 @@ public class CustomMath {
     }
 
     public static float inv(float val){
-        return -1 * (1/val);
+        return -(1/val);
     }
 
     public static Vector2f normal(Vector2f a, Vector2f b){
         Vector2f unit = new Vector2f();
         float slope = inv(slope(a, b));
-        System.out.println(slope);
-        unit.x = 1/(float)(Math.sqrt(sq(slope) + 1));
-        unit.y = (float)Math.sqrt(sq(1 - unit.x));
-        return unit;
+        //unit.x = 1/(float)(Math.sqrt(sq(slope) + 1));
+        //unit.y = (float)Math.sqrt(sq(1 - unit.x));
+        //unit = Vector2f.unit(slope);
+        unit = new Vector2f(-(b.y-a.y), b.x-a.x);
+        return Vector2f.unit(unit);
     }
 
     public static Vector2f normalFlipped(Vector2f a, Vector2f b){
@@ -102,4 +109,40 @@ public class CustomMath {
         unit.mul(-1);
         return unit;
     }
+
+    public static float pDistanceSq(Node n, Edge e){
+        Vector2f[] edgePositions = e.getPositions();
+        return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
+    }
+
+    public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
+
+        float A = p.x - a.x; // position of point rel one end of line
+        float B = p.y - a.y;
+        float C = b.x - a.x; // vector along line
+        float D = b.y - a.y;
+        float E = -D; // orthogonal vector
+        float F = C;
+
+        float dot = A * E + B * F;
+        float len_sq = E * E + F * F;
+
+        return sq(dot) / len_sq;
+    }
+
+    public static Vector2f pointSlope(Node n, Edge e){
+        Vector2f[] edgePositions = e.getPositions();
+        return pointSlope(n.getPosition(), edgePositions[0], edgePositions[1]);
+    }
+
+    public static Vector2f pointSlope(Vector2f p, Vector2f a, Vector2f b){
+        float slope = (b.y - a.y)/(b.x - a.x);
+        float intercept = a.y - (slope*a.x);
+        float normalSlope = -1f/slope;
+        float normalIntercept = p.y - (normalSlope * p.x);
+        float x = (normalIntercept - intercept)/(slope-normalSlope);
+        float y = (slope * x) + intercept;
+        return new Vector2f(x, y);
+    }
+
 }

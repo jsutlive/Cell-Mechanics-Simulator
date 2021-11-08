@@ -35,6 +35,7 @@ public class Node implements IRigidbody, IColor {
     }
 
     public Node(float a, float b){position = new Vector2f(a, b);}
+    public boolean hasMoved = false;
 
     /**
      * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
@@ -60,7 +61,9 @@ public class Node implements IRigidbody, IColor {
      */
     @Override
     public void Move() {
-        position.add(resultantForce);
+        if(!hasMoved) {
+            position.add(resultantForce);
+        }
         resultantForce.x = 0; resultantForce.y = 0;
     }
 

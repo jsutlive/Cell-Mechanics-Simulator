@@ -7,7 +7,7 @@ public class ApicalConstrictingCell extends Cell
     public ApicalConstrictingCell()
     {
         internalConstant = .1f;
-        elasticConstant = .005f;
+        elasticConstant = .1f;
     }
     @Override
     public void update() {
@@ -20,7 +20,7 @@ public class ApicalConstrictingCell extends Cell
             }
             else if (edge instanceof BasalEdge)
             {
-                edge.constrict(.40f, elasticRatio);
+                edge.constrict(.70f, elasticRatio);
                 edge.hasActed = true;
             }
             else if(edge instanceof ApicalEdge)
