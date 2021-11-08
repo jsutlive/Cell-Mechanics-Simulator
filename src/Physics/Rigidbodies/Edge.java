@@ -113,4 +113,21 @@ public abstract class Edge implements IRigidbody, IColor
         forceVector.mul(-1);
         nodes[1].AddForceVector(forceVector);
     }
+
+    public Vector2f getCenter(){
+        Vector2f posA = getPositions()[0];
+        Vector2f posB = getPositions()[1];
+
+        float x = CustomMath.avg(posA.x, posB.x);
+        float y = CustomMath.avg(posA.y, posB.y);
+        return new Vector2f(x,y);
+    }
+
+    public boolean contains(Node n){
+        for(Node node: nodes){
+            if (node == n) return true;
+        }
+        return false;
+    }
+
 }

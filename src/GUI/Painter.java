@@ -6,6 +6,7 @@ import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
+import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
@@ -22,6 +23,7 @@ public class Painter {
         {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
+            drawEdgeNormal(edge);
         }
 
         /*for(Edge edge: cell.getInternalEdges())
@@ -29,6 +31,15 @@ public class Painter {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
         }*/
+    }
+
+    public static void drawEdgeNormal(Edge edge){
+        Vector2f center = edge.getCenter();
+        Vector2f normal = CustomMath.normal(edge);
+        normal.mul(7);
+        normal.add(center);
+
+        drawLine(center.asInt(), normal.asInt());
     }
 
     public static void drawLine(Vector2i pointA, Vector2i pointB)
