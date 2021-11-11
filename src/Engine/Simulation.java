@@ -55,10 +55,13 @@ public class Simulation implements Runnable
         while(applicationIsRunning)
         {
             Time.Advance();
+            if(Time.isReadyToAdvancePhysics()){
+                Tick();
+            }
             if(Time.isReadyForNextFrame())
             {
                 render.run();
-                Tick();
+                //Tick();
             }
             Time.printFrameRate();
         }
