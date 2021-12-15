@@ -1,8 +1,10 @@
 package Physics.Rigidbodies;
 
+import Engine.States.State;
 import GUI.IColor;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
@@ -61,11 +63,16 @@ public class Node implements IRigidbody, IColor {
      */
     @Override
     public void Move() {
-        if(!hasMoved) {
+        //if(!hasMoved) {
+        //resultantForce.x = CustomMath.round(resultantForce.x, 3);
+        //resultantForce.y = CustomMath.round(resultantForce.y, 3);
             position.add(resultantForce);
-        }
+        State.addToResultantForce(resultantForce);
+        //}
         resultantForce.x = 0; resultantForce.y = 0;
     }
+
+    public void resetForce(){ resultantForce = new Vector2f(0f);}
 
     @Override
     public Color getColor() {

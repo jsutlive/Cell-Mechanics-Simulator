@@ -2,7 +2,7 @@ package Engine.Timer;
 
 public class Time {
     public static final int fps = 60;
-    public static final int fixedPhysicsSteps = 10;
+    public static final int fixedPhysicsSteps = 30;
     public static long time;
     public static long deltaTime;
 

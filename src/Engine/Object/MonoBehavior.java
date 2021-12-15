@@ -6,7 +6,7 @@ import Model.Components.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior
+public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior, Runnable
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;

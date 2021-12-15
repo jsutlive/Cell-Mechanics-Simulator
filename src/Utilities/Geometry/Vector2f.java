@@ -96,4 +96,8 @@ public class Vector2f
     public String print(){
         return x + "," + y;
     }
+
+    public Vector2f project(Vector2f v){
+        return new Vector2f(0);
+    }
 }

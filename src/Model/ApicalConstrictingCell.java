@@ -26,6 +26,7 @@ public class ApicalConstrictingCell extends Cell
             else if(edge instanceof ApicalEdge)
             {
                 edge.constrict(elasticConstant, elasticRatio);
+                //if(getRingLocation()%2 == 0)
                 edge.constrict(constant * (1 - getRingLocation()/40), ratio);
                 edge.hasActed = true;
             }

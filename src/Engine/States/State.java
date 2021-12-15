@@ -5,8 +5,11 @@ import Engine.Object.Tag;
 import GUI.IRender;
 import Model.Components.CellRenderer;
 import Model.Components.EdgeRenderer;
+import Utilities.Geometry.Vector2f;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public abstract class State
 {
@@ -19,9 +22,12 @@ public abstract class State
     {
         state = _state;
     }
+    public static Vector2f RESULTANTFORCE = new Vector2f(0);
+    public static void addToResultantForce(Vector2f v){RESULTANTFORCE.add(v);}
 
-    protected static HashSet<MonoBehavior> allObjects = new HashSet<>();
-    protected static HashSet<IRender> renderBatch = new HashSet<>();
+    protected static List<MonoBehavior> allObjects = new ArrayList<>();
+    protected static List<IRender> renderBatch = new ArrayList<>();
+    protected static List<Thread> physicsThreads = new ArrayList<>();
 
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
         RunState runState = (RunState)state;
@@ -61,7 +67,11 @@ public abstract class State
         MonoBehavior mono = MonoBehavior.createObject(type);
         MonoBehavior.setGlobalID(mono);
         allObjects.add(mono);
+        Thread thread = new Thread(mono);
+        physicsThreads.add(thread);
+        thread.start();
         mono.awake();
+
         return mono;
     }
 
