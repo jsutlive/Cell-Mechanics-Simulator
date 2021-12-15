@@ -24,7 +24,9 @@ public class PhysicsSystem extends MonoBehavior
     public void update() {
 
     }
-
+    @Override
+    public void run()
+    {}
     @Override
     public void destroy()
     {

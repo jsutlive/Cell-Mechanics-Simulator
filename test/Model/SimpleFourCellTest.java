@@ -1,11 +1,14 @@
 package Model;
 
+import Engine.States.State;
 import Model.Organisms.SimpleFourCell;
+import Utilities.Geometry.Vector2f;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleFourCellTest
 {
+
     /**
      * A simple four-cell model should always return four cells when asked to return all cells.
      */
@@ -38,6 +41,17 @@ public class SimpleFourCellTest
         SimpleFourCell model = new SimpleFourCell();
         model.generateOrganism();
         assertEquals(25, model.getAllNodes().size());
+    }
+
+    @Test
+    void check_sum_forces_equals_zero_cell_level() throws InstantiationException, IllegalAccessException{
+        SimpleFourCell model = new SimpleFourCell();
+        model.generateOrganism();
+        for(Cell cell: model.getAllCells()){
+            cell.update();
+        }
+        assertEquals(0f, Math.abs(State.RESULTANTFORCE.x));
+        assertEquals(0f, Math.abs(State.RESULTANTFORCE.y));
     }
 
 }

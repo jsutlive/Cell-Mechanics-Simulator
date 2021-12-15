@@ -33,6 +33,9 @@ public class EdgeMono extends MonoBehavior {
     }
 
     @Override
+    public void run(){}
+
+    @Override
     public void awake() throws InstantiationException, IllegalAccessException {
         EdgeRenderer renderer = new EdgeRenderer();
         this.addComponent(renderer);
@@ -54,14 +57,17 @@ public class EdgeMono extends MonoBehavior {
         else if(edge instanceof ApicalEdge) {
             if((cellID > 71 || cellID <= 8)) {
                 edge.setColor(Color.WHITE);
-                edge.constrict(.4f, .001f);
+                if(cellID > 0){
+                    edge.constrict(-.4f, 0.001f);
+                }
+                else edge.constrict(.4f, .001f);
                 System.out.println(edge.getNodes()[0].getResultantForce().x + "::" + edge.getNodes()[0].getResultantForce().y);
 
             }
             edge.constrict(.25f, 1f);
         }
         else if (edge instanceof BasalEdge){
-            if((cellID > 71 || cellID <= 8)) {
+            if((cellID > 0 || cellID <= 1)) {
                 edge.constrict(.55f, 1f);
             }
             edge.constrict(.35f, 1f);

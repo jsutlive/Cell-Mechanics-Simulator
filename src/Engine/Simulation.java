@@ -14,6 +14,12 @@ public class Simulation implements Runnable
     private Thread thread;
     private boolean applicationIsRunning = false;
 
+    /**
+     * Simulation
+     * @param _title
+     * @param _width
+     * @param _height
+     */
     public Simulation(String _title, int _width, int _height)
     {
         bounds.x = _width;
@@ -30,6 +36,7 @@ public class Simulation implements Runnable
     private void init() throws InstantiationException, IllegalAccessException {
         renderer = Renderer.getInstance();
         render = new Thread(renderer);
+        render.setDaemon(true);
         Time.getInstance();
         State.ChangeState();
     }
@@ -42,6 +49,9 @@ public class Simulation implements Runnable
         }
     }
 
+    /**
+     * Main program loop
+     */
     @Override
     public void run()
     {
@@ -54,20 +64,29 @@ public class Simulation implements Runnable
         }
         while(applicationIsRunning)
         {
+            
             Time.Advance();
+            
+            // Physics update
             if(Time.isReadyToAdvancePhysics()){
                 Tick();
             }
+            // Render update
             if(Time.isReadyForNextFrame())
             {
                 render.run();
-                //Tick();
             }
+            
             Time.printFrameRate();
         }
+        
+        // Halt application
         Stop();
     }
 
+    /**
+     * Begin application thread
+     */
     public synchronized void Start()
     {
         if(applicationIsRunning){return;}

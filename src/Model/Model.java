@@ -57,13 +57,16 @@ public class Model extends MonoBehavior
     public void start() {
     }
 
+    @Override
+    public void run(){}
+
     /**
      * Update all forces, at node level and cellular level.
      */
     @Override
     public void update()
     {
-
+        for(Node node: organism.getAllNodes()) node.resetForce();
         Edge e;
         float maxRadius = 60f;
         float ljConstant = .1f;

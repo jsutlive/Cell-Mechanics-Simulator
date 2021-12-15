@@ -40,7 +40,7 @@ public class Mesh {
 
                 // Generate Cell
                 Cell cell;
-                if (i > 71 || i <= 8) {
+                if (i > 0 || i <= 1) {
                     cell = makeCellEdgeMonos(nodesA, nodesB, ApicalConstrictingCell.class, i);
                 } else {
                     cell = makeCellEdgeMonos(nodesA, nodesB, Cell.class, i);

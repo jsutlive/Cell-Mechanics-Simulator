@@ -5,7 +5,7 @@ import Engine.Timer.Time;
 import GUI.IRender;
 import GUI.Painter;
 import Model.Components.CellRenderer;
-import Model.Model;
+import Model.*;
 import Physics.PhysicsSystem;
 import Utilities.Geometry.Vector2i;
 
@@ -47,12 +47,15 @@ public class RunState extends State
         }
         else
         {
-            model.update();
+            //model.update();
             frameCount = 0;
         }
         for (MonoBehavior obj: allObjects) {
             if(obj != model) obj.update();
         }
+        /*for(int i = allObjects.size() -1;  i >= 0;  i--){
+            if(allObjects.get(i) !=model && !(allObjects.get(i) instanceof ApicalConstrictingCell) ) allObjects.get(i).update();
+        }*/
 
     }
 
@@ -66,6 +69,10 @@ public class RunState extends State
     {
         //System.out.println("FRAME " + count + ":");
         count++;
+
+        /*for(int i = renderBatch.size() - 1;  i >= 0; i--){
+            renderBatch.get(i).render();
+        }*/
         for(IRender rend: renderBatch)
         {
             rend.render();

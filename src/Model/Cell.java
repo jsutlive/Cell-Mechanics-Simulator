@@ -71,6 +71,11 @@ public class Cell extends MonoBehavior {
         restingArea = getArea();
     }
 
+    @Override
+    public void run()
+    {
+    }
+
     /**
      * In Cell objects, this is where we update the forces acting on the cells.
      */

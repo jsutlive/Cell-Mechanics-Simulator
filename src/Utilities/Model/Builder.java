@@ -47,6 +47,27 @@ public class Builder {
     }
 
     /**
+     * Makes
+     * @param numberOfCells
+     * @param lateralResolution
+     * @param innerRadius
+     * @param outerRadius
+     * @param boundingBox
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    public static List<Cell> getCellRingPolygonBuild(int numberOfCells,
+                                                     int lateralResolution,
+                                                     int innerRadius,
+                                                     int outerRadius,
+                                                     Vector2i boundingBox)
+        throws InstantiationException, IllegalAccessException{
+
+        return new ArrayList<Cell>();
+    }
+
+    /**
      * Makes 80 cells in a ring structure
      * Four per side are Lateral Edges, one is an Apical Edge, one is Basal Edge.
      * @return list of cells in the structure.
