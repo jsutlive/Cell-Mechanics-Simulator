@@ -49,7 +49,6 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        System.out.println(yolkNodes.size() + " YOLKNODES");
     }
 
 
@@ -68,8 +67,8 @@ public class Model extends MonoBehavior
     {
         for(Node node: organism.getAllNodes()) node.resetForce();
         Edge e;
-        float maxRadius = 60f;
-        float ljConstant = .1f;
+        float maxRadius = 100f;
+        float ljConstant = 3e-6f;
         int yolkSmaller = 0; // false
         float currentYolkArea = Gauss.nShoelace(yolkNodes);
         if( currentYolkArea< yolkArea)
@@ -119,7 +118,6 @@ public class Model extends MonoBehavior
             if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
             {
                 Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
-                //System.out.println(node.getPosition().x + "," + node.getPosition().y);
             }
 
             /*for(Node t: organism.getAllNodes())
@@ -133,6 +131,9 @@ public class Model extends MonoBehavior
         }
         for(Cell cell: organism.getAllCells())
         {
+            cell.update();
+
+
             for (Edge edge: cell.getEdges())
             {
                 for(Node n: organism.getAllNodes()){
@@ -149,17 +150,13 @@ public class Model extends MonoBehavior
                         float forceMagnitude = Math.min(4f, ljConstant * (1f/ (float)Math.pow(temp.getLength(), 3)));
                         forceVector.mul(forceMagnitude);
                        if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
-                           System.out.println(forceVector.print());
                            n.AddForceVector(forceVector);
                        }
                     }
                 }
                 edge.hasActed = false;
             }
-            for(Node node: cell.getNodes())
-            {
-                //node.hasMoved = true;
-            }
+            cell.move();
         }
     }
 

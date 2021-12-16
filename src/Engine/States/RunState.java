@@ -40,7 +40,6 @@ public class RunState extends State
     public void Tick()
     {
         model.update();
-
         if(frameCount < Time.fps)
         {
             //frameCount++;
@@ -50,9 +49,9 @@ public class RunState extends State
             //model.update();
             frameCount = 0;
         }
-        for (MonoBehavior obj: allObjects) {
-            if(obj != model) obj.update();
-        }
+        /*for (MonoBehavior obj: allObjects) {
+             obj.update();
+        }*/
         /*for(int i = allObjects.size() -1;  i >= 0;  i--){
             if(allObjects.get(i) !=model && !(allObjects.get(i) instanceof ApicalConstrictingCell) ) allObjects.get(i).update();
         }*/

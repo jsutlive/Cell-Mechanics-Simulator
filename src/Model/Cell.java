@@ -23,7 +23,7 @@ public class Cell extends MonoBehavior {
     float constant = .45f;
     float ratio = 0.00000001f;
 
-    float elasticConstant = .02f;
+    float elasticConstant = .25f;
     float elasticRatio = 1f;
 
     float internalConstant = .5f;
@@ -94,6 +94,11 @@ public class Cell extends MonoBehavior {
             }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
+
+    }
+
+    public void move()
+    {
         for(Node node: nodes)
         {
             node.Move();
