@@ -66,7 +66,7 @@ public class Node implements IRigidbody, IColor {
         //if(!hasMoved) {
         //resultantForce.x = CustomMath.round(resultantForce.x, 3);
         //resultantForce.y = CustomMath.round(resultantForce.y, 3);
-            position.add(resultantForce);
+        position.add(resultantForce);
         State.addToResultantForce(resultantForce);
         //}
         resultantForce.x = 0; resultantForce.y = 0;

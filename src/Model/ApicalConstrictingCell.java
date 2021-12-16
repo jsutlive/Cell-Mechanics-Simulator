@@ -13,28 +13,21 @@ public class ApicalConstrictingCell extends Cell
     public void update() {
         for(Edge edge: edges)
         {
-            if(edge.hasActed)continue;
             if(edge instanceof LateralEdge) {
                 edge.constrict(.35f, elasticRatio);
-                edge.hasActed = true;
             }
             else if (edge instanceof BasalEdge)
             {
                 edge.constrict(.70f, elasticRatio);
-                edge.hasActed = true;
             }
             else if(edge instanceof ApicalEdge)
             {
                 edge.constrict(elasticConstant, elasticRatio);
                 //if(getRingLocation()%2 == 0)
                 edge.constrict(constant * (1 - getRingLocation()/40), ratio);
-                edge.hasActed = true;
             }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
-        for(Node node: nodes)
-        {
-            node.Move();
-        }
+
     }
 }
