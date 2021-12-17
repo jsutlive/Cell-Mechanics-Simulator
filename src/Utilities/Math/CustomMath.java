@@ -6,11 +6,12 @@ import Utilities.Geometry.Vector2f;
 
 public class CustomMath {
     /**
-     *
-     * @param index
-     * @param circleSegments
-     * @param lateralResolution
-     * @return
+     * Find unit vector describing the angle of a given point from center given which segment it is and the distance
+     * from the center
+     * @param index current segment
+     * @param circleSegments total segments in the circle
+     * @param lateralResolution how many vertices make up the lateral membrane of each cell
+     * @return an x,y vector2 (floating point) describing the unit vector.
      */
     public static Vector2f GetUnitVectorOnCircle(int index, float circleSegments, float lateralResolution)
     {
@@ -19,6 +20,13 @@ public class CustomMath {
         return new Vector2f(x, y);
     }
 
+    /**
+     * change a coordinate from polar values to cartesian values.
+     * @param unitVector equivalent of "theta" when considering polar coordinates
+     * @param radius equivalent of "r" when considering polar coordinates
+     * @param axis offset determined by x/y axis created by the bounding box
+     * @return
+     */
     public static Vector2f TransformToWorldSpace(Vector2f unitVector, float radius, Vector2f axis)
     {
         Vector2f worldScale = new Vector2f(unitVector.x * radius, unitVector.y * radius);
@@ -37,11 +45,22 @@ public class CustomMath {
         return i*i;
     }
 
+    /**
+     * find the average of two floating point numbers
+     * @param a float 1
+     * @param b float 2
+     * @return average
+     */
     public static float avg(float a, float b){
         float[] floats = new float[]{a,b};
         return avg(floats);
     }
 
+    /**
+     * average all floating point numbers in the array
+     * @param floats an array of floating point numbers
+     * @return the average
+     */
     public static float avg(float[] floats)
     {
         int len = floats.length;
@@ -53,11 +72,23 @@ public class CustomMath {
         return sum/len;
     }
 
+    /**
+     * Round a given floating point variable to a certain number of decimal places where
+     * @param val the value to be rounded
+     * @param places the number of decimal places to round the number to
+     * @return the rounded number
+     */
     public static float round(float val, float places)
     {
         double scale = Math.pow(10, places);
         return (float)( Math.round(val*scale)/scale);
     }
+
+    /**
+     * returns absolute value of a number
+     * @param val a floating point number
+     * @return absolute value of val
+     */
     public static float abs(float val)
     {
         if(val<0) val *= -1f;
@@ -94,12 +125,14 @@ public class CustomMath {
         return -(1/val);
     }
 
+    /**
+     * Calculate the normal of a line between two points
+     * @param a point a
+     * @param b point b
+     * @return the normal of the line made by a and b
+     */
     public static Vector2f normal(Vector2f a, Vector2f b){
-        Vector2f unit = new Vector2f();
-        float slope = inv(slope(a, b));
-        //unit.x = 1/(float)(Math.sqrt(sq(slope) + 1));
-        //unit.y = (float)Math.sqrt(sq(1 - unit.x));
-        //unit = Vector2f.unit(slope);
+        Vector2f unit;
         unit = new Vector2f(-(b.y-a.y), b.x-a.x);
         return Vector2f.unit(unit);
     }
@@ -110,11 +143,24 @@ public class CustomMath {
         return unit;
     }
 
+    /**
+     * return perpendicular distance squared to an edge from a node
+     * @param n a given node in space
+     * @param e the edge we want to calculate distance to
+     * @return float describing perpendicular distance from a node to the edge
+     */
     public static float pDistanceSq(Node n, Edge e){
         Vector2f[] edgePositions = e.getPositions();
         return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
+    /**
+     * return perpendicular distance squared to the line made between two points from another point
+     * @param p a point in space
+     * @param a point 1 in the line
+     * @param b point 2 in the line
+     * @return a float describing perpendicular distance from p to the line made by a and b
+     */
     public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
 
         float A = p.x - a.x; // position of point rel one end of line
