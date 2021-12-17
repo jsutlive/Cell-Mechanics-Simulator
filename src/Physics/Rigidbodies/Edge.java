@@ -68,6 +68,10 @@ public abstract class Edge implements IRigidbody, IColor
 
     }
 
+    /**
+     * Get the current length of the edge, rounded to three decimal places
+     * @return edge length to three decimal places
+     */
     public float getLength()
     {
         Vector2f a = nodes[0].getPosition();
