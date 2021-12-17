@@ -1,5 +1,6 @@
 package Model;
 
+import Engine.States.State;
 import Model.Organisms.SimpleFourCell;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
@@ -52,8 +53,19 @@ public class SimpleFourCellBoxTest
     void check_cell_area_in_simple_box() throws InstantiationException, IllegalAccessException {
         List<Cell> cells = Builder.getSimpleFourCellBox();
         for (Cell cell: cells){
-            assertEquals(50000, cell.getArea());
+            assertEquals(30000, cell.getArea());
         }
+    }
+
+    @Test
+    void check_resultant_force_equals_zero_at_time_1() throws InstantiationException, IllegalAccessException
+    {
+        List<Cell> cells = Builder.getSimpleFourCellBox();
+        for (Cell cell: cells){
+            cell.update();
+        }
+        assertEquals(0f, State.RESULTANT_FORCE.x);
+        assertEquals(0f, State.RESULTANT_FORCE.y);
     }
 
 }
