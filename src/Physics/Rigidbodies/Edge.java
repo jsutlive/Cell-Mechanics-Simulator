@@ -41,6 +41,11 @@ public abstract class Edge implements IRigidbody, IColor
         initialLength = getLength();
     }
 
+    /**
+     * Returns the positions of the nodes that make up the edge. Throws a null pointer exception if one
+     * or more nodes has a null value for its position.
+     * @return an array (2) of Vector2 (floating point) objects each containing position data.
+     */
     public Vector2f[] getPositions(){
         Vector2f[] positions = new Vector2f[2];
         try {
