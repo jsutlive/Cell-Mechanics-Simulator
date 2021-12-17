@@ -23,6 +23,7 @@ public class DrosophilaEmbryoTest {
         assertEquals(len1, len2);
     }*/
 
+
     private float GetApicalEdgeLengthNoRounding(Cell cell0) {
         for (Edge e : cell0.edges) {
             if (e instanceof ApicalEdge) {

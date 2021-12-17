@@ -103,17 +103,35 @@ public abstract class Edge implements IRigidbody, IColor
         this.color = color;
     }
 
+    /**
+     * Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 0).
+     * based on a constant "constant" and constriction ratio "ratio". After force calculation, a unit vector is used
+     * to obtain the x and y components of the edge to determine direction. The force is applied to the first node in
+     * the edge and -1 times the force is applied to the second node.
+     * @param constant constant to determine the stiffness of the spring
+     * @param ratio constant to determine the equilibrium point driving the force.
+     */
     public void constrict(float constant, float ratio)
     {
+        // Hooke's law calculation to get force magnitude
         float forceMag = constant * (this.getLength() - (ratio * this.initialLength));
+        // Find a unit vector showing x and y components of this edge
         Vector2f forceVector = new Vector2f(getXUnit(), getYUnit());
+        // Multiply magnitude * unit vector
         forceVector.mul(forceMag);
+
+        // Apply force to node 0
         nodes[0].AddForceVector(forceVector);
 
+        // Apply an equal and opposite force to node 1
         forceVector.mul(-1);
         nodes[1].AddForceVector(forceVector);
     }
 
+    /**
+     * Find the center of the edge as a floating point x,y vector2
+     * @return Vector2 (float) with x,y of the center
+     */
     public Vector2f getCenter(){
         Vector2f posA = getPositions()[0];
         Vector2f posB = getPositions()[1];
@@ -123,6 +141,11 @@ public abstract class Edge implements IRigidbody, IColor
         return new Vector2f(x,y);
     }
 
+    /**
+     * Check to see if a given node is one of the two nodes making up the edge
+     * @param n the node we wish to see is part of the edge
+     * @return true if n is part of the edge
+     */
     public boolean contains(Node n){
         for(Node node: nodes){
             if (node == n) return true;
