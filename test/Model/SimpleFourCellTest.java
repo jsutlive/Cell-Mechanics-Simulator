@@ -50,8 +50,8 @@ public class SimpleFourCellTest
         for(Cell cell: model.getAllCells()){
             cell.update();
         }
-        assertEquals(0f, Math.abs(State.RESULTANTFORCE.x));
-        assertEquals(0f, Math.abs(State.RESULTANTFORCE.y));
+        assertEquals(0f, Math.abs(State.RESULTANT_FORCE.x));
+        assertEquals(0f, Math.abs(State.RESULTANT_FORCE.y));
     }
 
 }

@@ -6,6 +6,8 @@ import Model.Components.CellRenderer;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.awt.*;
@@ -122,5 +124,15 @@ public class Cell extends MonoBehavior {
 
     protected void osmosis(){
         float currentArea = getArea();
+        if(currentArea < restingArea)
+        {
+            for (Edge edge: edges)
+            {
+                float forceMagnitude = 0.25f * (currentArea - restingArea);
+                Vector2f forceVector = CustomMath.normal(edge);
+                forceVector.mul(forceMagnitude);
+                edge.AddForceVector(forceVector);
+            }
+        }
     }
 }

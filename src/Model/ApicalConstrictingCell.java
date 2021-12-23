@@ -9,6 +9,11 @@ public class ApicalConstrictingCell extends Cell
         internalConstant = .1f;
         elasticConstant = .1f;
     }
+
+    /**
+     * update physics on Apical Constricting Cells
+     * overrides the update method as described in Cells
+     */
     @Override
     public void update() {
         for(Edge edge: edges)
@@ -24,7 +29,8 @@ public class ApicalConstrictingCell extends Cell
             {
                 edge.constrict(elasticConstant, elasticRatio);
                 //if(getRingLocation()%2 == 0)
-                edge.constrict(constant * (1 - getRingLocation()/40), ratio);
+                edge.constrict(constant, ratio);
+                //edge.constrict(constant * (1 - getRingLocation()/40), ratio);
             }
         }
         for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
