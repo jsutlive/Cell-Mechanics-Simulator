@@ -65,7 +65,7 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        for(Node node: organism.getAllNodes()) node.resetForce();
+        for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
         float maxRadius = 100f;
         float ljConstant = 3e-6f;

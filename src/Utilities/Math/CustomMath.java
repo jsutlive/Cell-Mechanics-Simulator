@@ -121,6 +121,11 @@ public class CustomMath {
         return normalFlipped(positions[0], positions[1]);
     }
 
+    /**
+     * Return inverse of a floating point value
+     * @param val a floating point number
+     * @return the inverse of this number
+     */
     public static float inv(float val){
         return -(1/val);
     }
@@ -137,10 +142,19 @@ public class CustomMath {
         return Vector2f.unit(unit);
     }
 
+    /**
+     * Return "flipped" normal, or the negative of the regular normal
+     * @param a
+     * @param b
+     * @return
+     */
     public static Vector2f normalFlipped(Vector2f a, Vector2f b){
         Vector2f unit = normal(a,b);
         unit.mul(-1);
-        return unit;
+        Vector2f flipped = new Vector2f();
+        flipped.x = unit.y;
+        flipped.y = unit.x;
+        return flipped;
     }
 
     /**

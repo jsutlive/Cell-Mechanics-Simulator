@@ -22,13 +22,19 @@ public abstract class State
     {
         state = _state;
     }
-    public static Vector2f RESULTANTFORCE = new Vector2f(0);
-    public static void addToResultantForce(Vector2f v){RESULTANTFORCE.add(v);}
+    public static Vector2f RESULTANT_FORCE = new Vector2f(0);
+    public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
 
     protected static List<MonoBehavior> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
+    /**
+     * Change state between running simulation and an editor state
+     * editor state not implemented
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
         RunState runState = (RunState)state;
         if(runState != null)
@@ -75,6 +81,12 @@ public abstract class State
         return mono;
     }
 
+    /**
+     * Look for a tagged object and return the first object with that tag
+     * @param tag
+     * @param <T>
+     * @return
+     */
     public static <T extends MonoBehavior<T>> MonoBehavior<T> findObjectWithTag(Tag tag)
     {
         for (MonoBehavior mono: allObjects) {
