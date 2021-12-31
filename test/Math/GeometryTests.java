@@ -57,10 +57,103 @@ public class GeometryTests {
     }
 
     @Test
+    void check_min_max_coordinates_of_cell()
+    {
+        Vector2f[] minMax = Geometry.getMinMaxBoundary(cell);
+
+        Vector2f min = minMax[0];
+        Vector2f max = minMax[1];
+        min.print();
+        max.print();
+        assertEquals(min.x, 0);
+        assertEquals(max.x, 2);
+        assertEquals(min.y, 0);
+        assertEquals(max.y, 2);
+    }
+
+    @Test
     void check_if_point_x1_y1_within_cell()
     {
         Node point = new Node(1,1.5f);
         assertTrue(Geometry.polygonContainsPoint(cell, point));
+    }
+
+    @Test
+    void check_if_two_lines_between_1_0_and_1_2_and_perpendicular_values_intersect(){
+        Vector2f p1 = new Vector2f(1,0);
+        Vector2f p2 = new Vector2f(1, 2);
+        Vector2f p3 = new Vector2f(0,1);
+        Vector2f p4 = new Vector2f(2,1);
+        assertTrue(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_two_lines_that_meet_at_a_point_intersect(){
+        Vector2f p1 = new Vector2f(0,0);
+        Vector2f p2 = new Vector2f(0, 2);
+        Vector2f p3 = new Vector2f(0,0);
+        Vector2f p4 = new Vector2f(2, 0);
+        assertTrue(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_two_nonperpendicular_lines_intersect(){
+        Vector2f p1 = new Vector2f(0,0);
+        Vector2f p2 = new Vector2f(2,2);
+        Vector2f p3 = new Vector2f(0,1);
+        Vector2f p4 = new Vector2f(2,1);
+        assertTrue(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_two_parallel_lines_do_not_intersect(){
+        Vector2f p1 = new Vector2f(0,0);
+        Vector2f p2 = new Vector2f(0,2);
+        Vector2f p3 = new Vector2f(2, 0);
+        Vector2f p4 = new Vector2f(2, 2);
+        assertFalse(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_line_to_infinity_intersects(){
+        Vector2f p1 = new Vector2f(0,2);
+        Vector2f p2 = new Vector2f(2, 2);
+        Vector2f p3 = new Vector2f(1, 1.5f);
+        Vector2f p4 = Geometry.APPROX_INF;
+        assertTrue(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_line_to_infinity_intersects_does_not_intersect(){
+        Vector2f p1 = new Vector2f(2,0);
+        Vector2f p2 = new Vector2f(0, 0);
+        Vector2f p3 = new Vector2f(1, 1.5f);
+        Vector2f p4 = Geometry.APPROX_INF;
+        assertFalse(Geometry.doEdgesIntersect(p1,p2,p3,p4));
+    }
+
+    @Test
+    void check_if_nearest_point_from_1_0_to_line_between_0_1_and_2_1_is_1_1(){
+        Vector2f p1 = new Vector2f(1, 0);
+        Vector2f p2 = new Vector2f(1, 2);
+
+        Edge e = new BasicEdge(new Node(p1), new Node(p2));
+        Vector2f n = new Vector2f(0,1);
+
+        Vector2f intersection = Geometry.getNearestPointOnLine(e, n);
+        assertEquals(intersection.x, 1);
+        assertEquals(intersection.y, 1);
+    }
+
+    @Test
+    void check_if_edge_closest_to_point_1_1o5_is_e2(){
+        Node test = new Node(new Vector2f(1, 1.5f));
+        Edge e = Geometry.getClosestEdgeToPoint(cell, test);
+        System.out.println(testEdges.get(0));
+        System.out.println(testEdges.get(1));
+        System.out.println(testEdges.get(2));
+        System.out.println(testEdges.get(3));
+        assertEquals(e, testEdges.get(0) );
     }
 
 

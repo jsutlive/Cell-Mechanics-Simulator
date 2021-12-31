@@ -9,6 +9,9 @@ import Physics.Rigidbodies.Node;
 
 import java.awt.*;
 
+/**
+ * Cell Renderer class handles all drawing functions for the cells.
+ */
 public class CellRenderer extends Component implements IRender, IColor
 {
     Cell cell;
@@ -44,6 +47,9 @@ public class CellRenderer extends Component implements IRender, IColor
         }
     }
 
+    /**
+     * Tells rendering system to draw components of cell.
+     */
     @Override
     public void render()
     {

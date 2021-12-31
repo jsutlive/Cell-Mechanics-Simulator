@@ -11,6 +11,7 @@ import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
@@ -20,9 +21,6 @@ import java.util.List;
 
 public class Model extends MonoBehavior
 {
-    //TODO: Add yolk conservation
-    //TODO: Add osmosis force
-    //TODO: Fix LJ-type forces
     PhysicsSystem physicsSystem;
     //IOrganism organism = new SimpleFourCellBox();
     IOrganism organism = new DrosophilaEmbryo();
@@ -73,11 +71,6 @@ public class Model extends MonoBehavior
         float currentYolkArea = Gauss.nShoelace(yolkNodes);
         if( currentYolkArea< yolkArea)
         {
-            /*for (int i = 0; i < yolkNodes.size(); i++)
-            {
-                AddSimpleHydrostaticForce(i, .55f, .05f);
-            }*/
-
             for(Cell cell: organism.getAllCells())
             {
                 for(Edge edge:cell.getEdges())
@@ -95,11 +88,6 @@ public class Model extends MonoBehavior
         }
         else
         {
-            /*for (int i = 0; i < yolkNodes.size(); i++)
-            {
-                AddSimpleHydrostaticForce(i, -.55f, -.05f);
-            }*/
-
             for(Cell cell: organism.getAllCells())
             {
                 for(Edge edge:cell.getEdges())
@@ -120,43 +108,62 @@ public class Model extends MonoBehavior
                 Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
             }
 
-            /*for(Node t: organism.getAllNodes())
-            {
-
-                if(node!=t && Boundary.ContainsNode(t, node.getPosition(), maxRadius))
-                {
-                    addLJForceBasicNodeSystem(ljConstant, node, t);
-                }
-            }*/
         }
+        int cellCount = 0;
         for(Cell cell: organism.getAllCells())
         {
+            cellCount ++;
             cell.update();
-
-
-            for (Edge edge: cell.getEdges())
-            {
-                for(Node n: organism.getAllNodes()){
-                    if(edge.contains(n)) continue;
-                    float dist = CustomMath.pDistanceSq(n, edge);
-                    if(Float.isNaN(dist)) continue;
-                    if(dist < maxRadius){
-                       Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
-                       Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
-                        forceVector.mul(ljConstant);
-                        Edge temp;
-                        Node t = new Node(pointOnEdge);
-                        temp = new BasicEdge(n, t);
-                        float forceMagnitude = Math.min(4f, ljConstant * (1f/ (float)Math.pow(temp.getLength(), 3)));
-                        forceVector.mul(forceMagnitude);
-                       if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
-                           n.AddForceVector(forceVector);
-                       }
-                    }
-                }
-                edge.hasActed = false;
-            }
+            //CalculateLennardJonesForces(maxRadius, ljConstant, cell);
             cell.move();
+            if(cellCount%2!=0){
+                checkCellCellCollision(cell);
+            }
+        }
+    }
+
+    private void checkCellCellCollision(Cell cell){
+        Vector2f[] bound = Geometry.getMinMaxBoundary(cell);
+        float minX = bound[0].x;
+        float minY = bound[0].y;
+        float maxX = bound[1].x;
+        float maxY = bound[1].y;
+        for(Node node: organism.getAllNodes()){
+            if(cell.getNodes().contains(node))continue;
+            Vector2f pos = node.getPosition();
+            if (pos.x > minX && pos.y > minY && pos.x < maxX && pos.y < maxY)
+            {
+                if(Geometry.polygonContainsPoint(cell, node)){
+                    Edge e = Geometry.getClosestEdgeToPoint(cell, node);
+                    Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
+                    node.MoveTo(adjustedPosition);
+                }
+            }
+        }
+    }
+
+    private void CalculateLennardJonesForces(float maxRadius, float ljConstant, Cell cell) {
+        for (Edge edge: cell.getEdges())
+        {
+            for(Node n: organism.getAllNodes()){
+                if(edge.contains(n)) continue;
+                float dist = CustomMath.pDistanceSq(n, edge);
+                if(Float.isNaN(dist)) continue;
+                if(dist < maxRadius){
+                   Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
+                   Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+                    forceVector.mul(ljConstant);
+                    Edge temp;
+                    Node t = new Node(pointOnEdge);
+                    temp = new BasicEdge(n, t);
+                    float forceMagnitude = Math.min(4f, ljConstant * (1f/ (float)Math.pow(temp.getLength(), 3)));
+                    forceVector.mul(forceMagnitude);
+                   if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
+                       n.AddForceVector(forceVector);
+                   }
+                }
+            }
+            edge.hasActed = false;
         }
     }
 

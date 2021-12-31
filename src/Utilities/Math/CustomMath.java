@@ -205,4 +205,11 @@ public class CustomMath {
         return new Vector2f(x, y);
     }
 
+    public static float clamp(float val, float min, float max)
+    {
+        if(val > max) val = max;
+        if(val < min) val = min;
+        return val;
+    }
+
 }
