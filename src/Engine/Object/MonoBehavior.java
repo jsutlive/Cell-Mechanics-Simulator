@@ -19,6 +19,10 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
       return mono;
    }
 
+   /**
+    * Each object has a unique ID, which we can access if necessary. Currently not used for anything.
+    * @return
+    */
    public int getStateID() {return uniqueID;}
    public static int getGlobalID(){return _ID_COUNTER;}
    public static void setGlobalID(MonoBehavior monoBehavior)
