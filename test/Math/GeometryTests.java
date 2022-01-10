@@ -19,6 +19,7 @@ public class GeometryTests {
     static List<Node> testNodes;
     static List<Edge> testEdges;
     static Cell cell;
+
     @BeforeAll
     static void set_test_variables()
     {
@@ -150,10 +151,11 @@ public class GeometryTests {
         Node test = new Node(new Vector2f(1, 1.5f));
         Edge e = Geometry.getClosestEdgeToPoint(cell, test);
         System.out.println(testEdges.get(0));
-        System.out.println(testEdges.get(1));
+        System.out.println(testEdges.get(1)); // TOP EDGE
         System.out.println(testEdges.get(2));
         System.out.println(testEdges.get(3));
-        assertEquals(e, testEdges.get(0) );
+
+        assertEquals(e, testEdges.get(1) );
     }
 
 
