@@ -109,16 +109,12 @@ public class Model extends MonoBehavior
             }
 
         }
-        int cellCount = 0;
         for(Cell cell: organism.getAllCells())
         {
-            cellCount ++;
             cell.update();
             //CalculateLennardJonesForces(maxRadius, ljConstant, cell);
             cell.move();
-            if(cellCount%2!=0){
-                checkCellCellCollision(cell);
-            }
+            checkCellCellCollision(cell);
         }
     }
 
@@ -128,15 +124,21 @@ public class Model extends MonoBehavior
         float minY = bound[0].y;
         float maxX = bound[1].x;
         float maxY = bound[1].y;
+
         for(Node node: organism.getAllNodes()){
             if(cell.getNodes().contains(node))continue;
             Vector2f pos = node.getPosition();
+
             if (pos.x > minX && pos.y > minY && pos.x < maxX && pos.y < maxY)
             {
+
                 if(Geometry.polygonContainsPoint(cell, node)){
                     Edge e = Geometry.getClosestEdgeToPoint(cell, node);
-                    Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
-                    node.MoveTo(adjustedPosition);
+
+                    if(!e.isNull) {
+                        Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
+                        node.MoveTo(adjustedPosition);
+                    }
                 }
             }
         }

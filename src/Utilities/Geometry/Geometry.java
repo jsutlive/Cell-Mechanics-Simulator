@@ -89,13 +89,13 @@ public class Geometry {
     }
 
     public static Vector2f getNearestPointOnLine(Edge e, Vector2f n){
-        Vector2f p1 = e.getPositions()[0];
-        Vector2f p2 = e.getPositions()[1];
+        Vector2f p1 = e.getPositions()[0].copy();
+        Vector2f p2 = e.getPositions()[1].copy();
 
         Vector2f unit = Vector2f.unit(p1, p2);
         float magnitude = Vector2f.dist(p1,p2);
 
-        Vector2f v = n;
+        Vector2f v = n.copy();
         v.sub(p1);
         float d = v.dot(unit);
         CustomMath.clamp(d, 0, magnitude);
@@ -111,6 +111,7 @@ public class Geometry {
     {
         float shortestDistance = Float.POSITIVE_INFINITY;
         Edge currentEdge = new BasicEdge();
+
         for(Edge edge: cell.getEdges()){
             Vector2f start = n.getPosition();
             Vector2f end = getNearestPointOnLine(edge, start);

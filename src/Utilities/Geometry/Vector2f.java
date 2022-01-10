@@ -46,6 +46,14 @@ public class Vector2f
         y *= f;
     }
 
+    public Vector2f copy()
+    {
+        Vector2f c = new Vector2f();
+        c.x = this.x;
+        c.y = this.y;
+        return c;
+    }
+
     public float cross(Vector2f vec)
     {
         return (x * vec.y) - (vec.x * y);

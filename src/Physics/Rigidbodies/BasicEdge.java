@@ -4,6 +4,7 @@ public class BasicEdge extends Edge{
     public BasicEdge(Node a, Node b)
     {
         MakeNewEdge(a, b);
+        isNull = false;
     }
     public BasicEdge(){}
 }

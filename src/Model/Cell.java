@@ -22,13 +22,13 @@ public class Cell extends MonoBehavior {
     private int ringLocation;
     private float restingArea;
 
-    float constant = .45f;
+    float constant = .24f;
     float ratio = 0.00000001f;
 
-    float elasticConstant = .25f;
+    float elasticConstant = .10f;
     float elasticRatio = 1f;
 
-    float internalConstant = .5f;
+    float internalConstant = .08f;
 
     public List<Edge> getEdges(){
         return edges;
