@@ -38,6 +38,7 @@ public class Model extends MonoBehavior
     public void awake() throws InstantiationException, IllegalAccessException {
         physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
         organism.generateOrganism();
+        System.out.println(organism.getAllCells().size() + "<<<");
         for(Cell cell: organism.getAllCells())
         {
             for(Edge edge: cell.getEdges()){
