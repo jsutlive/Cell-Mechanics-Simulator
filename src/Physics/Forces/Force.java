@@ -31,7 +31,7 @@ public class Force
         nodes[1].AddForceVector(forceVector);
     }
 
-    private static Vector2f calculateSpringForce(Edge edge, float constant, float ratio) {
+    public static Vector2f calculateSpringForce(Edge edge, float constant, float ratio) {
         // Hooke's law calculation to get force magnitude
         float forceMag = constant * (edge.getLength() - (ratio * edge.getInitialLength()));
         // Find a unit vector showing x and y components of this edge
