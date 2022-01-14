@@ -3,6 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.CellRenderer;
+import Physics.Forces.Force;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -89,13 +90,13 @@ public class Cell extends MonoBehavior {
         // embryo and how it constricts during ventral furrow formation.
         for(Edge edge: edges) {
             if(edge instanceof BasalEdge){
-                edge.constrict(elasticConstant, elasticRatio);
+                Force.elastic(edge, elasticConstant);
             }
             else {
-                edge.constrict(edge.getElasticConstant(), elasticRatio);
+                Force.elastic(edge, edge.getElasticConstant());
             }
         }
-        for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
+        for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
 
     }
 

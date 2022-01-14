@@ -3,6 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.EdgeRenderer;
+import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
 
 import java.awt.*;
@@ -51,29 +52,29 @@ public class EdgeMono extends MonoBehavior {
     public void update() {
         if(edge instanceof BasicEdge)
         {
-            edge.constrict(.25f, 1f);
+            Force.elastic(edge, .25f);
 
         }
         else if(edge instanceof ApicalEdge) {
             if((cellID > 71 || cellID <= 8)) {
                 edge.setColor(Color.WHITE);
                 if(cellID > 0){
-                    edge.constrict(-.4f, 0.001f);
+                    Force.constrict(edge, -.4f, 0.001f);
                 }
-                else edge.constrict(.4f, .001f);
+                else Force.constrict(edge, .4f, .001f);
                 System.out.println(edge.getNodes()[0].getResultantForce().x + "::" + edge.getNodes()[0].getResultantForce().y);
 
             }
-            edge.constrict(.25f, 1f);
+            Force.elastic(edge,.25f);
         }
         else if (edge instanceof BasalEdge){
             if((cellID > 0 || cellID <= 1)) {
-                edge.constrict(.55f, 1f);
+                Force.elastic(edge, .55f);
             }
-            edge.constrict(.35f, 1f);
+            Force.elastic(edge, .35f);
         }
         else {
-            edge.constrict(.35f, 1f);
+            Force.elastic(edge, .35f);
         }
         for (Node node: getNodes()) node.Move();
     }

@@ -42,6 +42,13 @@ public abstract class Edge implements IRigidbody, IColor
         initialLength = getLength();
     }
 
+    public void flip()
+    {
+        Node a = nodes[0];
+        nodes[0] = nodes[1];
+        nodes[1] = a;
+    }
+
     /**
      * Returns the positions of the nodes that make up the edge. Throws a null pointer exception if one
      * or more nodes has a null value for its position.
@@ -62,6 +69,10 @@ public abstract class Edge implements IRigidbody, IColor
 
     public Node[] getNodes(){
         return nodes;
+    }
+
+    public float getInitialLength(){
+        return initialLength;
     }
 
     @Override
@@ -113,30 +124,7 @@ public abstract class Edge implements IRigidbody, IColor
         this.color = color;
     }
 
-    /**
-     * Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 0).
-     * based on a constant "constant" and constriction ratio "ratio". After force calculation, a unit vector is used
-     * to obtain the x and y components of the edge to determine direction. The force is applied to the first node in
-     * the edge and -1 times the force is applied to the second node.
-     * @param constant constant to determine the stiffness of the spring
-     * @param ratio constant to determine the equilibrium point driving the force.
-     */
-    public void constrict(float constant, float ratio)
-    {
-        // Hooke's law calculation to get force magnitude
-        float forceMag = constant * (this.getLength() - (ratio * this.initialLength));
-        // Find a unit vector showing x and y components of this edge
-        Vector2f forceVector = new Vector2f(getXUnit(), getYUnit());
-        // Multiply magnitude * unit vector
-        forceVector.mul(forceMag);
 
-        // Apply force to node 0
-        nodes[0].AddForceVector(forceVector);
-
-        // Apply an equal and opposite force to node 1
-        forceVector.mul(-1);
-        nodes[1].AddForceVector(forceVector);
-    }
 
     /**
      * Find the center of the edge as a floating point x,y vector2

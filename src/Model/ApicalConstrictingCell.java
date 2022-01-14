@@ -1,5 +1,6 @@
 package Model;
 
+import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
 
 public class ApicalConstrictingCell extends Cell
@@ -19,21 +20,26 @@ public class ApicalConstrictingCell extends Cell
         for(Edge edge: edges)
         {
             if(edge instanceof LateralEdge) {
-                edge.constrict(.35f, elasticRatio);
+                Force.elastic(edge, .35f);
             }
             else if (edge instanceof BasalEdge)
             {
-                edge.constrict(.70f, elasticRatio);
+                Force.elastic(edge, .70f);
             }
             else if(edge instanceof ApicalEdge)
             {
-                edge.constrict(elasticConstant, elasticRatio);
-                //if(getRingLocation()%2 == 0)
-                edge.constrict(constant, ratio);
-                //edge.constrict(constant * (1 - getRingLocation()/40), ratio);
+                Force.elastic(edge, elasticConstant);
+                Force.constrict(edge, constant, ratio);
             }
         }
-        for(Edge edge: internalEdges) edge.constrict(internalConstant, elasticRatio);
+        for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
 
+    }
+
+    public void constrictApicalEdge()
+    {
+        for(Edge edge:edges){
+            if(edge instanceof ApicalEdge) Force.constrict(edge, constant, ratio);
+        }
     }
 }

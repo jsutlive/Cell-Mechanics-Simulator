@@ -2,6 +2,7 @@ package Model;
 
 import Engine.States.State;
 import Model.Organisms.SimpleFourCell;
+import Physics.Forces.Force;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -35,13 +36,13 @@ public class SimpleFourCellBoxTest
         for(Cell cell: cells)
         {
             for(Edge edge: cell.edges) {
-                edge.constrict(cell.elasticConstant, cell.elasticRatio);
+                Force.elastic(edge, cell.elasticConstant);
                 if(edge instanceof ApicalEdge)
                 {
-                    edge.constrict(cell.constant, cell.ratio);
+                    Force.constrict(edge, cell.constant, cell.ratio);
                 }
             }
-            for(Edge edge: cell.internalEdges) edge.constrict(cell.internalConstant, cell.elasticRatio);
+            for(Edge edge: cell.internalEdges) Force.elastic(edge, cell.internalConstant);
         }
 
         assertEquals(CustomMath.abs(nodeA.getResultantForce().x), CustomMath.abs(nodeB.getResultantForce().x));
