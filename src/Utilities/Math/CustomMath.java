@@ -8,15 +8,16 @@ public class CustomMath {
     /**
      * Find unit vector describing the angle of a given point from center given which segment it is and the distance
      * from the center
-     * @param index current segment
+     * @param currentSegment current segment
      * @param circleSegments total segments in the circle
-     * @param lateralResolution how many vertices make up the lateral membrane of each cell
      * @return an x,y vector2 (floating point) describing the unit vector.
      */
-    public static Vector2f GetUnitVectorOnCircle(int index, float circleSegments, float lateralResolution)
+    public static Vector2f GetUnitVectorOnCircle(int currentSegment, float circleSegments)
     {
-        float x = (float) Math.sin((float)(index*8.0f*Math.PI/circleSegments/lateralResolution));
-        float y = (float) Math.cos((float)(index*8.0f*Math.PI/circleSegments/lateralResolution));
+        float theta = (currentSegment/circleSegments) * 360f;
+        float thetaRadians = (float)Math.toRadians(theta);
+        float x = (float)Math.sin(thetaRadians);
+        float y = (float)Math.cos(thetaRadians);
         return new Vector2f(x, y);
     }
 

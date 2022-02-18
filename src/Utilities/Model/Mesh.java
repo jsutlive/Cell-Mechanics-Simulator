@@ -23,7 +23,7 @@ public class Mesh {
         List<Node> zeroNodes = new ArrayList<>();
 
         for(int i = 0; i < totalCells; i++){
-            Vector2f unitVector = CustomMath.GetUnitVectorOnCircle(i, totalCells, 4);
+            Vector2f unitVector = CustomMath.GetUnitVectorOnCircle(i, totalCells);
             float radiusDifference = (innerRadius - outerRadius);
             Node a = new Node(CustomMath.TransformToWorldSpace(unitVector, outerRadius + 0, offset));
             Node b = new Node(CustomMath.TransformToWorldSpace(unitVector, outerRadius + radiusDifference * .25f, offset));

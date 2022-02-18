@@ -53,6 +53,15 @@ public class CustomMathTests {
     }
 
     @Test
+    void calculate_unit_vector_30_degrees(){
+        int totalSegments = 12;
+        int currentSegment = 1;
+        Vector2f v = CustomMath.GetUnitVectorOnCircle(currentSegment, totalSegments);
+        assertEquals(.5f, v.x);
+        assertEquals(.8660254f, v.y);
+    }
+
+    @Test
     void calculate_inverse()
     {
         assertEquals(.2f, CustomMath.inv(-5f));
