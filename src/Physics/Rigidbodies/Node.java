@@ -22,6 +22,10 @@ public class Node implements IRigidbody, IColor {
         return position;
     }
 
+    private Vector2f setPosition(Vector2f pos){
+        position = pos;
+    }
+
     public Vector2f getResultantForce()
     {
         return resultantForce;
@@ -55,7 +59,7 @@ public class Node implements IRigidbody, IColor {
      */
     @Override
     public void MoveTo(Vector2f newPosition) {
-        position = newPosition;
+        setPosition(newPosition);
     }
 
     /**
@@ -73,6 +77,19 @@ public class Node implements IRigidbody, IColor {
      */
     public void resetResultantForce(){ resultantForce = new Vector2f(0f);}
 
+    public Node clone(){
+        return new Node(this.getPosition());
+    }
+
+    public void mirrorAcrossXAxis(){
+        Vector2f pos = getPosition();
+        setPosition(new Vector2f(-pos.x, pos.y));
+    }
+
+    public void mirrorAcrossYAxis(){
+        Vector2f pos = getPosition();
+        setPosition(new Vector2f(pos.x, -pos.y));
+    }
     @Override
     public Color getColor() {
         return color;

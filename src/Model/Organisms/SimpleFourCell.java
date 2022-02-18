@@ -60,7 +60,7 @@ public class SimpleFourCell implements IOrganism{
         //make lateral edges
         for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle, lateralResolution);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
                 float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;

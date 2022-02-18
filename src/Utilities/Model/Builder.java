@@ -8,7 +8,6 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
-import com.sun.deploy.net.MessageHeader;
 
 import java.util.*;
 
@@ -81,7 +80,7 @@ public class Builder {
         //make lateral edges
         for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle, lateralResolution);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
                 float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;
@@ -141,7 +140,7 @@ public class Builder {
         //make lateral edges
         for (int i = 0; i < (numberOfSegmentsInTotalCircle / 2); i++) {
             ArrayList<Edge> edges = new ArrayList<>();
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle, lateralResolution);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
                 float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;
@@ -169,7 +168,7 @@ public class Builder {
         }
         for (int i = 79; i > numberOfSegmentsInTotalCircle / 2; i--) {
             ArrayList<Edge> edges = new ArrayList<>();
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle, lateralResolution);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
                 float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;
@@ -200,18 +199,58 @@ public class Builder {
         return allCells;
     }
 
+    public static List<Cell> createSingleCellWithMirror() throws InstantiationException, IllegalAccessException {
+        List<Cell> cells = new ArrayList<>();
+        Cell a  = (Cell)State.create(Cell.class);
+        cells.add(a);
 
-    public static Cell createCell(List<Edge> sideA, List<Edge> sideB, Class cellClass) throws InstantiationException, IllegalAccessException {
+    }
+
+    public static List<Cell> mirrorCellList(List<Cell> cells, String axis) throws InstantiationException, IllegalAccessException {
+        List<Cell> mirroredCells = new ArrayList<>();
+                for(Cell cell: cells)
+                {
+                    List<Node> mirroredNodes = new ArrayList<>();
+
+                    for(Node node: cell.getNodes())
+                    {
+                        Node n = node.clone();
+                        switch (axis) {
+                        case "xAxis":
+                            n.mirrorAcrossXAxis();
+                            break;
+                        case "yAxis":
+                            n.mirrorAcrossYAxis();
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Axis name input must be 'xAxis' or 'yAxis'");
+                    }
+                        mirroredNodes.add(n);
+                    }
+
+                    Cell c;
+                    if(cell instanceof ApicalConstrictingCell) {
+                        c = (Cell) State.create(ApicalConstrictingCell.class);
+                    }
+                    else {
+                        c = (Cell) State.create(Cell.class);
+                    }
+                    c.setNodes(mirroredNodes);
+                    mirroredCells.add(c);
+                }
+        return mirroredCells;
+    }
+
+    public static Cell createCell(List<Edge> sideA, List<Edge> sideB, Class cellClass)
+            throws InstantiationException, IllegalAccessException {
         // Get vertices from edge segments, which make up the lateral edges
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
-        sideB = reverse(sideB);
         nodes.addAll(addVerticesFromEdgeList(sideB));
         nodes.addAll(addVerticesFromEdgeList(sideA));
 
         edges.addAll(sideA);
-
-        edges.addAll(reverse(sideB));
+        edges.addAll(sideB);
 
         // Create internal lattice:
         //  0   0
@@ -233,27 +272,28 @@ public class Builder {
 
             internalEdges.add(new BasicEdge(a,d));
             internalEdges.add(new BasicEdge(b,c));
-            if(i< sideA.size() - 1)
+
+            if(i>0)
             {
                 internalEdges.add(new BasicEdge(b,d));
             }
         }
 
         // Create the apical edges of the cell
-        Node apicalA = sideA.get(0).getNodes()[0];
-        Node apicalB = sideB.get(0).getNodes()[0];
+        Node apicalA = sideA.get(0).getNodes()[1];
+        Node apicalB = sideB.get(0).getNodes()[1];
         Edge apicalEdge = new ApicalEdge(apicalA, apicalB);
         edges.add(apicalEdge);
 
         // Create the basal edges of the cell
-        int n = 4;
-        Node basalB = sideA.get(0).getNodes()[1];
-        Node basalA = sideB.get(0).getNodes()[1];
+        int n = sideA.size();
+        Node basalB = sideA.get(n-1).getNodes()[0];
+        Node basalA = sideB.get(n-1).getNodes()[0];
         Edge basalEdge = new BasalEdge(basalA, basalB);
         edges.add(basalEdge);
 
         // compile and create the cell object
-        Cell cell = (Cell)State.create(cellClass);
+        Cell cell = (Cell) State.create(cellClass);
         cell.setNodes(nodes);
         cell.setEdges(edges);
         cell.setInternalEdges(internalEdges);

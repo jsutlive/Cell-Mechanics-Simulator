@@ -39,7 +39,7 @@ public class RunState extends State
     @Override
     public void Tick()
     {
-        model.update();
+        //model.update();
         if(frameCount < Time.fps)
         {
             //frameCount++;

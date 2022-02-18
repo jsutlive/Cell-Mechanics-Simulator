@@ -7,6 +7,7 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
+import Utilities.Model.Builder;
 import Utilities.Model.Mesh;
 
 import java.util.ArrayList;
@@ -53,12 +54,12 @@ public class DrosophilaEmbryo implements  IOrganism {
         //make lateral edges
         for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle, lateralResolution);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             for (int j = 0; j <= lateralResolution; j++) {
-                float nodeRadius = outerRadius + (innerRadius - outerRadius) / lateralResolution * j;
+                float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
-                position = CustomMath.TransformToWorldSpace(unitVector, nodeRadius, boundingBox.asFloat());
+                position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
                 Node currentNode = new Node(position);
                 if (j >= 1) {
                     edges.add(new LateralEdge(currentNode, lastNode));
@@ -70,13 +71,13 @@ public class DrosophilaEmbryo implements  IOrganism {
             if (i > 0) {
                 Cell newCell;
                 if (i >=40) {
-                    if(i>=71) newCell = createCell(oldEdges, edges, ApicalConstrictingCell.class);
-                    else newCell = createCell(oldEdges, edges, Cell.class);
+                    if(i>=71) newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                    else newCell = Builder.createCell(oldEdges, edges, Cell.class);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {
-                    if(i<=10)newCell = createCell(oldEdges, edges, ApicalConstrictingCell.class);
-                    else newCell = createCell(oldEdges, edges, Cell.class);
+                    if(i<=10)newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                    else newCell = Builder.createCell(oldEdges, edges, Cell.class);
                     newCell.setRingLocation(i);
                 }
                 allCells.add(newCell);
@@ -88,81 +89,16 @@ public class DrosophilaEmbryo implements  IOrganism {
             oldEdges = edges;
         }
 
-        Cell newCell = createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
+        Cell newCell = Builder.createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
         newCell.setRingLocation(1);
         allCells.add(newCell);
 
     }
 
-    private Cell createCell(ArrayList<Edge> sideA, ArrayList<Edge> sideB, Class cellType) throws InstantiationException, IllegalAccessException {
-        // Get vertices from edge segments, which make up the lateral edges
-        List<Node> nodes = new ArrayList<>();
-        List<Edge> edges = new ArrayList<>();
-        nodes.addAll(addVerticesFromEdgeList(sideB));
-        nodes.addAll(addVerticesFromEdgeList(sideA));
-
-        edges.addAll(sideA);
-        edges.addAll(sideB);
-
-        // Create internal lattice:
-        //  0   0
-        //  1   1
-        //  2   2
-        //  3   3
-        //  4   4
-        Edge edgeA;
-        Edge edgeB;
-        List<Edge> internalEdges = new ArrayList<>();
-        for(int i = 0; i < sideA.size(); i++)
-        {
-            edgeA = sideA.get(i);
-            edgeB = sideB.get(i);
-            Node a = edgeA.getNodes()[0];
-            Node b = edgeA.getNodes()[1];
-            Node c = edgeB.getNodes()[0];
-            Node d = edgeB.getNodes()[1];
-
-            internalEdges.add(new BasicEdge(a,d));
-            internalEdges.add(new BasicEdge(b,c));
-
-            if(i>0)
-            {
-                internalEdges.add(new BasicEdge(b,d));
-            }
-        }
-
-        // Create the apical edges of the cell
-        Node apicalA = sideA.get(0).getNodes()[1];
-        Node apicalB = sideB.get(0).getNodes()[1];
-        Edge apicalEdge = new ApicalEdge(apicalA, apicalB);
-        edges.add(apicalEdge);
-
-        // Create the basal edges of the cell
-        int n = lateralResolution;
-        Node basalB = sideA.get(n-1).getNodes()[0];
-        Node basalA = sideB.get(n-1).getNodes()[0];
-        Edge basalEdge = new BasalEdge(basalA, basalB);
-        edges.add(basalEdge);
-
-        // compile and create the cell object
-        Cell cell = (Cell) State.create(cellType);
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
-        State.setFlagToRender(cell);
-        cell.setColor(Renderer.defaultColor);
-        return cell;
-    }
-
-    private HashSet<Node> addVerticesFromEdgeList(ArrayList<Edge> edgeList) {
-        HashSet<Node> vertices = new HashSet<>();
-        for (Edge edge: edgeList)
-        {
-            Node[] vtxArray = edge.getNodes();
-            vertices.add(vtxArray[0]);
-            vertices.add(vtxArray[1]);
-        }
-        return vertices;
+    private float getRadiusToNode(int j) {
+        float radiusStep = (innerRadius - outerRadius) / lateralResolution;
+        float radiusToNode = outerRadius +  radiusStep * j;
+        return radiusToNode;
     }
 
     @Override
