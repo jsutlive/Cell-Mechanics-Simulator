@@ -1,5 +1,7 @@
 package Physics.Rigidbodies;
 
+import Engine.Renderer;
+import Engine.Simulation;
 import Engine.States.State;
 import GUI.IColor;
 import Utilities.Geometry.Boundary;
@@ -22,7 +24,7 @@ public class Node implements IRigidbody, IColor {
         return position;
     }
 
-    private Vector2f setPosition(Vector2f pos){
+    private void setPosition(Vector2f pos){
         position = pos;
     }
 
@@ -81,14 +83,16 @@ public class Node implements IRigidbody, IColor {
         return new Node(this.getPosition());
     }
 
-    public void mirrorAcrossXAxis(){
+    public void mirrorAcrossYAxis(){
+        int xOffset = Simulation.bounds.x;
         Vector2f pos = getPosition();
-        setPosition(new Vector2f(-pos.x, pos.y));
+        setPosition(new Vector2f(-pos.x + xOffset, pos.y));
     }
 
-    public void mirrorAcrossYAxis(){
+    public void mirrorAcrossXAxis(){
+        int yOffset = Simulation.bounds.y;
         Vector2f pos = getPosition();
-        setPosition(new Vector2f(pos.x, -pos.y));
+        setPosition(new Vector2f(pos.x, -pos.y + yOffset));
     }
     @Override
     public Color getColor() {

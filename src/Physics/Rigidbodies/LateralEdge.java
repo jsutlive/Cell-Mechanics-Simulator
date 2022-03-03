@@ -17,4 +17,9 @@ public class LateralEdge extends Edge{
         isNull = false;
 
     }
+
+    @Override
+    public Edge clone(){
+        return new LateralEdge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
+    }
 }

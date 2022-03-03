@@ -7,4 +7,9 @@ public class BasicEdge extends Edge{
         isNull = false;
     }
     public BasicEdge(){}
+
+    @Override
+    public Edge clone(){
+        return new BasicEdge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
+    }
 }
