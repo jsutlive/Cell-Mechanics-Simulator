@@ -8,4 +8,9 @@ public class BasalEdge extends Edge{
         isNull = false;
 
     }
+
+    @Override
+    public Edge clone(){
+        return new BasalEdge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
+    }
 }

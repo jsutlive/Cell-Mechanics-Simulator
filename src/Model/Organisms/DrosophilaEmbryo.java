@@ -37,7 +37,6 @@ public class DrosophilaEmbryo implements  IOrganism {
     @Override
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
-        //allCells = Mesh.circle(80, innerRadius, outerRadius, boundingBox.asFloat());
         for(Cell cell: allCells)
         {
             for(Node node: cell.getNodes()){
@@ -52,7 +51,8 @@ public class DrosophilaEmbryo implements  IOrganism {
         ArrayList<Edge> zeroEdge = new ArrayList<>();
 
         //make lateral edges
-        for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
+        //for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
+        for (int i = 0; i < 41; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
@@ -70,14 +70,21 @@ public class DrosophilaEmbryo implements  IOrganism {
 
             if (i > 0) {
                 Cell newCell;
+                Cell mirroredCell;
                 if (i >=40) {
                     if(i>=71) newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
                     else newCell = Builder.createCell(oldEdges, edges, Cell.class);
                     newCell.setRingLocation(80 - (i - 1));
 
                 } else {
-                    if(i<=10)newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
-                    else newCell = Builder.createCell(oldEdges, edges, Cell.class);
+                    if(i<=10)
+                    {
+                        newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                    }
+                    else
+                    {
+                        newCell = Builder.createCell(oldEdges, edges, Cell.class);
+                    }
                     newCell.setRingLocation(i);
                 }
                 allCells.add(newCell);
@@ -89,9 +96,13 @@ public class DrosophilaEmbryo implements  IOrganism {
             oldEdges = edges;
         }
 
-        Cell newCell = Builder.createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
-        newCell.setRingLocation(1);
-        allCells.add(newCell);
+        //Cell newCell = Builder.createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
+        //newCell.setRingLocation(1);
+        //allCells.add(newCell);
+        List<Cell> mirrored = Builder.mirrorCellList(allCells, "yAxis");
+        System.out.println("MIRRORED CELLS SIZE: " + mirrored.size());
+        allCells.clear();
+        allCells.addAll(mirrored);
 
     }
 

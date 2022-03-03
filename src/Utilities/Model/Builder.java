@@ -199,46 +199,87 @@ public class Builder {
         return allCells;
     }
 
-    public static List<Cell> createSingleCellWithMirror() throws InstantiationException, IllegalAccessException {
+    public static List<Cell> createSingleCellWithMirror(List<Node> nodes, List<Edge> edges) throws InstantiationException, IllegalAccessException {
         List<Cell> cells = new ArrayList<>();
         Cell a  = (Cell)State.create(Cell.class);
+        a.setNodes(nodes);
+        a.setEdges(edges);
         cells.add(a);
-
+        List<Cell> mirroredCells = mirrorCellList(cells, "yAxis");
+        cells.addAll(mirroredCells);
+        return cells;
     }
 
     public static List<Cell> mirrorCellList(List<Cell> cells, String axis) throws InstantiationException, IllegalAccessException {
         List<Cell> mirroredCells = new ArrayList<>();
                 for(Cell cell: cells)
                 {
-                    List<Node> mirroredNodes = new ArrayList<>();
-
-                    for(Node node: cell.getNodes())
-                    {
-                        Node n = node.clone();
-                        switch (axis) {
-                        case "xAxis":
-                            n.mirrorAcrossXAxis();
-                            break;
-                        case "yAxis":
-                            n.mirrorAcrossYAxis();
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Axis name input must be 'xAxis' or 'yAxis'");
-                    }
-                        mirroredNodes.add(n);
-                    }
-
-                    Cell c;
-                    if(cell instanceof ApicalConstrictingCell) {
-                        c = (Cell) State.create(ApicalConstrictingCell.class);
-                    }
-                    else {
-                        c = (Cell) State.create(Cell.class);
-                    }
-                    c.setNodes(mirroredNodes);
+                    Cell c = mirrorCell(axis, cell);
                     mirroredCells.add(c);
+
                 }
         return mirroredCells;
+    }
+
+    private static Cell mirrorCell(String axis, Cell cell) throws InstantiationException, IllegalAccessException {
+        List<Node> mirroredNodes = new ArrayList<>();
+        List<Edge> mirroredEdges = new ArrayList<>();
+
+        for(Edge edge: cell.getEdges())
+        {
+            Edge e = edge.clone();
+            switch (axis) {
+            case "xAxis":
+                e.mirrorAcrossXAxis();
+                break;
+            case "yAxis":
+                e.mirrorAcrossYAxis();
+                break;
+            default:
+                throw new IllegalArgumentException("Axis name input must be 'xAxis' or 'yAxis'");
+        }
+        mirroredEdges.add(e);
+        for (Edge edgeTest: mirroredEdges){
+            Node[] testNodes = edgeTest.getNodes();
+            for(int i = 0; i < testNodes.length; i++){
+                Node[] reset = e.getNodes();
+                if( testNodes[0].getPosition().equals(e.getNodes()[0].getPosition()) ){
+                    reset[0] = testNodes[0];
+                }
+                if( testNodes[1].getPosition().equals(e.getNodes()[0].getPosition()) ){
+                    reset[0] = testNodes[1];
+                }
+                if( testNodes[0].getPosition().equals(e.getNodes()[1].getPosition()) ){
+                    reset[1] = testNodes[0];
+                }
+                if( testNodes[1].getPosition().equals(e.getNodes()[1].getPosition()) ){
+                    reset[1] = testNodes[1];
+                }
+            }
+        }
+            for(Node n: e.getNodes()){
+                if(!mirroredNodes.contains(n)){
+                    mirroredNodes.add(n);
+                }
+            }
+        }
+
+        Cell c;
+        if(cell instanceof ApicalConstrictingCell) {
+            c = (Cell) State.create(ApicalConstrictingCell.class);
+        }
+        else {
+            c = (Cell) State.create(Cell.class);
+        }
+        buildCell(mirroredNodes, mirroredEdges, c);
+        return c;
+    }
+
+    private static void buildCell(List<Node> nodes, List<Edge> edges, Cell c) {
+        c.setNodes(nodes);
+        c.setEdges(edges);
+        State.setFlagToRender(c);
+        c.setColor(Renderer.defaultColor);
     }
 
     public static Cell createCell(List<Edge> sideA, List<Edge> sideB, Class cellClass)

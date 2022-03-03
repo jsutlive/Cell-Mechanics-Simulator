@@ -11,4 +11,9 @@ public class ApicalEdge extends Edge{
         isNull = false;
 
     }
+
+    @Override
+    public Edge clone(){
+        return new ApicalEdge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
+    }
 }
