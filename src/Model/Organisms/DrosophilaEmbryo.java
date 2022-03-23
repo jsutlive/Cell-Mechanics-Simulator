@@ -1,8 +1,6 @@
 package Model.Organisms;
 
 import Model.*;
-import Engine.Renderer;
-import Engine.States.State;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
@@ -11,7 +9,6 @@ import Utilities.Model.Builder;
 import Utilities.Model.Mesh;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class DrosophilaEmbryo implements  IOrganism {
@@ -20,6 +17,7 @@ public class DrosophilaEmbryo implements  IOrganism {
 
 
     int numberOfSegmentsInTotalCircle = 80;
+    int numberOfConstrictingSegmentsInCircle = 10;
 
     float outerRadius = 300;
     float innerRadius = 200;
@@ -47,63 +45,100 @@ public class DrosophilaEmbryo implements  IOrganism {
 
     private void generateTissueRing() throws InstantiationException, IllegalAccessException {
         Vector2f position, unitVector;
+        ArrayList<Cell> mirroredCells = new ArrayList<>();
         ArrayList<Edge> oldEdges = new ArrayList<>();
+        ArrayList<Edge> oldMirroredEdges = new ArrayList<>();
+
+
         ArrayList<Edge> zeroEdge = new ArrayList<>();
 
         //make lateral edges
-        //for (int i = 0; i < numberOfSegmentsInTotalCircle; i++) {
-        for (int i = 0; i < 41; i++) {
+        for (int i = 0; i < numberOfSegmentsInTotalCircle/2; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
+            ArrayList<Edge> mirroredEdges = new ArrayList<>();
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
+            Node lastMirroredNode = new Node();
+            Node lastMirroredNodeX = new Node();
             for (int j = 0; j <= lateralResolution; j++) {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
                 position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
                 Node currentNode = new Node(position);
+                Node mirroredNode = currentNode.clone();
+                mirroredNode.mirrorAcrossYAxis();
+                if(i == 0)
+                {
+                    Node mirroredNodeX = currentNode.clone();
+                    mirroredNodeX.mirrorAcrossXAxis();
+                    if(j >= 1){
+                        zeroEdge.add(new LateralEdge(mirroredNodeX, lastMirroredNodeX));
+                    }
+                }
                 if (j >= 1) {
                     edges.add(new LateralEdge(currentNode, lastNode));
+                    mirroredEdges.add(new LateralEdge(mirroredNode, lastMirroredNode));
                 }
                 allNodes.add(currentNode);
+                allNodes.add(mirroredNode);
                 lastNode = currentNode;
+                lastMirroredNode = mirroredNode;
             }
 
             if (i > 0) {
                 Cell newCell;
                 Cell mirroredCell;
-                if (i >=40) {
-                    if(i>=71) newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
-                    else newCell = Builder.createCell(oldEdges, edges, Cell.class);
-                    newCell.setRingLocation(80 - (i - 1));
-
-                } else {
-                    if(i<=10)
+                if(i<=numberOfConstrictingSegmentsInCircle/2)
+                {
+                    newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                    if(i == 1)
                     {
-                        newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
+                        mirroredCell = Builder.createCell(mirroredEdges, oldEdges, ApicalConstrictingCell.class);
                     }
                     else
                     {
-                        newCell = Builder.createCell(oldEdges, edges, Cell.class);
+                        mirroredCell = Builder.createCell(mirroredEdges, oldMirroredEdges, ApicalConstrictingCell.class);
                     }
-                    newCell.setRingLocation(i);
                 }
-                allCells.add(newCell);
+                else
+                {
+                    if( i != (numberOfSegmentsInTotalCircle/2)-1) {
+                        newCell = Builder.createCell(oldEdges, edges, Cell.class);
+                        mirroredCell = Builder.createCell(mirroredEdges, oldMirroredEdges, Cell.class);
+                    }else
+                    {
+                        newCell = Builder.createCell(oldEdges, zeroEdge, Cell.class);
+                        mirroredCell = Builder.createCell(zeroEdge, mirroredEdges, Cell.class);
+                    }
+
+                }
+                addCellToList(mirroredCells, mirroredCell, i);
+                addCellToList(allCells, newCell, i);
 
             } else if (i == 0){
-                zeroEdge = edges;
+                //zeroEdge = edges;
             }
-
+            oldMirroredEdges = mirroredEdges;
             oldEdges = edges;
         }
+        allCells.addAll(mirroredCells);
 
-        //Cell newCell = Builder.createCell(oldEdges, zeroEdge, ApicalConstrictingCell.class);
-        //newCell.setRingLocation(1);
-        //allCells.add(newCell);
-        List<Cell> mirrored = Builder.mirrorCellList(allCells, "yAxis");
-        System.out.println("MIRRORED CELLS SIZE: " + mirrored.size());
-        allCells.clear();
-        allCells.addAll(mirrored);
+    }
 
+    @Override
+    public void addCellToList(List<Cell> cellList, Cell cell)
+    {
+        addCellToList(cellList, cell, 0);
+    }
+
+    public void addCellToList(List<Cell> cellList, Cell cell, int ringLocation) {
+        if(cell !=null) {
+            cell.setRingLocation(ringLocation);
+            cellList.add(cell);
+        }else
+        {
+            throw new NullPointerException("New cell object not instantiated successfully");
+        }
     }
 
     private float getRadiusToNode(int j) {

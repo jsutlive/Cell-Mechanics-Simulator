@@ -36,4 +36,9 @@ public class DrosophilaEmbryoSplitGenerate implements  IOrganism{
     public List<Node> getAllNodes(){
         return allNodes;
     }
+
+    @Override
+    public void addCellToList(List<Cell> cellList, Cell cell) {
+
+    }
 }

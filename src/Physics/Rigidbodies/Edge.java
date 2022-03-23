@@ -157,6 +157,12 @@ public abstract class Edge implements IRigidbody, IColor
         this.nodes = nodes;
     }
 
+    public void setNodes(Node a, Node b)
+    {
+        nodes[0] = a;
+        nodes[1] = b;
+    }
+
     public void mirrorAcrossXAxis(){
         for(Node n: getNodes()){
             n.mirrorAcrossXAxis();
