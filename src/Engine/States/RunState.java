@@ -40,6 +40,8 @@ public class RunState extends State
     public void Tick()
     {
         model.update();
+        System.out.println("CELLS:" + allObjects.size());
+
         if(frameCount < Time.fps)
         {
             //frameCount++;

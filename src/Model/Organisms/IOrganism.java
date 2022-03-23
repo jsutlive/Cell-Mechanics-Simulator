@@ -23,4 +23,6 @@ public interface IOrganism {
      * @return all nodes in the organism
      */
     List<Node> getAllNodes();
+
+    void addCellToList(List<Cell> cellList, Cell cell);
 }

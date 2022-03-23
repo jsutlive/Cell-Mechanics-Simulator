@@ -16,6 +16,7 @@ import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class Model extends MonoBehavior
         System.out.println(organism.getAllCells().size() + "<<<");
         for(Cell cell: organism.getAllCells())
         {
+            if(cell instanceof ApicalConstrictingCell)
+            {
+                cell.setColor(Color.MAGENTA);
+            }
             for(Edge edge: cell.getEdges()){
                 if(edge instanceof BasalEdge){
                     yolkNodes.add(edge.getNodes()[0]);
@@ -115,7 +120,7 @@ public class Model extends MonoBehavior
             cell.update();
             //CalculateLennardJonesForces(maxRadius, ljConstant, cell);
             cell.move();
-            checkCellCellCollision(cell);
+            //checkCellCellCollision(cell);
         }
     }
 
