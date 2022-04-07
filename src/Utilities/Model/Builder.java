@@ -288,17 +288,20 @@ public class Builder {
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
         nodes.addAll(addVerticesFromEdgeList(sideB));
-        nodes.addAll(addVerticesFromEdgeList(sideA));
+        List<Node> reversedNodesSideA = addVerticesFromEdgeList(sideA);
+        Collections.reverse(reversedNodesSideA);
+
+        nodes.addAll(reversedNodesSideA);
 
         edges.addAll(sideA);
         edges.addAll(sideB);
 
         // Create internal lattice:
-        //  0   0
-        //  1   1
+        //  0   4
+        //  1   3
         //  2   2
-        //  3   3
-        //  4   4
+        //  3   1
+        //  4   0
         Edge edgeA;
         Edge edgeB;
         List<Edge> internalEdges = new ArrayList<>();
@@ -320,6 +323,7 @@ public class Builder {
             }
         }
 
+        int n = sideA.size();
         // Create the apical edges of the cell
         Node apicalA = sideA.get(0).getNodes()[1];
         Node apicalB = sideB.get(0).getNodes()[1];
@@ -327,7 +331,7 @@ public class Builder {
         edges.add(apicalEdge);
 
         // Create the basal edges of the cell
-        int n = sideA.size();
+
         Node basalB = sideA.get(n-1).getNodes()[0];
         Node basalA = sideB.get(n-1).getNodes()[0];
         Edge basalEdge = new BasalEdge(basalA, basalB);

@@ -33,7 +33,7 @@ public class ApicalConstrictingCell extends Cell
             }
         }
         for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
-
+        Force.restore(this, osmosisConstant) ;
     }
 
     public void constrictApicalEdge()

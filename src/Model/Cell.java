@@ -22,14 +22,16 @@ public class Cell extends MonoBehavior {
     protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
     private float restingArea;
+    public float getRestingArea() {return restingArea;}
 
-    float constant = .54f;
+    float constant = .24f;
     float ratio = 0.00000001f;
 
-    float elasticConstant = .20f;
+    float elasticConstant = .50f;
     float elasticRatio = 1f;
 
-    float internalConstant = .2f;
+    float internalConstant = .25f;
+    float osmosisConstant = .005f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -97,7 +99,7 @@ public class Cell extends MonoBehavior {
             }
         }
         for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
-
+        Force.restore(this, osmosisConstant);
     }
 
     public void move()
@@ -135,5 +137,15 @@ public class Cell extends MonoBehavior {
                 edge.AddForceVector(forceVector);
             }
         }
+    }
+
+    public Vector2f getCenter(){
+        float x = 0;
+        float y = 0;
+        for (Node node: nodes){
+            x += node.getPosition().x;
+            y += node.getPosition().y;
+        }
+        return new Vector2f(x,y);
     }
 }
