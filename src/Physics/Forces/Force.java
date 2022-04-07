@@ -1,9 +1,11 @@
 package Physics.Forces;
 
 
+import Model.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.Gauss;
 
 
 public class Force
@@ -51,6 +53,20 @@ public class Force
      */
     public static void elastic(Edge edge, float constant){
         constrict(edge, constant, 1f);
+    }
+
+    public static void restore(Cell cell, float constant){
+        Vector2f center = cell.getCenter();
+        float area = cell.getArea();
+        float restingArea = cell.getRestingArea();
+
+        float forceMagnitude = constant * (area - restingArea);
+
+        for(Node node: cell.getNodes()) {
+            Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
+            restoringForce.mul(forceMagnitude);
+            node.AddForceVector(restoringForce);
+        }
     }
 
     public static Vector2f dampen(Vector2f force, float threshold, float ratio)
