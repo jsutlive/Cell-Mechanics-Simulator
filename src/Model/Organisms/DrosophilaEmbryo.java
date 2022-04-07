@@ -16,8 +16,8 @@ public class DrosophilaEmbryo implements  IOrganism {
     int lateralResolution = 4;
 
 
-    int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 10;
+    int numberOfSegmentsInTotalCircle = 20;
+    int numberOfConstrictingSegmentsInCircle = 4;
 
     float outerRadius = 300;
     float innerRadius = 200;
@@ -53,13 +53,14 @@ public class DrosophilaEmbryo implements  IOrganism {
         ArrayList<Edge> zeroEdge = new ArrayList<>();
 
         //make lateral edges
-        for (int i = 0; i < numberOfSegmentsInTotalCircle/2; i++) {
+        for (int i = 0; i < (numberOfSegmentsInTotalCircle/2)+1; i++) {
             ArrayList<Edge> edges = new ArrayList<>();
             ArrayList<Edge> mirroredEdges = new ArrayList<>();
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
             Node lastNode = new Node();   // Create null vertex to be used to create edges later.
             Node lastMirroredNode = new Node();
             Node lastMirroredNodeX = new Node();
+            Node lastZeroEdgeNode = new Node();
             for (int j = 0; j <= lateralResolution; j++) {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
@@ -67,13 +68,17 @@ public class DrosophilaEmbryo implements  IOrganism {
                 Node currentNode = new Node(position);
                 Node mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();
-                if(i == 0)
+                if(i == numberOfSegmentsInTotalCircle/2)
                 {
-                    Node mirroredNodeX = currentNode.clone();
-                    mirroredNodeX.mirrorAcrossXAxis();
+                    unitVector = CustomMath.GetUnitVectorOnCircle(0, numberOfSegmentsInTotalCircle);
+                    unitVector.y = - unitVector.y;
+                    position = CustomMath.TransformToWorldSpace(unitVector,radiusToNode, boundingBox.asFloat());
+                    Node currentZeroEdgeNode = new Node(position);
+
                     if(j >= 1){
-                        zeroEdge.add(new LateralEdge(mirroredNodeX, lastMirroredNodeX));
+                        zeroEdge.add(new LateralEdge(currentZeroEdgeNode, lastZeroEdgeNode));
                     }
+                    lastZeroEdgeNode = currentZeroEdgeNode;
                 }
                 if (j >= 1) {
                     edges.add(new LateralEdge(currentNode, lastNode));
@@ -102,13 +107,14 @@ public class DrosophilaEmbryo implements  IOrganism {
                 }
                 else
                 {
-                    if( i != (numberOfSegmentsInTotalCircle/2)-1) {
+                    if( i != (numberOfSegmentsInTotalCircle/2)) {
                         newCell = Builder.createCell(oldEdges, edges, Cell.class);
                         mirroredCell = Builder.createCell(mirroredEdges, oldMirroredEdges, Cell.class);
                     }else
                     {
                         newCell = Builder.createCell(oldEdges, zeroEdge, Cell.class);
-                        mirroredCell = Builder.createCell(zeroEdge, mirroredEdges, Cell.class);
+                        mirroredCell = Builder.createCell(zeroEdge, oldMirroredEdges, Cell.class);
+
                     }
 
                 }
