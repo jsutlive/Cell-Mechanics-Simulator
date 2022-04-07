@@ -16,8 +16,11 @@ public class DrosophilaEmbryo implements  IOrganism {
     int lateralResolution = 4;
 
 
-    int numberOfSegmentsInTotalCircle = 20;
-    int numberOfConstrictingSegmentsInCircle = 4;
+    int numberOfSegmentsInTotalCircle = 60;
+    int numberOfConstrictingSegmentsInCircle = 10;
+
+    int shorteningCellBegin = 12;
+    int shorteningCellEnd = 24;
 
     float outerRadius = 300;
     float innerRadius = 200;
@@ -93,6 +96,7 @@ public class DrosophilaEmbryo implements  IOrganism {
             if (i > 0) {
                 Cell newCell;
                 Cell mirroredCell;
+                // Build the first set of cells in the cell ring
                 if(i<=numberOfConstrictingSegmentsInCircle/2)
                 {
                     newCell = Builder.createCell(oldEdges, edges, ApicalConstrictingCell.class);
@@ -107,13 +111,19 @@ public class DrosophilaEmbryo implements  IOrganism {
                 }
                 else
                 {
+                    Class cellClass = Cell.class;
+                    if(i>= shorteningCellBegin && i <= shorteningCellEnd)
+                    {
+                        cellClass = ShorteningCell.class;
+                    }
                     if( i != (numberOfSegmentsInTotalCircle/2)) {
-                        newCell = Builder.createCell(oldEdges, edges, Cell.class);
-                        mirroredCell = Builder.createCell(mirroredEdges, oldMirroredEdges, Cell.class);
+
+                        newCell = Builder.createCell(oldEdges, edges, cellClass);
+                        mirroredCell = Builder.createCell(mirroredEdges, oldMirroredEdges, cellClass);
                     }else
                     {
-                        newCell = Builder.createCell(oldEdges, zeroEdge, Cell.class);
-                        mirroredCell = Builder.createCell(zeroEdge, oldMirroredEdges, Cell.class);
+                        newCell = Builder.createCell(oldEdges, zeroEdge, cellClass);
+                        mirroredCell = Builder.createCell(zeroEdge, oldMirroredEdges, cellClass);
 
                     }
 

@@ -24,7 +24,7 @@ public class Cell extends MonoBehavior {
     private float restingArea;
     public float getRestingArea() {return restingArea;}
 
-    float constant = .24f;
+    float constant = .75f;
     float ratio = 0.00000001f;
 
     float elasticConstant = .50f;
@@ -146,6 +146,8 @@ public class Cell extends MonoBehavior {
             x += node.getPosition().x;
             y += node.getPosition().y;
         }
+        x = x/nodes.size();
+        y = y/nodes.size();
         return new Vector2f(x,y);
     }
 }

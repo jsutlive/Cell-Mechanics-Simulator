@@ -5,11 +5,14 @@ import Model.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.Gauss;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Force
 {
+    public static List<Vector2f[]> debugDraw = new ArrayList<>();
     /**
      * Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 1).
      * based on a constant "constant" and constriction ratio "ratio". After force calculation, a unit vector is used
@@ -56,16 +59,25 @@ public class Force
     }
 
     public static void restore(Cell cell, float constant){
+        // get cell characteristics
         Vector2f center = cell.getCenter();
-        float area = cell.getArea();
+        float currentArea = cell.getArea();
         float restingArea = cell.getRestingArea();
 
-        float forceMagnitude = constant * (area - restingArea);
+        // calculate force magnitude
+        float forceMagnitude = constant * (currentArea - restingArea);
 
+        //for every node, get unit vector, multiply times magnitude, apply force
         for(Node node: cell.getNodes()) {
+            //get unit vector
             Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
-            restoringForce.mul(forceMagnitude);
+            //multiply times magnitude
+            restoringForce.mul(-forceMagnitude);
+            // add force
             node.AddForceVector(restoringForce);
+            //Vector2f endPosition = node.getPosition();
+            //endPosition.add(restoringForce);
+
         }
     }
 

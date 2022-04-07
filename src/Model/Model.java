@@ -29,6 +29,7 @@ public class Model extends MonoBehavior
     List<Node> yolkNodes = new ArrayList<>();
     Vector2f center = new Vector2f(400);
     float yolkArea;
+    float yolkConstant = .45f;
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
@@ -45,6 +46,10 @@ public class Model extends MonoBehavior
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
+            }
+            if(cell instanceof ShorteningCell)
+            {
+                cell.setColor(Color.BLUE);
             }
             for(Edge edge: cell.getEdges()){
                 if(edge instanceof BasalEdge){
@@ -84,7 +89,7 @@ public class Model extends MonoBehavior
                     if(edge instanceof BasalEdge)
                     {
                         Vector2f force = CustomMath.normal(edge);
-                        force.mul(-.25f);
+                        force.mul(-yolkConstant);
                         edge.AddForceVector(force);
                     }
                 }
@@ -101,7 +106,7 @@ public class Model extends MonoBehavior
                     if(edge instanceof BasalEdge)
                     {
                         Vector2f force = CustomMath.normal(edge);
-                        force.mul(.25f);
+                        force.mul(yolkConstant);
                         edge.AddForceVector(force);
                     }
                 }
