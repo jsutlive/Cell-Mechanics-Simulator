@@ -62,7 +62,6 @@ public class EdgeMono extends MonoBehavior {
                     Force.constrict(edge, -.4f, 0.001f);
                 }
                 else Force.constrict(edge, .4f, .001f);
-                System.out.println(edge.getNodes()[0].getResultantForce().x + "::" + edge.getNodes()[0].getResultantForce().y);
 
             }
             Force.elastic(edge,.25f);

@@ -2,12 +2,15 @@ package Engine;
 
 import Engine.States.State;
 import Engine.Timer.Time;
+import Input.Input;
 import Utilities.Geometry.Vector2i;
 
 public class Simulation implements Runnable
 {
     // rendering system reference
     Renderer renderer;
+    // Collecting user input
+    Input inputHandler;
     // window boundary, in px
     public static Vector2i bounds;
     // window title
@@ -17,6 +20,7 @@ public class Simulation implements Runnable
     private Thread thread;
     // render thread
     private Thread render;
+
     private boolean applicationIsRunning = false;
 
     /**
@@ -53,6 +57,11 @@ public class Simulation implements Runnable
         // Separate render thread and set as a background process
         render = new Thread(renderer);
         render.setDaemon(true);
+
+        // Get input system
+        inputHandler = Input.getInstance();
+        System.out.println(inputHandler);
+
         // Prepare state loading and timer system
         Time.getInstance();
         State.ChangeState();
@@ -61,8 +70,7 @@ public class Simulation implements Runnable
     /**
      * Base level simulation object to advance physics
      */
-    private void Tick()
-    {
+    private void Tick() throws InstantiationException, IllegalAccessException {
         if(State.GetState() != null)
         {
             State.GetState().Tick();
@@ -89,7 +97,13 @@ public class Simulation implements Runnable
             
             // Physics update
             if(Time.isReadyToAdvancePhysics()){
-                Tick();
+                try {
+                    Tick();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
             // Render update
             if(Time.isReadyForNextFrame())

@@ -10,7 +10,6 @@ public class Gauss {
 
     public static float nShoelace(List<Node> nodes)
     {
-        System.out.println(nodes);
         List<Vector2f>coords = new ArrayList<>();
         for(Node node: nodes)
         {
@@ -21,13 +20,23 @@ public class Gauss {
     public static float shoelace(List<Vector2f> coords)
     {
         int n = coords.size();
-        System.out.println(n);
         float area = 0f;
         for (int i = 0; i < n - 1; i++) {
             area += coords.get(i).x * coords.get(i + 1).y - coords.get(i + 1).x * coords.get(i).y;
         }
         return Math.abs(area + coords.get(n - 1).x * coords.get(0).y - coords.get(0).x * coords.get(n - 1).y) / 2.0f;
     }
+
+    // return pdf(x) = standard Gaussian pdf
+    public static float pdf(float x) {
+        return (float) (Math.exp(-x*x / 2) / Math.sqrt(2 * Math.PI));
+    }
+
+    // return pdf(x, mu, signma) = Gaussian pdf with mean mu and stddev sigma
+    public static float pdf(float x, float mu, float sigma) {
+        return pdf((x - mu) / sigma) / sigma;
+    }
+
 
 
 }

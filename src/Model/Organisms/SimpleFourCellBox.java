@@ -15,7 +15,6 @@ public class SimpleFourCellBox implements IOrganism{
     @Override
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         allCells = Builder.getSimpleFourCellBox();
-        System.out.println(allCells.size());
         for(Cell cell: allCells){
             State.setFlagToRender(cell);
             cell.setColor(Renderer.defaultColor);

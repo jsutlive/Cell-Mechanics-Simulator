@@ -16,11 +16,11 @@ public class DrosophilaEmbryo implements  IOrganism {
     int lateralResolution = 4;
 
 
-    int numberOfSegmentsInTotalCircle = 60;
-    int numberOfConstrictingSegmentsInCircle = 10;
+    int numberOfSegmentsInTotalCircle = 80;
+    int numberOfConstrictingSegmentsInCircle = 14;
 
-    int shorteningCellBegin = 12;
-    int shorteningCellEnd = 24;
+    int shorteningCellBegin = 16;
+    int shorteningCellEnd = 30;
 
     float outerRadius = 300;
     float innerRadius = 200;
@@ -38,6 +38,9 @@ public class DrosophilaEmbryo implements  IOrganism {
     @Override
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
+        Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
+                0.75f, .01f,
+                0.7f, .0001f);
         for(Cell cell: allCells)
         {
             for(Node node: cell.getNodes()){
@@ -128,6 +131,8 @@ public class DrosophilaEmbryo implements  IOrganism {
                     }
 
                 }
+                newCell.setId(i-1);
+                mirroredCell.setId(numberOfSegmentsInTotalCircle-i);
                 addCellToList(mirroredCells, mirroredCell, i);
                 addCellToList(allCells, newCell, i);
 

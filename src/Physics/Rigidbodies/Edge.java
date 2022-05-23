@@ -94,7 +94,7 @@ public abstract class Edge implements IRigidbody, IColor
         Vector2f a = nodes[0].getPosition();
         Vector2f b = nodes[1].getPosition();
         float dist = Vector2f.dist(a, b);
-        return CustomMath.round(dist, 3);
+        return CustomMath.round(dist, 5);
     }
 
     public float getXUnit()

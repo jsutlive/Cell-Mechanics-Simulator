@@ -36,6 +36,34 @@ public class Force
         nodes[1].AddForceVector(forceVector);
     }
 
+    public static void constrict(Edge edge, float constant, float ratio, int id)
+    {
+        Node[] nodes = edge.getNodes();
+        Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
+        System.out.println("FORCE(" + id + "): " +
+                forceVector.x + ", " +
+                forceVector.y + "::LENGTH: " +
+                edge.getLength() + "::INITIAL LENGTH: "
+                + edge.getInitialLength());
+
+
+
+        // Apply force to node 0
+        nodes[0].AddForceVector(forceVector);
+
+        // Apply an equal and opposite force to node 1
+        forceVector.mul(-1);
+        nodes[1].AddForceVector(forceVector);
+    }
+
+    public static void halfConstrict(Edge edge, float constant, float ratio){
+        Node[] nodes = edge.getNodes();
+        Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
+
+        // Apply force to node 0
+        nodes[0].AddForceVector(forceVector);
+    }
+
     public static Vector2f calculateSpringForce(Edge edge, float constant, float ratio) {
         // Hooke's law calculation to get force magnitude
         float forceMag = constant * (edge.getLength() - (ratio * edge.getInitialLength()));
@@ -57,6 +85,8 @@ public class Force
     public static void elastic(Edge edge, float constant){
         constrict(edge, constant, 1f);
     }
+
+    public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
     public static void restore(Cell cell, float constant){
         // get cell characteristics

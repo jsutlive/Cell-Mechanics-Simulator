@@ -213,4 +213,10 @@ public class CustomMath {
         return val;
     }
 
+    public static float floor(float val, float min)
+    {
+        if(val < min) val = min;
+        return val;
+    }
+
 }
