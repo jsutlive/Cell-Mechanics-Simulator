@@ -35,11 +35,13 @@ public class SimpleFourCellBoxTest
 
         for(Cell cell: cells)
         {
+            if(! (cell instanceof  ApicalConstrictingCell)) return;
+            ApicalConstrictingCell aCell = (ApicalConstrictingCell) cell;
             for(Edge edge: cell.edges) {
                 Force.elastic(edge, cell.elasticConstant);
                 if(edge instanceof ApicalEdge)
                 {
-                    Force.constrict(edge, cell.constant, cell.ratio);
+                    Force.constrict(edge, aCell.apicalConstrictingConstant, aCell.apicalConstrictingRatio);
                 }
             }
             for(Edge edge: cell.internalEdges) Force.elastic(edge, cell.internalConstant);

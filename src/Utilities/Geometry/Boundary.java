@@ -18,7 +18,6 @@ public class Boundary {
     public static void clampNodeToBoundary(Node n, Vector2f center, float radius)
     {
         Vector2f pos = getClampedPosition(n.getPosition(), center, radius);
-        //System.out.println("GETCLAMPEDPOS: " + pos.x + "," +pos.y);
         n.MoveTo(pos);
     }
 

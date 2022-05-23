@@ -14,8 +14,8 @@ import java.util.List;
 public abstract class State
 {
     public static State state = null;
-    public static State GetState()
-    {
+    public static State GetState() throws InstantiationException, IllegalAccessException {
+        if(state == null) ChangeState();
         return state;
     }
     public static void SetState(State _state)
@@ -36,8 +36,7 @@ public abstract class State
      * @throws IllegalAccessException
      */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
-        RunState runState = (RunState)state;
-        if(runState != null)
+        if(state == null || state instanceof RunState)
         {
             SetState(new EditorState());
         }
@@ -46,6 +45,12 @@ public abstract class State
             SetState(new RunState());
         }
         GetState().Init();
+    }
+
+    protected static void reset() {
+        renderBatch.clear();
+        allObjects.clear();
+        physicsThreads.clear();
     }
 
     /**
@@ -58,7 +63,7 @@ public abstract class State
     /**
      * Performs all calculations to be updated once per frame cycle.
      */
-    public abstract void Tick();
+    public abstract void Tick() throws InstantiationException, IllegalAccessException;
 
     /**
      * Base method to create an object and assign it to the given state

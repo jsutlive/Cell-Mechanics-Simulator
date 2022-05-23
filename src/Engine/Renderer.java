@@ -56,10 +56,16 @@ public class Renderer implements Runnable
 
         g.clearRect(0,0,width,height);
 
-        if(State.GetState() != null)
-        {
-            State.GetState().Render();
+        try {
+            if(State.GetState() != null)
+            {
+                State.GetState().Render();
 
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         bufferStrategy.show();

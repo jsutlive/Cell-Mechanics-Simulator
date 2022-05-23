@@ -4,15 +4,14 @@ import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.CellRenderer;
 import Physics.Forces.Force;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Cell extends MonoBehavior {
@@ -21,24 +20,35 @@ public class Cell extends MonoBehavior {
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
     private int ringLocation;
+    private int id;
     private float restingArea;
     public float getRestingArea() {return restingArea;}
 
-    float constant = .75f;
-    float ratio = 0.00000001f;
+    float elasticConstant = .15f;
 
-    float elasticConstant = .50f;
-    float elasticRatio = 1f;
-
-    float internalConstant = .25f;
-    float osmosisConstant = .005f;
+    float internalConstant = .05f;
+    float osmosisConstant = .001f;
 
     public List<Edge> getEdges(){
         return edges;
     }
+    public HashSet<Vector2f> nodePositions = new HashSet<>();
+
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
     public void setEdges(List<Edge> edges){
         this.edges = edges;
+    }
+
+    public boolean Contains(Node n){
+        Vector2f nodePos = n.getPosition();
+        for(Vector2f v : nodePositions){
+            if (Vector2f.dist(nodePos, v) < 0.01f) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Edge> getInternalEdges(){
@@ -72,8 +82,21 @@ public class Cell extends MonoBehavior {
     }
 
     @Override
-    public void start() {
+    public void start()
+    {
         restingArea = getArea();
+        setNodePositions();
+        if(id == 0){
+            //flipApicalAndBasalEdges();
+        }
+    }
+
+    private void setNodePositions()
+    {
+        nodePositions.clear();
+        for(Node node: nodes){
+            nodePositions.add(node.getPosition());
+        }
     }
 
     @Override
@@ -107,6 +130,14 @@ public class Cell extends MonoBehavior {
         for(Node node: nodes)
         {
             node.Move();
+        }
+    }
+
+    public void flipApicalAndBasalEdges(){
+        for(Edge edge: edges){
+            if (edge instanceof ApicalEdge || edge instanceof BasalEdge){
+                edge.flip();
+            }
         }
     }
 
@@ -149,5 +180,37 @@ public class Cell extends MonoBehavior {
         x = x/nodes.size();
         y = y/nodes.size();
         return new Vector2f(x,y);
+    }
+
+    public void print()
+    {
+        String cellClass = "";
+        int numberOfApicalEdges = 0;
+        int numberOfBasalEdges = 0;
+        int numberOfLateralEdges = 0;
+
+        if(this instanceof ApicalConstrictingCell){
+            cellClass = "Apical Constricting Cell";
+        }else if(this instanceof ShorteningCell){
+            cellClass = "Lateral Shortening Cell";
+        }else {
+            cellClass = "Basic Cell";
+        }
+        for(Edge edge:edges){
+            if(edge instanceof ApicalEdge){
+                numberOfApicalEdges++;
+            }else if (edge instanceof BasalEdge){
+                numberOfBasalEdges++;
+            }else if (edge instanceof LateralEdge){
+                numberOfLateralEdges++;
+            }
+        }
+        System.out.println("--CELL VARS--");
+        System.out.println("CELL ID: " + id);
+        System.out.println("CELL TYPE: " + cellClass);
+        System.out.println("RING LOCATION: " + getRingLocation());
+        System.out.println("APICAL EDGES: " + numberOfApicalEdges);
+        System.out.println("BASAL EDGES: " + numberOfBasalEdges);
+        System.out.println("LATERAL EDGES: " + numberOfLateralEdges);
     }
 }

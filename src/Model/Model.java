@@ -5,6 +5,9 @@ import Engine.Object.Tag;
 import Engine.States.State;
 import GUI.Painter;
 import Model.Organisms.*;
+import Physics.Forces.GaussianGradient;
+import Physics.Forces.Gradient;
+import Physics.Forces.LinearGradient;
 import Physics.PhysicsSystem;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.BasicEdge;
@@ -28,8 +31,10 @@ public class Model extends MonoBehavior
     float shellRadius = 302f;
     List<Node> yolkNodes = new ArrayList<>();
     Vector2f center = new Vector2f(400);
+    Yolk yolk;
     float yolkArea;
-    float yolkConstant = .45f;
+    float yolkConstant = .01f;
+    public static Gradient apicalGradient;
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
@@ -38,11 +43,13 @@ public class Model extends MonoBehavior
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        physicsSystem = (PhysicsSystem) State.findObjectWithTag(Tag.PHYSICS);
+        this.addTag(Tag.MODEL);
+        apicalGradient = new GaussianGradient(0f, 0.8f);
         organism.generateOrganism();
-        System.out.println(organism.getAllCells().size() + "<<<");
+        yolk = (Yolk) State.create(Yolk.class);
         for(Cell cell: organism.getAllCells())
         {
+            System.out.println(cell.getId());
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
@@ -58,8 +65,20 @@ public class Model extends MonoBehavior
                 }
             }
         }
+        yolk.build(organism.getAllCells(), yolkNodes);
     }
 
+
+    public void printCells(){
+        //ApicalConstrictingCell cell0 = (ApicalConstrictingCell) organism.getAllCells().get(0);
+        //System.out.println(apicalGradient.getConstants()[cell0.getRingLocation()-1]);
+        //cell0.setColor(Color.GREEN);
+        //ApicalConstrictingCell cell40 = (ApicalConstrictingCell) organism.getAllCells().get(40);
+        //System.out.println(apicalGradient.getConstants()[cell40.getRingLocation()-1]);
+        //cell40.setColor(Color.GREEN);
+
+
+    }
 
     @Override
     public void start() {
@@ -77,8 +96,32 @@ public class Model extends MonoBehavior
         for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
         float maxRadius = 100f;
-        float ljConstant = 3e-6f;
-        int yolkSmaller = 0; // false
+        float ljConstant = 3e-5f;
+        calculateYolkRestoringForce();
+        //yolk.update();
+        for(Node node: organism.getAllNodes())
+        {
+            if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
+            {
+                Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
+            }
+
+        }
+        for(Cell cell: organism.getAllCells())
+        {
+            cell.update();
+            //calculateLennardJonesForces(maxRadius, ljConstant, cell);
+            //
+            //checkCellCellCollision(cell);
+        }
+        for(Node node: organism.getAllNodes())
+        {
+            node.Move();
+            //checkCellCellCollision(cell);
+        }
+    }
+
+    private void calculateYolkRestoringForce() {
         float currentYolkArea = Gauss.nShoelace(yolkNodes);
         if( currentYolkArea< yolkArea)
         {
@@ -112,21 +155,6 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        for(Node node: organism.getAllNodes())
-        {
-            if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
-            {
-                Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
-            }
-
-        }
-        for(Cell cell: organism.getAllCells())
-        {
-            cell.update();
-            //CalculateLennardJonesForces(maxRadius, ljConstant, cell);
-            cell.move();
-            //checkCellCellCollision(cell);
-        }
     }
 
     private void checkCellCellCollision(Cell cell){
@@ -137,25 +165,32 @@ public class Model extends MonoBehavior
         float maxY = bound[1].y;
 
         for(Node node: organism.getAllNodes()){
-            if(cell.getNodes().contains(node))continue;
-            Vector2f pos = node.getPosition();
-
-            if (pos.x > minX && pos.y > minY && pos.x < maxX && pos.y < maxY)
+            if(!cell.Contains(node))
             {
+                Vector2f pos = node.getPosition();
 
-                if(Geometry.polygonContainsPoint(cell, node)){
-                    Edge e = Geometry.getClosestEdgeToPoint(cell, node);
+                if (pos.x > minX && pos.y > minY && pos.x < maxX && pos.y < maxY)
+                {
 
-                    if(!e.isNull) {
-                        Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
-                        node.MoveTo(adjustedPosition);
+                    if(Geometry.polygonContainsPoint(cell, node)){
+                        Edge e = Geometry.getClosestEdgeToPoint(cell, node);
+
+                        if(!e.isNull) {
+                            Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
+                            node.MoveTo(adjustedPosition);
+                        }
+                        System.out.println("COLLISION IDENTIFIED:");
+                        node.setColor(Color.red);
+                        cell.print();
+                        pos.print();
                     }
                 }
             }
+
         }
     }
 
-    private void CalculateLennardJonesForces(float maxRadius, float ljConstant, Cell cell) {
+    private void calculateLennardJonesForces(float maxRadius, float ljConstant, Cell cell) {
         for (Edge edge: cell.getEdges())
         {
             for(Node n: organism.getAllNodes()){
@@ -206,4 +241,6 @@ public class Model extends MonoBehavior
     public Model() throws InstantiationException, IllegalAccessException {
         this.start();
     }
+
+
 }

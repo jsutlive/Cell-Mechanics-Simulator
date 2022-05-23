@@ -3,7 +3,7 @@ package Engine.Timer;
 public class Time {
     // Set frame rate and physics update rate
     public static final int fps = 60;
-    public static final int fixedPhysicsSteps = 30;
+    public static final int fixedPhysicsSteps = 15;
 
     // system time and delta time variables
     public static long time;

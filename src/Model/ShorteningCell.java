@@ -1,18 +1,15 @@
 package Model;
 
 import Physics.Forces.Force;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.LateralEdge;
+import Physics.Rigidbodies.*;
 
 public class ShorteningCell extends Cell{
-    float lateralShorteningRatio = .9f;
-    float lateralShorteningConstant = .05f;
+    float lateralShorteningRatio = .7f;
+    float lateralShorteningConstant = .10f;
     public ShorteningCell()
     {
-        internalConstant = .1f;
-        elasticConstant = .1f;
+        internalConstant = .05f;
+        elasticConstant = .15f;
     }
 
     /**
@@ -23,12 +20,12 @@ public class ShorteningCell extends Cell{
     public void update() {
         for(Edge edge: edges)
         {
-            if(edge instanceof LateralEdge) {
-                Force.elastic(edge, .35f);
+            if(edge instanceof ApicalEdge) {
+                Force.elastic(edge, elasticConstant);
             }
             else if (edge instanceof BasalEdge)
             {
-                Force.elastic(edge, .70f);
+                Force.elastic(edge, elasticConstant);
             }
             else if(edge instanceof LateralEdge)
             {

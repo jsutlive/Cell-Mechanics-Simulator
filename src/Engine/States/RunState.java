@@ -1,9 +1,11 @@
 package Engine.States;
 
 import Engine.Object.MonoBehavior;
+import Engine.Object.Tag;
 import Engine.Timer.Time;
 import GUI.IRender;
 import GUI.Painter;
+import Input.Input;
 import Model.Components.CellRenderer;
 import Model.*;
 import Physics.PhysicsSystem;
@@ -14,10 +16,7 @@ import java.awt.*;
 
 public class RunState extends State
 {
-    int count = 1;
-    int frameCount = 0;
     Model model;
-    MonoBehavior physicsSystem;
 
     /**
      * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
@@ -26,38 +25,27 @@ public class RunState extends State
      */
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
-        physicsSystem = State.create(PhysicsSystem.class);
-        model = (Model)State.create(Model.class);
+        model = (Model)findObjectWithTag(Tag.MODEL);
+        if(model == null) {
+            model = (Model) State.create(Model.class);
+        }
         for(MonoBehavior obj: allObjects){
             obj.start();
         }
     }
 
+    boolean flag = true;
     /**
      * Physics Loop. All physics objects updated here
      */
     @Override
-    public void Tick()
-    {
-        model.update();
-        System.out.println("CELLS:" + allObjects.size());
+    public void Tick() {
+        if(flag) {
+            model.update();
 
-        if(frameCount < Time.fps)
-        {
-            //frameCount++;
-        }
-        else
-        {
-            //model.update();
-            frameCount = 0;
-        }
-        /*for (MonoBehavior obj: allObjects) {
-             obj.update();
-        }*/
-        /*for(int i = allObjects.size() -1;  i >= 0;  i--){
-            if(allObjects.get(i) !=model && !(allObjects.get(i) instanceof ApicalConstrictingCell) ) allObjects.get(i).update();
-        }*/
+            //flag = false;
 
+        }
     }
 
     /**
@@ -68,12 +56,7 @@ public class RunState extends State
     @Override
     public void Render()
     {
-        //System.out.println("FRAME " + count + ":");
-        count++;
 
-        /*for(int i = renderBatch.size() - 1;  i >= 0; i--){
-            renderBatch.get(i).render();
-        }*/
         for(IRender rend: renderBatch)
         {
             rend.render();
@@ -82,8 +65,5 @@ public class RunState extends State
         Painter.drawCircle(new Vector2i(400), 604, Color.gray);
         Painter.drawCircle(new Vector2i(400), 605, Color.gray);
         Painter.drawCircle(new Vector2i(400), 606, Color.gray);
-
-
-        //System.out.println("--------");
     }
 }

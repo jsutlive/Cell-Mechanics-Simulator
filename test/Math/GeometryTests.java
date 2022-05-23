@@ -43,6 +43,13 @@ public class GeometryTests {
     }
 
     @Test
+    void check_accuracy_of_vector2f_distance(){
+        Vector2f a = new Vector2f(0,3);
+        Vector2f b = new Vector2f(4,0);
+        assertEquals(5f, Vector2f.dist(a,b));
+    }
+
+    @Test
     void check_min_max_coordinates_of_list_of_vertices()
     {
         Vector2f[] minMax = Geometry.getMinMaxBoundary(testNodes);
@@ -77,6 +84,20 @@ public class GeometryTests {
     {
         Node point = new Node(1,1.5f);
         assertTrue(Geometry.polygonContainsPoint(cell, point));
+    }
+
+    @Test
+    void check_if_point_node_position_on_cell_not_counting_as_within_cell()
+    {
+        Node point = new Node(0,0);
+        assertFalse(Geometry.polygonContainsPoint(cell, point));
+    }
+
+    @Test
+    void check_if_point_outside_cell()
+    {
+        Node point = new Node(-0.5f,0);
+        assertFalse(Geometry.polygonContainsPoint(cell, point));
     }
 
     @Test
