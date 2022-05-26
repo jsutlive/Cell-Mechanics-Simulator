@@ -27,7 +27,7 @@ public class Cell extends MonoBehavior {
     float elasticConstant = .15f;
 
     float internalConstant = .05f;
-    float osmosisConstant = .001f;
+    float osmosisConstant = .003f;
 
     public List<Edge> getEdges(){
         return edges;
