@@ -36,11 +36,11 @@ public class ApicalConstrictingCell extends Cell
         for(Edge edge: edges)
         {
             if(edge instanceof LateralEdge) {
-                Force.elastic(edge, .05f);
+                Force.elastic(edge, .10f);
             }
             else if (edge instanceof BasalEdge)
             {
-                Force.elastic(edge, 0.10f);
+                Force.elastic(edge, 0.05f);
             }
             else if(edge instanceof ApicalEdge)
             {
@@ -50,10 +50,13 @@ public class ApicalConstrictingCell extends Cell
                 if(Model.apicalGradient != null){
                     Gradient gr = Model.apicalGradient;
                     if(getId() != 79 && getId()!= 0) {
-                        Force.constrict(edge, gr.getConstants()[getRingLocation() - 1], gr.getRatios()[getRingLocation() - 1]);
+                        Force.constrict(edge, gr.getConstants()[getRingLocation() - 1],
+                                gr.getRatios()[gr.getRatios().length - getRingLocation()]);
                     }else{
                         System.out.println("CONSTANTS(" + getId() + "): " + (gr.getConstants()[getRingLocation() - 1]));
-                        Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1], gr.getRatios()[getRingLocation() - 1], getId());
+                        Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],
+                                gr.getRatios()[gr.getRatios().length - getRingLocation()],
+                                getId());
                     }
                 }else {
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);

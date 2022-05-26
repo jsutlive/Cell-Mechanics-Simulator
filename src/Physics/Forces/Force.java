@@ -136,7 +136,7 @@ public class Force
             return limitedForce;
         }
     }
-    public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, String type) {
+    public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, LJForceType type) {
         Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
         Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
         Edge temp;
@@ -147,20 +147,26 @@ public class Force
         return forceVector;
     }
 
-    private static float calculateLJForceMagnitude(Edge e, float constant, String type)
+    private static float calculateLJForceMagnitude(Edge e, float constant, LJForceType type)
     {
-        switch(type)
-        {
-            case "simple":
-                return Math.min(4f, constant * (1f/ (float)Math.pow(e.getLength(), 3)));
-            case "Kang2021":
-                return calculateLennardJonesLikeForce(constant, e.getLength());
-            case "lennardJones":
-                return calculateLennardJonesForce(constant, e.getLength());
-            default:
-                break;
+
+        if (type == LJForceType.simple) {
+            return calculateSimpleCubicRegressionForce(e, constant);
         }
+        else if (type ==  LJForceType.kang2021) {
+            return calculateLennardJonesLikeForce(constant, e.getLength());
+        }
+        else if  (type == LJForceType.lennardJones) {
+            return calculateLennardJonesForce(constant, e.getLength());
+        }
+
         throw new IllegalArgumentException("Type must be 'simple', 'ljlike', or 'lennardjones'");
+    }
+
+    private static float calculateSimpleCubicRegressionForce(Edge e, float constant)
+    {
+        float dampener = 1e-15f;
+        return dampener * constant * (1f/ (float)Math.pow(e.getLength(), 3));
     }
 
     /**
@@ -171,17 +177,19 @@ public class Force
      */
     private static float calculateLennardJonesLikeForce(float constant, float distance)
     {
+        float lJConstantConversionFactor = 5e35f;
+        float newConstant = constant/lJConstantConversionFactor;
         float maxDistance = 0.3f;
         int p = 6;
         int q = 3;
         float exponentTerm = (float)(Math.pow(maxDistance/distance, p) - (2 * Math.pow(maxDistance/distance, q)));
-        return constant * exponentTerm * (1/ CustomMath.sq(distance));
+        return newConstant * exponentTerm * (1/ CustomMath.sq(distance));
     }
 
     private static float calculateLennardJonesForce(float constant, float distance)
     {
         float epsilon = constant;
-        float sigma = 0.3f;
+        float sigma = 4e-6f;
         float A = 4*epsilon*(float)Math.pow(sigma, 12);
         float B = 4*epsilon*(float)Math.pow(sigma, 6);
         float r13 = (float)Math.pow(distance, 13);

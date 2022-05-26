@@ -17,7 +17,7 @@ public class DrosophilaEmbryo implements  IOrganism {
 
 
     int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 14;
+    int numberOfConstrictingSegmentsInCircle = 18;
 
     int shorteningCellBegin = 16;
     int shorteningCellEnd = 30;
@@ -39,8 +39,8 @@ public class DrosophilaEmbryo implements  IOrganism {
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
         Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                0.75f, .01f,
-                0.7f, .0001f);
+                1.55f, .3f,
+                0.15f, .0001f);
         for(Cell cell: allCells)
         {
             for(Node node: cell.getNodes()){

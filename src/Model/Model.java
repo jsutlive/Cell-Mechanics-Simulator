@@ -5,10 +5,7 @@ import Engine.Object.Tag;
 import Engine.States.State;
 import GUI.Painter;
 import Model.Organisms.*;
-import Physics.Forces.Force;
-import Physics.Forces.GaussianGradient;
-import Physics.Forces.Gradient;
-import Physics.Forces.LinearGradient;
+import Physics.Forces.*;
 import Physics.PhysicsSystem;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.BasicEdge;
@@ -34,7 +31,8 @@ public class Model extends MonoBehavior
     Vector2f center = new Vector2f(400);
     Yolk yolk;
     float yolkArea;
-    float yolkConstant = .01f;
+    float yolkConstant = .045f;
+    LJForceType ljType = LJForceType.simple;
     public static Gradient apicalGradient;
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
@@ -45,7 +43,7 @@ public class Model extends MonoBehavior
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
         this.addTag(Tag.MODEL);
-        apicalGradient = new GaussianGradient(0f, 0.8f);
+        apicalGradient = new GaussianGradient(0f, 0.7f);
         organism.generateOrganism();
         yolk = (Yolk) State.create(Yolk.class);
         for(Cell cell: organism.getAllCells())
@@ -96,8 +94,8 @@ public class Model extends MonoBehavior
     {
         for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
-        float maxRadius = 100f;
-        float ljConstant = 3e-5f;
+        float maxRadius = 50f;
+        float ljConstant = 35f;
         calculateYolkRestoringForce();
         //yolk.update();
         for(Node node: organism.getAllNodes())
@@ -111,7 +109,7 @@ public class Model extends MonoBehavior
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
-            //calculateLennardJonesForces(maxRadius, ljConstant, cell);
+            calculateLennardJonesForces(maxRadius, ljConstant, cell);
             //
             //checkCellCellCollision(cell);
         }
@@ -199,7 +197,7 @@ public class Model extends MonoBehavior
                 float dist = CustomMath.pDistanceSq(n, edge);
                 if(Float.isNaN(dist)) continue;
                 if(dist < maxRadius){
-                    Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, edge, n);
+                    Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, edge, n, ljType);
                     if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
                        n.AddForceVector(forceVector);
                    }
@@ -207,15 +205,6 @@ public class Model extends MonoBehavior
             }
             edge.hasActed = false;
         }
-    }
-
-    private void addLJForceBasicNodeSystem(float ljConstant, Node node, Node t) {
-        Edge e;
-        e = new BasicEdge(node, t);
-        float forceMagnitude = Math.min(3f, ljConstant * (1f/ e.getLength()));
-        Vector2f forceVector = new Vector2f(e.getXUnit(), e.getYUnit());
-        forceVector.mul(-forceMagnitude);
-        node.AddForceVector(forceVector);
     }
 
     private void AddSimpleHydrostaticForce(int i, float v, float v2) {
