@@ -5,6 +5,7 @@ import Engine.Object.Tag;
 import Engine.States.State;
 import GUI.Painter;
 import Model.Organisms.*;
+import Physics.Forces.Force;
 import Physics.Forces.GaussianGradient;
 import Physics.Forces.Gradient;
 import Physics.Forces.LinearGradient;
@@ -198,15 +199,8 @@ public class Model extends MonoBehavior
                 float dist = CustomMath.pDistanceSq(n, edge);
                 if(Float.isNaN(dist)) continue;
                 if(dist < maxRadius){
-                   Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
-                   Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
-                    forceVector.mul(ljConstant);
-                    Edge temp;
-                    Node t = new Node(pointOnEdge);
-                    temp = new BasicEdge(n, t);
-                    float forceMagnitude = Math.min(4f, ljConstant * (1f/ (float)Math.pow(temp.getLength(), 3)));
-                    forceVector.mul(forceMagnitude);
-                   if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
+                    Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, edge, n);
+                    if(!Float.isNaN(forceVector.x) && !Float.isNaN(forceVector.y)) {
                        n.AddForceVector(forceVector);
                    }
                 }
