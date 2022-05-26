@@ -2,9 +2,11 @@ package Physics.Forces;
 
 
 import Model.Cell;
+import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,5 +135,44 @@ public class Force
             limitedForce.mul(limit);
             return limitedForce;
         }
+    }
+    public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, String type) {
+        Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
+        Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+        Edge temp;
+        Node t = new Node(pointOnEdge);
+        temp = new BasicEdge(n, t);
+        float forceMagnitude = calculateLJForceMagnitude(temp, ljConstant, type);
+        forceVector.mul(forceMagnitude);
+        return forceVector;
+    }
+
+    private static float calculateLJForceMagnitude(Edge e, float constant, String type)
+    {
+        switch(type)
+        {
+            case "simple":
+                return Math.min(4f, constant * (1f/ (float)Math.pow(e.getLength(), 3)));
+            case "ljLike":
+                return calculateLennardJonesLikeForce(constant, e.getLength());
+            case "lennardJones":
+                return calculateLennardJonesForce(constant, e.getLength());
+            default:
+                break;
+        }
+        throw new IllegalArgumentException("Type must be 'simple', 'ljlike', or 'lennardjones'");
+    }
+
+    private static float calculateLennardJonesLikeForce(float constant, float distance)
+    {
+        return 0;
+    }
+
+    private static float calculateLennardJonesForce(float constant, float distance)
+    {
+        float epsilon = 0f;
+        float sigma = 0f;
+
+        return 0;
     }
 }
