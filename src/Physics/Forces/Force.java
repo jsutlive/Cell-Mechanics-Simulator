@@ -153,7 +153,7 @@ public class Force
         {
             case "simple":
                 return Math.min(4f, constant * (1f/ (float)Math.pow(e.getLength(), 3)));
-            case "ljLike":
+            case "Kang2021":
                 return calculateLennardJonesLikeForce(constant, e.getLength());
             case "lennardJones":
                 return calculateLennardJonesForce(constant, e.getLength());
@@ -163,16 +163,30 @@ public class Force
         throw new IllegalArgumentException("Type must be 'simple', 'ljlike', or 'lennardjones'");
     }
 
+    /**
+     * Calculate force based on equation 5 in Kang, et al 2021 (https://doi.org/10/1016/j.isci.2021.103252)
+     * @param constant
+     * @param distance
+     * @return
+     */
     private static float calculateLennardJonesLikeForce(float constant, float distance)
     {
-        return 0;
+        float maxDistance = 0.3f;
+        int p = 6;
+        int q = 3;
+        float exponentTerm = (float)(Math.pow(maxDistance/distance, p) - (2 * Math.pow(maxDistance/distance, q)));
+        return constant * exponentTerm * (1/ CustomMath.sq(distance));
     }
 
     private static float calculateLennardJonesForce(float constant, float distance)
     {
-        float epsilon = 0f;
-        float sigma = 0f;
+        float epsilon = constant;
+        float sigma = 0.3f;
+        float A = 4*epsilon*(float)Math.pow(sigma, 12);
+        float B = 4*epsilon*(float)Math.pow(sigma, 6);
+        float r13 = (float)Math.pow(distance, 13);
+        float r7 = (float)Math.pow(distance, 7);
 
-        return 0;
+        return (-12 * (A/r13)) + (6 * (B/r7));
     }
 }
