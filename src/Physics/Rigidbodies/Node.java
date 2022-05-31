@@ -69,6 +69,7 @@ public class Node implements IRigidbody, IColor {
      */
     @Override
     public void Move() {
+        resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForce);
         State.addToResultantForce(resultantForce);
         resetResultantForce();

@@ -31,7 +31,7 @@ public class Model extends MonoBehavior
     Vector2f center = new Vector2f(400);
     Yolk yolk;
     float yolkArea;
-    float yolkConstant = .045f;
+    float yolkConstant = .15f;
     LJForceType ljType = LJForceType.simple;
     public static Gradient apicalGradient;
     /**
@@ -43,7 +43,7 @@ public class Model extends MonoBehavior
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
         this.addTag(Tag.MODEL);
-        apicalGradient = new GaussianGradient(0f, 0.7f);
+        apicalGradient = new GaussianGradient(0f, 0.35f);
         organism.generateOrganism();
         yolk = (Yolk) State.create(Yolk.class);
         for(Cell cell: organism.getAllCells())
@@ -69,13 +69,6 @@ public class Model extends MonoBehavior
 
 
     public void printCells(){
-        //ApicalConstrictingCell cell0 = (ApicalConstrictingCell) organism.getAllCells().get(0);
-        //System.out.println(apicalGradient.getConstants()[cell0.getRingLocation()-1]);
-        //cell0.setColor(Color.GREEN);
-        //ApicalConstrictingCell cell40 = (ApicalConstrictingCell) organism.getAllCells().get(40);
-        //System.out.println(apicalGradient.getConstants()[cell40.getRingLocation()-1]);
-        //cell40.setColor(Color.GREEN);
-
 
     }
 
@@ -94,8 +87,8 @@ public class Model extends MonoBehavior
     {
         for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
-        float maxRadius = 50f;
-        float ljConstant = 35f;
+        float maxRadius = 70f;
+        float ljConstant = .1f;
         calculateYolkRestoringForce();
         //yolk.update();
         for(Node node: organism.getAllNodes())
@@ -106,10 +99,11 @@ public class Model extends MonoBehavior
             }
 
         }
+        calculateLennardJonesForces(maxRadius, ljConstant);
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
-            calculateLennardJonesForces(maxRadius, ljConstant, cell);
+            //calculateLennardJonesForces(maxRadius, ljConstant, cell);
             //
             //checkCellCellCollision(cell);
         }
@@ -207,14 +201,27 @@ public class Model extends MonoBehavior
         }
     }
 
-    private void AddSimpleHydrostaticForce(int i, float v, float v2) {
-        Vector2f yolkConservationForce = Vector2f.unit(yolkNodes.get(i).getPosition(), center);
-        if (i >= 8 || i < 71) {
-            yolkConservationForce.mul(v);
-        } else {
-            yolkConservationForce.mul(v2);
+    private void calculateLennardJonesForces(float maxRadius, float ljConstant){
+        for (Node n: organism.getAllNodes()){
+            for(Cell c: organism.getAllCells()) {
+                for(Edge e: c.getEdges())
+                {
+                    if (e.contains(n)) continue;
+                    float dist = CustomMath.pDistanceSq(n, e);
+                    if(Float.isNaN(dist))
+                    {
+                        System.out.println("NULL DISTANCE AT CELL " + c.getId());
+                    }
+                    else
+                    {
+                        if(dist < maxRadius){
+                            Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, e, n, ljType);
+                            n.AddForceVector(forceVector);
+                        }
+                    }
+                }
+            }
         }
-        yolkNodes.get(i).AddForceVector(yolkConservationForce);
     }
 
     /**

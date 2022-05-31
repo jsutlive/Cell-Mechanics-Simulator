@@ -8,8 +8,8 @@ public class ShorteningCell extends Cell{
     float lateralShorteningConstant = .10f;
     public ShorteningCell()
     {
-        internalConstant = .05f;
-        elasticConstant = .15f;
+        internalConstant = .03f;
+        elasticConstant = .05f;
     }
 
     /**

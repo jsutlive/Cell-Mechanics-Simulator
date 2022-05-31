@@ -17,7 +17,7 @@ public class CustomMathTests {
         Vector2f b = new Vector2f(0, 1);
         Vector2f norm = CustomMath.normal(a, b);
         assertEquals(0, norm.y);
-        assertEquals(1, norm.x);
+        assertEquals(-1, norm.x);
     }
 
     @Test
@@ -26,8 +26,8 @@ public class CustomMathTests {
         Vector2f a = new Vector2f(0);
         Vector2f b = new Vector2f(0, 1);
         Vector2f norm = CustomMath.normalFlipped(a, b);
-        assertEquals(-0.0f, norm.y);
-        assertEquals(-1, norm.x);
+        assertEquals(1f, norm.y);
+        assertEquals(-0.0f, norm.x);
     }
 
     @Test
@@ -73,5 +73,39 @@ public class CustomMathTests {
     void calculate_slope()
     {
         assertEquals(.75f, CustomMath.slope(new Vector2f(0), new Vector2f(4,3)));
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line()
+    {
+        Node n = new Node(0,1);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(1f, dist);
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line_at_end_of_edge()
+    {
+        Node n = new Node(-1,1);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(1f, dist);
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line_diagonal_to_edge()
+    {
+        Node n = new Node(-4,4);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(16f, dist);
     }
 }

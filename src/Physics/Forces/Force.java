@@ -138,12 +138,28 @@ public class Force
     }
     public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, LJForceType type) {
         Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
+        if(Float.isNaN(pointOnEdge.x) || Float.isNaN(pointOnEdge.y))
+        {
+            System.out.println("POINT ON EDGE NULL");
+        }
         Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+        if(Float.isNaN(forceVector.x) || Float.isNaN(forceVector.y))
+        {
+            System.out.println("FORCE VECTOR NULL");
+        }
         Edge temp;
         Node t = new Node(pointOnEdge);
         temp = new BasicEdge(n, t);
         float forceMagnitude = calculateLJForceMagnitude(temp, ljConstant, type);
+        if(Float.isNaN(forceMagnitude))
+        {
+            System.out.println("FORCE MAGNITUDE NULL");
+        }
         forceVector.mul(forceMagnitude);
+        if(Float.isNaN(forceVector.x) || Float.isNaN(forceVector.y))
+        {
+            System.out.println("FORCE VECTOR NULL _v2");
+        }
         return forceVector;
     }
 
