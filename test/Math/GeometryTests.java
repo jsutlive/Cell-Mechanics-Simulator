@@ -179,5 +179,26 @@ public class GeometryTests {
         assertEquals(e, testEdges.get(1) );
     }
 
+    @Test
+    void check_if_point_is_on_line()
+    {
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(2, 2);
+        Vector2f c = new Vector2f(1, 1);
+        Vector2f[] line = new Vector2f[]{a,b};
+        boolean isOnLine = Geometry.lineSegmentContainsPoint(c, line);
+        assertTrue(isOnLine);
+    }
+
+    @Test
+    void check_if_point_is_not_on_line()
+    {
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(3, 2);
+        Vector2f c = new Vector2f(1, 1);
+        Vector2f[] line = new Vector2f[]{a,b};
+        boolean isOnLine = Geometry.lineSegmentContainsPoint(c, line);
+        assertFalse(isOnLine);
+    }
 
 }

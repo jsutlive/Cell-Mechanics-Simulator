@@ -31,8 +31,9 @@ public class Model extends MonoBehavior
     Vector2f center = new Vector2f(400);
     Yolk yolk;
     float yolkArea;
-    float yolkConstant = .15f;
+    float yolkConstant = .04f;
     LJForceType ljType = LJForceType.simple;
+    public static Vector2f largestResultantForce = new Vector2f(0);
     public static Gradient apicalGradient;
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
@@ -88,7 +89,7 @@ public class Model extends MonoBehavior
         for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
         float maxRadius = 70f;
-        float ljConstant = .1f;
+        float ljConstant = .1e10f;
         calculateYolkRestoringForce();
         //yolk.update();
         for(Node node: organism.getAllNodes())
@@ -99,7 +100,7 @@ public class Model extends MonoBehavior
             }
 
         }
-        calculateLennardJonesForces(maxRadius, ljConstant);
+        //calculateLennardJonesForces(maxRadius, ljConstant);
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
@@ -112,6 +113,7 @@ public class Model extends MonoBehavior
             node.Move();
             //checkCellCellCollision(cell);
         }
+        System.out.println(largestResultantForce.print());
     }
 
     private void calculateYolkRestoringForce() {
@@ -206,17 +208,15 @@ public class Model extends MonoBehavior
             for(Cell c: organism.getAllCells()) {
                 for(Edge e: c.getEdges())
                 {
-                    if (e.contains(n)) continue;
-                    float dist = CustomMath.pDistanceSq(n, e);
-                    if(Float.isNaN(dist))
-                    {
-                        System.out.println("NULL DISTANCE AT CELL " + c.getId());
-                    }
-                    else
-                    {
-                        if(dist < maxRadius){
-                            Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, e, n, ljType);
-                            n.AddForceVector(forceVector);
+                    if (!e.contains(n)) {
+                        float dist = CustomMath.pDistanceSq(n, e);
+                        if (Float.isNaN(dist)) {
+                            //System.out.println("NULL DISTANCE AT CELL " + c.getId());
+                        } else {
+                            if (dist < maxRadius) {
+                                Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, e, n, ljType);
+                                n.AddForceVector(forceVector);
+                            }
                         }
                     }
                 }

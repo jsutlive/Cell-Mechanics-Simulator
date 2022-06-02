@@ -4,6 +4,7 @@ import Engine.Renderer;
 import Engine.Simulation;
 import Engine.States.State;
 import GUI.IColor;
+import Model.Model;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
@@ -72,6 +73,10 @@ public class Node implements IRigidbody, IColor {
         resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForce);
         State.addToResultantForce(resultantForce);
+        if(resultantForce.mag() > Model.largestResultantForce.mag())
+        {
+            Model.largestResultantForce = resultantForce;
+        }
         resetResultantForce();
     }
 
@@ -79,6 +84,7 @@ public class Node implements IRigidbody, IColor {
      * Sets resultant force to 0
      */
     public void resetResultantForce(){ resultantForce = new Vector2f(0f);}
+
 
     public Node clone(){
         return new Node(this.getPosition());

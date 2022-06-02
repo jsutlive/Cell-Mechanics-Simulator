@@ -108,4 +108,28 @@ public class CustomMathTests {
         float dist = CustomMath.pDistanceSq(n, e);
         assertEquals(16f, dist);
     }
+
+    @Test
+    void check_point_slope_works()
+    {
+        Vector2f p = new Vector2f(1, 2);
+        Vector2f a = new Vector2f(1, 1);
+        Vector2f b = new Vector2f(2, 2);
+
+        Vector2f pointOnLine = CustomMath.pointSlope(p,a,b);
+        assertEquals(1.5f, pointOnLine.x);
+        assertEquals(1.5f, pointOnLine.y);
+    }
+
+    @Test
+    void check_point_slope_works_with_point_on_line()
+    {
+        Vector2f p = new Vector2f(3, 3);
+        Vector2f a = new Vector2f(1, 1);
+        Vector2f b = new Vector2f(2, 2);
+
+        Vector2f pointOnLine = CustomMath.pointSlope(p,a,b);
+        assertEquals(3f, pointOnLine.x);
+        assertEquals(3f, pointOnLine.y);
+    }
 }

@@ -30,6 +30,18 @@ public class Geometry {
 
     }
 
+    public static boolean lineSegmentContainsPoint(Vector2f point, Vector2f[] linePositions)
+    {
+        Vector2f lineA = linePositions[0];
+        Vector2f lineB = linePositions[1];
+        return lineSegmentContainsPoint(point, lineA, lineB);
+    }
+
+    public static boolean lineSegmentContainsPoint(Vector2f point, Vector2f lineA, Vector2f lineB) {
+        if(Vector2f.dist(point, lineA) + Vector2f.dist(point, lineB) == Vector2f.dist(lineA, lineB)) return true;
+        else return false;
+    }
+
     public static boolean doEdgesIntersect(Vector2f p1, Vector2f p2, Vector2f p3, Vector2f p4){
         float s1_x, s1_y, s2_x, s2_y;
         s1_x = p2.x - p1.x;

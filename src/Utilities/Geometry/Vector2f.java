@@ -110,4 +110,9 @@ public class Vector2f
     public Vector2f project(Vector2f v){
         return new Vector2f(0);
     }
+
+    public boolean isNull(){
+        if(Float.isNaN(x) || Float.isNaN(y)) return true;
+        else return false;
+    }
 }

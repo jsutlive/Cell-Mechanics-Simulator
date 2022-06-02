@@ -2,6 +2,7 @@ package Utilities.Math;
 
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 
 public class CustomMath {
@@ -197,12 +198,26 @@ public class CustomMath {
     }
 
     public static Vector2f pointSlope(Vector2f p, Vector2f a, Vector2f b){
+
+        if(Geometry.lineSegmentContainsPoint(p,a,b)) return Geometry.APPROX_INF;
+        if(Geometry.lineSegmentContainsPoint(a,p,b)) return Geometry.APPROX_INF;
+        if(Geometry.lineSegmentContainsPoint(p,b,a)) return  Geometry.APPROX_INF;
         float slope = (b.y - a.y)/(b.x - a.x);
         float intercept = a.y - (slope*a.x);
         float normalSlope = -1f/slope;
         float normalIntercept = p.y - (normalSlope * p.x);
         float x = (normalIntercept - intercept)/(slope-normalSlope);
         float y = (slope * x) + intercept;
+        if(Float.isNaN(x) || Float.isNaN(y)) {
+            /*System.out.println("-------------------------");
+            System.out.println("P: " + p.print());
+            System.out.println("A: " + a.print());
+            System.out.println("B: " + b.print());
+            System.out.println("X: " + x + ", Y:" + y);
+            System.out.println("-------------------------");*/
+            return Geometry.APPROX_INF;
+
+        }
         return new Vector2f(x, y);
     }
 

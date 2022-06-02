@@ -7,7 +7,7 @@ import Utilities.Geometry.Vector2i;
 
 public class Simulation implements Runnable
 {
-    public static final float TIMESTEP = 1e-1f;
+    public static final float TIMESTEP = 1e-3f;
     // rendering system reference
     Renderer renderer;
     // Collecting user input

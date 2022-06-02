@@ -5,6 +5,7 @@ import Model.Cell;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -138,12 +139,27 @@ public class Force
     }
     public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, LJForceType type) {
         Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
+        Vector2f forceVector;
         if(Float.isNaN(pointOnEdge.x) || Float.isNaN(pointOnEdge.y))
         {
             System.out.println("POINT ON EDGE NULL");
         }
-        Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
-        if(Float.isNaN(forceVector.x) || Float.isNaN(forceVector.y))
+        if(!Geometry.lineSegmentContainsPoint(pointOnEdge, edge.getPositions())) {
+            forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+        }
+        else
+        {
+            Vector2f edgeNode0 = edge.getPositions()[0];
+            Vector2f edgeNode1 = edge.getPositions()[1];
+            if(Vector2f.dist(pointOnEdge, edgeNode0) < Vector2f.dist(pointOnEdge, edgeNode1)) {
+                forceVector = Vector2f.unit(pointOnEdge, edgeNode0);
+            }
+            else
+            {
+                forceVector = Vector2f.unit(pointOnEdge, edgeNode1);
+            }
+        }
+        if(forceVector.isNull())
         {
             System.out.println("FORCE VECTOR NULL");
         }
@@ -156,7 +172,7 @@ public class Force
             System.out.println("FORCE MAGNITUDE NULL");
         }
         forceVector.mul(forceMagnitude);
-        if(Float.isNaN(forceVector.x) || Float.isNaN(forceVector.y))
+        if(forceVector.isNull())
         {
             System.out.println("FORCE VECTOR NULL _v2");
         }
