@@ -136,4 +136,26 @@ public class Geometry {
         return currentEdge;
     }
 
+    public static float calculateAngleBetweenEdges(Edge a, Edge b){
+        Node[] edgeANodes = a.getNodes();
+        Node[] edgeBNodes = b.getNodes();
+        List<Node> cornerNodes = Node.getAllUnique(edgeANodes, edgeBNodes);
+        if(cornerNodes.size()!=3){
+            throw new IllegalArgumentException("Corners should only consist of three nodes");
+        }
+
+        Vector2f p1 = cornerNodes.get(0).getPosition();
+        Vector2f p2 = cornerNodes.get(1).getPosition();
+        Vector2f p3 = cornerNodes.get(2).getPosition();
+        return  calculateAngleBetweenPoints(p1, p2, p3);
+    }
+
+    public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
+        Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
+        Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
+
+        return  (float)Math.acos(a.dot(b)/ (a.mag() * b.mag()));
+    }
+
+
 }

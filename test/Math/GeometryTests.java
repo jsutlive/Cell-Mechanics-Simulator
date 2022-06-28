@@ -6,8 +6,10 @@ import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
+import sun.jvmstat.monitor.event.VmStatusChangeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,6 +201,31 @@ public class GeometryTests {
         Vector2f[] line = new Vector2f[]{a,b};
         boolean isOnLine = Geometry.lineSegmentContainsPoint(c, line);
         assertFalse(isOnLine);
+    }
+
+    @Test
+    void check_if_90_degree_angle_is_formed_by_three_points(){
+        Vector2f p1 = new Vector2f(0,1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        float ninetyDegreesAsRadians = (float)Math.PI/2;
+        float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
+
+        assertEquals(CustomMath.round(ninetyDegreesAsRadians,5), ans);
+     }
+
+    @Test
+    void check_if_45_degree_angle_is_formed_by_three_points(){
+        float root2Over2 = (float)Math.sqrt(2)/2;
+        Vector2f p1 = new Vector2f(root2Over2, root2Over2);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        float fortyFiveDegreesAsRadians =  (float)Math.PI/4;
+        float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
+
+        assertEquals(CustomMath.round(fortyFiveDegreesAsRadians,5), ans);
     }
 
 }

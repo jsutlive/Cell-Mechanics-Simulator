@@ -1,15 +1,16 @@
 package Physics.Rigidbodies;
 
-import Engine.Renderer;
 import Engine.Simulation;
 import Engine.States.State;
 import GUI.IColor;
 import Model.Model;
-import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
+import Utilities.Model.Builder;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Node: A vertex-like object which can implement physics for simulations.
@@ -109,5 +110,20 @@ public class Node implements IRigidbody, IColor {
     @Override
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public static void addIfAvailable(List<Node> nodes, Node n){
+        if(!nodes.contains(n)) nodes.add(n);
+    }
+
+    public static List<Node> getAllUnique(Node[] a, Node[] b){
+        List<Node> uniqueNodes = new ArrayList<>();
+        for(Node n_a: a){
+            uniqueNodes.add(n_a);
+        }
+        for(Node n_b: b){
+            addIfAvailable(uniqueNodes, n_b);
+        }
+        return uniqueNodes;
     }
 }

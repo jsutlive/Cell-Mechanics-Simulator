@@ -65,4 +65,24 @@ public class EdgeTests
         float dist = Vector2f.dist(aVec, bVec);
         assertEquals(5,dist);
     }
+
+    @Test
+    void determine_edge_contains_node(){
+        Node n = new Node(0,0);
+        Edge e =  new BasicEdge(
+                new Node(0,0),
+                new Node(0,1)
+        );
+        assertTrue(e.contains(n));
+    }
+
+    @Test
+    void determine_edge_nodes_instances_not_altered(){
+        Node a = new Node(0,0);
+        Node b = new Node(0,1);
+        Edge e = new BasicEdge(a,b);
+
+        assertTrue(a==e.getNodes()[0]);
+        assertTrue(b==e.getNodes()[1]);
+    }
 }

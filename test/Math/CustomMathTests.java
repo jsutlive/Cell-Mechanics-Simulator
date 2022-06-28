@@ -40,6 +40,37 @@ public class CustomMathTests {
         assertEquals(1.0f, norm.x);
     }
 
+    //@Test
+    /*
+    Check accuracy of pDistanceSq in measuring perpendicular distance from point p to the line segment
+    created by a and b if p is a point between a and b
+
+    void check_accuracy_of_pDistanceSq_point_diagonal_from_line(){
+        Vector2f a = new Vector2f(0,5);
+        Vector2f b = new Vector2f(5,0);
+        Vector2f p = new Vector2f(0,0);
+        assertEquals(4f, CustomMath.pDistanceSq(p, a, b));
+    }*/
+
+    @Test
+    /*
+    Should return zero since there a perpendicular line could not be drawn
+     */
+    void check_accuracy_of_pDistanceSq_point_on_line_extension(){
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(5,0);
+        Vector2f p = new Vector2f(6,0);
+        assertEquals(0f, CustomMath.pDistanceSq(p, a, b));
+    }
+
+    @Test
+    void check_accuracy_pDistanceSq_from_outside_line_segment(){
+        Vector2f a = new Vector2f(0,5);
+        Vector2f b = new Vector2f(5,5);
+        Vector2f p = new Vector2f(6,0);
+        assertEquals(25f, CustomMath.pDistanceSq(p, a, b));
+    }
+
     @Test
     void calculate_edge_normal_45_degree_angle()
     {

@@ -33,6 +33,7 @@ public class ApicalConstrictingCell extends Cell
      */
     @Override
     public void update() {
+        setNodePositions();
         for(Edge edge: edges)
         {
             if(edge instanceof LateralEdge) {

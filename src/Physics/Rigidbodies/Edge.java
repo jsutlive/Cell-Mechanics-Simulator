@@ -146,7 +146,7 @@ public abstract class Edge implements IRigidbody, IColor
      */
     public boolean contains(Node n){
         for(Node node: nodes){
-            if (node == n) return true;
+            if(Vector2f.isEqual(n.getPosition(), node.getPosition())) return true;
         }
         return false;
     }

@@ -7,7 +7,7 @@ import Utilities.Geometry.Vector2i;
 
 public class Simulation implements Runnable
 {
-    public static final float TIMESTEP = 1e-3f;
+    public static final float TIMESTEP = 1e-1f;
     // rendering system reference
     Renderer renderer;
     // Collecting user input
@@ -61,7 +61,7 @@ public class Simulation implements Runnable
 
         // Get input system
         inputHandler = Input.getInstance();
-        System.out.println(inputHandler);
+        //System.out.println(inputHandler);
 
         // Prepare state loading and timer system
         Time.getInstance();

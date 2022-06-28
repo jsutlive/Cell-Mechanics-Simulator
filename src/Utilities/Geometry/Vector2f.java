@@ -115,4 +115,9 @@ public class Vector2f
         if(Float.isNaN(x) || Float.isNaN(y)) return true;
         else return false;
     }
+
+    public static boolean isEqual(Vector2f a, Vector2f b){
+        if(a.x == b.x && a.y == b.y) return true;
+        else return false;
+    }
 }

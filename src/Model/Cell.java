@@ -27,7 +27,7 @@ public class Cell extends MonoBehavior {
     float elasticConstant = .05f;
 
     float internalConstant = .03f;
-    float osmosisConstant = .003f;
+    float osmosisConstant = .006f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -91,7 +91,7 @@ public class Cell extends MonoBehavior {
         }
     }
 
-    private void setNodePositions()
+    protected void setNodePositions()
     {
         nodePositions.clear();
         for(Node node: nodes){
@@ -113,7 +113,8 @@ public class Cell extends MonoBehavior {
         // Edges have multiple varieties. We can target specific edge types to apply unique forces to them,
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
-        for(Edge edge: edges) {
+        setNodePositions();
+        for(Edge edge: getEdges()) {
             if(edge instanceof BasalEdge){
                 Force.elastic(edge, elasticConstant);
             }

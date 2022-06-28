@@ -49,6 +49,7 @@ public class Model extends MonoBehavior
         yolk = (Yolk) State.create(Yolk.class);
         for(Cell cell: organism.getAllCells())
         {
+
             System.out.println(cell.getId());
             if(cell instanceof ApicalConstrictingCell)
             {
@@ -86,13 +87,14 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        for(Node node: organism.getAllNodes()) node.resetResultantForce();
         Edge e;
         float maxRadius = 70f;
-        float ljConstant = .1e10f;
+        float ljConstant = .1e5f;
         calculateYolkRestoringForce();
         //yolk.update();
-        for(Node node: organism.getAllNodes())
+        List<Node> allNodes = organism.getAllNodes();
+        System.out.println("ALLNODES"+ allNodes.size());
+        for(Node node: allNodes)
         {
             if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
             {
@@ -100,20 +102,20 @@ public class Model extends MonoBehavior
             }
 
         }
-        //calculateLennardJonesForces(maxRadius, ljConstant);
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
-            //calculateLennardJonesForces(maxRadius, ljConstant, cell);
-            //
             //checkCellCellCollision(cell);
         }
-        for(Node node: organism.getAllNodes())
+        //calculateLennardJonesForces(maxRadius, ljConstant);
+
+
+        for(Node node: allNodes)
         {
             node.Move();
             //checkCellCellCollision(cell);
         }
-        System.out.println(largestResultantForce.print());
+        //System.out.println(largestResultantForce.print());
     }
 
     private void calculateYolkRestoringForce() {
@@ -204,14 +206,18 @@ public class Model extends MonoBehavior
     }
 
     private void calculateLennardJonesForces(float maxRadius, float ljConstant){
-        for (Node n: organism.getAllNodes()){
+        List<Node> allNodes = organism.getAllNodes();
+        for (Node n: allNodes){
             for(Cell c: organism.getAllCells()) {
-                for(Edge e: c.getEdges())
-                {
+                for(Edge e: c.getEdges()) {
+                    if (n.getPosition().isNull()) {
+                        System.out.println("NULL NODE");
+                    }
                     if (!e.contains(n)) {
                         float dist = CustomMath.pDistanceSq(n, e);
                         if (Float.isNaN(dist)) {
-                            //System.out.println("NULL DISTANCE AT CELL " + c.getId());
+                            n.setColor(Color.GREEN);
+                            System.out.println("NULL DISTANCE AT CELL " + c.getId());
                         } else {
                             if (dist < maxRadius) {
                                 Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, e, n, ljType);

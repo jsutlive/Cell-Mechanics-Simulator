@@ -161,7 +161,7 @@ public class Force
         }
         if(forceVector.isNull())
         {
-            System.out.println("FORCE VECTOR NULL");
+            //System.out.println("FORCE VECTOR NULL");
         }
         Edge temp;
         Node t = new Node(pointOnEdge);
@@ -174,7 +174,7 @@ public class Force
         forceVector.mul(forceMagnitude);
         if(forceVector.isNull())
         {
-            System.out.println("FORCE VECTOR NULL _v2");
+            //System.out.println("FORCE VECTOR NULL _v2");
         }
         return forceVector;
     }

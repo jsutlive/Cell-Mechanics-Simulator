@@ -1,5 +1,6 @@
 package Utilities.Math;
 
+import Model.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
@@ -170,15 +171,22 @@ public class CustomMath {
         return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
-    /**
-     * return perpendicular distance squared to the line made between two points from another point
-     * @param p a point in space
-     * @param a point 1 in the line
-     * @param b point 2 in the line
-     * @return a float describing perpendicular distance from p to the line made by a and b
-     */
-    public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
+    public static float pDistanceSq(Cell c, Node n, Edge e){
+        Vector2f[] edgePositions = e.getPositions();
+        return pDistanceSq(c, n.getPosition(), edgePositions[0], edgePositions[1]);
+    }
 
+    public static float pDistanceSq(Cell c, Vector2f p, Vector2f a, Vector2f b) {
+
+        if(a.isNull()){
+            throw new NullPointerException("Null value for vector a at cell " + c.getId());
+        }
+        if(b.isNull()){
+            throw new NullPointerException("Null value for vector b");
+        }
+        if(p.isNull()){
+            throw new NullPointerException("Null value for vector p");
+        }
         float A = p.x - a.x; // position of point rel one end of line
         float B = p.y - a.y;
         float C = b.x - a.x; // vector along line
@@ -187,8 +195,33 @@ public class CustomMath {
         float F = C;
 
         float dot = A * E + B * F;
-        float len_sq = E * E + F * F;
+        float len_sq = sq(E) + sq(F);
+        if(len_sq == 0){
+            throw new IllegalArgumentException("DIVIDE BY ZERO ERROR");
+        }
+        return sq(dot) / len_sq;
+    }
 
+    /**
+     * return perpendicular distance squared to the line made between two points from another point
+     * @param p a point in space
+     * @param a point 1 in the line
+     * @param b point 2 in the line
+     * @return a float describing perpendicular distance from p to the line made by a and b
+     */
+    public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
+        float A = p.x - a.x; // position of point rel one end of line
+        float B = p.y - a.y;
+        float C = b.x - a.x; // vector along line
+        float D = b.y - a.y;
+        float E = -D; // orthogonal vector
+        float F = C;
+
+        float dot = A * E + B * F;
+        float len_sq = sq(E) + sq(F);
+        if(len_sq == 0){
+            throw new IllegalArgumentException("DIVIDE BY ZERO ERROR");
+        }
         return sq(dot) / len_sq;
     }
 
