@@ -11,6 +11,7 @@ import java.util.List;
 public class Geometry {
 
     public static Vector2f APPROX_INF = new Vector2f(1e15f);
+    public static float ninetyDegreesAsRadians = (float)Math.PI/2;
 
     public static boolean polygonContainsPoint(Cell cell, Node point){
         int count = 0;
@@ -150,12 +151,29 @@ public class Geometry {
         return  calculateAngleBetweenPoints(p1, p2, p3);
     }
 
+    public static float calculateAngleBetweenPoints(Corner corner){
+        return calculateAngleBetweenPoints(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
+    }
     public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
         Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
         Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
 
-        return  (float)Math.acos(a.dot(b)/ (a.mag() * b.mag()));
+        return  (float)Math.PI - (float) Math.acos(a.dot(b)/ (a.mag() * b.mag()));
     }
 
+    public static Vector2f movePointAlongArc(Vector2f origin, Vector2f pointToMove, float angle) {
+        float dist = Vector2f.dist(origin, pointToMove);
+        Vector2f newPosition = CustomMath.GetUnitVectorOnCircle(angle);
+        newPosition.mul(dist);
+        return newPosition;
+    }
+
+    public static Vector2f getForceToMovePointAlongArc(Vector2f origin, Vector2f pointToMove, float angle){
+        if(angle == 0) return Vector2f.zero;
+        Vector2f target = movePointAlongArc(origin, pointToMove, angle);
+        Vector2f force = Vector2f.unit(pointToMove, target);
+        if(force.isNull()) return Vector2f.zero;
+        return CustomMath.round(force, 3);
+    }
 
 }

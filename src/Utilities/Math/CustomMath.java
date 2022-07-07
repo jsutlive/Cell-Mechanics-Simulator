@@ -17,6 +17,10 @@ public class CustomMath {
     public static Vector2f GetUnitVectorOnCircle(int currentSegment, float circleSegments)
     {
         float theta = (currentSegment/circleSegments) * 360f;
+        return GetUnitVectorOnCircle(theta);
+    }
+
+    public static Vector2f GetUnitVectorOnCircle(float theta){
         float thetaRadians = (float)Math.toRadians(theta);
         float x = (float)Math.sin(thetaRadians);
         float y = (float)Math.cos(thetaRadians);
@@ -85,6 +89,13 @@ public class CustomMath {
     {
         double scale = Math.pow(10, places);
         return (float)( Math.round(val*scale)/scale);
+    }
+
+    public static Vector2f round(Vector2f vec, float places)
+    {
+        float x =round(vec.x, places);
+        float y = round(vec.y, places);
+        return new Vector2f(x, y);
     }
 
     /**

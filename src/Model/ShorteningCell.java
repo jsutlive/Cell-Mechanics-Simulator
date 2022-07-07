@@ -36,6 +36,7 @@ public class ShorteningCell extends Cell{
         }
         for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
         Force.restore(this, osmosisConstant) ;
+        //adjustCorners();
     }
 
 

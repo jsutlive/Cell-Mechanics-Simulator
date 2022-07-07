@@ -4,6 +4,7 @@ import java.util.Vector;
 
 public class Vector2f
 {
+    public static Vector2f zero = new Vector2f(0);
     public float x;
     public float y;
 
