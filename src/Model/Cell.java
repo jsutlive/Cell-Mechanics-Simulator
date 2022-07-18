@@ -8,6 +8,7 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Corner;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
@@ -28,8 +29,8 @@ public class Cell extends MonoBehavior {
 
     private List<Corner> corners = new ArrayList<>();
 
-    float elasticConstant = .05f;
-    float cornerAdjustConst = .15f;
+    float elasticConstant = .15f;
+    float cornerAdjustConst = .07f;
 
     float internalConstant = .03f;
     float osmosisConstant = .008f;
@@ -99,6 +100,11 @@ public class Cell extends MonoBehavior {
         corners.add(new Corner(nodes.get(3), nodes.get(4), nodes.get(5)));
         corners.add(new Corner(nodes.get(4), nodes.get(5), nodes.get(6)));
         corners.add(new Corner(nodes.get(8), nodes.get(9), nodes.get(0)));
+
+        corners.get(0).direction = new Vector2f(1,-1);
+        corners.get(1).direction = new Vector2f(1, 1);
+        corners.get(2).direction = new Vector2f(-1, 1);
+        corners.get(3).direction = new Vector2f(-1, -1);
     }
 
     protected void setNodePositions()
@@ -134,6 +140,7 @@ public class Cell extends MonoBehavior {
         }
         for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
         Force.restore(this, osmosisConstant);
+        //adjustCornersUsingHalfAngles();
         adjustCorners();
     }
 
@@ -147,31 +154,73 @@ public class Cell extends MonoBehavior {
 
     protected void adjustCorners(){
         int sign = -1;
+        Vector2f genericForce = new Vector2f(1,1);
         for (Corner corner: corners){
             Node n1 = corner.nodes.get(0);
             Node n2 = corner.nodes.get(1);
             Node n3 = corner.nodes.get(2);
-            if(Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians){
-                Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
-                n1Force.mul(cornerAdjustConst);
-                n1.AddForceVector(n1Force);
+            if(Geometry.calculateAngleBetweenPoints(corner) > (float)Math.PI)
+            {
+                if(Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
 
-                Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
-                n3Force.mul(cornerAdjustConst);
-                n3.AddForceVector(n3Force);
-            }
-            else if(Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians){
-                Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
-                n1Force.mul(cornerAdjustConst);
-                n1.AddForceVector(n1Force);
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+                else if(Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
 
-                Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
-                n3Force.mul(cornerAdjustConst);
-                n3.AddForceVector(n3Force);
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
             }
-            sign = sign*-1;
+            else
+            {
+                if(Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+                else if(Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+            }
+
         }
     }
+
+    protected void adjustCornersUsingHalfAngles(){
+        for(Corner corner : corners){
+            Vector2f forceVector = Geometry.getHalfAngleForceFromCorner(corner);
+            forceVector.mul(cornerAdjustConst);
+            corner.nodes.get(1).AddForceVector(forceVector);
+        }
+    }
+
 
     public void flipApicalAndBasalEdges(){
         for(Edge edge: edges){

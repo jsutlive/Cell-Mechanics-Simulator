@@ -2,7 +2,7 @@ package Engine.States;
 
 import GUI.IRender;
 import GUI.Painter;
-import Model.Model;
+import Model.*;
 import Utilities.Geometry.Vector2i;
 
 import java.awt.*;
@@ -19,7 +19,6 @@ public class EditorState extends State
 
     @Override
     public void Tick() {
-
     }
 
     @Override

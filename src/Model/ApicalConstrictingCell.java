@@ -57,7 +57,8 @@ public class ApicalConstrictingCell extends Cell
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
                 }
             }
-            //adjustCorners();
+            //adjustCornersUsingHalfAngles();
+            adjustCorners();
         }
         for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
         Force.restore(this, osmosisConstant) ;

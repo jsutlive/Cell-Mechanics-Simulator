@@ -9,7 +9,6 @@ import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-import sun.jvmstat.monitor.event.VmStatusChangeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class GeometryTests {
     float ninetyDegreesAsRadians = (float)Math.PI/2;
     float fortyFiveDegreesAsRadians = (float)Math.PI/4;
     float oneHundredEightyDegreesAsRadians = (float)Math.PI;
-    float root2Over2 = (float)Math.sqrt(2)/2;
+    float root2Over2 = CustomMath.round((float)Math.sqrt(2)/2,3);
 
     static List<Node> testNodes;
     static List<Edge> testEdges;
@@ -236,7 +235,7 @@ public class GeometryTests {
         Vector2f p2 = new Vector2f(0,0);
         Vector2f p3 = new Vector2f(1,0);
         float ans = CustomMath.round((Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3))),5);
-        assertEquals(CustomMath.round(oneHundredEightyDegreesAsRadians, 5), ans);
+        assertEquals(CustomMath.round(2*oneHundredEightyDegreesAsRadians, 5), ans);
     }
 
     @Test
@@ -248,7 +247,7 @@ public class GeometryTests {
         Vector2f p3 = new Vector2f(1,0);
 
         float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)),5);
-        assertEquals(CustomMath.round(ninetyDegreesAsRadians, 5), ans);
+        assertEquals(CustomMath.round(3 * ninetyDegreesAsRadians, 5), ans);
     }
 
     @Test
@@ -291,5 +290,21 @@ public class GeometryTests {
         assertEquals(0, force.y);
     }
 
+    @Test
+    void check_if_ninety_degree_angle_is_clockwise(){
+        Vector2f p1 = new Vector2f(0,1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
 
+        assertTrue(Geometry.isClockwise(p1,p2,p3));
+    }
+
+    @Test
+    void check_if_two_seventy_degree_angle_is_counterclockwise(){
+        Vector2f p1 = new Vector2f(0,-1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        assertFalse(Geometry.isClockwise(p1,p2,p3));
+    }
 }

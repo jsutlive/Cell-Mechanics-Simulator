@@ -31,7 +31,7 @@ public class Model extends MonoBehavior
     Vector2f center = new Vector2f(400);
     Yolk yolk;
     float yolkArea;
-    float yolkConstant = .04f;
+    float yolkConstant = .05f;
     LJForceType ljType = LJForceType.simple;
     public static Vector2f largestResultantForce = new Vector2f(0);
     public static Gradient apicalGradient;

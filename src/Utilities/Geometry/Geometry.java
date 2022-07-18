@@ -158,7 +158,10 @@ public class Geometry {
         Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
         Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
 
-        return  (float)Math.PI - (float) Math.acos(a.dot(b)/ (a.mag() * b.mag()));
+        if(isClockwise(p1,p2,p3))
+            return  (float)Math.PI - (float) Math.acos(a.dot(b)/ (a.mag() * b.mag()));
+        else
+            return (float)(2*Math.PI) - (float) Math.acos(a.dot(b)/ (a.mag() * b.mag()));
     }
 
     public static Vector2f movePointAlongArc(Vector2f origin, Vector2f pointToMove, float angle) {
@@ -174,6 +177,47 @@ public class Geometry {
         Vector2f force = Vector2f.unit(pointToMove, target);
         if(force.isNull()) return Vector2f.zero;
         return CustomMath.round(force, 3);
+    }
+
+    public static Vector2f getHalfAngleForceFromCorner(Corner corner){
+        return getHalfAngleForceFromCorner(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
+    }
+
+    public static Vector2f getHalfAngleForceFromCorner(Vector2f a, Vector2f b, Vector2f c){
+        float theta;
+        Vector2f forceVector;
+
+        float length = Vector2f.dist(a, c);
+        float cosTheta = ((a.x-b.x)*(c.x-b.x)+(a.y-b.y)*(c.y-b.y))/Vector2f.dist(b, a)/Vector2f.dist(b, c);
+        boolean isClockwise = isClockwise(a,b,c);
+        if(isClockwise) {
+            theta = (3 * ninetyDegreesAsRadians) - (float) Math.acos(cosTheta);
+            forceVector = new Vector2f(theta * (a.y-c.y)/length,
+                                       theta * (c.x - a.x/length));
+            if(cornerForceDirectionIsInverted(a,b,c)) forceVector.mul(-1);
+        }
+        else {
+            theta = (float)Math.acos(cosTheta) - ninetyDegreesAsRadians;
+            forceVector = new Vector2f(theta * (a.y-c.y)/length,
+                                       theta * (c.x - a.x/length));
+            if(!cornerForceDirectionIsInverted(a,b,c))forceVector.mul(-1);
+        }
+        if(forceVector.isNull()) return Vector2f.zero;
+        return forceVector;
+    }
+
+    private static boolean cornerForceDirectionIsInverted(Vector2f a, Vector2f b, Vector2f c){
+        float value = (a.x-b.x) * (a.y - c.y) + (b.y - a.y) + (c.x - a.x);
+        return value < 0;
+    }
+
+    public static boolean isClockwise(Corner corner){
+        return isClockwise(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
+    }
+
+    public static boolean isClockwise(Vector2f a, Vector2f b, Vector2f c){
+        float value = a.x * (b.y-c.y) + a.y * (c.x-b.x) + b.x * c.y - c.x * b.y;
+        return value > 0;
     }
 
 }
