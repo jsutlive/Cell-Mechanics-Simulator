@@ -2,7 +2,7 @@ package Model.Organisms;
 
 import Engine.Renderer;
 import Engine.States.State;
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Node;
 import Utilities.Model.Builder;
 

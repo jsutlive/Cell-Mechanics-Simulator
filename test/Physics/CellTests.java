@@ -1,6 +1,6 @@
 package Physics;
 
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.LateralEdge;
 import Physics.Rigidbodies.Node;

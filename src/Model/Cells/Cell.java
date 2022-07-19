@@ -1,4 +1,4 @@
-package Model;
+package Model.Cells;
 
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
@@ -8,7 +8,6 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Corner;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
-import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
@@ -29,10 +28,7 @@ public class Cell extends MonoBehavior {
 
     private List<Corner> corners = new ArrayList<>();
 
-    float elasticConstant = .15f;
     float cornerAdjustConst = .07f;
-
-    float internalConstant = .03f;
     float osmosisConstant = .008f;
 
     public List<Edge> getEdges(){
@@ -94,6 +90,8 @@ public class Cell extends MonoBehavior {
         setNodePositions();
         setCorners();
     }
+    public void overrideElasticConstants(){
+    }
 
     public void setCorners(){
         corners.add(new Corner(nodes.get(9), nodes.get(0), nodes.get(1)));
@@ -130,15 +128,12 @@ public class Cell extends MonoBehavior {
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
         setNodePositions();
-        for(Edge edge: getEdges()) {
-            if(edge instanceof BasalEdge){
-                Force.elastic(edge, elasticConstant);
-            }
-            else {
-                Force.elastic(edge, edge.getElasticConstant());
-            }
+        for(Edge edge: edges) {
+           Force.elastic(edge);
         }
-        for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
+        for(Edge edge: internalEdges) {
+            Force.elastic(edge);
+        }
         Force.restore(this, osmosisConstant);
         //adjustCornersUsingHalfAngles();
         adjustCorners();
@@ -243,20 +238,6 @@ public class Cell extends MonoBehavior {
     public void addRenderer(CellRenderer renderer){
         addComponent(renderer);
         State.setFlagToRender(this);
-    }
-
-    protected void osmosis(){
-        float currentArea = getArea();
-        if(currentArea < restingArea)
-        {
-            for (Edge edge: edges)
-            {
-                float forceMagnitude = 0.25f * (currentArea - restingArea);
-                Vector2f forceVector = CustomMath.normal(edge);
-                forceVector.mul(forceMagnitude);
-                edge.AddForceVector(forceVector);
-            }
-        }
     }
 
     public Vector2f getCenter(){

@@ -1,6 +1,6 @@
 package Physics;
 
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Model.Builder;

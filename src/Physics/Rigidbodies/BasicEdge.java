@@ -1,8 +1,11 @@
 package Physics.Rigidbodies;
 
+import Engine.Simulation;
+
 public class BasicEdge extends Edge{
     public BasicEdge(Node a, Node b)
     {
+        elasticConstant = .03f;
         MakeNewEdge(a, b);
         isNull = false;
     }

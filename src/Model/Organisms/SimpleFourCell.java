@@ -1,8 +1,9 @@
 package Model.Organisms;
 
 import Engine.Renderer;
-import Model.*;
 import Engine.States.State;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;

@@ -4,7 +4,7 @@ public class BasalEdge extends Edge{
     public BasalEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
-        elasticConstant = .04f;
+        elasticConstant = .15f;
         isNull = false;
 
     }

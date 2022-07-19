@@ -2,8 +2,8 @@ package Utilities.Model;
 
 import Engine.States.State;
 import GUI.Painter;
-import Model.ApicalConstrictingCell;
-import Model.Cell;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 
 import Model.EdgeMono;
 import Physics.Rigidbodies.*;

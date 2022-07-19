@@ -1,12 +1,14 @@
 package Model.Organisms;
 
 import Model.*;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
+import Model.Cells.ShorteningCell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Model.Builder;
-import Utilities.Model.Mesh;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,13 @@
 package Physics;
 
-import Model.ApicalConstrictingCell;
-import Model.Cell;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Model.Builder;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

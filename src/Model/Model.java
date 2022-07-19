@@ -3,12 +3,13 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
-import GUI.Painter;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
+import Model.Cells.ShorteningCell;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
 import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
@@ -26,6 +27,7 @@ public class Model extends MonoBehavior
     PhysicsSystem physicsSystem;
     //IOrganism organism = new SimpleFourCellBox();
     IOrganism organism = new DrosophilaEmbryo();
+    List<Node> allNodes = new ArrayList<>();
     float shellRadius = 302f;
     List<Node> yolkNodes = new ArrayList<>();
     Vector2f center = new Vector2f(400);
@@ -47,35 +49,22 @@ public class Model extends MonoBehavior
         apicalGradient = new GaussianGradient(0f, 0.35f);
         organism.generateOrganism();
         yolk = (Yolk) State.create(Yolk.class);
-        for(Cell cell: organism.getAllCells())
-        {
 
-            System.out.println(cell.getId());
-            if(cell instanceof ApicalConstrictingCell)
-            {
-                cell.setColor(Color.MAGENTA);
-            }
-            if(cell instanceof ShorteningCell)
-            {
-                cell.setColor(Color.BLUE);
-            }
-            for(Edge edge: cell.getEdges()){
-                if(edge instanceof BasalEdge){
-                    yolkNodes.add(edge.getNodes()[0]);
-                    break;
-                }
-            }
-        }
+        setCellColors();
+        allNodes = organism.getAllNodes();
         yolk.build(organism.getAllCells(), yolkNodes);
     }
 
 
     public void printCells(){
-
+        // pick specific cells to print using cell.print() to debug using this function
     }
 
     @Override
     public void start() {
+        for(Cell cell : organism.getAllCells()){
+            cell.overrideElasticConstants();
+        }
     }
 
     @Override
@@ -87,13 +76,24 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        Edge e;
         float maxRadius = 70f;
         float ljConstant = .1e5f;
         calculateYolkRestoringForce();
-        //yolk.update();
-        List<Node> allNodes = organism.getAllNodes();
-        System.out.println("ALLNODES"+ allNodes.size());
+
+        checkNodesWithinBoundary(allNodes);
+        for(Cell cell: organism.getAllCells())
+        {
+            cell.update();
+        }
+        //calculateLennardJonesForces(maxRadius, ljConstant);
+
+        for(Node node: allNodes)
+        {
+            node.Move();
+        }
+    }
+
+    private void checkNodesWithinBoundary(List<Node> allNodes) {
         for(Node node: allNodes)
         {
             if(!Boundary.ContainsNode(node, new Vector2f(400), shellRadius))
@@ -102,20 +102,6 @@ public class Model extends MonoBehavior
             }
 
         }
-        for(Cell cell: organism.getAllCells())
-        {
-            cell.update();
-            //checkCellCellCollision(cell);
-        }
-        //calculateLennardJonesForces(maxRadius, ljConstant);
-
-
-        for(Node node: allNodes)
-        {
-            node.Move();
-            //checkCellCellCollision(cell);
-        }
-        //System.out.println(largestResultantForce.print());
     }
 
     private void calculateYolkRestoringForce() {
@@ -237,6 +223,30 @@ public class Model extends MonoBehavior
     public Model() throws InstantiationException, IllegalAccessException {
         this.start();
     }
+
+    private void setCellColors() {
+        for(Cell cell: organism.getAllCells())
+        {
+
+            System.out.println(cell.getId());
+            if(cell instanceof ApicalConstrictingCell)
+            {
+                cell.setColor(Color.MAGENTA);
+            }
+            if(cell instanceof ShorteningCell)
+            {
+                cell.setColor(Color.BLUE);
+            }
+            for(Edge edge: cell.getEdges()){
+                if(edge instanceof BasalEdge){
+                    yolkNodes.add(edge.getNodes()[0]);
+                    break;
+                }
+            }
+        }
+    }
+
+
 
 
 }

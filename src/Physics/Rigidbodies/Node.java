@@ -45,7 +45,6 @@ public class Node implements IRigidbody, IColor {
     }
 
     public Node(float a, float b){position = new Vector2f(a, b);}
-    public boolean hasMoved = false;
 
     /**
      * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the

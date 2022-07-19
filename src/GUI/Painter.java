@@ -1,7 +1,7 @@
 package GUI;
 
 import Engine.Renderer;
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;

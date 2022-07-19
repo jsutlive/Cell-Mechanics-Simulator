@@ -1,6 +1,7 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;

@@ -1,10 +1,9 @@
-package Model;
+package Model.Cells;
 
+import Model.Model;
 import Physics.Forces.Force;
 import Physics.Forces.Gradient;
 import Physics.Rigidbodies.*;
-
-import java.awt.*;
 
 /**
  * An Apical Constricting Cell undergoes the following forces:
@@ -18,13 +17,27 @@ import java.awt.*;
  */
 public class ApicalConstrictingCell extends Cell
 {
-    float apicalConstrictingConstant = .75f;
-    float apicalConstrictingRatio = .01f;
+    public float apicalConstrictingConstant = .75f;
+    public float apicalConstrictingRatio = .01f;
+
+    private float internalConstantOverride;
+    private float elasticConstantOverride;
 
     public ApicalConstrictingCell()
     {
-        internalConstant = .035f;
-        elasticConstant = .05f;
+        internalConstantOverride = .035f;
+        elasticConstantOverride = .05f;
+    }
+
+    @Override
+    public void overrideElasticConstants() {
+        super.overrideElasticConstants();
+        for(Edge edge: edges){
+            edge.setElasticConstant(elasticConstantOverride);
+        }
+        for (Edge edge: internalEdges){
+            edge.setElasticConstant(internalConstantOverride);
+        }
     }
 
     /**
@@ -36,16 +49,8 @@ public class ApicalConstrictingCell extends Cell
         setNodePositions();
         for(Edge edge: edges)
         {
-            if(edge instanceof LateralEdge) {
-                Force.elastic(edge, .05f);
-            }
-            else if (edge instanceof BasalEdge)
+            if(edge instanceof ApicalEdge)
             {
-                Force.elastic(edge, 0.07f);
-            }
-            else if(edge instanceof ApicalEdge)
-            {
-                Force.elastic(edge, elasticConstant);
 
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
                 if(Model.apicalGradient != null){
@@ -57,11 +62,8 @@ public class ApicalConstrictingCell extends Cell
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
                 }
             }
-            //adjustCornersUsingHalfAngles();
-            adjustCorners();
+
         }
-        for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
-        Force.restore(this, osmosisConstant) ;
 
     }
 

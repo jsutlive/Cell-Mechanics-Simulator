@@ -1,7 +1,7 @@
 package Physics.Forces;
 
 
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -108,9 +108,6 @@ public class Force
             restoringForce.mul(-forceMagnitude);
             // add force
             node.AddForceVector(restoringForce);
-            //Vector2f endPosition = node.getPosition();
-            //endPosition.add(restoringForce);
-
         }
     }
 

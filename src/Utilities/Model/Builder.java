@@ -2,8 +2,8 @@ package Utilities.Model;
 
 import Engine.Renderer;
 import Engine.States.State;
-import Model.ApicalConstrictingCell;
-import Model.Cell;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;

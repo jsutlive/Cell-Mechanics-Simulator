@@ -1,6 +1,7 @@
 package Model;
 
 import Engine.Simulation;
+import Model.Cells.Cell;
 import Model.Organisms.DrosophilaEmbryo;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
@@ -41,7 +42,7 @@ public class DrosophilaEmbryoTest {
 
 
     private float GetApicalEdgeLengthNoRounding(Cell cell0) {
-        for (Edge e : cell0.edges) {
+        for (Edge e : cell0.getEdges()) {
             if (e instanceof ApicalEdge) {
                 Node[] nodes = e.getNodes();
                 Vector2f a = nodes[0].getPosition();

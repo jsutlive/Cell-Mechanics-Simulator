@@ -1,6 +1,6 @@
 package Utilities.Math;
 
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
