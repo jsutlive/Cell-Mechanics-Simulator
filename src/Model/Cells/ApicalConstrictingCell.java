@@ -17,16 +17,14 @@ import Physics.Rigidbodies.*;
  */
 public class ApicalConstrictingCell extends Cell
 {
-    public float apicalConstrictingConstant = .75f;
+    public float apicalConstrictingConstant = 0f;
     public float apicalConstrictingRatio = .01f;
 
-    private float internalConstantOverride;
-    private float elasticConstantOverride;
+    private float internalConstantOverride = .035f;
+    private float elasticConstantOverride = .05f;
 
     public ApicalConstrictingCell()
     {
-        internalConstantOverride = .035f;
-        elasticConstantOverride = .05f;
     }
 
     @Override
@@ -46,6 +44,7 @@ public class ApicalConstrictingCell extends Cell
      */
     @Override
     public void update() {
+        super.update();
         setNodePositions();
         for(Edge edge: edges)
         {
