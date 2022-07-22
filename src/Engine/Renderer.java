@@ -1,8 +1,6 @@
 package Engine;
 
 import Utilities.Geometry.Vector2i;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.awt.*;
 
 public abstract class Renderer implements Runnable{
@@ -27,19 +25,17 @@ public abstract class Renderer implements Runnable{
             // change the Renderer type here, preferably using the same "makeInstance" convention.
 
             /*
-                Example "makeInstance function:
+                Example "makeInstance" function:
 
                  public static Renderer makeInstance(){
                     if (getInstance()!= null) return getInstance();         // maintain singleton renderer
                     return new ExampleRenderer();                           // create the renderer instance
                 }
-    }
              */
             instance = SimpleRenderer.makeInstance();
         }
         return instance;
     }
-
     @Override
     // run the renderer in an update loop
     public void run() {
