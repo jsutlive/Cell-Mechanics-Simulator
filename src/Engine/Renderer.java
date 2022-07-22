@@ -2,6 +2,7 @@ package Engine;
 
 import Engine.States.State;
 import GUI.DisplayWindow;
+import Utilities.Geometry.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -13,7 +14,7 @@ public class Renderer implements Runnable
     /**
      * Graphics object that our painter class references to draw objects
      */
-    public static Graphics g;
+    private static Graphics g;
     public static final Color defaultColor = Color.white;
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
@@ -78,4 +79,18 @@ public class Renderer implements Runnable
     {
         return displayWindow;
     }
+
+    public void setColor(Color color){
+        if(g.getColor()==color) return;
+        g.setColor(color);
+    }
+
+    public void drawCircle(Vector2i center, int radius){
+        g.drawOval(center.x - radius/2, center.y - radius/2, radius, radius);
+    }
+
+    public void drawLine(Vector2i pointA, Vector2i pointB){
+        g.drawLine(pointA.x, pointA.y, pointB.x, pointB.y);
+    }
+
 }
