@@ -36,6 +36,11 @@ public abstract class Renderer implements Runnable{
         }
         return instance;
     }
+
+    public static Boolean hasInstance(){
+        return (instance != null);
+    }
+
     @Override
     // run the renderer in an update loop
     public void run() {

@@ -16,7 +16,8 @@ public class SimpleRenderer extends Renderer
 
     public static Renderer makeInstance(){
         // prevent creation of multiple renderer instances
-        if (getInstance()!= null) return getInstance();
+        // if (getInstance()!= null) return getInstance();
+        if(hasInstance()) return getInstance();
         return new SimpleRenderer();
     }
 
