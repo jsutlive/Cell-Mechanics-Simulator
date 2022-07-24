@@ -65,13 +65,13 @@ public class Painter {
         drawPoint(point);
     }
 
-    public static void drawCircle(Vector2i center, int radius){
-        Renderer.getInstance().drawCircle(center, radius);
+    public static void drawCircle(Vector2i center, int diameter){
+        Renderer.getInstance().drawCircle(center, diameter);
     }
 
-    public static void drawCircle(Vector2i center, int radius, Color color){
+    public static void drawCircle(Vector2i center, int diameter, Color color){
         setColor(color);
-        drawCircle(center, radius);
+        drawCircle(center, diameter);
     }
 
     public static void setColor(Color color)

@@ -32,7 +32,7 @@ public abstract class Renderer implements Runnable{
                     return new ExampleRenderer();                           // create the renderer instance
                 }
              */
-            instance = SimpleRenderer.makeInstance();
+            instance = ZoomRenderer.makeInstance();
         }
         return instance;
     }
@@ -47,7 +47,7 @@ public abstract class Renderer implements Runnable{
 
     }
     // Draw any circular objects or points
-    public abstract void drawCircle(Vector2i center, int radius);
+    public abstract void drawCircle(Vector2i center, int diameter);
 
     // Draw any lines
     public abstract void drawLine(Vector2i pointA, Vector2i pointB);
