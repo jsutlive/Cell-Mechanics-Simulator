@@ -46,15 +46,15 @@ public class ApicalConstrictingCell extends Cell
     public void update() {
         super.update();
         setNodePositions();
-        for(Edge edge: edges)
+        for(Edge edge:  edges)
         {
             if(edge instanceof ApicalEdge)
             {
 
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
-                if(Model.apicalGradient != null){
+                if(Model.apicalGradient != null && Model.apicalGradient.getConstants() != null){
                     Gradient gr = Model.apicalGradient;
-                    Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],
+                       Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],
                             gr.getRatios()[gr.getRatios().length - getRingLocation()]);
 
                 }else {
