@@ -49,8 +49,6 @@ public class Force
                 edge.getLength() + "::INITIAL LENGTH: "
                 + edge.getInitialLength());
 
-
-
         // Apply force to node 0
         nodes[0].AddForceVector(forceVector);
 
@@ -92,6 +90,8 @@ public class Force
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
     public static void restore(Cell cell, float constant){
+        //TODO: Remove commented sections once verified revised method works
+
         // get cell characteristics
         // Vector2f center = cell.getCenter();
         // float currentArea = cell.getArea();
