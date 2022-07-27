@@ -1,10 +1,11 @@
 package Physics.Forces;
 
 
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -92,24 +93,42 @@ public class Force
 
     public static void restore(Cell cell, float constant){
         // get cell characteristics
-        Vector2f center = cell.getCenter();
-        float currentArea = cell.getArea();
-        float restingArea = cell.getRestingArea();
+        // Vector2f center = cell.getCenter();
+        // float currentArea = cell.getArea();
+        // float restingArea = cell.getRestingArea();
 
         // calculate force magnitude
-        float forceMagnitude = constant * (currentArea - restingArea);
+        // float forceMagnitude = constant * (currentArea - restingArea);
 
         //for every node, get unit vector, multiply times magnitude, apply force
-        for(Node node: cell.getNodes()) {
-            //get unit vector
-            Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
-            //multiply times magnitude
-            restoringForce.mul(-forceMagnitude);
-            // add force
-            node.AddForceVector(restoringForce);
-            //Vector2f endPosition = node.getPosition();
-            //endPosition.add(restoringForce);
+        // for(Node node: cell.getNodes()) {
+        //     //get unit vector
+        //     Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
+        //     //multiply times magnitude
+        //     restoringForce.mul(-forceMagnitude);
+        //     // add force
+        //     node.AddForceVector(restoringForce);
+        // }
 
+        //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
+        //calculate normals
+
+        float forceMagnitude = -constant * (cell.getArea() - cell.getRestingArea());
+
+        List<Node> nodes = cell.getNodes();
+        for(int i = 0; i<nodes.size();i++){
+            Node node1 = nodes.get(i);
+            Node node2 = nodes.get((i+1) % nodes.size());
+            
+            Vector2f edgeVector = node2.getPosition().copy();
+            edgeVector.sub(node1.getPosition());
+
+            Vector2f perpendicular = Vector2f.zero;
+            perpendicular.x = edgeVector.y;
+            perpendicular.y = -edgeVector.x;
+            perpendicular.mul(-forceMagnitude);
+            node1.AddForceVector(perpendicular);
+            node2.AddForceVector(perpendicular);
         }
     }
 
@@ -138,12 +157,43 @@ public class Force
     }
     public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, LJForceType type) {
         Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
-        Vector2f forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+        Vector2f forceVector;
+        if(Float.isNaN(pointOnEdge.x) || Float.isNaN(pointOnEdge.y))
+        {
+            System.out.println("POINT ON EDGE NULL");
+        }
+        if(!Geometry.lineSegmentContainsPoint(pointOnEdge, edge.getPositions())) {
+            forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
+        }
+        else
+        {
+            Vector2f edgeNode0 = edge.getPositions()[0];
+            Vector2f edgeNode1 = edge.getPositions()[1];
+            if(Vector2f.dist(pointOnEdge, edgeNode0) < Vector2f.dist(pointOnEdge, edgeNode1)) {
+                forceVector = Vector2f.unit(pointOnEdge, edgeNode0);
+            }
+            else
+            {
+                forceVector = Vector2f.unit(pointOnEdge, edgeNode1);
+            }
+        }
+        if(forceVector.isNull())
+        {
+            //System.out.println("FORCE VECTOR NULL");
+        }
         Edge temp;
         Node t = new Node(pointOnEdge);
         temp = new BasicEdge(n, t);
         float forceMagnitude = calculateLJForceMagnitude(temp, ljConstant, type);
+        if(Float.isNaN(forceMagnitude))
+        {
+            System.out.println("FORCE MAGNITUDE NULL");
+        }
         forceVector.mul(forceMagnitude);
+        if(forceVector.isNull())
+        {
+            //System.out.println("FORCE VECTOR NULL _v2");
+        }
         return forceVector;
     }
 
@@ -182,8 +232,8 @@ public class Force
         float maxDistance = 0.3f;
         int p = 6;
         int q = 3;
-        float exponentTerm = (float)(Math.pow(maxDistance/distance, p) - (2 * Math.pow(maxDistance/distance, q)));
-        return newConstant * exponentTerm * (1/ CustomMath.sq(distance));
+            float exponentTerm = (float)(Math.pow(maxDistance/distance, p) - (2 * Math.pow(maxDistance/distance, q)));
+            return newConstant * exponentTerm * (1/ CustomMath.sq(distance));
     }
 
     private static float calculateLennardJonesForce(float constant, float distance)

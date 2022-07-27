@@ -21,9 +21,11 @@ public class Gauss {
     {
         int n = coords.size();
         float area = 0f;
+        // Loop over each pair of coordinates, applying the matrix math
         for (int i = 0; i < n - 1; i++) {
             area += coords.get(i).x * coords.get(i + 1).y - coords.get(i + 1).x * coords.get(i).y;
         }
+        // Last pair is the final coordinates + the first coordinates
         return Math.abs(area + coords.get(n - 1).x * coords.get(0).y - coords.get(0).x * coords.get(n - 1).y) / 2.0f;
     }
 

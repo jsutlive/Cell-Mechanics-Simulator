@@ -1,8 +1,8 @@
 package Model;
 
 import Engine.States.State;
+import Model.Cells.Cell;
 import Model.Organisms.SimpleFourCell;
-import Utilities.Geometry.Vector2f;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

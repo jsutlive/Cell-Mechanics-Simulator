@@ -1,8 +1,8 @@
 package Model.Organisms;
 
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Node;
-import Model.*;
-import java.util.HashSet;
+
 import java.util.List;
 
 public interface IOrganism {

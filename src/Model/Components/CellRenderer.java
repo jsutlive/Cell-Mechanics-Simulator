@@ -3,7 +3,7 @@ package Model.Components;
 import GUI.IColor;
 import GUI.IRender;
 import GUI.Painter;
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 

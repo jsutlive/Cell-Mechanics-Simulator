@@ -4,6 +4,7 @@ import java.util.Vector;
 
 public class Vector2f
 {
+    public static Vector2f zero = new Vector2f(0);
     public float x;
     public float y;
 
@@ -109,5 +110,15 @@ public class Vector2f
 
     public Vector2f project(Vector2f v){
         return new Vector2f(0);
+    }
+
+    public boolean isNull(){
+        if(Float.isNaN(x) || Float.isNaN(y)) return true;
+        else return false;
+    }
+
+    public static boolean isEqual(Vector2f a, Vector2f b){
+        if(a.x == b.x && a.y == b.y) return true;
+        else return false;
     }
 }

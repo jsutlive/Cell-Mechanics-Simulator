@@ -1,7 +1,9 @@
 package Utilities.Math;
 
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 
 public class CustomMath {
@@ -15,6 +17,10 @@ public class CustomMath {
     public static Vector2f GetUnitVectorOnCircle(int currentSegment, float circleSegments)
     {
         float theta = (currentSegment/circleSegments) * 360f;
+        return GetUnitVectorOnCircle(theta);
+    }
+
+    public static Vector2f GetUnitVectorOnCircle(float theta){
         float thetaRadians = (float)Math.toRadians(theta);
         float x = (float)Math.sin(thetaRadians);
         float y = (float)Math.cos(thetaRadians);
@@ -83,6 +89,13 @@ public class CustomMath {
     {
         double scale = Math.pow(10, places);
         return (float)( Math.round(val*scale)/scale);
+    }
+
+    public static Vector2f round(Vector2f vec, float places)
+    {
+        float x =round(vec.x, places);
+        float y = round(vec.y, places);
+        return new Vector2f(x, y);
     }
 
     /**
@@ -169,15 +182,22 @@ public class CustomMath {
         return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
-    /**
-     * return perpendicular distance squared to the line made between two points from another point
-     * @param p a point in space
-     * @param a point 1 in the line
-     * @param b point 2 in the line
-     * @return a float describing perpendicular distance from p to the line made by a and b
-     */
-    public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
+    public static float pDistanceSq(Cell c, Node n, Edge e){
+        Vector2f[] edgePositions = e.getPositions();
+        return pDistanceSq(c, n.getPosition(), edgePositions[0], edgePositions[1]);
+    }
 
+    public static float pDistanceSq(Cell c, Vector2f p, Vector2f a, Vector2f b) {
+
+        if(a.isNull()){
+            throw new NullPointerException("Null value for vector a at cell " + c.getId());
+        }
+        if(b.isNull()){
+            throw new NullPointerException("Null value for vector b");
+        }
+        if(p.isNull()){
+            throw new NullPointerException("Null value for vector p");
+        }
         float A = p.x - a.x; // position of point rel one end of line
         float B = p.y - a.y;
         float C = b.x - a.x; // vector along line
@@ -186,8 +206,33 @@ public class CustomMath {
         float F = C;
 
         float dot = A * E + B * F;
-        float len_sq = E * E + F * F;
+        float len_sq = sq(E) + sq(F);
+        if(len_sq == 0){
+            throw new IllegalArgumentException("DIVIDE BY ZERO ERROR");
+        }
+        return sq(dot) / len_sq;
+    }
 
+    /**
+     * return perpendicular distance squared to the line made between two points from another point
+     * @param p a point in space
+     * @param a point 1 in the line
+     * @param b point 2 in the line
+     * @return a float describing perpendicular distance from p to the line made by a and b
+     */
+    public static float pDistanceSq(Vector2f p, Vector2f a, Vector2f b) {
+        float A = p.x - a.x; // position of point rel one end of line
+        float B = p.y - a.y;
+        float C = b.x - a.x; // vector along line
+        float D = b.y - a.y;
+        float E = -D; // orthogonal vector
+        float F = C;
+
+        float dot = A * E + B * F;
+        float len_sq = sq(E) + sq(F);
+        if(len_sq == 0){
+            throw new IllegalArgumentException("DIVIDE BY ZERO ERROR");
+        }
         return sq(dot) / len_sq;
     }
 
@@ -197,12 +242,26 @@ public class CustomMath {
     }
 
     public static Vector2f pointSlope(Vector2f p, Vector2f a, Vector2f b){
+
+        if(Geometry.lineSegmentContainsPoint(p,a,b)) return Geometry.APPROX_INF;
+        if(Geometry.lineSegmentContainsPoint(a,p,b)) return Geometry.APPROX_INF;
+        if(Geometry.lineSegmentContainsPoint(p,b,a)) return  Geometry.APPROX_INF;
         float slope = (b.y - a.y)/(b.x - a.x);
         float intercept = a.y - (slope*a.x);
         float normalSlope = -1f/slope;
         float normalIntercept = p.y - (normalSlope * p.x);
         float x = (normalIntercept - intercept)/(slope-normalSlope);
         float y = (slope * x) + intercept;
+        if(Float.isNaN(x) || Float.isNaN(y)) {
+            /*System.out.println("-------------------------");
+            System.out.println("P: " + p.print());
+            System.out.println("A: " + a.print());
+            System.out.println("B: " + b.print());
+            System.out.println("X: " + x + ", Y:" + y);
+            System.out.println("-------------------------");*/
+            return Geometry.APPROX_INF;
+
+        }
         return new Vector2f(x, y);
     }
 

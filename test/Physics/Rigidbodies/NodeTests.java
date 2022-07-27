@@ -1,5 +1,6 @@
 package Physics.Rigidbodies;
 
+import Engine.Simulation;
 import Utilities.Geometry.Vector2f;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,8 +15,8 @@ public class NodeTests {
         n.Move();
         //Check to make sure reset occurs
         n.Move();
-        assertEquals(1, n.getPosition().x);
-        assertEquals(1, n.getPosition().y);
+        assertEquals(1 * Simulation.TIMESTEP, n.getPosition().x);
+        assertEquals(1 * Simulation.TIMESTEP, n.getPosition().y);
     }
 
     @Test

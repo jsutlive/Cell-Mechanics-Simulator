@@ -1,10 +1,12 @@
-package Model;
+package Model.Cells;
 
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.CellRenderer;
 import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
+import Utilities.Geometry.Corner;
+import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
@@ -24,10 +26,10 @@ public class Cell extends MonoBehavior {
     private float restingArea;
     public float getRestingArea() {return restingArea;}
 
-    float elasticConstant = .15f;
+    private List<Corner> corners = new ArrayList<>();
 
-    float internalConstant = .05f;
-    float osmosisConstant = .003f;
+    float cornerAdjustConst = .07f;
+    float osmosisConstant = .0008f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -86,12 +88,24 @@ public class Cell extends MonoBehavior {
     {
         restingArea = getArea();
         setNodePositions();
-        if(id == 0){
-            //flipApicalAndBasalEdges();
-        }
+        setCorners();
+    }
+    public void overrideElasticConstants(){
     }
 
-    private void setNodePositions()
+    public void setCorners(){
+        corners.add(new Corner(nodes.get(9), nodes.get(0), nodes.get(1)));
+        corners.add(new Corner(nodes.get(3), nodes.get(4), nodes.get(5)));
+        corners.add(new Corner(nodes.get(4), nodes.get(5), nodes.get(6)));
+        corners.add(new Corner(nodes.get(8), nodes.get(9), nodes.get(0)));
+
+        corners.get(0).direction = new Vector2f(1,-1);
+        corners.get(1).direction = new Vector2f(1, 1);
+        corners.get(2).direction = new Vector2f(-1, 1);
+        corners.get(3).direction = new Vector2f(-1, -1);
+    }
+
+    protected void setNodePositions()
     {
         nodePositions.clear();
         for(Node node: nodes){
@@ -113,16 +127,16 @@ public class Cell extends MonoBehavior {
         // Edges have multiple varieties. We can target specific edge types to apply unique forces to them,
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
+        setNodePositions();
         for(Edge edge: edges) {
-            if(edge instanceof BasalEdge){
-                Force.elastic(edge, elasticConstant);
-            }
-            else {
-                Force.elastic(edge, edge.getElasticConstant());
-            }
+           Force.elastic(edge);
         }
-        for(Edge edge: internalEdges) Force.elastic(edge, internalConstant);
+        for(Edge edge: internalEdges) {
+            Force.elastic(edge);
+        }
         Force.restore(this, osmosisConstant);
+        //adjustCornersUsingHalfAngles();
+        adjustCorners();
     }
 
     public void move()
@@ -132,6 +146,76 @@ public class Cell extends MonoBehavior {
             node.Move();
         }
     }
+
+    protected void adjustCorners(){
+        int sign = -1;
+        Vector2f genericForce = new Vector2f(1,1);
+        for (Corner corner: corners){
+            Node n1 = corner.nodes.get(0);
+            Node n2 = corner.nodes.get(1);
+            Node n3 = corner.nodes.get(2);
+            if(Geometry.calculateAngleBetweenPoints(corner) > (float)Math.PI)
+            {
+                if(Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+                else if(Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+            }
+            else
+            {
+                if(Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+                else if(Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians){
+                    Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
+                    n1Force.mul(cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n1.AddForceVector(n1Force);
+
+                    Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
+                    n3Force.mul(-cornerAdjustConst);
+                    n1Force.dot(corner.direction);
+                    n3.AddForceVector(n3Force);
+                }
+            }
+
+        }
+    }
+
+    protected void adjustCornersUsingHalfAngles(){
+        for(Corner corner : corners){
+            Vector2f forceVector = Geometry.getHalfAngleForceFromCorner(corner);
+            forceVector.mul(cornerAdjustConst);
+            corner.nodes.get(1).AddForceVector(forceVector);
+        }
+    }
+
 
     public void flipApicalAndBasalEdges(){
         for(Edge edge: edges){
@@ -154,20 +238,6 @@ public class Cell extends MonoBehavior {
     public void addRenderer(CellRenderer renderer){
         addComponent(renderer);
         State.setFlagToRender(this);
-    }
-
-    protected void osmosis(){
-        float currentArea = getArea();
-        if(currentArea < restingArea)
-        {
-            for (Edge edge: edges)
-            {
-                float forceMagnitude = 0.25f * (currentArea - restingArea);
-                Vector2f forceVector = CustomMath.normal(edge);
-                forceVector.mul(forceMagnitude);
-                edge.AddForceVector(forceVector);
-            }
-        }
     }
 
     public Vector2f getCenter(){
@@ -214,3 +284,4 @@ public class Cell extends MonoBehavior {
         System.out.println("LATERAL EDGES: " + numberOfLateralEdges);
     }
 }
+

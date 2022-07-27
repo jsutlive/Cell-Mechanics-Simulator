@@ -2,8 +2,8 @@ package Utilities.Model;
 
 import Engine.Renderer;
 import Engine.States.State;
-import Model.ApicalConstrictingCell;
-import Model.Cell;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
@@ -243,24 +243,22 @@ public class Builder {
             Node[] testNodes = edgeTest.getNodes();
             for(int i = 0; i < testNodes.length; i++){
                 Node[] reset = e.getNodes();
-                if( testNodes[0].getPosition().equals(e.getNodes()[0].getPosition()) ){
+                if( Vector2f.isEqual(testNodes[0].getPosition(), (e.getNodes()[0].getPosition()) )){
                     reset[0] = testNodes[0];
                 }
-                if( testNodes[1].getPosition().equals(e.getNodes()[0].getPosition()) ){
+                if( Vector2f.isEqual(testNodes[1].getPosition(), (e.getNodes()[0].getPosition()) )){
                     reset[0] = testNodes[1];
                 }
-                if( testNodes[0].getPosition().equals(e.getNodes()[1].getPosition()) ){
+                if( Vector2f.isEqual(testNodes[0].getPosition(),(e.getNodes()[1].getPosition())) ){
                     reset[1] = testNodes[0];
                 }
-                if( testNodes[1].getPosition().equals(e.getNodes()[1].getPosition()) ){
+                if( Vector2f.isEqual(testNodes[1].getPosition(), (e.getNodes()[1].getPosition()) )){
                     reset[1] = testNodes[1];
                 }
             }
         }
             for(Node n: e.getNodes()){
-                if(!mirroredNodes.contains(n)){
-                    mirroredNodes.add(n);
-                }
+                Node.addIfAvailable(mirroredNodes,n);
             }
         }
 
@@ -287,11 +285,7 @@ public class Builder {
         // Get vertices from edge segments, which make up the lateral edges
         List<Node> nodes = new ArrayList<>();
         List<Edge> edges = new ArrayList<>();
-        nodes.addAll(addVerticesFromEdgeList(sideB));
-        List<Node> reversedNodesSideA = addVerticesFromEdgeList(sideA);
-        Collections.reverse(reversedNodesSideA);
-
-        nodes.addAll(reversedNodesSideA);
+        getVerticesFromEdgeSegments(sideA, sideB, nodes);
 
         edges.addAll(sideA);
         edges.addAll(sideB);
@@ -305,6 +299,34 @@ public class Builder {
         Edge edgeA;
         Edge edgeB;
         List<Edge> internalEdges = new ArrayList<>();
+        CreateInternalLattice(sideA, sideB, internalEdges);
+
+        int n = sideA.size();
+        // Create the apical edges of the cell
+        Node apicalA = sideA.get(0).getNodes()[1];
+        Node apicalB = sideB.get(0).getNodes()[1];
+        Edge apicalEdge = new ApicalEdge(apicalA, apicalB);
+        edges.add(apicalEdge);
+
+        // Create the basal edges of the cell
+        Node basalB = sideA.get(n-1).getNodes()[0];
+        Node basalA = sideB.get(n-1).getNodes()[0];
+        Edge basalEdge = new BasalEdge(basalA, basalB);
+        edges.add(basalEdge);
+
+        // compile and create the cell object
+        Cell cell = (Cell) State.create(cellClass);
+        cell.setNodes(nodes);
+        cell.setEdges(edges);
+        cell.setInternalEdges(internalEdges);
+        State.setFlagToRender(cell);
+        cell.setColor(Renderer.defaultColor);
+        return cell;
+    }
+
+    private static void CreateInternalLattice(List<Edge> sideA, List<Edge> sideB, List<Edge> internalEdges) {
+        Edge edgeA;
+        Edge edgeB;
         for(int i = 0; i < sideA.size(); i++)
         {
             edgeA = sideA.get(i);
@@ -322,29 +344,14 @@ public class Builder {
                 internalEdges.add(new BasicEdge(b,d));
             }
         }
+    }
 
-        int n = sideA.size();
-        // Create the apical edges of the cell
-        Node apicalA = sideA.get(0).getNodes()[1];
-        Node apicalB = sideB.get(0).getNodes()[1];
-        Edge apicalEdge = new ApicalEdge(apicalA, apicalB);
-        edges.add(apicalEdge);
+    public static void getVerticesFromEdgeSegments(List<Edge> sideA, List<Edge> sideB, List<Node> nodes) {
+        nodes.addAll(addVerticesFromEdgeList(sideB));
+        List<Node> reversedNodesSideA = addVerticesFromEdgeList(sideA);
+        Collections.reverse(reversedNodesSideA);
 
-        // Create the basal edges of the cell
-
-        Node basalB = sideA.get(n-1).getNodes()[0];
-        Node basalA = sideB.get(n-1).getNodes()[0];
-        Edge basalEdge = new BasalEdge(basalA, basalB);
-        edges.add(basalEdge);
-
-        // compile and create the cell object
-        Cell cell = (Cell) State.create(cellClass);
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
-        State.setFlagToRender(cell);
-        cell.setColor(Renderer.defaultColor);
-        return cell;
+        nodes.addAll(reversedNodesSideA);
     }
 
     private static List <Edge> reverse(List<Edge> sideB) {
@@ -361,10 +368,11 @@ public class Builder {
         for (Edge edge: edgeList)
         {
             Node[] vtxArray = edge.getNodes();
-            vertices.add(vtxArray[0]);
-            vertices.add(vtxArray[1]);
+            Node.addIfAvailable(vertices, vtxArray[0]);
+            Node.addIfAvailable(vertices, vtxArray[1]);
         }
         return vertices;
     }
+
 
 }

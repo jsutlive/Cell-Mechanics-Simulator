@@ -1,7 +1,7 @@
 package GUI;
 
 import Engine.Renderer;
-import Model.Cell;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
@@ -44,43 +44,39 @@ public class Painter {
 
     public static void drawLine(Vector2i pointA, Vector2i pointB)
     {
-        setColor(DEFAULT_COLOR);
-        Renderer.g.drawLine(pointA.x, pointA.y, pointB.x, pointB.y);
+        Renderer.getInstance().drawLine(pointA, pointB);
     }
 
     public static void drawLine(Vector2i pointA, Vector2i pointB, Color color)
     {
         setColor(color);
-        Renderer.g.drawLine(pointA.x, pointA.y, pointB.x, pointB.y);
+        drawLine(pointA, pointB);
+
     }
 
     public static void drawPoint(Vector2i point)
     {
-        setColor(DEFAULT_COLOR);
-        Renderer.g.drawOval(point.x, point.y, 2, 2);
+        Renderer.getInstance().drawCircle(point, 2);
     }
 
     public static void drawPoint(Vector2i point, Color color)
     {
         setColor(color);
-        Renderer.g.drawOval(point.x-1, point.y-1, 2, 2);
+        drawPoint(point);
     }
 
-    public static void drawCircle(Vector2i center, int radius){
-        setColor(DEFAULT_COLOR);
-        Renderer.g.drawOval(center.x, center.y, radius, radius);
-
+    public static void drawCircle(Vector2i center, int diameter){
+        Renderer.getInstance().drawCircle(center, diameter);
     }
 
-    public static void drawCircle(Vector2i center, int radius, Color color){
+    public static void drawCircle(Vector2i center, int diameter, Color color){
         setColor(color);
-        Renderer.g.drawOval(center.x - radius/2, center.y - radius/2, radius, radius);
+        drawCircle(center, diameter);
     }
 
     public static void setColor(Color color)
     {
-        if(Renderer.g.getColor()== color) return;
-        Renderer.g.setColor(color);
+        Renderer.getInstance().setColor(color);
     }
 
 }

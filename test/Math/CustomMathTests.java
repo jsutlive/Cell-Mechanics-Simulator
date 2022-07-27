@@ -17,7 +17,7 @@ public class CustomMathTests {
         Vector2f b = new Vector2f(0, 1);
         Vector2f norm = CustomMath.normal(a, b);
         assertEquals(0, norm.y);
-        assertEquals(1, norm.x);
+        assertEquals(-1, norm.x);
     }
 
     @Test
@@ -26,8 +26,8 @@ public class CustomMathTests {
         Vector2f a = new Vector2f(0);
         Vector2f b = new Vector2f(0, 1);
         Vector2f norm = CustomMath.normalFlipped(a, b);
-        assertEquals(-0.0f, norm.y);
-        assertEquals(-1, norm.x);
+        assertEquals(1f, norm.y);
+        assertEquals(-0.0f, norm.x);
     }
 
     @Test
@@ -38,6 +38,37 @@ public class CustomMathTests {
         Vector2f norm = CustomMath.normal(e);
         assertEquals(0.0f, norm.y);
         assertEquals(1.0f, norm.x);
+    }
+
+    //@Test
+    /*
+    Check accuracy of pDistanceSq in measuring perpendicular distance from point p to the line segment
+    created by a and b if p is a point between a and b
+
+    void check_accuracy_of_pDistanceSq_point_diagonal_from_line(){
+        Vector2f a = new Vector2f(0,5);
+        Vector2f b = new Vector2f(5,0);
+        Vector2f p = new Vector2f(0,0);
+        assertEquals(4f, CustomMath.pDistanceSq(p, a, b));
+    }*/
+
+    @Test
+    /*
+    Should return zero since there a perpendicular line could not be drawn
+     */
+    void check_accuracy_of_pDistanceSq_point_on_line_extension(){
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(5,0);
+        Vector2f p = new Vector2f(6,0);
+        assertEquals(0f, CustomMath.pDistanceSq(p, a, b));
+    }
+
+    @Test
+    void check_accuracy_pDistanceSq_from_outside_line_segment(){
+        Vector2f a = new Vector2f(0,5);
+        Vector2f b = new Vector2f(5,5);
+        Vector2f p = new Vector2f(6,0);
+        assertEquals(25f, CustomMath.pDistanceSq(p, a, b));
     }
 
     @Test
@@ -73,5 +104,63 @@ public class CustomMathTests {
     void calculate_slope()
     {
         assertEquals(.75f, CustomMath.slope(new Vector2f(0), new Vector2f(4,3)));
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line()
+    {
+        Node n = new Node(0,1);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(1f, dist);
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line_at_end_of_edge()
+    {
+        Node n = new Node(-1,1);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(1f, dist);
+    }
+
+    @Test
+    void check_perpendicular_distance_simple_line_diagonal_to_edge()
+    {
+        Node n = new Node(-4,4);
+        Edge e = new BasicEdge(
+                new Node(-1,0),
+                new Node(1,0));
+        float dist = CustomMath.pDistanceSq(n, e);
+        assertEquals(16f, dist);
+    }
+
+    @Test
+    void check_point_slope_works()
+    {
+        Vector2f p = new Vector2f(1, 2);
+        Vector2f a = new Vector2f(1, 1);
+        Vector2f b = new Vector2f(2, 2);
+
+        Vector2f pointOnLine = CustomMath.pointSlope(p,a,b);
+        assertEquals(1.5f, pointOnLine.x);
+        assertEquals(1.5f, pointOnLine.y);
+    }
+
+    @Test
+    void check_point_slope_works_with_point_on_line()
+    {
+        Vector2f p = new Vector2f(3, 3);
+        Vector2f a = new Vector2f(1, 1);
+        Vector2f b = new Vector2f(2, 2);
+
+        Vector2f pointOnLine = CustomMath.pointSlope(p,a,b);
+        assertEquals(3f, pointOnLine.x);
+        assertEquals(3f, pointOnLine.y);
     }
 }

@@ -1,7 +1,8 @@
 package Model;
 
 import Engine.States.State;
-import Model.Organisms.SimpleFourCell;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
 import Physics.Forces.Force;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
@@ -10,7 +11,6 @@ import Utilities.Math.CustomMath;
 import Utilities.Model.Builder;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,27 +24,27 @@ public class SimpleFourCellBoxTest
         Cell b = cells.get(2);
 
         Node nodeA = new Node(0,0), nodeB = new Node(0,0);
-        for(Edge edge: a.edges)
+        for(Edge edge: a.getEdges())
         {
             if(edge instanceof ApicalEdge) nodeA = edge.getNodes()[0];
         }
-        for(Edge edge: b.edges)
+        for(Edge edge: b.getEdges())
         {
             if(edge instanceof ApicalEdge) nodeB = edge.getNodes()[1];
         }
 
         for(Cell cell: cells)
         {
-            if(! (cell instanceof  ApicalConstrictingCell)) return;
+            if(! (cell instanceof ApicalConstrictingCell)) return;
             ApicalConstrictingCell aCell = (ApicalConstrictingCell) cell;
-            for(Edge edge: cell.edges) {
-                Force.elastic(edge, cell.elasticConstant);
+            for(Edge edge: cell.getEdges()) {
+                Force.elastic(edge);
                 if(edge instanceof ApicalEdge)
                 {
                     Force.constrict(edge, aCell.apicalConstrictingConstant, aCell.apicalConstrictingRatio);
                 }
             }
-            for(Edge edge: cell.internalEdges) Force.elastic(edge, cell.internalConstant);
+            for(Edge edge: cell.getInternalEdges()) Force.elastic(edge);
         }
 
         assertEquals(CustomMath.abs(nodeA.getResultantForce().x), CustomMath.abs(nodeB.getResultantForce().x));

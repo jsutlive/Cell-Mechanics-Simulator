@@ -25,6 +25,7 @@ public abstract class Edge implements IRigidbody, IColor
     {
         return elasticConstant;
     }
+    public void setElasticConstant(float constant){ elasticConstant = constant;}
 
     /**
      * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
@@ -146,7 +147,7 @@ public abstract class Edge implements IRigidbody, IColor
      */
     public boolean contains(Node n){
         for(Node node: nodes){
-            if (node == n) return true;
+            if(Vector2f.isEqual(n.getPosition(), node.getPosition())) return true;
         }
         return false;
     }

@@ -5,6 +5,9 @@ import Engine.States.State;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import Engine.ZoomRenderer;
+import Engine.Renderer;
+
 
 public class Input extends JFrame implements KeyListener {
 
@@ -48,6 +51,12 @@ public class Input extends JFrame implements KeyListener {
                 ex.printStackTrace();
             }
 
+        }
+        if(keyCode == KeyEvent.VK_EQUALS){
+            ((ZoomRenderer) Renderer.getInstance()).scale *= 1.2;
+        }
+        if(keyCode == KeyEvent.VK_MINUS){
+            ((ZoomRenderer) Renderer.getInstance()).scale /= 1.2;
         }
     }
 

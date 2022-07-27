@@ -1,12 +1,14 @@
 package Model.Organisms;
 
 import Model.*;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.Cell;
+import Model.Cells.ShorteningCell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Model.Builder;
-import Utilities.Model.Mesh;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ public class DrosophilaEmbryo implements  IOrganism {
 
 
     int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 18;
+    int numberOfConstrictingSegmentsInCircle = 12;
 
     int shorteningCellBegin = 16;
     int shorteningCellEnd = 30;
@@ -38,15 +40,27 @@ public class DrosophilaEmbryo implements  IOrganism {
     @Override
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
-        Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                1.55f, .3f,
-                0.15f, .0001f);
+        if(Model.apicalGradient!=null) {
+            Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
+                    100.5f, .001f,
+                    10f, .00001f);
+        }
+        allNodes.clear();
         for(Cell cell: allCells)
         {
             for(Node node: cell.getNodes()){
-                if(!allNodes.contains(node)) allNodes.add(node);
+                if(!node.getPosition().isNull()) {
+                    if (!allNodes.contains(node)) allNodes.add(node);
+                }
             }
         }
+        if(allNodes.size() > 400){
+            System.out.println(allNodes.size());
+            throw new InstantiationException("Should be only 400 nodes");
+        }
+        System.out.println("ALLNODES:" + allNodes.size());
+
+
     }
 
     private void generateTissueRing() throws InstantiationException, IllegalAccessException {
@@ -63,10 +77,10 @@ public class DrosophilaEmbryo implements  IOrganism {
             ArrayList<Edge> edges = new ArrayList<>();
             ArrayList<Edge> mirroredEdges = new ArrayList<>();
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
-            Node lastNode = new Node();   // Create null vertex to be used to create edges later.
-            Node lastMirroredNode = new Node();
-            Node lastMirroredNodeX = new Node();
-            Node lastZeroEdgeNode = new Node();
+            Node lastNode = new Node(0,0);   // Create null vertex to be used to create edges later.
+            Node lastMirroredNode = new Node(0,0);
+            Node lastMirroredNodeX = new Node(0,0);
+            Node lastZeroEdgeNode = new Node(0,0);
             for (int j = 0; j <= lateralResolution; j++) {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates

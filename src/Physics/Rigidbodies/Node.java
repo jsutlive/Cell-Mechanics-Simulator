@@ -1,14 +1,16 @@
 package Physics.Rigidbodies;
 
-import Engine.Renderer;
 import Engine.Simulation;
 import Engine.States.State;
 import GUI.IColor;
-import Utilities.Geometry.Boundary;
+import Model.Model;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
+import Utilities.Model.Builder;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Node: A vertex-like object which can implement physics for simulations.
@@ -43,7 +45,6 @@ public class Node implements IRigidbody, IColor {
     }
 
     public Node(float a, float b){position = new Vector2f(a, b);}
-    public boolean hasMoved = false;
 
     /**
      * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
@@ -69,8 +70,13 @@ public class Node implements IRigidbody, IColor {
      */
     @Override
     public void Move() {
+        resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForce);
         State.addToResultantForce(resultantForce);
+        if(resultantForce.mag() > Model.largestResultantForce.mag())
+        {
+            Model.largestResultantForce = resultantForce;
+        }
         resetResultantForce();
     }
 
@@ -78,6 +84,7 @@ public class Node implements IRigidbody, IColor {
      * Sets resultant force to 0
      */
     public void resetResultantForce(){ resultantForce = new Vector2f(0f);}
+
 
     public Node clone(){
         return new Node(this.getPosition());
@@ -102,5 +109,20 @@ public class Node implements IRigidbody, IColor {
     @Override
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public static void addIfAvailable(List<Node> nodes, Node n){
+        if(!nodes.contains(n)) nodes.add(n);
+    }
+
+    public static List<Node> getAllUnique(Node[] a, Node[] b){
+        List<Node> uniqueNodes = new ArrayList<>();
+        for(Node n_a: a){
+            uniqueNodes.add(n_a);
+        }
+        for(Node n_b: b){
+            addIfAvailable(uniqueNodes, n_b);
+        }
+        return uniqueNodes;
     }
 }

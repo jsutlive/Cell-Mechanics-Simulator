@@ -1,11 +1,11 @@
 package Math;
-import Model.Cell;
-import Physics.Rigidbodies.BasalEdge;
+import Model.Cells.Cell;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
+import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -16,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class GeometryTests {
+    float ninetyDegreesAsRadians = (float)Math.PI/2;
+    float fortyFiveDegreesAsRadians = (float)Math.PI/4;
+    float oneHundredEightyDegreesAsRadians = (float)Math.PI;
+    float root2Over2 = CustomMath.round((float)Math.sqrt(2)/2,3);
+
     static List<Node> testNodes;
     static List<Edge> testEdges;
     static Cell cell;
@@ -179,5 +184,126 @@ public class GeometryTests {
         assertEquals(e, testEdges.get(1) );
     }
 
+    @Test
+    void check_if_point_is_on_line()
+    {
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(2, 2);
+        Vector2f c = new Vector2f(1, 1);
+        Vector2f[] line = new Vector2f[]{a,b};
+        boolean isOnLine = Geometry.lineSegmentContainsPoint(c, line);
+        assertTrue(isOnLine);
+    }
 
+    @Test
+    void check_if_point_is_not_on_line()
+    {
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(3, 2);
+        Vector2f c = new Vector2f(1, 1);
+        Vector2f[] line = new Vector2f[]{a,b};
+        boolean isOnLine = Geometry.lineSegmentContainsPoint(c, line);
+        assertFalse(isOnLine);
+    }
+
+    @Test
+    void check_if_90_degree_angle_is_formed_by_three_points(){
+        Vector2f p1 = new Vector2f(0,1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
+
+        assertEquals(CustomMath.round(ninetyDegreesAsRadians,5), ans);
+     }
+
+    @Test
+    void check_if_45_degree_angle_is_formed_by_three_points(){
+        Vector2f p1 = new Vector2f(root2Over2, root2Over2);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
+
+        assertEquals(CustomMath.round(fortyFiveDegreesAsRadians,5), ans);
+    }
+
+    @Test
+    void check_if_180_degree_angle_is_formed_by_three_points(){
+        Vector2f p1 = new Vector2f(-1,0);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+        float ans = CustomMath.round((Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3))),5);
+        assertEquals(CustomMath.round(2*oneHundredEightyDegreesAsRadians, 5), ans);
+    }
+
+    @Test
+    // we show previously as a standard right angle, the correct angle is returned.
+    // Does it still work when the angle is flipped?
+    void check_if_90_degree_angle_formed_by_alternate_point_placement(){
+        Vector2f p1 = new Vector2f(0,-1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)),5);
+        assertEquals(CustomMath.round(3 * ninetyDegreesAsRadians, 5), ans);
+    }
+
+    @Test
+    void check_if_we_can_move_a_point_ninety_degrees_clockwise(){
+        Vector2f p1 = new Vector2f(0,0);
+        Vector2f p2 = new Vector2f(0,1);
+
+        Vector2f p3 = Geometry.movePointAlongArc(p1, p2, 90f);
+        assertEquals(1, CustomMath.round(p3.x, 5));
+        assertEquals(0, CustomMath.round(p3.y, 5));
+    }
+
+    @Test
+    void check_if_we_can_move_a_point_ninety_degrees_counter_clockwise(){
+        Vector2f p1 = new Vector2f(0,0);
+        Vector2f p2 = new Vector2f(0,1);
+
+        Vector2f p3 = Geometry.movePointAlongArc(p1, p2, 270f);
+        assertEquals(-1, CustomMath.round(p3.x, 5));
+        assertEquals(0, CustomMath.round(p3.y, 5));
+    }
+
+    @Test
+    void check_if_vector_to_move_force_calculated_correctly(){
+        Vector2f start = new Vector2f(0,0);
+        Vector2f end = new Vector2f(0,1);
+        float angle = 90;
+        Vector2f force = Geometry.getForceToMovePointAlongArc(start, end, angle);
+        assertEquals(root2Over2, force.x);
+        assertEquals(-root2Over2, force.y);
+    }
+
+    @Test
+    void check_if_vector_to_move_force_does_not_add_if_angle_equals_zero(){
+        Vector2f start = new Vector2f(0,0);
+        Vector2f end = new Vector2f(0,1);
+        float angle = 0;
+        Vector2f force = Geometry.getForceToMovePointAlongArc(start, end, angle);
+        assertEquals(0, force.x);
+        assertEquals(0, force.y);
+    }
+
+    @Test
+    void check_if_ninety_degree_angle_is_clockwise(){
+        Vector2f p1 = new Vector2f(0,1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        assertTrue(Geometry.isClockwise(p1,p2,p3));
+    }
+
+    @Test
+    void check_if_two_seventy_degree_angle_is_counterclockwise(){
+        Vector2f p1 = new Vector2f(0,-1);
+        Vector2f p2 = new Vector2f(0,0);
+        Vector2f p3 = new Vector2f(1,0);
+
+        assertFalse(Geometry.isClockwise(p1,p2,p3));
+    }
 }
