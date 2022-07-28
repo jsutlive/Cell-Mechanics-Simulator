@@ -5,6 +5,7 @@ import Engine.Object.Tag;
 import GUI.IRender;
 import Model.Components.CellRenderer;
 import Model.Components.EdgeRenderer;
+import Model.Components.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
 
 import java.util.ArrayList;
@@ -102,8 +103,7 @@ public abstract class State
 
     public static void setFlagToRender(MonoBehavior mono)
     {
-        CellRenderer rend = (CellRenderer)mono.getComponent(CellRenderer.class);
-        //EdgeRenderer rend = (EdgeRenderer)mono.getComponent(EdgeRenderer.class);
+        IRender rend = (ObjectRenderer) mono.getComponent(ObjectRenderer.class);
         renderBatch.add(rend);
     }
 
