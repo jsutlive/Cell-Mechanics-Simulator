@@ -113,20 +113,21 @@ public class Force
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = -constant * (cell.getArea() - cell.getRestingArea());
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.005f;
 
-        List<Node> nodes = cell.getNodes();
-        for(int i = 0; i<nodes.size();i++){
-            Node node1 = nodes.get(i);
-            Node node2 = nodes.get((i+1) % nodes.size());
-            
+        List<Edge> edges = cell.getEdges();
+        int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};
+        for(int i=0; i<edges.size();i++){
+            Node[] nodes = edges.get(i).getNodes();
+            Node node1 = nodes[0];
+            Node node2 = nodes[1];
             Vector2f edgeVector = node2.getPosition().copy();
             edgeVector.sub(node1.getPosition());
 
             Vector2f perpendicular = Vector2f.zero;
             perpendicular.x = edgeVector.y;
             perpendicular.y = -edgeVector.x;
-            perpendicular.mul(-forceMagnitude);
+            perpendicular.mul(-forceMagnitude * orientations[i] * edgeVector.mag());
             node1.AddForceVector(perpendicular);
             node2.AddForceVector(perpendicular);
         }
