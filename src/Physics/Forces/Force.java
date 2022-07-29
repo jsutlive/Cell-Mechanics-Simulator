@@ -113,7 +113,7 @@ public class Force
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.005f;
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;
 
         List<Edge> edges = cell.getEdges();
         int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};

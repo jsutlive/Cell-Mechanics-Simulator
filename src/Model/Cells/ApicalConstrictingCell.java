@@ -1,5 +1,6 @@
 package Model.Cells;
 
+import Engine.Timer.Time;
 import Model.Model;
 import Physics.Forces.Force;
 import Physics.Forces.Gradient;
@@ -54,7 +55,9 @@ public class ApicalConstrictingCell extends Cell
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
                 if(Model.apicalGradient != null && Model.apicalGradient.getConstants() != null){
                     Gradient gr = Model.apicalGradient;
-                       Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],
+                    //    Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] * Time.elapsedTime,
+                    //         gr.getRatios()[gr.getRatios().length - getRingLocation()]);
+                       Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] * Time.elapsedTime / 1000000000 / 4000,
                             gr.getRatios()[gr.getRatios().length - getRingLocation()]);
 
                 }else {
