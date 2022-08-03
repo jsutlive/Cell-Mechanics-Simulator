@@ -6,6 +6,8 @@ public class Time {
     public static final int fixedPhysicsSteps = 120;
 
     // system time and delta time variables
+    public static long initialTime = System.nanoTime();
+    public static long elapsedTime = 0;
     public static long time;
     public static long deltaTime;
 
@@ -58,6 +60,7 @@ public class Time {
         // Get current time and find deltaTime
         time = System.nanoTime();
         deltaTime = time - lastTime;
+        elapsedTime = time - initialTime;
         // Advance the "time since last update" variables for physics and rendering threads
         instance.countUpToNextFrame += deltaTime/timePerTickNanoseconds;
         instance.countUpToNextPhysics += deltaTime/timePerPhysicsNanoseconds;

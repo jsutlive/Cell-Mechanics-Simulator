@@ -1,5 +1,6 @@
 package Model.Cells;
 
+import Engine.Timer.Time;
 import Model.Model;
 import Physics.Forces.Force;
 import Physics.Forces.Gradient;
@@ -21,7 +22,7 @@ public class ApicalConstrictingCell extends Cell
     public float apicalConstrictingRatio = .01f;
 
     private float internalConstantOverride = .035f;
-    private float elasticConstantOverride = .05f;
+    private float elasticConstantOverride = .15f;
 
     public ApicalConstrictingCell()
     {
@@ -32,6 +33,9 @@ public class ApicalConstrictingCell extends Cell
         super.overrideElasticConstants();
         for(Edge edge: edges){
             edge.setElasticConstant(elasticConstantOverride);
+            if(edge instanceof ApicalEdge){
+                edge.setElasticConstant(0.05f);
+            }
         }
         for (Edge edge: internalEdges){
             edge.setElasticConstant(internalConstantOverride);
@@ -54,8 +58,10 @@ public class ApicalConstrictingCell extends Cell
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
                 if(Model.apicalGradient != null && Model.apicalGradient.getConstants() != null){
                     Gradient gr = Model.apicalGradient;
-                       Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],
-                            gr.getRatios()[gr.getRatios().length - getRingLocation()]);
+                    //    Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] * Time.elapsedTime,
+                    //         gr.getRatios()[gr.getRatios().length - getRingLocation()]);
+                       Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] * Time.elapsedTime / 1000000000 / 1000,
+                            gr.getRatios()[gr.getRatios().length - getRingLocation()] / 100);
 
                 }else {
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);

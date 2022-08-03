@@ -46,7 +46,7 @@ public class Model extends MonoBehavior
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
         this.addTag(Tag.MODEL);
-        apicalGradient = new GaussianGradient(0f, 0.35f);
+        apicalGradient = new GaussianGradient(0f, 0.6f);
         organism.generateOrganism();
         yolk = (Yolk) State.create(Yolk.class);
 

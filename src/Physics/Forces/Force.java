@@ -93,21 +93,31 @@ public class Force
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.005f;
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;
 
         List<Edge> edges = cell.getEdges();
+        List<Vector2f> edgeVectors = new ArrayList<>();
+        float perimeter = 0f;
+        for(Edge e:edges){
+            Node[] nodes = e.getNodes();
+            Node node1 = nodes[0];
+            Node node2 = nodes[1];
+            Vector2f edgeVector = node2.getPosition().copy();
+            edgeVector.sub(node1.getPosition());
+            edgeVectors.add(edgeVector);
+            perimeter += edgeVector.mag();
+        }
+
         int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};
         for(int i=0; i<edges.size();i++){
             Node[] nodes = edges.get(i).getNodes();
             Node node1 = nodes[0];
             Node node2 = nodes[1];
-            Vector2f edgeVector = node2.getPosition().copy();
-            edgeVector.sub(node1.getPosition());
 
             Vector2f perpendicular = Vector2f.zero;
-            perpendicular.x = edgeVector.y;
-            perpendicular.y = -edgeVector.x;
-            perpendicular.mul(-forceMagnitude * orientations[i] * edgeVector.mag());
+            perpendicular.x = edgeVectors.get(i).y;
+            perpendicular.y = -edgeVectors.get(i).x;
+            perpendicular.mul(-forceMagnitude * orientations[i] * edgeVectors.get(i).mag() / perimeter);
             node1.AddForceVector(perpendicular);
             node2.AddForceVector(perpendicular);
         }
