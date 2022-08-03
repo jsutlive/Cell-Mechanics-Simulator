@@ -33,12 +33,8 @@ public class ApicalConstrictingCell extends Cell
 
     @Override
     public void start() {
+        super.start();
 
-        for(Edge e : edges){
-            if(e instanceof ApicalEdge) e.setColor(Color.RED);
-            if(e instanceof LateralEdge) e.setColor(Color.GREEN);
-            if(e instanceof BasalEdge) e.setColor(Color.BLUE);
-        }
     }
 
     @Override

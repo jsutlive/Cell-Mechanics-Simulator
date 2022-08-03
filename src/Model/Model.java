@@ -4,11 +4,13 @@ import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.States.State;
 import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.BasicCell;
 import Model.Cells.Cell;
 import Model.Cells.ShorteningCell;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
+import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -120,8 +122,6 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        else if(currentYolkArea == yolkArea){
-        }
         else
         {
             for(Cell cell: organism.getAllCells())
@@ -219,7 +219,7 @@ public class Model extends MonoBehavior
      * Use State.create(Model.class) instead to ensure a proper reference to the state is established.
      * When established, this object immediately runs start functions.
      */
-    public Model() throws InstantiationException, IllegalAccessException {
+    public Model() {
         this.start();
     }
 
@@ -231,15 +231,26 @@ public class Model extends MonoBehavior
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
+
             }
             if(cell instanceof ShorteningCell)
             {
                 cell.setColor(Color.BLUE);
             }
+            if(cell instanceof BasicCell)
+            {
+                cell.setColor(Color.WHITE);
+            }
             for(Edge edge: cell.getEdges()){
                 if(edge instanceof BasalEdge){
+                    edge.setColor(Color.GREEN);
                     yolkNodes.add(edge.getNodes()[0]);
                     break;
+                }
+            }
+            for(Edge edge: cell.getEdges()){
+                if(edge instanceof ApicalEdge){
+                    edge.setColor(Color.RED);
                 }
             }
         }

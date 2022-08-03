@@ -26,7 +26,6 @@ public abstract class Renderer implements Runnable{
 
             /*
                 Example "makeInstance" function:
-
                  public static Renderer makeInstance(){
                     if (getInstance()!= null) return getInstance();         // maintain singleton renderer
                     return new ExampleRenderer();                           // create the renderer instance

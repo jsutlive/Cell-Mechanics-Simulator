@@ -15,7 +15,7 @@ public class EditorState extends State
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
         State.reset();
-        model = (Model) State.create(CornerStiffnessModel.class);
+        model = (Model) State.create(Model.class);
         model.addTag(Tag.MODEL);
     }
 
