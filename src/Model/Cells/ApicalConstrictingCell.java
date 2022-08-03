@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ApicalConstrictingCell extends Cell
 {
-    public float apicalConstrictingConstant = 0f;
+    public float apicalConstrictingConstant = 10f;
     public float apicalConstrictingRatio = .01f;
 
     public ApicalConstrictingCell()
@@ -63,10 +63,14 @@ public class ApicalConstrictingCell extends Cell
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
                 if(Model.apicalGradient != null && Model.apicalGradient.getConstants() != null){
                     Gradient gr = Model.apicalGradient;
-                        Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],// * Time.elapsedTime,
-                             gr.getRatios()[gr.getRatios().length - getRingLocation()]);
-                    //Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] * Time.elapsedTime / 1000000000 / 1000,
-                    //gr.getRatios()[gr.getRatios().length - getRingLocation()] / 100);
+                      //  Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1],// * Time.elapsedTime,
+                      //       gr.getRatios()[gr.getRatios().length - getRingLocation()]);
+                    Force.constrict(edge,  gr.getConstants()[getRingLocation() - 1] *
+                                    Time.elapsedTime /
+                                    Time.asNanoseconds(1f)/
+                                    gr.delayFactor,
+                    gr.getRatios()[gr.getRatios().length - getRingLocation()] /
+                            100);
 
                 }else {
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);

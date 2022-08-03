@@ -2,6 +2,7 @@ package Engine.States;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Engine.Timer.Time;
 import GUI.IRender;
 import Model.Components.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
@@ -42,6 +43,7 @@ public abstract class State
         {
             SetState(new RunState());
         }
+        Time.reset();
         GetState().Init();
     }
 
