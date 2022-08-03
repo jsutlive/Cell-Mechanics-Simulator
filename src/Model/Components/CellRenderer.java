@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Cell Renderer class handles all drawing functions for the cells.
  */
-public class CellRenderer extends ObjectRenderer
+public class CellRenderer extends Component implements IRender, IColor
 {
     Cell cell;
     private Color color = Painter.DEFAULT_COLOR;

@@ -1,8 +1,6 @@
 package Model;
 
-import Engine.States.State;
 import GUI.Painter;
-import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Corner;
 import Utilities.Geometry.Geometry;
@@ -18,7 +16,7 @@ public class CornerStiffnessModel extends Model {
     float cornerAdjustConst = 0.25f;
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        Node origin = new Node(350,350);
+        Node origin = new Node(400,400);
         Node north = new Node(400,600);
         Node south = new Node(400,200);
         Node east = new Node(600,400);
@@ -30,13 +28,6 @@ public class CornerStiffnessModel extends Model {
         Corner SW = new Corner(south, origin, west);
 
         corners.add(NE); corners.add(SE); corners.add(NW); corners.add(SW);
-        nodes.add(origin); nodes.add(north); nodes.add(south); nodes.add(east); nodes.add(west);
-
-        EdgeMono.build(new BasicEdge(origin, north));
-        EdgeMono.build(new BasicEdge(origin, south));
-        EdgeMono.build(new BasicEdge(origin, east));
-        EdgeMono.build(new BasicEdge(origin, west));
-
     }
 
     protected void adjustCorners() {
@@ -97,8 +88,13 @@ public class CornerStiffnessModel extends Model {
     @Override
     public void update() {
         adjustCorners();
-        for(Node node: nodes){
-            node.Move();
+        render();
+    }
+
+    public void render(){
+        for(Node node: nodes)
+        {
+            Painter.drawPoint(node.getPosition().asInt());
         }
     }
 

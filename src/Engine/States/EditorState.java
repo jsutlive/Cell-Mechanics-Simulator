@@ -1,6 +1,5 @@
 package Engine.States;
 
-import Engine.Object.Tag;
 import GUI.IRender;
 import GUI.Painter;
 import Model.*;
@@ -15,8 +14,8 @@ public class EditorState extends State
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
         State.reset();
-        model = (Model) State.create(CornerStiffnessModel.class);
-        model.addTag(Tag.MODEL);
+        model = (Model) State.create(Model.class);
+        model.printCells();
     }
 
     @Override

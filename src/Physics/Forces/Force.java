@@ -49,6 +49,8 @@ public class Force
                 edge.getLength() + "::INITIAL LENGTH: "
                 + edge.getInitialLength());
 
+
+
         // Apply force to node 0
         nodes[0].AddForceVector(forceVector);
 
@@ -90,6 +92,24 @@ public class Force
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
     public static void restore(Cell cell, float constant){
+        // get cell characteristics
+        // Vector2f center = cell.getCenter();
+        // float currentArea = cell.getArea();
+        // float restingArea = cell.getRestingArea();
+
+        // calculate force magnitude
+        // float forceMagnitude = constant * (currentArea - restingArea);
+
+        //for every node, get unit vector, multiply times magnitude, apply force
+        // for(Node node: cell.getNodes()) {
+        //     //get unit vector
+        //     Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
+        //     //multiply times magnitude
+        //     restoringForce.mul(-forceMagnitude);
+        //     // add force
+        //     node.AddForceVector(restoringForce);
+        // }
+
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
