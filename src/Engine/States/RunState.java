@@ -41,7 +41,7 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
-        if(flag) {
+        if(flag && model != null) {
             model.update();
 
             //flag = false;
