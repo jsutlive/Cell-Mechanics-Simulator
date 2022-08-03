@@ -27,8 +27,8 @@ public class ApicalConstrictingCell extends Cell
 
     public ApicalConstrictingCell()
     {
-        internalConstantOverride = .035f;
-        elasticConstantOverride = .05f;
+        //internalConstantOverride = .15f;
+        //elasticConstantOverride = .15f;
     }
 
     @Override

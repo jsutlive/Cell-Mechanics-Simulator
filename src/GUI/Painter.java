@@ -1,6 +1,8 @@
 package GUI;
 
 import Engine.Renderer;
+import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.BasicCell;
 import Model.Cells.Cell;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -25,7 +27,6 @@ public class Painter {
             drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
             drawEdgeNormal(edge);
         }
-
         /*for(Edge edge: cell.getInternalEdges())
         {
             Vector2f[] positions = edge.getPositions();

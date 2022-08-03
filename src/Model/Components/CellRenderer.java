@@ -12,7 +12,7 @@ import java.awt.*;
 /**
  * Cell Renderer class handles all drawing functions for the cells.
  */
-public class CellRenderer extends Component implements IRender, IColor
+public class CellRenderer extends ObjectRenderer
 {
     Cell cell;
     private Color color = Painter.DEFAULT_COLOR;
@@ -39,6 +39,13 @@ public class CellRenderer extends Component implements IRender, IColor
         }
         // set color for all edges in the cell
         for(Edge edge: cell.getEdges())
+        {
+            if(edge instanceof  IColor)
+            {
+                ((IColor) edge).setColor(color);
+            }
+        }
+        for(Edge edge: cell.getInternalEdges())
         {
             if(edge instanceof  IColor)
             {
