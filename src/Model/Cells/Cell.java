@@ -31,7 +31,7 @@ public class Cell extends MonoBehavior {
     private List<Corner> corners = new ArrayList<>();
 
     float cornerAdjustConst = .07f;
-    float osmosisConstant = .000002f;
+    protected float osmosisConstant = .008f;
 
     public List<Edge> getEdges(){
         return edges;

@@ -32,12 +32,6 @@ public class ApicalConstrictingCell extends Cell
     }
 
     @Override
-    public void start() {
-        super.start();
-
-    }
-
-    @Override
     public void overrideElasticConstants() {
         super.overrideElasticConstants();
         for(Edge edge: edges){
@@ -85,6 +79,7 @@ public class ApicalConstrictingCell extends Cell
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
         Cell cell = (Cell) State.create(ApicalConstrictingCell.class);
+        cell.setNodes(nodes);
         List<Edge> edges = new ArrayList<>();
 
         // Start from top left, move along til end of lateral resolution
@@ -110,7 +105,6 @@ public class ApicalConstrictingCell extends Cell
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        cell.setNodes(nodes);
         cell.setEdges(edges);
         return cell;
     }

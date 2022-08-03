@@ -1,12 +1,7 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
-import Engine.Object.Tag;
-import Engine.States.State;
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.BasicCell;
-import Model.Cells.Cell;
-import Model.Cells.ShorteningCell;
+import Model.Cells.*;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
@@ -33,9 +28,9 @@ public class Model extends MonoBehavior
     float shellRadius = 302f;
     List<Node> yolkNodes = new ArrayList<>();
     Vector2f center = new Vector2f(400);
-    Yolk yolk;
+    Cell yolk;
     float yolkArea;
-    float yolkConstant = .05f;
+    float yolkConstant = .005f;
     LJForceType ljType = LJForceType.simple;
     public static Vector2f largestResultantForce = new Vector2f(0);
     public static Gradient apicalGradient;
@@ -49,11 +44,11 @@ public class Model extends MonoBehavior
     public void awake() throws InstantiationException, IllegalAccessException {
         apicalGradient = new GaussianGradient(0f, 0.35f);
         organism.generateOrganism();
-        yolk = (Yolk) State.create(Yolk.class);
+        //yolk = (Yolk) State.create(Yolk.class);
 
         setCellColors();
         allNodes = organism.getAllNodes();
-        yolk.build(organism.getAllCells(), yolkNodes);
+        yolk = Yolk.build(yolkNodes);
     }
 
 
@@ -77,11 +72,10 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        float maxRadius = 70f;
-        float ljConstant = .1e5f;
-        calculateYolkRestoringForce();
+        yolk.update();
 
         checkNodesWithinBoundary(allNodes);
+
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
@@ -102,40 +96,6 @@ public class Model extends MonoBehavior
                 Boundary.clampNodeToBoundary(node, new Vector2f(400), shellRadius);
             }
 
-        }
-    }
-
-    private void calculateYolkRestoringForce() {
-        float currentYolkArea = Gauss.nShoelace(yolkNodes);
-        if( currentYolkArea< yolkArea)
-        {
-            for(Cell cell: organism.getAllCells())
-            {
-                for(Edge edge:cell.getEdges())
-                {
-                    if(edge instanceof BasalEdge)
-                    {
-                        Vector2f force = CustomMath.normal(edge);
-                        force.mul(-yolkConstant);
-                        edge.AddForceVector(force);
-                    }
-                }
-            }
-        }
-        else
-        {
-            for(Cell cell: organism.getAllCells())
-            {
-                for(Edge edge:cell.getEdges())
-                {
-                    if(edge instanceof BasalEdge)
-                    {
-                        Vector2f force = CustomMath.normal(edge);
-                        force.mul(yolkConstant);
-                        edge.AddForceVector(force);
-                    }
-                }
-            }
         }
     }
 

@@ -92,45 +92,22 @@ public class Force
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
     public static void restore(Cell cell, float constant){
-        // get cell characteristics
-        // Vector2f center = cell.getCenter();
-        // float currentArea = cell.getArea();
-        // float restingArea = cell.getRestingArea();
-
-        // calculate force magnitude
-        // float forceMagnitude = constant * (currentArea - restingArea);
-
-        //for every node, get unit vector, multiply times magnitude, apply force
-        // for(Node node: cell.getNodes()) {
-        //     //get unit vector
-        //     Vector2f restoringForce = Vector2f.unit(center, node.getPosition());
-        //     //multiply times magnitude
-        //     restoringForce.mul(-forceMagnitude);
-        //     // add force
-        //     node.AddForceVector(restoringForce);
-        // }
-
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
         float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()); //- 0.005f;
 
         List<Edge> edges = cell.getEdges();
-        int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};
-        for(int i=0; i<edges.size();i++){
-            Node[] nodes = edges.get(i).getNodes();
+        for(Edge edge : edges){
+            Node[] nodes = edge.getNodes();
             Node node1 = nodes[0];
             Node node2 = nodes[1];
-            Vector2f edgeVector = node2.getPosition().copy();
-            edgeVector.sub(node1.getPosition());
 
-            Vector2f perpendicular = Vector2f.zero;
-            perpendicular.x = edgeVector.y;
-            perpendicular.y = -edgeVector.x;
-            //perpendicular.mul(-forceMagnitude * orientations[i] * edgeVector.mag());
-            perpendicular.mul(-forceMagnitude*edgeVector.mag());
-            node1.AddForceVector(perpendicular);
-            node2.AddForceVector(perpendicular);
+            Vector2f edgeNormalVector = CustomMath.normal(edge);
+            edgeNormalVector.mul(forceMagnitude);
+
+            node1.AddForceVector(edgeNormalVector);
+            node2.AddForceVector(edgeNormalVector);
         }
     }
 
