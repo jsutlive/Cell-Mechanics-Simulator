@@ -12,7 +12,7 @@ import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
-public class EdgeRenderer extends Component implements IRender, IColor {
+public class EdgeRenderer extends ObjectRenderer {
     private Color color = Painter.DEFAULT_COLOR;
     private EdgeMono edge;
     @Override
