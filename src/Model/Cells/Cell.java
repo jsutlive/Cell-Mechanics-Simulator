@@ -26,10 +26,12 @@ public class Cell extends MonoBehavior {
     private float restingArea;
     public float getRestingArea() {return restingArea;}
 
+    protected float internalConstantOverride;
+    protected float elasticConstantOverride;
     private List<Corner> corners = new ArrayList<>();
 
     float cornerAdjustConst = .07f;
-    float osmosisConstant = .00002f;
+    float osmosisConstant = .000002f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -81,6 +83,7 @@ public class Cell extends MonoBehavior {
     @Override
     public void awake(){
         addRenderer(new CellRenderer());
+        State.setFlagToRender(this);
     }
 
     @Override
@@ -88,7 +91,7 @@ public class Cell extends MonoBehavior {
     {
         restingArea = getArea();
         setNodePositions();
-        setCorners();
+        //setCorners();
     }
     public void overrideElasticConstants(){
     }
@@ -136,7 +139,7 @@ public class Cell extends MonoBehavior {
         }
         Force.restore(this, osmosisConstant);
         //adjustCornersUsingHalfAngles();
-        adjustCorners();
+        //adjustCorners();
     }
 
     public void move()
@@ -254,7 +257,7 @@ public class Cell extends MonoBehavior {
 
     public void print()
     {
-        String cellClass = "";
+        String cellClass;
         int numberOfApicalEdges = 0;
         int numberOfBasalEdges = 0;
         int numberOfLateralEdges = 0;

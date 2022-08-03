@@ -40,12 +40,11 @@ public class Model extends MonoBehavior
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @throws InstantiationException Cannot instantiate cells in model due to an error
+     * @throws IllegalAccessException Problems accessing memory during cell creation
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        this.addTag(Tag.MODEL);
         apicalGradient = new GaussianGradient(0f, 0.35f);
         organism.generateOrganism();
         yolk = (Yolk) State.create(Yolk.class);

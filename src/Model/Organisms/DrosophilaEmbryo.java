@@ -1,9 +1,7 @@
 package Model.Organisms;
 
-import Model.*;
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.Cell;
-import Model.Cells.ShorteningCell;
+import Model.Model;
+import Model.Cells.*;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;

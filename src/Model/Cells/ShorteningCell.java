@@ -7,8 +7,6 @@ public class ShorteningCell extends Cell{
     float lateralShorteningRatio = .7f;
     float lateralShorteningConstant = .10f;
 
-    float internalConstantOverride;
-    float elasticConstantOverride;
     public ShorteningCell()
     {
         internalConstantOverride = .03f;

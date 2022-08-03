@@ -15,13 +15,12 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
 
    public static <T extends MonoBehavior> T createObject(Class<T> monoClass)
            throws InstantiationException, IllegalAccessException {
-      T mono = monoClass.newInstance();
-      return mono;
+      return monoClass.newInstance();
    }
 
    /**
     * Each object has a unique ID, which we can access if necessary. Currently not used for anything.
-    * @return
+    * @return uniqueID of a given MonoBehavior
     */
    public int getStateID() {return uniqueID;}
    public static int getGlobalID(){return _ID_COUNTER;}
@@ -33,8 +32,9 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){this.tag = tag;}
 
-   public void start() throws InstantiationException, IllegalAccessException {}
-
+   public void awake() throws InstantiationException, IllegalAccessException {}
+   public void start() {}
+   public void update() {}
    public void render(){}
 
    /**
@@ -67,10 +67,6 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    }
 
    public void removeComponent(Class componentClass){
-      for(Component c: components){
-         if(componentClass.isAssignableFrom(c.getClass())){
-            components.remove(c);
-         }
-      }
+      components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
 }

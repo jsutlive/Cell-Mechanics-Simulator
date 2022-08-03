@@ -77,4 +77,10 @@ public class EdgeMono extends MonoBehavior {
         }
         for (Node node: getNodes()) node.Move();
     }
+
+    public static EdgeMono build(Edge e) throws IllegalAccessException, InstantiationException {
+        EdgeMono mono = (EdgeMono)State.create(EdgeMono.class);
+        mono.setEdge(e);
+        return mono;
+    }
 }

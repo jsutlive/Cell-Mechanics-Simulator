@@ -113,7 +113,7 @@ public class Force
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.005f;
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()); //- 0.005f;
 
         List<Edge> edges = cell.getEdges();
         int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};
@@ -127,7 +127,8 @@ public class Force
             Vector2f perpendicular = Vector2f.zero;
             perpendicular.x = edgeVector.y;
             perpendicular.y = -edgeVector.x;
-            perpendicular.mul(-forceMagnitude * orientations[i] * edgeVector.mag());
+            //perpendicular.mul(-forceMagnitude * orientations[i] * edgeVector.mag());
+            perpendicular.mul(-forceMagnitude*edgeVector.mag());
             node1.AddForceVector(perpendicular);
             node2.AddForceVector(perpendicular);
         }
@@ -178,10 +179,6 @@ public class Force
                 forceVector = Vector2f.unit(pointOnEdge, edgeNode1);
             }
         }
-        if(forceVector.isNull())
-        {
-            //System.out.println("FORCE VECTOR NULL");
-        }
         Edge temp;
         Node t = new Node(pointOnEdge);
         temp = new BasicEdge(n, t);
@@ -191,10 +188,7 @@ public class Force
             System.out.println("FORCE MAGNITUDE NULL");
         }
         forceVector.mul(forceMagnitude);
-        if(forceVector.isNull())
-        {
-            //System.out.println("FORCE VECTOR NULL _v2");
-        }
+
         return forceVector;
     }
 
@@ -222,8 +216,8 @@ public class Force
 
     /**
      * Calculate force based on equation 5 in Kang, et al 2021 (https://doi.org/10/1016/j.isci.2021.103252)
-     * @param constant
-     * @param distance
+     * @param constant parameter to control force magnitude
+     * @param distance determines distance at which the force begins to act on other nodes
      * @return
      */
     private static float calculateLennardJonesLikeForce(float constant, float distance)
@@ -237,12 +231,11 @@ public class Force
             return newConstant * exponentTerm * (1/ CustomMath.sq(distance));
     }
 
-    private static float calculateLennardJonesForce(float constant, float distance)
+    private static float calculateLennardJonesForce(float epsilon, float distance)
     {
-        float epsilon = constant;
         float sigma = 4e-6f;
-        float A = 4*epsilon*(float)Math.pow(sigma, 12);
-        float B = 4*epsilon*(float)Math.pow(sigma, 6);
+        float A = 4* epsilon *(float)Math.pow(sigma, 12);
+        float B = 4* epsilon *(float)Math.pow(sigma, 6);
         float r13 = (float)Math.pow(distance, 13);
         float r7 = (float)Math.pow(distance, 7);
 

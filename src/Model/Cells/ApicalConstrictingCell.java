@@ -1,9 +1,14 @@
 package Model.Cells;
 
+import Engine.States.State;
 import Model.Model;
 import Physics.Forces.Force;
 import Physics.Forces.Gradient;
 import Physics.Rigidbodies.*;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An Apical Constricting Cell undergoes the following forces:
@@ -20,11 +25,20 @@ public class ApicalConstrictingCell extends Cell
     public float apicalConstrictingConstant = 0f;
     public float apicalConstrictingRatio = .01f;
 
-    private float internalConstantOverride = .035f;
-    private float elasticConstantOverride = .05f;
-
     public ApicalConstrictingCell()
     {
+        internalConstantOverride = .035f;
+        elasticConstantOverride = .05f;
+    }
+
+    @Override
+    public void start() {
+
+        for(Edge e : edges){
+            if(e instanceof ApicalEdge) e.setColor(Color.RED);
+            if(e instanceof LateralEdge) e.setColor(Color.GREEN);
+            if(e instanceof BasalEdge) e.setColor(Color.BLUE);
+        }
     }
 
     @Override
@@ -71,5 +85,37 @@ public class ApicalConstrictingCell extends Cell
         for(Edge edge:edges){
             if(edge instanceof ApicalEdge) Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
         }
+    }
+
+    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
+        Cell cell = (Cell) State.create(ApicalConstrictingCell.class);
+        List<Edge> edges = new ArrayList<>();
+
+        // Start from top left, move along til end of lateral resolution
+        int nodeCount = 0;
+        while (nodeCount < lateralResolution){
+            nodeCount++;
+            edges.add(new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+        }
+        while (nodeCount < lateralResolution + apicalResolution){
+            nodeCount++;
+            edges.add(new ApicalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+        }
+        while(nodeCount < (2*lateralResolution) + apicalResolution){
+            nodeCount++;
+            edges.add(new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+        }
+        while (nodeCount < nodes.size()){
+            nodeCount++;
+            if(nodeCount == nodes.size()){
+                edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(0)));
+            }
+            else{
+                edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+            }
+        }
+        cell.setNodes(nodes);
+        cell.setEdges(edges);
+        return cell;
     }
 }
