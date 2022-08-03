@@ -23,7 +23,7 @@ public abstract class State
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
     public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
 
-    protected static List<MonoBehavior> allObjects = new ArrayList<>();
+    protected static List<MonoBehavior<?>> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public abstract class State
      */
     public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
             throws InstantiationException, IllegalAccessException {
-        if(!type.isAssignableFrom(MonoBehavior.class)) {
+        if(!MonoBehavior.class.isAssignableFrom(type)) {
             throw new IllegalArgumentException("Class not assignable from MonoBehavior");
         }
         MonoBehavior mono = MonoBehavior.createObject(type);
