@@ -18,7 +18,7 @@ public class DrosophilaEmbryo implements  IOrganism {
 
 
     int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 12;
+    int numberOfConstrictingSegmentsInCircle = 18;
 
     int shorteningCellBegin = 16;
     int shorteningCellEnd = 28;
@@ -41,7 +41,7 @@ public class DrosophilaEmbryo implements  IOrganism {
         generateTissueRing();
         if(Model.apicalGradient!=null) {
             Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                    150.5f, .5f,
+                    150.5f, 0.5f,
                     90f, .00001f);
         }
         allNodes.clear();

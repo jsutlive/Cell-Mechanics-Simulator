@@ -37,7 +37,7 @@ public class Model extends MonoBehavior
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        apicalGradient = new GaussianGradient(0f, 0.35f);
+        apicalGradient = new GaussianGradient(0f, 0.8f);
         organism.generateOrganism();
 
         setCellColors();
