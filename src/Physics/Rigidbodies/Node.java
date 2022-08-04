@@ -18,7 +18,7 @@ import java.util.List;
 public class Node implements IRigidbody, IColor {
 
     private Vector2f position;
-    private Vector2f resultantForce = new Vector2f(0);
+    private Vector2f resultantForce = Vector2f.zero;
     private Color color;
 
     public Vector2f getPosition()
@@ -83,7 +83,12 @@ public class Node implements IRigidbody, IColor {
     /**
      * Sets resultant force to 0
      */
-    public void resetResultantForce(){ resultantForce = new Vector2f(0f);}
+    public void resetResultantForce(){
+        Simulation.FORCE_HISTORY.put(this, resultantForce.copy());
+        resultantForce = new Vector2f(0);
+    }
+
+
 
 
     public Node clone(){

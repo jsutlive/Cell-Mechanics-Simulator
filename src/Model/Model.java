@@ -194,7 +194,12 @@ public class Model extends MonoBehavior
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
+                for(Edge edge: cell.getEdges()){
 
+                    if(edge instanceof ApicalEdge){
+                        edge.setColor(Color.RED);
+                    }
+                }
             }
             if(cell instanceof ShorteningCell)
             {
@@ -204,14 +209,7 @@ public class Model extends MonoBehavior
             {
                 cell.setColor(Color.WHITE);
             }
-            for(Edge edge: cell.getEdges()){
-                if(edge instanceof BasalEdge){
-                    if(edge instanceof ApicalEdge){
-                        edge.setColor(Color.RED);
-                    }
-                    edge.setColor(Color.GREEN);
-                }
-            }
+
         }
     }
 

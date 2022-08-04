@@ -34,6 +34,14 @@ public class Painter {
         }*/
     }
 
+    public static void drawForce(Node node, Vector2f forceVector){
+        Vector2f nodePosition = node.getPosition();
+        forceVector.mul(500);
+        forceVector.add(nodePosition);
+
+        drawLine(nodePosition.asInt(), forceVector.asInt(), Color.GREEN);
+    }
+
     public static void drawEdgeNormal(Edge edge){
         Vector2f center = edge.getCenter();
         Vector2f normal = CustomMath.normal(edge);
