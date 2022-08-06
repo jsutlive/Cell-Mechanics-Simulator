@@ -16,7 +16,7 @@ public class Simulation implements Runnable
     //TODO: Method that is NOT THIS for recording forces
     public static HashMap<Node, Vector2f> FORCE_HISTORY = new HashMap<>();
 
-    public static final float TIMESTEP = 1e-1f;
+    public static float TIMESTEP = 1e-1f;
     // rendering system reference
     Renderer renderer;
     // Collecting user input
