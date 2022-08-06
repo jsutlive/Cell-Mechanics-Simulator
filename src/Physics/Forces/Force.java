@@ -39,6 +39,18 @@ public class Force
         nodes[1].AddForceVector(forceVector);
     }
 
+    public static void constantConstrict(Edge edge, float constant, float ratio)
+    {
+        Node[] nodes = edge.getNodes();
+        Vector2f forceVector = calculateConstrictionForce(edge, constant, ratio);
+        // Apply force to node 0
+        nodes[0].AddForceVector(forceVector);
+
+        // Apply an equal and opposite force to node 1
+        forceVector.mul(-1);
+        nodes[1].AddForceVector(forceVector);
+    }
+
     public static void constrict(Edge edge, float constant, float ratio, int id)
     {
         Node[] nodes = edge.getNodes();
@@ -49,8 +61,6 @@ public class Force
                 edge.getLength() + "::INITIAL LENGTH: "
                 + edge.getInitialLength());
 
-
-
         // Apply force to node 0
         nodes[0].AddForceVector(forceVector);
 
@@ -58,6 +68,7 @@ public class Force
         forceVector.mul(-1);
         nodes[1].AddForceVector(forceVector);
     }
+
 
     public static void halfConstrict(Edge edge, float constant, float ratio){
         Node[] nodes = edge.getNodes();
@@ -77,6 +88,18 @@ public class Force
         forceVector = limitForceFromLength(edge, forceVector);
         return forceVector;
     }
+
+    public static Vector2f calculateConstrictionForce(Edge edge, float constant, float ratio) {
+        // Hooke's law calculation to get force magnitude
+        float forceMag = Math.max(constant * Math.signum(edge.getLength() - (ratio * edge.getInitialLength())),0);
+        // Find a unit vector showing x and y components of this edge
+        Vector2f forceVector = new Vector2f(edge.getXUnit(), edge.getYUnit());
+        // Multiply magnitude * unit vector
+        forceVector.mul(forceMag);
+        forceVector = limitForceFromLength(edge, forceVector);
+        return forceVector;
+    }
+
 
     /**
      *Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 1).

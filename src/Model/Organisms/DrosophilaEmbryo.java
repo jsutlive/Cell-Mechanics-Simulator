@@ -41,8 +41,8 @@ public class DrosophilaEmbryo implements  IOrganism {
         generateTissueRing();
         if(Model.apicalGradient!=null) {
             Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                    150.5f, 0.5f,
-                    10f, .00001f);
+                    100.5f, 0.8f,
+                    0.1f, .5f);
         }
         allNodes.clear();
         for(Cell cell: allCells)
