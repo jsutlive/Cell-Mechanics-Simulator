@@ -2,7 +2,7 @@ package Physics.Forces;
 
 public abstract class Gradient {
 
-    public float delayFactor = 10;
+    public float delayFactor = 100;
     protected float[] constants;
     public float[] getConstants() {
         return constants;

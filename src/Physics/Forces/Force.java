@@ -105,6 +105,10 @@ public class Force
 
             Vector2f edgeNormalVector = CustomMath.normal(edge);
             edgeNormalVector.mul(forceMagnitude);
+            
+            //multiplies the edgeNormal by the length
+            //logically if an edge is larger, there is more force pushing on it
+            edgeNormalVector.mul(edge.getLength());
 
             node1.AddForceVector(edgeNormalVector);
             node2.AddForceVector(edgeNormalVector);
