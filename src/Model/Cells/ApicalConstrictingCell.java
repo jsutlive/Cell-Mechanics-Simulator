@@ -39,7 +39,7 @@ public class ApicalConstrictingCell extends Cell
         for(Edge edge: edges){
             edge.setElasticConstant(elasticConstantOverride);
             if(edge instanceof ApicalEdge){
-                edge.setElasticConstant(0.05f);
+                edge.setElasticConstant(0.15f);
             }
         }
         for (Edge edge: internalEdges){

@@ -38,7 +38,7 @@ public class Input extends JFrame implements KeyListener {
         panel.add(label);
 
         JLabel timestepLabel = new JLabel("timestep");
-        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL,1,100,10);
+        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL,0,100,10);
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(10);
         timestepSlider.setPaintTicks(true);
