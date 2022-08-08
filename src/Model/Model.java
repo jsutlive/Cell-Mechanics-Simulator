@@ -16,6 +16,7 @@ import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.awt.*;
+import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class Model extends MonoBehavior
     LJForceType ljType = LJForceType.simple;
     public static Vector2f largestResultantForce = new Vector2f(0);
     public static Gradient apicalGradient;
+    List<Node> basalNodes = new ArrayList<>();
+    List<Node> apicalNodes = new ArrayList<>();
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
@@ -43,17 +46,17 @@ public class Model extends MonoBehavior
         setCellColors();
         allNodes = organism.getAllNodes();
 
-        List<Node> yolkNodes = new ArrayList<>();
         for(Cell cell : organism.getAllCells()){
             cell.overrideElasticConstants();
             for(Edge edge :cell.getEdges()) {
                 if(edge instanceof BasalEdge) {
-                    yolkNodes.add(edge.getNodes()[0]);
-                    break;
+                    basalNodes.add(edge.getNodes()[0]);
+                }else if(edge instanceof ApicalEdge){
+                    apicalNodes.add(edge.getNodes()[0]);
                 }
             }
         }
-        yolk = Yolk.build(yolkNodes);
+        yolk = Yolk.build(basalNodes);
     }
 
 
@@ -89,6 +92,8 @@ public class Model extends MonoBehavior
         {
             node.Move();
         }
+
+        checkCollision();
     }
 
     private void checkNodesWithinBoundary(List<Node> allNodes) {
@@ -100,6 +105,39 @@ public class Model extends MonoBehavior
             }
 
         }
+    }
+
+    private void checkCollision(){
+        for(Cell cell: organism.getAllCells()){
+            for(Node node: basalNodes){
+                if(cell.nodeIsInside(node)){
+                    BasalEdge edge = null;
+                    for(Edge e: cell.getEdges()){
+                        if(e instanceof BasalEdge){edge = (BasalEdge) e;}
+                    }
+                    if(edge.contains(node)){continue;}
+                    Vector2f normal = CustomMath.normal(edge);
+                    normal.mul(-1);
+                    node.AddForceVector(normal);
+                }
+            }
+            for(Node node: apicalNodes){
+                if(cell.nodeIsInside(node) && !cell.Contains(node)){
+                    ApicalEdge edge = null;
+                    for(Edge e: cell.getEdges()){
+                        if(e instanceof ApicalEdge){edge = (ApicalEdge) e;}
+                    }
+                    Vector2f normal = CustomMath.normal(edge);
+                    Node[] edgeNodes = edge.getNodes();
+                    edgeNodes[0].AddForceVector(normal);
+                    edgeNodes[1].AddForceVector(normal);
+                    normal.mul(-2);
+                    node.AddForceVector(normal);
+                    
+                }
+            }
+        }
+        
     }
 
     private void checkCellCellCollision(Cell cell){

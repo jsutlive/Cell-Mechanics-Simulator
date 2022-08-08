@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShorteningCell extends Cell{
-    float lateralShorteningRatio = .7f;
+    float lateralShorteningRatio = .5f;
     float lateralShorteningConstant = .10f;
 
     public ShorteningCell()

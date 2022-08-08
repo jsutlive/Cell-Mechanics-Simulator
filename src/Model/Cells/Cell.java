@@ -151,6 +151,31 @@ public class Cell extends MonoBehavior {
         }
     }
 
+    public boolean nodeIsInside(Node n){
+        //checks whether point is inside polygon by drawing a horizontal ray from the point
+        //if the num of intersections is even, then it is outside, else it is inside
+        //because if a point crosses the shape a total of a even amount of times, then it must have entered inside then exited again. 
+        Vector2f nodePos = n.getPosition();
+        int intersections = 0;
+        for(Edge edge: edges){
+            Vector2f[] positions = edge.getPositions();
+            Vector2f p1 = positions[0].copy();
+            p1.sub(nodePos);
+            Vector2f p2 = positions[1].copy();
+            p2.sub(nodePos);
+
+            //if they are both on same side of the y-axis, it doesn't intersect
+            if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}
+            //intersection point (not the actual point, which would contain division, but changed in a way that it should still perserve sine)
+            float intersectPoint = (p1.y * (p1.x - p2.x) - p1.x * (p1.y - p2.y)) * (p1.y - p2.y);
+
+            if(intersectPoint < 0){continue;}
+
+            intersections++;
+        }
+        return intersections%2 != 0;
+    }
+
     protected void adjustCorners(){
         int sign = -1;
         Vector2f genericForce = new Vector2f(1,1);
