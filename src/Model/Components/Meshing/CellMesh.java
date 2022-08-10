@@ -9,6 +9,4 @@ import java.util.List;
 public class CellMesh extends Mesh{
     public List<Node> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
-
-
 }

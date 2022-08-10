@@ -8,4 +8,8 @@ public abstract class Force extends Component {
     public void init() {
 
     }
+
+    public abstract void apply();
+
+    public abstract void setup();
 }
