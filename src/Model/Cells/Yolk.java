@@ -17,7 +17,7 @@ public class Yolk extends Cell {
 
     @Override
     public void awake() {
-        this.osmosisConstant = .003f;
+        this.osmosisConstant = .002f;
     }
 
     @Override

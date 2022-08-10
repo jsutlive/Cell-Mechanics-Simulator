@@ -3,17 +3,12 @@ package Engine.States;
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.Simulation;
-import Engine.Timer.Time;
 import GUI.IRender;
 import GUI.Painter;
-import Input.Input;
-import Model.Components.CellRenderer;
 import Model.*;
-import Physics.PhysicsSystem;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2i;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ConcurrentModificationException;
 

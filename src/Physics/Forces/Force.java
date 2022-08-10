@@ -8,6 +8,7 @@ import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
+import Utilities.Math.Gauss;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -137,6 +138,58 @@ public class Force
 
             node1.AddForceVector(edgeNormalVector);
             node2.AddForceVector(edgeNormalVector);
+        }
+    }
+
+    public static void restoreFromCenter(Cell cell, float constant){
+            float currentArea = Gauss.nShoelace(cell.getNodes());
+            if( currentArea< cell.getRestingArea())
+            {
+                for(Edge edge:cell.getEdges())
+                {
+                    Vector2f force = CustomMath.normal(edge);
+                    force.mul(-constant);
+                    edge.AddForceVector(force);
+                }
+                for(Edge edge:cell.getEdges())
+                {
+                    Vector2f force = CustomMath.normal(edge);
+                    force.mul(constant);
+                    edge.AddForceVector(force);
+                }
+
+            }
+
+    }
+
+    public static void restoreWithPerimeter(Cell cell, float constant){
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;
+
+        List<Edge> edges = cell.getEdges();
+        List<Vector2f> edgeVectors = new ArrayList<>();
+        float perimeter = 0f;
+        for(Edge e:edges){
+            Node[] nodes = e.getNodes();
+            Node node1 = nodes[0];
+            Node node2 = nodes[1];
+            Vector2f edgeVector = node2.getPosition().copy();
+            edgeVector.sub(node1.getPosition());
+            edgeVectors.add(edgeVector);
+            perimeter += edgeVector.mag();
+        }
+
+
+        for(int i=0; i<edges.size();i++){
+            Node[] nodes = edges.get(i).getNodes();
+            Node node1 = nodes[0];
+            Node node2 = nodes[1];
+
+            Vector2f perpendicular = Vector2f.zero;
+            perpendicular.x = edgeVectors.get(i).y;
+            perpendicular.y = -edgeVectors.get(i).x;
+            perpendicular.mul(-forceMagnitude * edgeVectors.get(i).mag() / perimeter);
+            node1.AddForceVector(perpendicular);
+            node2.AddForceVector(perpendicular);
         }
     }
 

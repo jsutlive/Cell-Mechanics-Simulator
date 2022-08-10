@@ -2,13 +2,12 @@ package Model.Cells;
 
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
-import Model.Components.CellRenderer;
+import Model.Components.Render.CellRenderer;
 import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Corner;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.awt.*;

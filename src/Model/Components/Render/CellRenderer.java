@@ -1,9 +1,9 @@
-package Model.Components;
+package Model.Components.Render;
 
 import GUI.IColor;
-import GUI.IRender;
 import GUI.Painter;
 import Model.Cells.Cell;
+import Model.Components.Render.ObjectRenderer;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 

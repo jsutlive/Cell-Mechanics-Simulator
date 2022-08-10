@@ -1,6 +1,7 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
+import Engine.Simulation;
 import Model.Cells.*;
 import Model.Organisms.*;
 import Physics.Forces.*;
@@ -14,6 +15,8 @@ import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.awt.*;
 import java.rmi.ConnectIOException;
@@ -57,6 +60,7 @@ public class Model extends MonoBehavior
             }
         }
         yolk = Yolk.build(basalNodes);
+
     }
 
 
@@ -66,7 +70,11 @@ public class Model extends MonoBehavior
 
     @Override
     public void start() {
-        for(Cell cell : organism.getAllCells()) cell.start();
+        for(Cell cell : organism.getAllCells()) {
+            cell.start();
+            System.out.println(Simulation.gson.toJson(cell.getRestingArea()));
+        }
+
     }
 
     @Override
@@ -140,39 +148,6 @@ public class Model extends MonoBehavior
         
     }
 
-    private void checkCellCellCollision(Cell cell){
-        Vector2f[] bound = Geometry.getMinMaxBoundary(cell);
-        float minX = bound[0].x;
-        float minY = bound[0].y;
-        float maxX = bound[1].x;
-        float maxY = bound[1].y;
-
-        for(Node node: organism.getAllNodes()){
-            if(!cell.Contains(node))
-            {
-                Vector2f pos = node.getPosition();
-
-                if (pos.x > minX && pos.y > minY && pos.x < maxX && pos.y < maxY)
-                {
-
-                    if(Geometry.polygonContainsPoint(cell, node)){
-                        Edge e = Geometry.getClosestEdgeToPoint(cell, node);
-
-                        if(!e.isNull) {
-                            Vector2f adjustedPosition = Geometry.getNearestPointOnLine(e, pos);
-                            node.MoveTo(adjustedPosition);
-                        }
-                        System.out.println("COLLISION IDENTIFIED:");
-                        node.setColor(Color.red);
-                        cell.print();
-                        pos.print();
-                    }
-                }
-            }
-
-        }
-    }
-
     private void calculateLennardJonesForces(float maxRadius, float ljConstant, Cell cell) {
         for (Edge edge: cell.getEdges())
         {
@@ -191,30 +166,6 @@ public class Model extends MonoBehavior
         }
     }
 
-    private void calculateLennardJonesForces(float maxRadius, float ljConstant){
-        List<Node> allNodes = organism.getAllNodes();
-        for (Node n: allNodes){
-            for(Cell c: organism.getAllCells()) {
-                for(Edge e: c.getEdges()) {
-                    if (n.getPosition().isNull()) {
-                        System.out.println("NULL NODE");
-                    }
-                    if (!e.contains(n)) {
-                        float dist = CustomMath.pDistanceSq(n, e);
-                        if (Float.isNaN(dist)) {
-                            n.setColor(Color.GREEN);
-                            System.out.println("NULL DISTANCE AT CELL " + c.getId());
-                        } else {
-                            if (dist < maxRadius) {
-                                Vector2f forceVector = Force.GetLennardJonesLikeForce(ljConstant, e, n, ljType);
-                                n.AddForceVector(forceVector);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
 
     /**
      * Use State.create(Model.class) instead to ensure a proper reference to the state is established.

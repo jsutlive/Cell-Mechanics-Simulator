@@ -2,7 +2,7 @@ package Model;
 
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
-import Model.Components.EdgeRenderer;
+import Model.Components.Render.EdgeRenderer;
 import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
 

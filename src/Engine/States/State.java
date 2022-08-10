@@ -4,7 +4,7 @@ import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
 import Engine.Timer.Time;
 import GUI.IRender;
-import Model.Components.ObjectRenderer;
+import Model.Components.Render.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
 
 import java.util.ArrayList;

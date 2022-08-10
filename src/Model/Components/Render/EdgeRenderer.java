@@ -1,14 +1,10 @@
-package Model.Components;
+package Model.Components.Render;
 
-import GUI.IColor;
-import GUI.IRender;
 import GUI.Painter;
 import Model.EdgeMono;
 import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
