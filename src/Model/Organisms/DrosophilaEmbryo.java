@@ -18,7 +18,7 @@ public class DrosophilaEmbryo implements  IOrganism {
 
 
     int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 12;
+    int numberOfConstrictingSegmentsInCircle = 18;
 
     int shorteningCellBegin = 16;
     int shorteningCellEnd = 28;
