@@ -45,6 +45,13 @@ public class CellRenderer extends ObjectRenderer
                 ((IColor) edge).setColor(color);
             }
         }
+        for(Edge edge: cell.getInternalEdges())
+        {
+            if(edge instanceof  IColor)
+            {
+                ((IColor) edge).setColor(color);
+            }
+        }
     }
 
     /**

@@ -35,6 +35,17 @@ public class Time {
     }
 
     /**
+     * Resets simulation time to avoid problems when going between states
+     */
+    public static void reset(){
+        initialTime = System.nanoTime();
+    }
+
+    public static long asNanoseconds(float f){
+        return (long)f * 1000000000;
+    }
+
+    /**
      * private constructor to prevent objects from creating additional timers
      * Set all constants and reset timer variables to zero
      */

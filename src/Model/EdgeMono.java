@@ -10,7 +10,6 @@ import java.awt.*;
 
 /**
  * EdgeMono creates a mock edge to behave as part of the system as a cell would.
- * This is a wrapper class, designed to give edge objects full access to awake, start, and update functions.
  * Uses a specialized renderer.
  * Used for debugging purposes.
  */

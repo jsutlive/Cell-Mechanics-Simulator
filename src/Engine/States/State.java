@@ -2,14 +2,12 @@ package Engine.States;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Engine.Timer.Time;
 import GUI.IRender;
-import Model.Components.CellRenderer;
-import Model.Components.EdgeRenderer;
 import Model.Components.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public abstract class State
@@ -26,7 +24,7 @@ public abstract class State
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
     public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
 
-    protected static List<MonoBehavior> allObjects = new ArrayList<>();
+    protected static List<MonoBehavior<?>> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
@@ -45,6 +43,7 @@ public abstract class State
         {
             SetState(new RunState());
         }
+        Time.reset();
         GetState().Init();
     }
 
@@ -68,14 +67,17 @@ public abstract class State
 
     /**
      * Base method to create an object and assign it to the given state
-     * @param type
-     * @param <T>
+     * @param type a MonoBehavior class to create an instance of
+     * @param <T> type of MonoBehavior class
      * @return
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
     public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
             throws InstantiationException, IllegalAccessException {
+        if(!MonoBehavior.class.isAssignableFrom(type)) {
+            throw new IllegalArgumentException("Class not assignable from MonoBehavior");
+        }
         MonoBehavior mono = MonoBehavior.createObject(type);
         MonoBehavior.setGlobalID(mono);
         allObjects.add(mono);
@@ -90,10 +92,9 @@ public abstract class State
     /**
      * Look for a tagged object and return the first object with that tag
      * @param tag
-     * @param <T>
      * @return
      */
-    public static <T extends MonoBehavior<T>> MonoBehavior<T> findObjectWithTag(Tag tag)
+    public static MonoBehavior<?> findObjectWithTag(Tag tag)
     {
         for (MonoBehavior mono: allObjects) {
             if(mono.getTag() == tag) return mono;
@@ -101,17 +102,17 @@ public abstract class State
         return null;
     }
 
-    public static void setFlagToRender(MonoBehavior mono)
+    public static void setFlagToRender(MonoBehavior<?> mono)
     {
-        IRender rend = (ObjectRenderer) mono.getComponent(ObjectRenderer.class);
+        IRender rend = mono.getComponent(ObjectRenderer.class);
         renderBatch.add(rend);
     }
 
-    public static void destroy(MonoBehavior mono)
+    public static void destroy(MonoBehavior<?> mono)
     {
-        if(allObjects.contains(mono)) allObjects.remove(mono);
-        if(renderBatch.contains((CellRenderer) mono.getComponent(CellRenderer.class)))
-            renderBatch.remove((CellRenderer) mono.getComponent(CellRenderer.class));
+        allObjects.remove(mono);
+        mono.removeComponent(ObjectRenderer.class);
+
     }
 
 }

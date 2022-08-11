@@ -1,14 +1,11 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
-import Engine.Object.Tag;
-import Engine.States.State;
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.Cell;
-import Model.Cells.ShorteningCell;
+import Model.Cells.*;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
+import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -19,40 +16,47 @@ import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.awt.*;
+import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model extends MonoBehavior
 {
     PhysicsSystem physicsSystem;
-    //IOrganism organism = new SimpleFourCellBox();
     IOrganism organism = new DrosophilaEmbryo();
     List<Node> allNodes = new ArrayList<>();
     float shellRadius = 302f;
-    List<Node> yolkNodes = new ArrayList<>();
-    Vector2f center = new Vector2f(400);
-    Yolk yolk;
-    float yolkArea;
-    float yolkConstant = .05f;
+    Cell yolk;
     LJForceType ljType = LJForceType.simple;
     public static Vector2f largestResultantForce = new Vector2f(0);
     public static Gradient apicalGradient;
+    List<Node> basalNodes = new ArrayList<>();
+    List<Node> apicalNodes = new ArrayList<>();
     /**
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @throws InstantiationException Cannot instantiate cells in model due to an error
+     * @throws IllegalAccessException Problems accessing memory during cell creation
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        this.addTag(Tag.MODEL);
-        apicalGradient = new GaussianGradient(0f, 0.6f);
+        apicalGradient = new GaussianGradient(0f, 0.8f);
         organism.generateOrganism();
-        yolk = (Yolk) State.create(Yolk.class);
 
         setCellColors();
         allNodes = organism.getAllNodes();
-        yolk.build(organism.getAllCells(), yolkNodes);
+
+        for(Cell cell : organism.getAllCells()){
+            cell.overrideElasticConstants();
+            for(Edge edge :cell.getEdges()) {
+                if(edge instanceof BasalEdge) {
+                    basalNodes.add(edge.getNodes()[0]);
+                }else if(edge instanceof ApicalEdge){
+                    apicalNodes.add(edge.getNodes()[0]);
+                }
+            }
+        }
+        yolk = Yolk.build(basalNodes);
     }
 
 
@@ -62,9 +66,7 @@ public class Model extends MonoBehavior
 
     @Override
     public void start() {
-        for(Cell cell : organism.getAllCells()){
-            cell.overrideElasticConstants();
-        }
+        for(Cell cell : organism.getAllCells()) cell.start();
     }
 
     @Override
@@ -76,11 +78,10 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        float maxRadius = 70f;
-        float ljConstant = .1e5f;
-        calculateYolkRestoringForce();
+        yolk.update();
 
         checkNodesWithinBoundary(allNodes);
+
         for(Cell cell: organism.getAllCells())
         {
             cell.update();
@@ -91,6 +92,8 @@ public class Model extends MonoBehavior
         {
             node.Move();
         }
+
+        checkCollision();
     }
 
     private void checkNodesWithinBoundary(List<Node> allNodes) {
@@ -104,40 +107,37 @@ public class Model extends MonoBehavior
         }
     }
 
-    private void calculateYolkRestoringForce() {
-        float currentYolkArea = Gauss.nShoelace(yolkNodes);
-        if( currentYolkArea< yolkArea)
-        {
-            for(Cell cell: organism.getAllCells())
-            {
-                for(Edge edge:cell.getEdges())
-                {
-                    if(edge instanceof BasalEdge)
-                    {
-                        Vector2f force = CustomMath.normal(edge);
-                        force.mul(-yolkConstant);
-                        edge.AddForceVector(force);
+    private void checkCollision(){
+        for(Cell cell: organism.getAllCells()){
+            for(Node node: basalNodes){
+                if(cell.nodeIsInside(node)){
+                    BasalEdge edge = null;
+                    for(Edge e: cell.getEdges()){
+                        if(e instanceof BasalEdge){edge = (BasalEdge) e;}
                     }
+                    if(edge.contains(node)){continue;}
+                    Vector2f normal = CustomMath.normal(edge);
+                    normal.mul(-1);
+                    node.AddForceVector(normal);
+                }
+            }
+            for(Node node: apicalNodes){
+                if(cell.nodeIsInside(node) && !cell.Contains(node)){
+                    ApicalEdge edge = null;
+                    for(Edge e: cell.getEdges()){
+                        if(e instanceof ApicalEdge){edge = (ApicalEdge) e;}
+                    }
+                    Vector2f normal = CustomMath.normal(edge);
+                    Node[] edgeNodes = edge.getNodes();
+                    edgeNodes[0].AddForceVector(normal);
+                    edgeNodes[1].AddForceVector(normal);
+                    normal.mul(-2);
+                    node.AddForceVector(normal);
+                    
                 }
             }
         }
-        else if(currentYolkArea == yolkArea){
-        }
-        else
-        {
-            for(Cell cell: organism.getAllCells())
-            {
-                for(Edge edge:cell.getEdges())
-                {
-                    if(edge instanceof BasalEdge)
-                    {
-                        Vector2f force = CustomMath.normal(edge);
-                        force.mul(yolkConstant);
-                        edge.AddForceVector(force);
-                    }
-                }
-            }
-        }
+        
     }
 
     private void checkCellCellCollision(Cell cell){
@@ -220,7 +220,7 @@ public class Model extends MonoBehavior
      * Use State.create(Model.class) instead to ensure a proper reference to the state is established.
      * When established, this object immediately runs start functions.
      */
-    public Model() throws InstantiationException, IllegalAccessException {
+    public Model() {
         this.start();
     }
 
@@ -232,17 +232,22 @@ public class Model extends MonoBehavior
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
+                for(Edge edge: cell.getEdges()){
+
+                    if(edge instanceof ApicalEdge){
+                        edge.setColor(Color.RED);
+                    }
+                }
             }
             if(cell instanceof ShorteningCell)
             {
                 cell.setColor(Color.BLUE);
             }
-            for(Edge edge: cell.getEdges()){
-                if(edge instanceof BasalEdge){
-                    yolkNodes.add(edge.getNodes()[0]);
-                    break;
-                }
+            if(cell instanceof BasicCell)
+            {
+                cell.setColor(Color.WHITE);
             }
+
         }
     }
 

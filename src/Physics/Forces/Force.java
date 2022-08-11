@@ -39,6 +39,18 @@ public class Force
         nodes[1].AddForceVector(forceVector);
     }
 
+    public static void constantConstrict(Edge edge, float constant, float ratio)
+    {
+        Node[] nodes = edge.getNodes();
+        Vector2f forceVector = calculateConstrictionForce(edge, constant, ratio);
+        // Apply force to node 0
+        nodes[0].AddForceVector(forceVector);
+
+        // Apply an equal and opposite force to node 1
+        forceVector.mul(-1);
+        nodes[1].AddForceVector(forceVector);
+    }
+
     public static void constrict(Edge edge, float constant, float ratio, int id)
     {
         Node[] nodes = edge.getNodes();
@@ -56,6 +68,7 @@ public class Force
         forceVector.mul(-1);
         nodes[1].AddForceVector(forceVector);
     }
+
 
     public static void halfConstrict(Edge edge, float constant, float ratio){
         Node[] nodes = edge.getNodes();
@@ -76,6 +89,18 @@ public class Force
         return forceVector;
     }
 
+    public static Vector2f calculateConstrictionForce(Edge edge, float constant, float ratio) {
+        // Hooke's law calculation to get force magnitude
+        float forceMag = Math.max(constant * Math.signum(edge.getLength() - (ratio * edge.getInitialLength())),0);
+        // Find a unit vector showing x and y components of this edge
+        Vector2f forceVector = new Vector2f(edge.getXUnit(), edge.getYUnit());
+        // Multiply magnitude * unit vector
+        forceVector.mul(forceMag);
+        forceVector = limitForceFromLength(edge, forceVector);
+        return forceVector;
+    }
+
+
     /**
      *Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 1).
      * based on a constant "constant"
@@ -93,33 +118,25 @@ public class Force
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;
+        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea());
 
         List<Edge> edges = cell.getEdges();
-        List<Vector2f> edgeVectors = new ArrayList<>();
-        float perimeter = 0f;
-        for(Edge e:edges){
-            Node[] nodes = e.getNodes();
-            Node node1 = nodes[0];
-            Node node2 = nodes[1];
-            Vector2f edgeVector = node2.getPosition().copy();
-            edgeVector.sub(node1.getPosition());
-            edgeVectors.add(edgeVector);
-            perimeter += edgeVector.mag();
-        }
-
-        int[] orientations = new int[]{-1,-1,-1,-1,1,1,1,1,-1,-1};
-        for(int i=0; i<edges.size();i++){
-            Node[] nodes = edges.get(i).getNodes();
+        for(Edge edge : edges){
+            Node[] nodes = edge.getNodes();
             Node node1 = nodes[0];
             Node node2 = nodes[1];
 
-            Vector2f perpendicular = Vector2f.zero;
-            perpendicular.x = edgeVectors.get(i).y;
-            perpendicular.y = -edgeVectors.get(i).x;
-            perpendicular.mul(-forceMagnitude * orientations[i] * edgeVectors.get(i).mag() / perimeter);
-            node1.AddForceVector(perpendicular);
-            node2.AddForceVector(perpendicular);
+            Vector2f edgeNormalVector = CustomMath.normal(edge);
+            // edgeNormalVector.mul(forceMagnitude);
+            edgeNormalVector.mul(-constant);
+            
+            //multiplies the edgeNormal by the length
+            //logically if an edge is larger, there is more force pushing on it
+            // edgeNormalVector.mul(edge.getLength());
+            edgeNormalVector.mul(edge.getLength());
+
+            node1.AddForceVector(edgeNormalVector);
+            node2.AddForceVector(edgeNormalVector);
         }
     }
 
@@ -168,10 +185,6 @@ public class Force
                 forceVector = Vector2f.unit(pointOnEdge, edgeNode1);
             }
         }
-        if(forceVector.isNull())
-        {
-            //System.out.println("FORCE VECTOR NULL");
-        }
         Edge temp;
         Node t = new Node(pointOnEdge);
         temp = new BasicEdge(n, t);
@@ -181,10 +194,7 @@ public class Force
             System.out.println("FORCE MAGNITUDE NULL");
         }
         forceVector.mul(forceMagnitude);
-        if(forceVector.isNull())
-        {
-            //System.out.println("FORCE VECTOR NULL _v2");
-        }
+
         return forceVector;
     }
 
@@ -212,8 +222,8 @@ public class Force
 
     /**
      * Calculate force based on equation 5 in Kang, et al 2021 (https://doi.org/10/1016/j.isci.2021.103252)
-     * @param constant
-     * @param distance
+     * @param constant parameter to control force magnitude
+     * @param distance determines distance at which the force begins to act on other nodes
      * @return
      */
     private static float calculateLennardJonesLikeForce(float constant, float distance)
@@ -227,12 +237,11 @@ public class Force
             return newConstant * exponentTerm * (1/ CustomMath.sq(distance));
     }
 
-    private static float calculateLennardJonesForce(float constant, float distance)
+    private static float calculateLennardJonesForce(float epsilon, float distance)
     {
-        float epsilon = constant;
         float sigma = 4e-6f;
-        float A = 4*epsilon*(float)Math.pow(sigma, 12);
-        float B = 4*epsilon*(float)Math.pow(sigma, 6);
+        float A = 4* epsilon *(float)Math.pow(sigma, 12);
+        float B = 4* epsilon *(float)Math.pow(sigma, 6);
         float r13 = (float)Math.pow(distance, 13);
         float r7 = (float)Math.pow(distance, 7);
 

@@ -2,6 +2,7 @@ package Engine.States;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Engine.Simulation;
 import Engine.Timer.Time;
 import GUI.IRender;
 import GUI.Painter;
@@ -9,6 +10,7 @@ import Input.Input;
 import Model.Components.CellRenderer;
 import Model.*;
 import Physics.PhysicsSystem;
+import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2i;
 
 import javax.swing.*;
@@ -65,6 +67,10 @@ public class RunState extends State
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
+        for (Node n: Simulation.FORCE_HISTORY.keySet()) {
+            Painter.drawForce(n, Simulation.FORCE_HISTORY.get(n));
+        }
+        Simulation.FORCE_HISTORY.clear();
         
         Painter.drawPoint(new Vector2i(400,400));
         Painter.drawCircle(new Vector2i(400), 604, Color.gray);

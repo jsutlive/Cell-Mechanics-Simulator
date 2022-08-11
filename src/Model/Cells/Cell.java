@@ -26,10 +26,12 @@ public class Cell extends MonoBehavior {
     private float restingArea;
     public float getRestingArea() {return restingArea;}
 
+    protected float internalConstantOverride;
+    protected float elasticConstantOverride;
     private List<Corner> corners = new ArrayList<>();
 
     float cornerAdjustConst = .07f;
-    float osmosisConstant = .0015f;
+    protected float osmosisConstant = .02f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -81,14 +83,16 @@ public class Cell extends MonoBehavior {
     @Override
     public void awake(){
         addRenderer(new CellRenderer());
+        State.setFlagToRender(this);
     }
 
     @Override
     public void start()
     {
         restingArea = getArea();
+        generateInternalEdges(nodes);
         setNodePositions();
-        setCorners();
+        //setCorners();
     }
     public void overrideElasticConstants(){
     }
@@ -136,7 +140,7 @@ public class Cell extends MonoBehavior {
         }
         Force.restore(this, osmosisConstant);
         //adjustCornersUsingHalfAngles();
-        adjustCorners();
+        //adjustCorners();
     }
 
     public void move()
@@ -145,6 +149,31 @@ public class Cell extends MonoBehavior {
         {
             node.Move();
         }
+    }
+
+    public boolean nodeIsInside(Node n){
+        //checks whether point is inside polygon by drawing a horizontal ray from the point
+        //if the num of intersections is even, then it is outside, else it is inside
+        //because if a point crosses the shape a total of a even amount of times, then it must have entered inside then exited again. 
+        Vector2f nodePos = n.getPosition();
+        int intersections = 0;
+        for(Edge edge: edges){
+            Vector2f[] positions = edge.getPositions();
+            Vector2f p1 = positions[0].copy();
+            p1.sub(nodePos);
+            Vector2f p2 = positions[1].copy();
+            p2.sub(nodePos);
+
+            //if they are both on same side of the y-axis, it doesn't intersect
+            if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}
+            //intersection point (not the actual point, which would contain division, but changed in a way that it should still perserve sine)
+            float intersectPoint = (p1.y * (p1.x - p2.x) - p1.x * (p1.y - p2.y)) * (p1.y - p2.y);
+
+            if(intersectPoint < 0){continue;}
+
+            intersections++;
+        }
+        return intersections%2 != 0;
     }
 
     protected void adjustCorners(){
@@ -254,7 +283,7 @@ public class Cell extends MonoBehavior {
 
     public void print()
     {
-        String cellClass = "";
+        String cellClass;
         int numberOfApicalEdges = 0;
         int numberOfBasalEdges = 0;
         int numberOfLateralEdges = 0;
@@ -282,6 +311,15 @@ public class Cell extends MonoBehavior {
         System.out.println("APICAL EDGES: " + numberOfApicalEdges);
         System.out.println("BASAL EDGES: " + numberOfBasalEdges);
         System.out.println("LATERAL EDGES: " + numberOfLateralEdges);
+    }
+
+    void generateInternalEdges(List<Node> nodes){
+        int length = nodes.size();
+        int halfLength = length/2;
+        for(int i =0; i <halfLength - 1; i++){
+            internalEdges.add(new BasicEdge(nodes.get(i), nodes.get(length - i- 2)));
+            internalEdges.add(new BasicEdge(nodes.get(i + 1), nodes.get(length - i -1)));
+        }
     }
 }
 
