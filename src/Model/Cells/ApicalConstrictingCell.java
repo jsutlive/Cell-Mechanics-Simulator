@@ -26,6 +26,10 @@ public class ApicalConstrictingCell extends Cell
 {
     public float apicalConstrictingConstant = 10f;
     public float apicalConstrictingRatio = .01f;
+
+    private float constrictionOnsetTime = Time.asNanoseconds(1);
+    private float constrictionRampedTime = Time.asNanoseconds(15);
+    private float totalTimeToConstrict = constrictionRampedTime - constrictionOnsetTime;
                                     
     public ApicalConstrictingCell()
     {
@@ -54,6 +58,7 @@ public class ApicalConstrictingCell extends Cell
     @Override
     public void update() {
         super.update();
+        if(Time.elapsedTime < constrictionOnsetTime) return;
         for(Edge edge:  edges)
         {
             if(edge instanceof ApicalEdge)
@@ -62,12 +67,24 @@ public class ApicalConstrictingCell extends Cell
                 //If an apical gradient is defined, we use this for apical constriction, else we use the default constants
                 if(Model.apicalGradient != null && Model.apicalGradient.getConstants() != null){
                     Gradient gr = Model.apicalGradient;
-                    float delayedConstant = gr.getConstants()[getRingLocation() - 1] * Math.min(1f * Time.elapsedTime /Time.asNanoseconds(1f)/gr.delayFactor, 1);
+                    float delayedConstant;
+                    if(Time.elapsedTime < constrictionRampedTime)
+                    {
+                        delayedConstant = gr.getConstants()[getRingLocation() - 1] *
+                                ((Time.elapsedTime - constrictionOnsetTime)/ totalTimeToConstrict);
+                        Force.constrict(edge, delayedConstant, 1 - gr.getRatios()[getRingLocation() - 1] );
+                    }
+                    else
+                    {
+                        delayedConstant =  gr.getConstants()[getRingLocation() - 1];
+                        Force.constrict(edge, delayedConstant, 1 - gr.getRatios()[getRingLocation() - 1] );
+                    }
+                    /*float delayedConstant = gr.getConstants()[getRingLocation() - 1] * Math.min(1f * Time.elapsedTime /Time.asNanoseconds(1f)/gr.delayFactor, 1);
                     Force.constantConstrict(
                         edge,
                         delayedConstant,
                         1 - gr.getRatios()[getRingLocation() - 1]  
-                    );
+                    );*/
                 }else {
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
                 }
