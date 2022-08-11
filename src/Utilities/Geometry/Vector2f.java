@@ -23,28 +23,33 @@ public class Vector2f
         this.y = 0;
     }
 
-    public void add(Vector2f vec)
+    public Vector2f add(Vector2f vec)
     {
         x += vec.x;
         y += vec.y;
+        return this;
     }
 
-    public void sub(Vector2f vec)
+
+    public Vector2f sub(Vector2f vec)
     {
         x -= vec.x;
         y -= vec.y;
+        return this;
     }
 
-    public void mul(int i)
+    public Vector2f mul(int i)
     {
         x *= i;
         y *= i;
+        return this;
     }
 
-    public void mul(float f)
+    public Vector2f mul(float f)
     {
         x *= f;
         y *= f;
+        return this;
     }
 
     public Vector2f copy()
@@ -113,12 +118,10 @@ public class Vector2f
     }
 
     public boolean isNull(){
-        if(Float.isNaN(x) || Float.isNaN(y)) return true;
-        else return false;
+        return Float.isNaN(x) || Float.isNaN(y);
     }
 
     public static boolean isEqual(Vector2f a, Vector2f b){
-        if(a.x == b.x && a.y == b.y) return true;
-        else return false;
+        return a.x == b.x && a.y == b.y;
     }
 }
