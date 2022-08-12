@@ -72,7 +72,7 @@ public class Model extends MonoBehavior
     public void start() {
         for(Cell cell : organism.getAllCells()) {
             cell.start();
-            System.out.println(Simulation.gson.toJson(cell.getRestingArea()));
+            System.out.println(Simulation.gson.toJson(cell.getNodes().get(0)));
         }
 
     }

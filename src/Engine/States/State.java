@@ -115,4 +115,14 @@ public abstract class State
 
     }
 
+    public void save()
+    {
+
+    }
+
+    public void load()
+    {
+
+    }
+
 }

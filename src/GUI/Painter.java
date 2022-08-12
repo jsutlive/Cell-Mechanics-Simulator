@@ -36,7 +36,7 @@ public class Painter {
 
     public static void drawForce(Node node, Vector2f forceVector){
         Vector2f nodePosition = node.getPosition();
-        forceVector.mul(500);
+        forceVector.mul(50);
         forceVector.add(nodePosition);
 
         drawLine(nodePosition.asInt(), forceVector.asInt(), Color.GREEN);

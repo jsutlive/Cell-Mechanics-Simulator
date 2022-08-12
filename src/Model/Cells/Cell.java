@@ -30,7 +30,7 @@ public class Cell extends MonoBehavior {
     private List<Corner> corners = new ArrayList<>();
 
     float cornerAdjustConst = .07f;
-    protected float osmosisConstant = .02f;
+    protected float osmosisConstant = .0005f;
 
     public List<Edge> getEdges(){
         return edges;
@@ -316,8 +316,8 @@ public class Cell extends MonoBehavior {
         int length = nodes.size();
         int halfLength = length/2;
         for(int i =0; i <halfLength - 1; i++){
-            internalEdges.add(new BasicEdge(nodes.get(i), nodes.get(length - i- 2)));
-            internalEdges.add(new BasicEdge(nodes.get(i + 1), nodes.get(length - i -1)));
+            //internalEdges.add(new BasicEdge(nodes.get(i), nodes.get(length - i- 2)));
+            //internalEdges.add(new BasicEdge(nodes.get(i + 1), nodes.get(length - i -1)));
         }
     }
 }
