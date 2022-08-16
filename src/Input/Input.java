@@ -76,11 +76,24 @@ public class Input extends JFrame implements KeyListener {
             }
 
         }
-        if(keyCode == KeyEvent.VK_EQUALS){
+        if(keyCode == KeyEvent.VK_EQUALS) {
             ((ZoomRenderer) Renderer.getInstance()).scale *= 1.2;
         }
-        if(keyCode == KeyEvent.VK_MINUS){
+        if(keyCode == KeyEvent.VK_MINUS) {
             ((ZoomRenderer) Renderer.getInstance()).scale /= 1.2;
+        }
+
+        if(keyCode == KeyEvent.VK_LEFT) {
+            ((ZoomRenderer) Renderer.getInstance()).shift.x += 25;
+        }
+        if(keyCode == KeyEvent.VK_RIGHT) {
+            ((ZoomRenderer) Renderer.getInstance()).shift.x -= 25;
+        }
+        if(keyCode == KeyEvent.VK_UP) {
+            ((ZoomRenderer) Renderer.getInstance()).shift.y += 25;
+        }
+        if(keyCode == KeyEvent.VK_DOWN) {
+            ((ZoomRenderer) Renderer.getInstance()).shift.y -= 25;
         }
     }
 
