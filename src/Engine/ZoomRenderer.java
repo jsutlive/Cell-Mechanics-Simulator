@@ -113,7 +113,7 @@ public class ZoomRenderer extends Renderer
 
     private Vector2i transform(Vector2i point)
     {
-        return new Vector2i(Math.round((point.x + shift.x - width/2) * scale + width/2),Math.round((point.y + shift.x - height/2) * scale + height/2));
+        return new Vector2i(Math.round((point.x + shift.x - width/2) * scale + width/2),Math.round((point.y + shift.y - height/2) * scale + height/2));
     }
 
 }
