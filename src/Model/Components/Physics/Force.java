@@ -6,7 +6,7 @@ public abstract class Force extends Component {
 
     @Override
     public void init() {
-
+        setup();
     }
 
     public abstract void apply();
