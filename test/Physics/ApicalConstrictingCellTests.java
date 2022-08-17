@@ -30,7 +30,7 @@ public class ApicalConstrictingCellTests {
                 new Vector2i(800));
     }
 
-
+/*
     @ParameterizedTest
     @MethodSource("getValues")
     public void testConstictingCellForcesAreEqualBetweenOppositeCells(int val)
@@ -92,7 +92,7 @@ public class ApicalConstrictingCellTests {
     private static int[] getValues()
     {
         return new int[]{1,2,3,4,5,6,7,8,9,10};
-    }
+    }*/
 
  // class RepeatedNestedTest()
  // {

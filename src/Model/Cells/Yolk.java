@@ -10,14 +10,14 @@ public class Yolk extends Cell {
 
     public static Cell build(List<Node> yolkNodes) throws IllegalAccessException, InstantiationException {
         Cell yolk = (Cell) State.create(Yolk.class);
-        yolk.setNodes(yolkNodes);
+        //yolk.setNodes(yolkNodes);
         return yolk;
     }
 
 
     @Override
     public void awake() {
-        this.osmosisConstant = .004f;
+        //this.osmosisConstant = .004f;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Yolk extends Cell {
 
     @Override
     public void update() {
-        calculateYolkRestoringForce();
+        //calculateYolkRestoringForce();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class Yolk extends Cell {
 
     }
 
-    private void calculateYolkRestoringForce() {
+    /*private void calculateYolkRestoringForce() {
         Force.restore(this, osmosisConstant);
-    }
+    }*/
 }

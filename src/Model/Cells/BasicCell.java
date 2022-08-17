@@ -1,6 +1,7 @@
 package Model.Cells;
 
 import Engine.States.State;
+import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.*;
 
 import java.util.ArrayList;
@@ -35,8 +36,9 @@ public class BasicCell extends Cell{
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
+        CellMesh mesh = (CellMesh) cell.getComponent(CellMesh.class);
+        mesh.nodes = nodes;
+        mesh.edges = edges;
         return cell;
     }
 }

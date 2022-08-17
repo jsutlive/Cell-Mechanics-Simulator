@@ -117,9 +117,9 @@ public class Mesh {
 
 
         Cell cell = (Cell) State.create(cellClass);
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
-        cell.setNodes(nodes);
+        //cell.setEdges(edges);
+        //cell.setInternalEdges(internalEdges);
+        //cell.setNodes(nodes);
         State.setFlagToRender(cell);
         cell.setColor(Painter.DEFAULT_COLOR);
         return cell;
@@ -209,9 +209,9 @@ public class Mesh {
         else {
             cell = new Cell();
         }
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
-        cell.setNodes(nodes);
+        //cell.setEdges(edges);
+        //cell.setInternalEdges(internalEdges);
+        //cell.setNodes(nodes);
 
         return cell;
     }

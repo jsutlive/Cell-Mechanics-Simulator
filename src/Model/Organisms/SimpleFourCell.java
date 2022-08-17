@@ -149,9 +149,9 @@ public class SimpleFourCell implements IOrganism{
 
         // compile and create the cell object
         Cell cell = (Cell)State.create(ApicalConstrictingCell.class);
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
+        //cell.setNodes(nodes);
+        //cell.setEdges(edges);
+        //cell.setInternalEdges(internalEdges);
         State.setFlagToRender(cell);
         cell.setColor(Renderer.defaultColor);
         return cell;

@@ -29,7 +29,7 @@ public class EdgeTests
         assertEquals( A.getLength(), C.getXUnit() * C.getLength());
         //assertEquals(B.getLength(), C.getYUnit() * C.getLength());
     }
-
+    /*
     @Test
     void edges_equal_on_making_simple_structure() throws InstantiationException, IllegalAccessException {
         List<Cell> cells = Builder.getSimpleFourCellBox();
@@ -52,7 +52,7 @@ public class EdgeTests
         //ASSERT: There is one apical edge per cell, or the size of the cell list is equal to the apical edges counted
         assertEquals(cells.size(), numberOfApicalEdges);
     }
-
+*/
 
     @Test
     void get_correct_length_of_edge(){

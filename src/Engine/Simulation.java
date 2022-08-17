@@ -1,8 +1,10 @@
 package Engine;
 
+import Data.ComponentSerializer;
 import Engine.States.State;
 import Engine.Timer.Time;
 import Input.Input;
+import Model.Components.Component;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
@@ -18,7 +20,7 @@ public class Simulation implements Runnable
     //TODO: Method that is NOT THIS for recording forces
     public static HashMap<Node, Vector2f> FORCE_HISTORY = new HashMap<>();
 
-    public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    public static Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Component.class, new ComponentSerializer()).create();
 
     public static float TIMESTEP = 1e-1f;
     // rendering system reference

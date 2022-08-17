@@ -4,6 +4,7 @@ import Engine.Renderer;
 import Engine.States.State;
 import Model.Cells.ApicalConstrictingCell;
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
@@ -202,8 +203,8 @@ public class Builder {
     public static List<Cell> createSingleCellWithMirror(List<Node> nodes, List<Edge> edges) throws InstantiationException, IllegalAccessException {
         List<Cell> cells = new ArrayList<>();
         Cell a  = (Cell)State.create(Cell.class);
-        a.setNodes(nodes);
-        a.setEdges(edges);
+        //a.setNodes(nodes);
+        //a.setEdges(edges);
         cells.add(a);
         List<Cell> mirroredCells = mirrorCellList(cells, "yAxis");
         cells.addAll(mirroredCells);
@@ -224,8 +225,9 @@ public class Builder {
     private static Cell mirrorCell(String axis, Cell cell) throws InstantiationException, IllegalAccessException {
         List<Node> mirroredNodes = new ArrayList<>();
         List<Edge> mirroredEdges = new ArrayList<>();
-
-        for(Edge edge: cell.getEdges())
+        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        //for(Edge edge: cell.getEdges())
+        for(Edge edge: mesh.edges)
         {
             Edge e = edge.clone();
             switch (axis) {
@@ -274,8 +276,8 @@ public class Builder {
     }
 
     private static void buildCell(List<Node> nodes, List<Edge> edges, Cell c) {
-        c.setNodes(nodes);
-        c.setEdges(edges);
+        //c.setNodes(nodes);
+        //c.setEdges(edges);
         State.setFlagToRender(c);
         c.setColor(Renderer.defaultColor);
     }
@@ -316,9 +318,9 @@ public class Builder {
 
         // compile and create the cell object
         Cell cell = (Cell) State.create(cellClass);
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
-        cell.setInternalEdges(internalEdges);
+        //cell.setNodes(nodes);
+        //cell.setEdges(edges);
+        //cell.setInternalEdges(internalEdges);
         State.setFlagToRender(cell);
         cell.setColor(Renderer.defaultColor);
         return cell;

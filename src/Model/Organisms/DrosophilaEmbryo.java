@@ -1,5 +1,6 @@
 package Model.Organisms;
 
+import Model.Components.Meshing.CellMesh;
 import Model.Model;
 import Model.Cells.*;
 import Physics.Rigidbodies.*;
@@ -47,7 +48,8 @@ public class DrosophilaEmbryo implements  IOrganism {
         allNodes.clear();
         for(Cell cell: allCells)
         {
-            for(Node node: cell.getNodes()){
+            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+            for(Node node: mesh.nodes){
                 if(!node.getPosition().isNull()) {
                     if (!allNodes.contains(node)) allNodes.add(node);
                 }
@@ -204,7 +206,8 @@ public class DrosophilaEmbryo implements  IOrganism {
         {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
-        if(cell.getNodes().size() == 0){
+        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        if(mesh.nodes.size() == 0){
             throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
         }
     }

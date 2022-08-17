@@ -1,10 +1,18 @@
 package Model;
 
+import Engine.Simulation;
 import Model.Cells.ApicalConstrictingCell;
+import Model.Cells.BasicCell;
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
+import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2i;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +38,23 @@ public class CellTestModel extends Model{
         nodes.add(new Node(270, 250));
         nodes.add(new Node(270, 200));
         nodes.add(new Node(235, 200));
-        cell = ApicalConstrictingCell.build(nodes, lateralResolution, apicalResolution);
+        cell = BasicCell.build(nodes, lateralResolution, apicalResolution);
         cell.start();
+        CellMesh cellMesh = (CellMesh)cell.getComponent(CellMesh.class);
+        System.out.println(Simulation.gson.toJson(cellMesh.nodes));
+        try {
+            FileWriter filewriter = new FileWriter("embryo.txt");
+            filewriter.write(Simulation.gson.toJson(cellMesh.nodes));
+            filewriter.close();
+        }catch(IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void update() {
         cell.update();
-        for(Node node: cell.getNodes()) node.Move();
     }
 
     /**

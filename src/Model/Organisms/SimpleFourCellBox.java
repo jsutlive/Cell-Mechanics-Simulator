@@ -18,9 +18,9 @@ public class SimpleFourCellBox implements IOrganism{
         for(Cell cell: allCells){
             State.setFlagToRender(cell);
             cell.setColor(Renderer.defaultColor);
-            for(Node node: cell.getNodes()){
-                if(!allNodes.contains(node)) allNodes.add(node);
-            }
+            //for(Node node: cell.getNodes()){
+            //    if(!allNodes.contains(node)) allNodes.add(node);
+            //}
         }
     }
 

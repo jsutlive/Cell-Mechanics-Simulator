@@ -3,6 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.Simulation;
 import Model.Cells.*;
+import Model.Components.Meshing.CellMesh;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
@@ -51,7 +52,8 @@ public class Model extends MonoBehavior
 
         for(Cell cell : organism.getAllCells()){
             cell.overrideElasticConstants();
-            for(Edge edge :cell.getEdges()) {
+            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+            for(Edge edge : mesh.edges) {
                 if(edge instanceof BasalEdge) {
                     basalNodes.add(edge.getNodes()[0]);
                 }else if(edge instanceof ApicalEdge){
@@ -72,7 +74,6 @@ public class Model extends MonoBehavior
     public void start() {
         for(Cell cell : organism.getAllCells()) {
             cell.start();
-            System.out.println(Simulation.gson.toJson(cell.getNodes().get(0)));
         }
 
     }
@@ -101,7 +102,7 @@ public class Model extends MonoBehavior
             node.Move();
         }
 
-        checkCollision();
+        //checkCollision();
     }
 
     private void checkNodesWithinBoundary(List<Node> allNodes) {
@@ -115,8 +116,9 @@ public class Model extends MonoBehavior
         }
     }
 
-    private void checkCollision(){
+   /* private void checkCollision(){
         for(Cell cell: organism.getAllCells()){
+            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
             for(Node node: basalNodes){
                 if(cell.nodeIsInside(node)){
                     BasalEdge edge = null;
@@ -178,12 +180,13 @@ public class Model extends MonoBehavior
     private void setCellColors() {
         for(Cell cell: organism.getAllCells())
         {
+            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
 
             System.out.println(cell.getId());
             if(cell instanceof ApicalConstrictingCell)
             {
                 cell.setColor(Color.MAGENTA);
-                for(Edge edge: cell.getEdges()){
+                for(Edge edge: mesh.edges){
 
                     if(edge instanceof ApicalEdge){
                         edge.setColor(Color.RED);

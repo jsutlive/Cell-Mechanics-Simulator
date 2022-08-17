@@ -2,6 +2,8 @@ package Model.Cells;
 
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
 import Model.Components.Render.CellRenderer;
 import Physics.Forces.Force;
 import Physics.Rigidbodies.*;
@@ -16,14 +18,16 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Cell extends MonoBehavior {
+    public int ringLocation;
+    public float restingArea;
+    public float getRestingArea() {return restingArea;}
 
-    protected List<Node> nodes = new ArrayList<>();
+    public int id;
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
+    /*protected List<Node> nodes = new ArrayList<>();
     protected List<Edge> edges = new ArrayList<>();
     protected List<Edge> internalEdges = new ArrayList<>();
-    private int ringLocation;
-    private int id;
-    private float restingArea;
-    public float getRestingArea() {return restingArea;}
 
     protected float internalConstantOverride;
     protected float elasticConstantOverride;
@@ -37,8 +41,7 @@ public class Cell extends MonoBehavior {
     }
     public HashSet<Vector2f> nodePositions = new HashSet<>();
 
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
+
 
     public void setEdges(List<Edge> edges){
         this.edges = edges;
@@ -62,17 +65,17 @@ public class Cell extends MonoBehavior {
 
     public void setNodes(List<Node> nodes){
         this.nodes = nodes;
-    }
+    }*/
 
     public void setRingLocation(int i){ringLocation = i;}
 
     public int getRingLocation(){
         return ringLocation;
     }
-
+    /*
     public List<Node> getNodes(){
         return nodes;
-    }
+    }*/
 
     /**
      * Add components here that are needed for all cells. This includes more generic forces
@@ -82,20 +85,22 @@ public class Cell extends MonoBehavior {
     @Override
     public void awake(){
         addRenderer(new CellRenderer());
+        addComponent(new CellMesh());
+        addComponent(new ElasticForce());
         State.setFlagToRender(this);
     }
 
     @Override
     public void start()
     {
-        restingArea = getArea();
-        generateInternalEdges(nodes);
-        setNodePositions();
+        //restingArea = getArea();
+        //generateInternalEdges(nodes);
+       // setNodePositions();
         //setCorners();
     }
     public void overrideElasticConstants(){
     }
-
+/*
     public void setCorners(){
         corners.add(new Corner(nodes.get(9), nodes.get(0), nodes.get(1)));
         corners.add(new Corner(nodes.get(3), nodes.get(4), nodes.get(5)));
@@ -106,8 +111,9 @@ public class Cell extends MonoBehavior {
         corners.get(1).direction = new Vector2f(1, 1);
         corners.get(2).direction = new Vector2f(-1, 1);
         corners.get(3).direction = new Vector2f(-1, -1);
-    }
+    }*/
 
+    /*
     protected void setNodePositions()
     {
         nodePositions.clear();
@@ -115,7 +121,7 @@ public class Cell extends MonoBehavior {
             nodePositions.add(node.getPosition());
         }
     }
-
+*/
     @Override
     public void run()
     {
@@ -130,7 +136,8 @@ public class Cell extends MonoBehavior {
         // Edges have multiple varieties. We can target specific edge types to apply unique forces to them,
         // modeling their role in the cell. For example, apical edges model the apical membrane of the early
         // embryo and how it constricts during ventral furrow formation.
-        setNodePositions();
+        //setNodePositions();
+        /*
         for(Edge edge: edges) {
            Force.elastic(edge);
         }
@@ -139,17 +146,17 @@ public class Cell extends MonoBehavior {
         }
         Force.restore(this, osmosisConstant);
         //adjustCornersUsingHalfAngles();
-        //adjustCorners();
+        //adjustCorners();*/
     }
 
     public void move()
     {
-        for(Node node: nodes)
+        /*for(Node node: nodes)
         {
             node.Move();
-        }
+        }*/
     }
-
+    /*
     public boolean nodeIsInside(Node n){
         //checks whether point is inside polygon by drawing a horizontal ray from the point
         //if the num of intersections is even, then it is outside, else it is inside
@@ -256,7 +263,7 @@ public class Cell extends MonoBehavior {
     public float getArea()
     {
         return Gauss.nShoelace(nodes);
-    }
+    }*/
 
     public void setColor(Color color){
         CellRenderer rend = (CellRenderer)getComponent(CellRenderer.class);
@@ -267,7 +274,7 @@ public class Cell extends MonoBehavior {
         addComponent(renderer);
         State.setFlagToRender(this);
     }
-
+    /*
     public Vector2f getCenter(){
         float x = 0;
         float y = 0;
@@ -319,6 +326,6 @@ public class Cell extends MonoBehavior {
             //internalEdges.add(new BasicEdge(nodes.get(i), nodes.get(length - i- 2)));
             //internalEdges.add(new BasicEdge(nodes.get(i + 1), nodes.get(length - i -1)));
         }
-    }
+    }*/
 }
 

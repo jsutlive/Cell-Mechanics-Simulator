@@ -4,6 +4,7 @@ import Engine.Renderer;
 import Model.Cells.ApicalConstrictingCell;
 import Model.Cells.BasicCell;
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
@@ -17,11 +18,14 @@ public class Painter {
 
     public static void drawCell(Cell cell)
     {
-        for(Node node: cell.getNodes())
+        CellMesh cellMesh = (CellMesh)cell.getComponent(CellMesh.class);
+        //for(Node node: cell.getNodes())
+        for(Node node: cellMesh.nodes)
         {
             drawPoint(node.getPosition().asInt(), node.getColor());
         }
-        for(Edge edge: cell.getEdges())
+        //for(Edge edge: cell.getEdges())
+        for(Edge edge: cellMesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());

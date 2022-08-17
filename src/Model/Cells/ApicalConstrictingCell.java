@@ -33,14 +33,14 @@ public class ApicalConstrictingCell extends Cell
                                     
     public ApicalConstrictingCell()
     {
-        internalConstantOverride = .05f;
-        elasticConstantOverride = .15f;
+        //internalConstantOverride = .05f;
+        //elasticConstantOverride = .15f;
     }
 
     @Override
     public void overrideElasticConstants() {
         super.overrideElasticConstants();
-        for(Edge edge: edges){
+        /*for(Edge edge: edges){
             edge.setElasticConstant(elasticConstantOverride);
             if(edge instanceof ApicalEdge){
                 edge.setElasticConstant(0.15f);
@@ -48,7 +48,7 @@ public class ApicalConstrictingCell extends Cell
         }
         for (Edge edge: internalEdges){
             edge.setElasticConstant(internalConstantOverride);
-        }
+        }*/
     }
 
     /**
@@ -58,7 +58,7 @@ public class ApicalConstrictingCell extends Cell
     @Override
     public void update() {
         super.update();
-        if(Time.elapsedTime < constrictionOnsetTime) return;
+        /*if(Time.elapsedTime < constrictionOnsetTime) return;
         for(Edge edge:  edges)
         {
             if(edge instanceof ApicalEdge)
@@ -85,25 +85,25 @@ public class ApicalConstrictingCell extends Cell
                         delayedConstant,
                         1 - gr.getRatios()[getRingLocation() - 1]  
                     );*/
-                }else {
+                /*}else {
                     Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
                 }
             }
 
-        }
+        }*/
 
     }
 
     public void constrictApicalEdge()
-    {
+    {/*
         for(Edge edge:edges){
             if(edge instanceof ApicalEdge) Force.constrict(edge, apicalConstrictingConstant, apicalConstrictingRatio);
-        }
+        }*/
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
         Cell cell = (Cell) State.create(ApicalConstrictingCell.class);
-        cell.setNodes(nodes);
+        //cell.setNodes(nodes);
         List<Edge> edges = new ArrayList<>();
 
         // Start from top left, move along til end of lateral resolution
@@ -129,7 +129,7 @@ public class ApicalConstrictingCell extends Cell
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        cell.setEdges(edges);
+        //cell.setEdges(edges);
         return cell;
     }
 }

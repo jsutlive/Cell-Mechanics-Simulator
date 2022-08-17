@@ -115,7 +115,7 @@ public class Force
 
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
-    public static void restore(Cell cell, float constant){
+    /*public static void restore(Cell cell, float constant){
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
@@ -205,7 +205,7 @@ public class Force
         dampenedForce.mul(dampenedMagnitude);
         return dampenedForce;
     }
-
+    */
     public static Vector2f limitForceFromLength(Edge edge, Vector2f force){
         float limit = (edge.getLength()/2) * 0.999f;
         if(force.mag() < limit) return force;

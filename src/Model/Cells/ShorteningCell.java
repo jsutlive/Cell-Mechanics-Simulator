@@ -13,10 +13,11 @@ public class ShorteningCell extends Cell{
 
     public ShorteningCell()
     {
-        internalConstantOverride = .03f;
-        elasticConstantOverride = .05f;
+     //   internalConstantOverride = .03f;
+     //   elasticConstantOverride = .05f;
     }
 
+    /*
     @Override
     public void overrideElasticConstants() {
         super.overrideElasticConstants();
@@ -26,7 +27,7 @@ public class ShorteningCell extends Cell{
         for (Edge edge: internalEdges){
             edge.setElasticConstant(internalConstantOverride);
         }
-    }
+    }*/
 
     /**
      * update physics on Apical Constricting Cells
@@ -39,12 +40,12 @@ public class ShorteningCell extends Cell{
     }
 
     private void applyLateralShortening() {
-        for(Edge edge: edges)
+        /*for(Edge edge: edges)
         {
             if(edge instanceof LateralEdge) {
                 Force.constrict(edge, lateralShorteningConstant, lateralShorteningRatio);
             }
-        }
+        }*/
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
@@ -74,8 +75,8 @@ public class ShorteningCell extends Cell{
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
+        //cell.setNodes(nodes);
+        //cell.setEdges(edges);
         return cell;
     }
 

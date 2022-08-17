@@ -43,8 +43,8 @@ public class GeometryTests {
         Edge e4 = new BasicEdge(d, a);
         testEdges.add(e1); testEdges.add(e2); testEdges.add(e3); testEdges.add(e4);
         cell = new Cell();
-        cell.setNodes(testNodes);
-        cell.setEdges(testEdges);
+        //cell.setNodes(testNodes);
+        //cell.setEdges(testEdges);
     }
 
     @Test
