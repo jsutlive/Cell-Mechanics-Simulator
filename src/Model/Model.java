@@ -108,32 +108,35 @@ public class Model extends MonoBehavior
     }
 
     private void checkCollision(){
+        List<Node> bothRings = new ArrayList<>(basalNodes);
+        bothRings.addAll(apicalNodes);
         for(Cell cell: organism.getAllCells()){
-            for(Node node: basalNodes){
-                if(cell.nodeIsInside(node)){
-                    BasalEdge edge = null;
-                    for(Edge e: cell.getEdges()){
-                        if(e instanceof BasalEdge){edge = (BasalEdge) e;}
-                    }
-                    if(edge.contains(node)){continue;}
-                    Vector2f normal = CustomMath.normal(edge);
-                    normal.mul(-1);
-                    node.AddForceVector(normal);
-                }
-            }
-            for(Node node: apicalNodes){
+            for(Node node: allNodes){
+                float minDist = Float.POSITIVE_INFINITY;
+                Edge closestEdge = null;
+                Vector2f closestPoint = null;
+                Vector2f nodePosition = node.getPosition();
                 if(cell.nodeIsInside(node) && !cell.Contains(node)){
-                    ApicalEdge edge = null;
-                    for(Edge e: cell.getEdges()){
-                        if(e instanceof ApicalEdge){edge = (ApicalEdge) e;}
+                    for(Edge e: cell.getEdges()) {
+                        if(e.contains(node)){continue;}
+                        Vector2f closePoint = CustomMath.ClosestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
+                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+                        if(dist < minDist){
+                            minDist = dist;
+                            closestEdge = e;
+                            closestPoint = closePoint;
+                        }
                     }
-                    Vector2f normal = CustomMath.normal(edge);
-                    Node[] edgeNodes = edge.getNodes();
-                    edgeNodes[0].AddForceVector(normal);
-                    edgeNodes[1].AddForceVector(normal);
-                    normal.mul(-2);
-                    node.AddForceVector(normal);
-                    
+                    if(closestEdge != null){
+//                        node.getPosition().x = closestPoint.x;
+//                        node.getPosition().y = closestPoint.y;
+                        Vector2f normal = CustomMath.normal(closestEdge);
+                        Node[] nodes = closestEdge.getNodes();
+                        nodes[0].AddForceVector(normal);
+                        nodes[1].AddForceVector(normal);
+                        normal.mul(-2);
+                        node.AddForceVector(normal);
+                    }
                 }
             }
         }
