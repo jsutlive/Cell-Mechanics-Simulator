@@ -108,30 +108,34 @@ public class Model extends MonoBehavior
     }
 
     private void checkCollision(){
-        List<Node> bothRings = new ArrayList<>(basalNodes);
-        bothRings.addAll(apicalNodes);
         for(Cell cell: organism.getAllCells()){
-            for(Node node: allNodes){
-                float minDist = Float.POSITIVE_INFINITY;
-                Edge closestEdge = null;
-                Vector2f closestPoint = null;
+            for(Node node: apicalNodes){
                 Vector2f nodePosition = node.getPosition();
                 if(cell.nodeIsInside(node) && !cell.Contains(node)){
                     for(Edge e: cell.getEdges()) {
                         if(e.contains(node)){continue;}
+                        if(!(e instanceof ApicalEdge)){continue;}
                         Vector2f closePoint = CustomMath.ClosestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
                         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-                        if(dist < minDist){
-                            minDist = dist;
-                            closestEdge = e;
-                            closestPoint = closePoint;
-                        }
+                        Vector2f normal = CustomMath.normal(e);
+                        Node[] nodes = e.getNodes();
+                        nodes[0].AddForceVector(normal);
+                        nodes[1].AddForceVector(normal);
+                        normal.mul(-2);
+                        node.AddForceVector(normal);
                     }
-                    if(closestEdge != null){
-//                        node.getPosition().x = closestPoint.x;
-//                        node.getPosition().y = closestPoint.y;
-                        Vector2f normal = CustomMath.normal(closestEdge);
-                        Node[] nodes = closestEdge.getNodes();
+                }
+            }
+            for(Node node: basalNodes){
+                Vector2f nodePosition = node.getPosition();
+                if(cell.nodeIsInside(node) && !cell.Contains(node)){
+                    for(Edge e: cell.getEdges()) {
+                        if(e.contains(node)){continue;}
+                        if(!(e instanceof BasalEdge)){continue;}
+                        Vector2f closePoint = CustomMath.ClosestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
+                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+                        Vector2f normal = CustomMath.normal(e);
+                        Node[] nodes = e.getNodes();
                         nodes[0].AddForceVector(normal);
                         nodes[1].AddForceVector(normal);
                         normal.mul(-2);
