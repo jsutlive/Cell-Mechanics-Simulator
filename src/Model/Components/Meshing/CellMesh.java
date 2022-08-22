@@ -37,7 +37,8 @@ public class CellMesh extends Mesh{
     public boolean collidesWithNode(Node n){
         //checks whether point is inside polygon by drawing a horizontal ray from the point
         //if the num of intersections is even, then it is outside, else it is inside
-        //because if a point crosses the shape a total of a even amount of times, then it must have entered inside then exited again.
+        //because if a point crosses the shape a total of a even amount of times, then it
+        // must have entered inside then exited again.
         Vector2f nodePos = n.getPosition();
         int intersections = 0;
         for(Edge edge: edges){
@@ -47,7 +48,8 @@ public class CellMesh extends Mesh{
 
             //if they are both on same side of the y-axis, it doesn't intersect
             if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}
-            //intersection point (not the actual point, which would contain division, but changed in a way that it should still perserve sine)
+            //intersection point (not the actual point, which would contain division, but changed in a way
+            // that it should still preserve sign)
             float intersectPoint = (p1.y * (p1.x - p2.x) - p1.x * (p1.y - p2.y)) * (p1.y - p2.y);
 
             if(intersectPoint < 0){continue;}

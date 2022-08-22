@@ -109,6 +109,14 @@ public abstract class State
         renderBatch.add(rend);
     }
 
+    /**
+     * Add graphical representation of object that does not have attached physics
+     * @param rend
+     */
+    public static void addGraphicToScene(IRender rend){
+        renderBatch.add(rend);
+    }
+
     public static void destroy(MonoBehavior<?> mono)
     {
         allObjects.remove(mono);

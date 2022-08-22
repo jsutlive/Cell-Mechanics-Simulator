@@ -2,6 +2,8 @@ package Model;
 
 import Engine.Object.MonoBehavior;
 import Engine.Simulation;
+import Engine.States.State;
+import GUI.Vector.CircleGraphic;
 import Model.Cells.*;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Render.CellRenderer;
@@ -15,6 +17,7 @@ import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 import com.google.gson.Gson;
@@ -45,6 +48,7 @@ public class Model extends MonoBehavior
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
+        State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         apicalGradient = new GaussianGradient(0f, 0.8f);
         organism.generateOrganism();
 

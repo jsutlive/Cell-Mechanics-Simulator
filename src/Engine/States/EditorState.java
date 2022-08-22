@@ -33,10 +33,6 @@ public class EditorState extends State
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
-        Painter.drawPoint(new Vector2i(400,400));
-        Painter.drawCircle(new Vector2i(400), 604, Color.gray);
-        Painter.drawCircle(new Vector2i(400), 605, Color.gray);
-        Painter.drawCircle(new Vector2i(400), 606, Color.gray);
     }
 
 

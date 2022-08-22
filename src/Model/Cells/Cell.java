@@ -64,7 +64,7 @@ public class Cell extends MonoBehavior {
     @Override
     public void start() {
         addComponent(new ElasticForce());
-        addComponent(new ApicalConstrictingSpringForce());
+        //addComponent(new ApicalConstrictingSpringForce());
     }
 
     public void overrideElasticConstants(){

@@ -3,6 +3,7 @@ package Physics.Rigidbodies;
 import Engine.Simulation;
 import Engine.States.State;
 
+import GUI.Vector.LineGraphic;
 import Model.Components.Physics.ForceVector.ForceType;
 import Model.Components.Physics.ForceVector.ForceVector;
 import Model.Model;
@@ -20,7 +21,8 @@ public class Node implements IRigidbody {
     private Vector2f position;
     private transient ForceVector resultantForce = new ForceVector();
     private List<ForceVector> forceVectors = new ArrayList<>();
-    private transient Color color;
+
+    private transient LineGraphic debugger;
 
     public Vector2f getPosition()
     {
@@ -41,18 +43,24 @@ public class Node implements IRigidbody {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(0);
+        debugger = new LineGraphic(position.asInt(),position.asInt());
+        State.addGraphicToScene(debugger);
     }
     public Node(Vector2f pos)
     {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = pos;
+        debugger = new LineGraphic(position.asInt(),position.asInt());
+        State.addGraphicToScene(debugger);
     }
 
     public Node(float a, float b){
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(a, b);
+        debugger = new LineGraphic(position.asInt(),position.asInt());
+        State.addGraphicToScene(debugger);
     }
 
     /**
@@ -92,6 +100,8 @@ public class Node implements IRigidbody {
         {
             Model.largestResultantForce = resultantForce;
         }
+        debugger.posA = position.asInt();
+        debugger.posB = position.add(resultantForce.mul(10)).asInt();
     }
 
     /**
