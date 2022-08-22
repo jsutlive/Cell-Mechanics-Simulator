@@ -34,9 +34,6 @@ public class EdgeMono extends MonoBehavior {
     }
 
     @Override
-    public void run(){}
-
-    @Override
     public void awake() throws InstantiationException, IllegalAccessException {
         EdgeRenderer renderer = new EdgeRenderer();
         this.addComponent(renderer);

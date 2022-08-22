@@ -51,44 +51,44 @@ public class CornerStiffnessModel extends Model {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 } else if (Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 }
             } else {
                 if (Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 } else if (Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 }
             }
 

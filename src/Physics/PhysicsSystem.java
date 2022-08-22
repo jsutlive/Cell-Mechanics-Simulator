@@ -24,14 +24,8 @@ public class PhysicsSystem extends MonoBehavior
     public void update() {
 
     }
-    @Override
-    public void run()
-    {}
-    @Override
-    public void destroy()
-    {
 
-    }
+
 
     /*public <T extends Force> Force getComponent(Class<T> forceClass)
     {

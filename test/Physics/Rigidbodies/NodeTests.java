@@ -10,8 +10,8 @@ public class NodeTests {
     void forces_only_applied_once()
     {
         Node n = new Node(0,0);
-        n.AddForceVector(new Vector2f(0f,1f));
-        n.AddForceVector(new Vector2f(1f, 0f));
+        n.addForceVector(new Vector2f(0f,1f));
+        n.addForceVector(new Vector2f(1f, 0f));
         n.Move();
         //Check to make sure reset occurs
         n.Move();
@@ -34,7 +34,7 @@ public class NodeTests {
         Node n = new Node(0, 0);
         assertEquals(n.getResultantForce().x, 0f);
         assertEquals(n.getResultantForce().x, 0f);
-        n.AddForceVector(new Vector2f(5));
+        n.addForceVector(new Vector2f(5));
         n.resetResultantForce();
         assertEquals(n.getResultantForce().x, 0f);
         assertEquals(n.getResultantForce().x, 0f);

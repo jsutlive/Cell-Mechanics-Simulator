@@ -17,24 +17,34 @@ public class BasicCell extends Cell{
         int nodeCount = 0;
         while (nodeCount < lateralResolution){
             nodeCount++;
-            edges.add(new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+            Edge e = new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
         }
         while (nodeCount < lateralResolution + apicalResolution){
             nodeCount++;
-            edges.add(new ApicalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+            Edge e = new ApicalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
         }
         while(nodeCount < (2*lateralResolution) + apicalResolution){
             nodeCount++;
-            edges.add(new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
+            Edge e = new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
         }
         while (nodeCount < nodes.size()){
             nodeCount++;
             if(nodeCount == nodes.size()){
-                edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(0)));
+                Edge e = new BasalEdge(nodes.get(nodeCount-1), nodes.get(0));
+                e.setNodesReference(nodeCount-1, 0);
+                edges.add(e);
+
             }
             else{
-                edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
-            }
+                Edge e = new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+                e.setNodesReference(nodeCount-1, nodeCount);
+                edges.add(e);            }
         }
         CellMesh mesh = (CellMesh) cell.getComponent(CellMesh.class);
         mesh.nodes = nodes;

@@ -121,7 +121,6 @@ public class Mesh {
         //cell.setInternalEdges(internalEdges);
         //cell.setNodes(nodes);
         State.setFlagToRender(cell);
-        cell.setColor(Painter.DEFAULT_COLOR);
         return cell;
     }
 

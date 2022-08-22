@@ -38,12 +38,12 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
-        if(flag && model != null) {
-            model.update();
-
-            //flag = false;
-
+        for(MonoBehavior obj : allObjects){
+            obj.earlyUpdate();
+            obj.update();
+            obj.lateUpdate();
         }
+        save();
     }
 
     /**

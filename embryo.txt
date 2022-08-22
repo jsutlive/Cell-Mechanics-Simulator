@@ -1,0 +1,445 @@
+{
+  "ringLocation": 0,
+  "uniqueID": 1,
+  "components": [
+    {
+      "type": "CellRenderer",
+      "properties": {
+        "color": {
+          "value": -1,
+          "falpha": 0.0
+        }
+      }
+    },
+    {
+      "type": "CellMesh",
+      "properties": {
+        "nodes": [
+          {
+            "position": {
+              "x": 200.0,
+              "y": 200.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": 0.0,
+                "y": -0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 200.0,
+              "y": 250.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 200.0,
+              "y": 300.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 200.0,
+              "y": 350.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 235.0,
+              "y": 350.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 270.0,
+              "y": 350.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 270.0,
+              "y": 300.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 270.0,
+              "y": 250.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 270.0,
+              "y": 200.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          },
+          {
+            "position": {
+              "x": 235.0,
+              "y": 200.0
+            },
+            "forceVectors": [
+              {
+                "type": "RESULTANT",
+                "x": 0.0,
+                "y": 0.0
+              },
+              {
+                "type": "elastic",
+                "x": 0.0,
+                "y": -0.0
+              },
+              {
+                "type": "elastic",
+                "x": -0.0,
+                "y": 0.0
+              }
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "nodesReference": [
+              0,
+              1
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              1,
+              2
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              2,
+              3
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              3,
+              4
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              4,
+              5
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              5,
+              6
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              6,
+              7
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              7,
+              8
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              8,
+              9
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              9,
+              0
+            ],
+            "elasticConstant": 0.15
+          }
+        ],
+        "area": 0.0,
+        "centroid": 0.0
+      }
+    },
+    {
+      "type": "ElasticForce",
+      "properties": {
+        "targetLengthRatio": 1.0,
+        "edges": [
+          {
+            "nodesReference": [
+              0,
+              1
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              1,
+              2
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              2,
+              3
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              3,
+              4
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              4,
+              5
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              5,
+              6
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              6,
+              7
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              7,
+              8
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              8,
+              9
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              9,
+              0
+            ],
+            "elasticConstant": 0.15
+          }
+        ]
+      }
+    },
+    {
+      "type": "ApicalConstrictingSpringForce",
+      "properties": {
+        "apicalGradient": {
+          "mu": 0.0,
+          "sigma": 0.8,
+          "delayFactor": 100.0,
+          "constants": [
+            1.0,
+            4.0,
+            4.0,
+            4.0,
+            4.0
+          ],
+          "ratios": [
+            0.1,
+            0.3,
+            0.3,
+            0.3,
+            0.3
+          ]
+        },
+        "targetLengthRatio": 0.3,
+        "edges": [
+          {
+            "nodesReference": [
+              3,
+              4
+            ],
+            "elasticConstant": 0.15
+          },
+          {
+            "nodesReference": [
+              4,
+              5
+            ],
+            "elasticConstant": 0.15
+          }
+        ]
+      }
+    }
+  ]
+}

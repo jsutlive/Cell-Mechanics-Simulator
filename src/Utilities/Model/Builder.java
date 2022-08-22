@@ -279,7 +279,6 @@ public class Builder {
         //c.setNodes(nodes);
         //c.setEdges(edges);
         State.setFlagToRender(c);
-        c.setColor(Renderer.defaultColor);
     }
 
     public static Cell createCell(List<Edge> sideA, List<Edge> sideB, Class cellClass)
@@ -322,7 +321,6 @@ public class Builder {
         //cell.setEdges(edges);
         //cell.setInternalEdges(internalEdges);
         State.setFlagToRender(cell);
-        cell.setColor(Renderer.defaultColor);
         return cell;
     }
 

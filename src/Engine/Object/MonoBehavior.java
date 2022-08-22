@@ -6,7 +6,7 @@ import Model.Components.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior, Runnable
+public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;
@@ -33,9 +33,10 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
    public void addTag(Tag tag){this.tag = tag;}
 
    public void awake() throws InstantiationException, IllegalAccessException {}
-   public void start() {}
-   public void update() {}
-   public void render(){}
+   public void start() {for (Component c: components) c.start();}
+   public void update() {for (Component c: components) c.update();}
+   public void lateUpdate(){for(Component c: components)c.lateUpdate();}
+   public void earlyUpdate(){for (Component c: components) c.earlyUpdate();}
 
    /**
     * Removes the object and its references from the current state

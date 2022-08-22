@@ -33,11 +33,11 @@ public class Force
         Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
 
         // Apply force to node 0
-        nodes[0].AddForceVector(forceVector);
+        nodes[0].addForceVector(forceVector);
 
         // Apply an equal and opposite force to node 1
         forceVector.mul(-1);
-        nodes[1].AddForceVector(forceVector);
+        nodes[1].addForceVector(forceVector);
     }
 
     public static void constantConstrict(Edge edge, float constant, float ratio)
@@ -45,11 +45,11 @@ public class Force
         Node[] nodes = edge.getNodes();
         Vector2f forceVector = calculateConstrictionForce(edge, constant, ratio);
         // Apply force to node 0
-        nodes[0].AddForceVector(forceVector);
+        nodes[0].addForceVector(forceVector);
 
         // Apply an equal and opposite force to node 1
         forceVector.mul(-1);
-        nodes[1].AddForceVector(forceVector);
+        nodes[1].addForceVector(forceVector);
     }
 
     public static void constrict(Edge edge, float constant, float ratio, int id)
@@ -63,11 +63,11 @@ public class Force
                 + edge.getInitialLength());
 
         // Apply force to node 0
-        nodes[0].AddForceVector(forceVector);
+        nodes[0].addForceVector(forceVector);
 
         // Apply an equal and opposite force to node 1
         forceVector.mul(-1);
-        nodes[1].AddForceVector(forceVector);
+        nodes[1].addForceVector(forceVector);
     }
 
 
@@ -76,7 +76,7 @@ public class Force
         Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
 
         // Apply force to node 0
-        nodes[0].AddForceVector(forceVector);
+        nodes[0].addForceVector(forceVector);
     }
 
     public static Vector2f calculateSpringForce(Edge edge, float constant, float ratio) {

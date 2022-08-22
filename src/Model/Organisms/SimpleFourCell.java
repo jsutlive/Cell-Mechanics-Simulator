@@ -153,7 +153,6 @@ public class SimpleFourCell implements IOrganism{
         //cell.setEdges(edges);
         //cell.setInternalEdges(internalEdges);
         State.setFlagToRender(cell);
-        cell.setColor(Renderer.defaultColor);
         return cell;
     }
 

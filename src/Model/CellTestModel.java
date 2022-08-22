@@ -5,6 +5,7 @@ import Model.Cells.ApicalConstrictingCell;
 import Model.Cells.BasicCell;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2i;
@@ -20,9 +21,6 @@ public class CellTestModel extends Model{
 
     int apicalResolution = 2;
     int lateralResolution = 3;
-    Vector2i offset = new Vector2i(200);
-    int stepSizeApical = 35;
-    int stepSizeLateral = 50;
     Cell cell;
 
     @Override
@@ -40,21 +38,8 @@ public class CellTestModel extends Model{
         nodes.add(new Node(235, 200));
         cell = BasicCell.build(nodes, lateralResolution, apicalResolution);
         cell.start();
-        CellMesh cellMesh = (CellMesh)cell.getComponent(CellMesh.class);
-        System.out.println(Simulation.gson.toJson(cellMesh.nodes));
-        try {
-            FileWriter filewriter = new FileWriter("embryo.txt");
-            filewriter.write(Simulation.gson.toJson(cellMesh.nodes));
-            filewriter.close();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-    }
+        cell.getComponent(ElasticForce.class).update();
 
-    @Override
-    public void update() {
-        cell.update();
     }
 
     /**

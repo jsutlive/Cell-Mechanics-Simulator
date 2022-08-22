@@ -17,5 +17,15 @@ public interface IBehavior
      */
     void update();
 
+    /**
+     * This method is called once per frame after the update method
+     */
+    void lateUpdate();
+
+    /**
+     * This method is called once per frame before the update method
+     */
+    void earlyUpdate();
+
 
 }

@@ -2,16 +2,20 @@ package Engine.States;
 
 import Engine.Object.MonoBehavior;
 import Engine.Object.Tag;
+import Engine.Simulation;
 import Engine.Timer.Time;
 import GUI.IRender;
 import Model.Components.Render.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class State
 {
+    int count = 0;
     public static State state = null;
     public static State GetState() throws InstantiationException, IllegalAccessException {
         if(state == null) ChangeState();
@@ -81,9 +85,6 @@ public abstract class State
         MonoBehavior mono = MonoBehavior.createObject(type);
         MonoBehavior.setGlobalID(mono);
         allObjects.add(mono);
-        Thread thread = new Thread(mono);
-        physicsThreads.add(thread);
-        thread.start();
         mono.awake();
 
         return mono;
@@ -117,7 +118,16 @@ public abstract class State
 
     public void save()
     {
-
+        if(count > 10) return;
+        try {
+            FileWriter filewriter = new FileWriter("embryo_" + count + "_.txt");
+            filewriter.write(Simulation.gson.toJson(allObjects));
+            filewriter.close();
+        }catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+        count++;
     }
 
     public void load()

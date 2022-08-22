@@ -22,7 +22,7 @@ public class Yolk extends Cell {
 
     @Override
     public void start() {
-        getRestingArea();
+        //getRestingArea();
     }
 
     @Override
@@ -30,10 +30,7 @@ public class Yolk extends Cell {
         //calculateYolkRestoringForce();
     }
 
-    @Override
-    public void run() {
 
-    }
 
     /*private void calculateYolkRestoringForce() {
         Force.restore(this, osmosisConstant);

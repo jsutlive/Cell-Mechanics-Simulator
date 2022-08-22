@@ -4,6 +4,7 @@ import Engine.Object.MonoBehavior;
 import Engine.Simulation;
 import Model.Cells.*;
 import Model.Components.Meshing.CellMesh;
+import Model.Components.Render.CellRenderer;
 import Model.Organisms.*;
 import Physics.Forces.*;
 import Physics.PhysicsSystem;
@@ -78,8 +79,6 @@ public class Model extends MonoBehavior
 
     }
 
-    @Override
-    public void run(){}
 
     /**
      * Update all forces, at node level and cellular level.
@@ -87,7 +86,7 @@ public class Model extends MonoBehavior
     @Override
     public void update()
     {
-        yolk.update();
+        /*yolk.update();
 
         checkNodesWithinBoundary(allNodes);
 
@@ -102,7 +101,7 @@ public class Model extends MonoBehavior
             node.Move();
         }
 
-        //checkCollision();
+        //checkCollision();*/
     }
 
     private void checkNodesWithinBoundary(List<Node> allNodes) {
@@ -180,12 +179,13 @@ public class Model extends MonoBehavior
     private void setCellColors() {
         for(Cell cell: organism.getAllCells())
         {
+            CellRenderer renderer = (CellRenderer) cell.getComponent(CellRenderer.class);
             CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
 
             System.out.println(cell.getId());
             if(cell instanceof ApicalConstrictingCell)
             {
-                cell.setColor(Color.MAGENTA);
+                renderer.setColor(Color.MAGENTA);
                 for(Edge edge: mesh.edges){
 
                     if(edge instanceof ApicalEdge){
@@ -195,11 +195,11 @@ public class Model extends MonoBehavior
             }
             if(cell instanceof ShorteningCell)
             {
-                cell.setColor(Color.BLUE);
+                renderer.setColor(Color.BLUE);
             }
             if(cell instanceof BasicCell)
             {
-                cell.setColor(Color.WHITE);
+                renderer.setColor(Color.WHITE);
             }
 
         }

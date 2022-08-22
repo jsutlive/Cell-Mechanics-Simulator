@@ -15,7 +15,7 @@ import java.awt.*;
  */
 public class CellRenderer extends ObjectRenderer
 {
-    CellMesh cellMesh;
+    private transient CellMesh cellMesh;
     private Color color = Painter.DEFAULT_COLOR;
 
     @Override
@@ -30,14 +30,6 @@ public class CellRenderer extends ObjectRenderer
 
     @Override
     public void setColor(Color color) {
-        // set color for all nodes in the cell
-        for(Node node : cellMesh.nodes )
-        {
-            if(node instanceof IColor)
-            {
-                ((IColor) node).setColor(color);
-            }
-        }
         // set color for all edges in the cell
         for(Edge edge: cellMesh.edges)
         {
@@ -46,13 +38,7 @@ public class CellRenderer extends ObjectRenderer
                 ((IColor) edge).setColor(color);
             }
         }
-        /*for(Edge edge: cell.getInternalEdges())
-        {
-            if(edge instanceof  IColor)
-            {
-                ((IColor) edge).setColor(color);
-            }
-        }*/
+
     }
 
     /**

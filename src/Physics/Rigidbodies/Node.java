@@ -2,11 +2,11 @@ package Physics.Rigidbodies;
 
 import Engine.Simulation;
 import Engine.States.State;
-import GUI.IColor;
+
+import Model.Components.Physics.ForceVector.ForceType;
+import Model.Components.Physics.ForceVector.ForceVector;
 import Model.Model;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.CustomMath;
-import Utilities.Model.Builder;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,11 +15,12 @@ import java.util.List;
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
-public class Node implements IRigidbody, IColor {
+public class Node implements IRigidbody {
 
     private Vector2f position;
-    private Vector2f resultantForce = Vector2f.zero;
-    private Color color;
+    private transient ForceVector resultantForce = new ForceVector();
+    private List<ForceVector> forceVectors = new ArrayList<>();
+    private transient Color color;
 
     public Vector2f getPosition()
     {
@@ -37,14 +38,22 @@ public class Node implements IRigidbody, IColor {
 
     public Node()
     {
+        resultantForce.setType(ForceType.RESULTANT);
+        forceVectors.add(resultantForce);
         position = new Vector2f(0);
     }
     public Node(Vector2f pos)
     {
+        resultantForce.setType(ForceType.RESULTANT);
+        forceVectors.add(resultantForce);
         position = pos;
     }
 
-    public Node(float a, float b){position = new Vector2f(a, b);}
+    public Node(float a, float b){
+        resultantForce.setType(ForceType.RESULTANT);
+        forceVectors.add(resultantForce);
+        position = new Vector2f(a, b);
+    }
 
     /**
      * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
@@ -52,8 +61,14 @@ public class Node implements IRigidbody, IColor {
      * @param forceVector
      */
     @Override
-    public void AddForceVector(Vector2f forceVector) {
+    public void addForceVector(ForceVector forceVector) {
+        forceVectors.add(forceVector);
         resultantForce.add(forceVector);
+    }
+
+    @Override
+    public void addForceVector(Vector2f forceVector) {
+
     }
 
     /**
@@ -77,7 +92,6 @@ public class Node implements IRigidbody, IColor {
         {
             Model.largestResultantForce = resultantForce;
         }
-        resetResultantForce();
     }
 
     /**
@@ -85,16 +99,23 @@ public class Node implements IRigidbody, IColor {
      */
     public void resetResultantForce(){
         Simulation.FORCE_HISTORY.put(this, resultantForce.copy());
-        resultantForce = new Vector2f(0);
+        forceVectors.clear();
+        resultantForce.set(new Vector2f(0));
+        forceVectors.add(resultantForce);
     }
 
-
-
-
+    /**
+     * Clone a node at this current position
+     * @return
+     */
     public Node clone(){
         return new Node(this.getPosition());
     }
 
+    /**
+     * Mirror a node across the y (below this function, same for x)
+     * axis as determined by the boundaries of the simulation window
+     */
     public void mirrorAcrossYAxis(){
         int xOffset = Simulation.bounds.x;
         Vector2f pos = getPosition();
@@ -105,15 +126,6 @@ public class Node implements IRigidbody, IColor {
         int yOffset = Simulation.bounds.y;
         Vector2f pos = getPosition();
         setPosition(new Vector2f(pos.x, -pos.y + yOffset));
-    }
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public static void addIfAvailable(List<Node> nodes, Node n){
