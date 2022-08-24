@@ -3,6 +3,7 @@ package Model.Cells;
 import Engine.States.State;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.OsmosisForce;
 import Physics.Rigidbodies.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class BasicCell extends Cell{
     @Override
     public void start() {
         addComponent(new ElasticForce());
+        addComponent(new OsmosisForce());
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {

@@ -85,36 +85,7 @@ public class Model extends MonoBehavior
     }
 
    /* private void checkCollision(){
-        for(Cell cell: organism.getAllCells()){
-            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
-            for(Node node: basalNodes){
-                if(cell.nodeIsInside(node)){
-                    BasalEdge edge = null;
-                    for(Edge e: cell.getEdges()){
-                        if(e instanceof BasalEdge){edge = (BasalEdge) e;}
-                    }
-                    if(edge.contains(node)){continue;}
-                    Vector2f normal = CustomMath.normal(edge);
-                    normal.mul(-1);
-                    node.AddForceVector(normal);
-                }
-            }
-            for(Node node: apicalNodes){
-                if(cell.nodeIsInside(node) && !cell.Contains(node)){
-                    ApicalEdge edge = null;
-                    for(Edge e: cell.getEdges()){
-                        if(e instanceof ApicalEdge){edge = (ApicalEdge) e;}
-                    }
-                    Vector2f normal = CustomMath.normal(edge);
-                    Node[] edgeNodes = edge.getNodes();
-                    edgeNodes[0].AddForceVector(normal);
-                    edgeNodes[1].AddForceVector(normal);
-                    normal.mul(-2);
-                    node.AddForceVector(normal);
-                    
-                }
-            }
-        }
+
         
     }
 

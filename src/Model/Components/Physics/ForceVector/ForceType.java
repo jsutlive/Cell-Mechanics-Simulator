@@ -7,4 +7,5 @@ public enum ForceType {
     elastic,
     osmosis,
     internalPressure,
+    collision,
 }

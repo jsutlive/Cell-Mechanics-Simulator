@@ -21,8 +21,8 @@ public class ApicalConstrictingSpringForce extends SpringForce{
 
         Cell cell = getParentAs(Cell.class);
         apicalGradient.calculate(10,
-                .1f, .5f,
-                0, .3f);
+                .5f, .3f,
+                0, .1f);
         setTargetLengthRatio(apicalGradient.getRatios()[1]);
 
     }

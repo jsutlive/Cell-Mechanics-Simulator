@@ -114,52 +114,7 @@ public class Force
 
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
-    /*public static void restore(Cell cell, float constant){
-        //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
-        //calculate normals
-
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea());
-
-        List<Edge> edges = cell.getEdges();
-        for(Edge edge : edges){
-            Node[] nodes = edge.getNodes();
-            Node node1 = nodes[0];
-            Node node2 = nodes[1];
-
-            Vector2f edgeNormalVector = CustomMath.normal(edge);
-            // edgeNormalVector.mul(forceMagnitude);
-            edgeNormalVector.mul(-forceMagnitude * .05f);
-            
-            //multiplies the edgeNormal by the length
-            //logically if an edge is larger, there is more force pushing on it
-            // edgeNormalVector.mul(edge.getLength());
-            edgeNormalVector.mul(edge.getLength());
-
-            node1.AddForceVector(edgeNormalVector);
-            node2.AddForceVector(edgeNormalVector);
-        }
-    }
-
-    public static void restoreFromCenter(Cell cell, float constant){
-            float currentArea = Gauss.nShoelace(cell.getNodes());
-            if( currentArea< cell.getRestingArea())
-            {
-                for(Edge edge:cell.getEdges())
-                {
-                    Vector2f force = CustomMath.normal(edge);
-                    force.mul(-constant);
-                    edge.AddForceVector(force);
-                }
-                for(Edge edge:cell.getEdges())
-                {
-                    Vector2f force = CustomMath.normal(edge);
-                    force.mul(constant);
-                    edge.AddForceVector(force);
-                }
-
-            }
-
-    }
+    /*
 
     public static void restoreWithPerimeter(Cell cell, float constant){
         float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;

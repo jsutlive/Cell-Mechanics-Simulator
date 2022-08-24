@@ -8,6 +8,10 @@ import Model.Cells.BasicCell;
 import Model.Cells.Cell;
 import Model.Cells.ShorteningCell;
 import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.Collider;
+import Physics.Rigidbodies.ApicalEdge;
+import Physics.Rigidbodies.BasalEdge;
+import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
@@ -32,8 +36,10 @@ public class DrosophilaRingModel extends MonoBehavior {
     float outerRadius = 300;
     float innerRadius = 200;
 
-    private transient List<Cell> allCells = new ArrayList<>();
-    private transient List<Node> allNodes = new ArrayList<>();
+    public transient List<Cell> allCells = new ArrayList<>();
+    public transient List<Node> allNodes = new ArrayList<>();
+    public transient List<Edge> basalEdges = new ArrayList<>();
+    public transient List<Edge> apicalEdges = new ArrayList<>();
     final Vector2i boundingBox = new Vector2i(800);
 
 
@@ -41,6 +47,7 @@ public class DrosophilaRingModel extends MonoBehavior {
     public void awake() throws InstantiationException, IllegalAccessException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         generateOrganism();
+        addComponent(new Collider());
     }
 
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
@@ -57,6 +64,10 @@ public class DrosophilaRingModel extends MonoBehavior {
                 if(!node.getPosition().isNull()) {
                     if (!allNodes.contains(node)) allNodes.add(node);
                 }
+            }
+            for(Edge edge: cell.getComponent(CellMesh.class).edges){
+                if(edge instanceof ApicalEdge) apicalEdges.add(edge);
+                if(edge instanceof BasalEdge) basalEdges.add(edge);
             }
         }
         if(allNodes.size() > 400){

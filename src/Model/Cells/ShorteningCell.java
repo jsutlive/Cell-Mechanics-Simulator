@@ -4,6 +4,7 @@ import Engine.States.State;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
 import Model.Components.Physics.LateralShorteningSpringForce;
+import Model.Components.Physics.OsmosisForce;
 import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.*;
 
@@ -17,6 +18,7 @@ public class ShorteningCell extends Cell{
     public void start() {
         addComponent(new ElasticForce());
         addComponent(new LateralShorteningSpringForce());
+        addComponent(new OsmosisForce());
         getComponent(CellRenderer.class).setColor(Color.BLUE);
     }
 
