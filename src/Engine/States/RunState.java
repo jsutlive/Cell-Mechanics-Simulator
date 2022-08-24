@@ -47,9 +47,8 @@ public class RunState extends State
     }
 
     /**
-     * Render loop. Every monobehavior added to the render batch will be made visible in the viewport
-     * through referencing its renderer component. Throws a null reference exception if there is no
-     * renderer on an object.
+     * Render loop. All renderable objects added to the render batch will be made visible in the viewport
+     * through referencing its renderer component.
      */
     @Override
     public void Render()

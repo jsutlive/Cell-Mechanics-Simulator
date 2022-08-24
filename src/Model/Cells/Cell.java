@@ -24,24 +24,6 @@ public class Cell extends MonoBehavior {
     public transient int id;
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}
-    /*
-    protected List<Edge> internalEdges = new ArrayList<>();
-
-    protected float internalConstantOverride;
-    protected float elasticConstantOverride;
-    private List<Corner> corners = new ArrayList<>();
-
-    protected float osmosisConstant = .0005f;
-
-    public List<Edge> getInternalEdges(){
-        return internalEdges;
-    }
-
-    public void setInternalEdges(List<Edge> edges) {this.internalEdges = edges;}
-
-    public void setNodes(List<Node> nodes){
-        this.nodes = nodes;
-    }*/
 
     public void setRingLocation(int i){ringLocation = i;}
 
