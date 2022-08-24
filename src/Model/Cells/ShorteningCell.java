@@ -13,21 +13,9 @@ public class ShorteningCell extends Cell{
 
     public ShorteningCell()
     {
-     //   internalConstantOverride = .03f;
-     //   elasticConstantOverride = .05f;
+
     }
 
-    /*
-    @Override
-    public void overrideElasticConstants() {
-        super.overrideElasticConstants();
-        for(Edge edge: edges){
-            edge.setElasticConstant(elasticConstantOverride);
-        }
-        for (Edge edge: internalEdges){
-            edge.setElasticConstant(internalConstantOverride);
-        }
-    }*/
 
     /**
      * update physics on Apical Constricting Cells

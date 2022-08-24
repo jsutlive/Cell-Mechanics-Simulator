@@ -16,7 +16,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
     @Override
     public void setup() {
         forceVector.setType(ForceType.apicalConstriction);
-        CellMesh mesh = (CellMesh) parent.getComponent(CellMesh.class);
+        CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);
 
         Cell cell = (Cell) parent;

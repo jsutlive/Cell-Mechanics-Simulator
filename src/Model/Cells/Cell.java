@@ -38,9 +38,8 @@ public class Cell extends MonoBehavior {
      */
     @Override
     public void awake(){
-        addRenderer(new CellRenderer());
+        addComponent(new CellRenderer());
         addComponent(new CellMesh());
-        State.setFlagToRender(this);
     }
 
     @Override
@@ -51,48 +50,7 @@ public class Cell extends MonoBehavior {
 
     public void overrideElasticConstants(){
     }
-
-
-    public void addRenderer(CellRenderer renderer){
-        addComponent(renderer);
-        State.setFlagToRender(this);
-    }
     /*
-    public Vector2f getCenter(){
-
-    }
-
-    public void print()
-    {
-        String cellClass;
-        int numberOfApicalEdges = 0;
-        int numberOfBasalEdges = 0;
-        int numberOfLateralEdges = 0;
-
-        if(this instanceof ApicalConstrictingCell){
-            cellClass = "Apical Constricting Cell";
-        }else if(this instanceof ShorteningCell){
-            cellClass = "Lateral Shortening Cell";
-        }else {
-            cellClass = "Basic Cell";
-        }
-        for(Edge edge:edges){
-            if(edge instanceof ApicalEdge){
-                numberOfApicalEdges++;
-            }else if (edge instanceof BasalEdge){
-                numberOfBasalEdges++;
-            }else if (edge instanceof LateralEdge){
-                numberOfLateralEdges++;
-            }
-        }
-        System.out.println("--CELL VARS--");
-        System.out.println("CELL ID: " + id);
-        System.out.println("CELL TYPE: " + cellClass);
-        System.out.println("RING LOCATION: " + getRingLocation());
-        System.out.println("APICAL EDGES: " + numberOfApicalEdges);
-        System.out.println("BASAL EDGES: " + numberOfBasalEdges);
-        System.out.println("LATERAL EDGES: " + numberOfLateralEdges);
-    }
 
     void generateInternalEdges(List<Node> nodes){
         int length = nodes.size();

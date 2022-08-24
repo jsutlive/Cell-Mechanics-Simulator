@@ -1,5 +1,6 @@
 package Model.Components.Render;
 
+import Engine.States.State;
 import GUI.IColor;
 import GUI.Painter;
 import Model.Cells.Cell;
@@ -20,7 +21,8 @@ public class CellRenderer extends ObjectRenderer
 
     @Override
     public void init() {
-        cellMesh = (CellMesh) parent.getComponent(CellMesh.class);
+        State.setFlagToRender(parent);
+        cellMesh = parent.getComponent(CellMesh.class);
     }
 
     @Override

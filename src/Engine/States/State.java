@@ -28,7 +28,7 @@ public abstract class State
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
     public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
 
-    protected static List<MonoBehavior<?>> allObjects = new ArrayList<>();
+    protected static List<MonoBehavior> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public abstract class State
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static <T extends MonoBehavior<T>> MonoBehavior<T> create(Class<T> type)
+    public static <T extends MonoBehavior> T create(Class<T> type)
             throws InstantiationException, IllegalAccessException {
         if(!MonoBehavior.class.isAssignableFrom(type)) {
             throw new IllegalArgumentException("Class not assignable from MonoBehavior");
@@ -87,7 +87,7 @@ public abstract class State
         allObjects.add(mono);
         mono.awake();
 
-        return mono;
+        return type.cast(mono);
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class State
      * @param tag
      * @return
      */
-    public static MonoBehavior<?> findObjectWithTag(Tag tag)
+    public static MonoBehavior findObjectWithTag(Tag tag)
     {
         for (MonoBehavior mono: allObjects) {
             if(mono.getTag() == tag) return mono;
@@ -103,7 +103,27 @@ public abstract class State
         return null;
     }
 
-    public static void setFlagToRender(MonoBehavior<?> mono)
+    /**
+     * Returns the first object of a given class type found
+     * @param type
+     * @param <T>
+     * @return
+     */
+    public static <T extends MonoBehavior>T findObjectOfType(Class<T> type){
+        for(MonoBehavior mono: allObjects){
+            if(type.isAssignableFrom(mono.getClass())){
+                try {
+                    return type.cast(mono);
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                    assert false : "Error: Casting component.";
+                }
+            }
+        }
+        return null;
+    }
+
+    public static void setFlagToRender(MonoBehavior mono)
     {
         IRender rend = mono.getComponent(ObjectRenderer.class);
         renderBatch.add(rend);
@@ -117,7 +137,7 @@ public abstract class State
         renderBatch.add(rend);
     }
 
-    public static void destroy(MonoBehavior<?> mono)
+    public static void destroy(MonoBehavior mono)
     {
         allObjects.remove(mono);
         mono.removeComponent(ObjectRenderer.class);
