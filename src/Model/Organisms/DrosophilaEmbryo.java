@@ -7,7 +7,6 @@ import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
-import Utilities.Model.Builder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,8 +47,7 @@ public class DrosophilaEmbryo implements  IOrganism {
         allNodes.clear();
         for(Cell cell: allCells)
         {
-            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
-            for(Node node: mesh.nodes){
+            for(Node node: cell.getComponent(CellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
                     if (!allNodes.contains(node)) allNodes.add(node);
                 }
@@ -108,12 +106,10 @@ public class DrosophilaEmbryo implements  IOrganism {
                 // Build the first set of cells in the cell ring
                 if(i<=numberOfConstrictingSegmentsInCircle/2)
                 {
-                    constructionNodes.clear();
-                    List<Node> oldNodesZ = new ArrayList<>(); // copy list to prevent assignment issues between collections
-                    oldNodesZ.addAll(oldNodes);
+                    // copy list to prevent assignment issues between collections
+                    List<Node> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
                     newCell = ApicalConstrictingCell.build(oldNodes,lateralResolution, 1);
-                    constructionNodes.clear();
                     Collections.reverse(mirroredNodes);
                     constructionNodes.addAll(mirroredNodes);
                     if(i == 1)
@@ -142,7 +138,6 @@ public class DrosophilaEmbryo implements  IOrganism {
                             Collections.reverse(mirroredNodes);
                         }else
                         {
-                            constructionNodes.clear();
                             oldNodes.addAll(zeroEdgeNodes);
                             newCell = ShorteningCell.build(oldNodes, lateralResolution, 1);
 
@@ -165,7 +160,6 @@ public class DrosophilaEmbryo implements  IOrganism {
                             Collections.reverse(mirroredNodes);
                         }else
                         {
-                            constructionNodes.clear();
                             oldNodes.addAll(zeroEdgeNodes);
                             Collections.reverse(zeroEdgeNodes);
                             constructionNodes.addAll(zeroEdgeNodes);
@@ -206,8 +200,7 @@ public class DrosophilaEmbryo implements  IOrganism {
         {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
-        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
-        if(mesh.nodes.size() == 0){
+        if(cell.getComponent(CellMesh.class).nodes.size() == 0){
             throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
         }
     }
