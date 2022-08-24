@@ -2,6 +2,7 @@ package Model.Cells;
 
 import Engine.States.State;
 import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
 import Physics.Rigidbodies.*;
 
 import java.util.ArrayList;
@@ -9,8 +10,13 @@ import java.util.List;
 
 public class BasicCell extends Cell{
 
+    @Override
+    public void start() {
+        addComponent(new ElasticForce());
+    }
+
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
-        Cell cell = (Cell) State.create(BasicCell.class);
+        Cell cell = State.create(BasicCell.class);
         List<Edge> edges = new ArrayList<>();
 
         // Start from top left, move along til end of lateral resolution
@@ -46,7 +52,7 @@ public class BasicCell extends Cell{
                 e.setNodesReference(nodeCount-1, nodeCount);
                 edges.add(e);            }
         }
-        CellMesh mesh = (CellMesh) cell.getComponent(CellMesh.class);
+        CellMesh mesh = cell.getComponent(CellMesh.class);
         mesh.nodes = nodes;
         mesh.edges = edges;
         return cell;

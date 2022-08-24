@@ -6,7 +6,7 @@ import Model.Components.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavior
+public abstract class MonoBehavior implements IBehavior
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;
@@ -67,7 +67,7 @@ public abstract class MonoBehavior<T extends MonoBehavior<T>> implements IBehavi
       return null;
    }
 
-   public void removeComponent(Class componentClass){
+   public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
 }

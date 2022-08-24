@@ -9,8 +9,7 @@ public class ElasticForce extends SpringForce{
 
     @Override
     public void setup() {
-        CellMesh mesh = (CellMesh) parent.getComponent(CellMesh.class);
-        edges = mesh.edges;
+        edges = parent.getComponent(CellMesh.class).edges;
         targetLengthRatio = 1;
         forceVector.setType(ForceType.elastic);
     }
