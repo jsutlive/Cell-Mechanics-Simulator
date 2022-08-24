@@ -26,7 +26,7 @@ public class Collider extends Force {
             for(Node node: nodes){
                 if(mesh.collidesWithNode(node) && !mesh.contains(node)){
                     for(Edge e: mesh.edges){
-                        if(e instanceof ApicalEdge){
+                        if(e instanceof ApicalEdge && ! e.contains(node)){
                             forceVector.set(CustomMath.normal(e));
 
                             e.addForceVector(forceVector);

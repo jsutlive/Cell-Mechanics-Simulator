@@ -3,10 +3,7 @@ package Model;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import GUI.Vector.CircleGraphic;
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.BasicCell;
-import Model.Cells.Cell;
-import Model.Cells.ShorteningCell;
+import Model.Cells.*;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.Collider;
 import Physics.Rigidbodies.ApicalEdge;
@@ -47,7 +44,12 @@ public class DrosophilaRingModel extends MonoBehavior {
     public void awake() throws InstantiationException, IllegalAccessException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         generateOrganism();
-        addComponent(new Collider());
+        //addComponent(new Collider());
+        List<Node> yolkNodes = new ArrayList<>();
+        for(Edge edge: basalEdges){
+            yolkNodes.add(edge.getNodes()[0]);
+        }
+        Yolk.build(yolkNodes, basalEdges);
     }
 
     public void generateOrganism() throws InstantiationException, IllegalAccessException {

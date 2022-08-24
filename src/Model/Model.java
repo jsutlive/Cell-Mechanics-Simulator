@@ -56,7 +56,6 @@ public class Model extends MonoBehavior
                 }
             }
         }
-        yolk = Yolk.build(basalNodes);
 
     }
 

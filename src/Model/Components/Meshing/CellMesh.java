@@ -23,7 +23,6 @@ public class CellMesh extends Mesh{
 
     @Override
     public void lateUpdate() {
-        System.out.println("MOVE");
         for (Node n : nodes) {
             n.Move();
         }

@@ -13,7 +13,7 @@ public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;
     private transient float initialArea;
-    private float osmosisConstant = .005f;
+    public float osmosisConstant = .005f;
 
     @Override
     public void update() {

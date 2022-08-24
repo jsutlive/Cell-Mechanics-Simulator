@@ -1,38 +1,32 @@
 package Model.Cells;
 
 import Engine.States.State;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.OsmosisForce;
 import Physics.Forces.Force;
+import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 
 import java.util.List;
 
 public class Yolk extends Cell {
 
-    public static Cell build(List<Node> yolkNodes) throws IllegalAccessException, InstantiationException {
-        Cell yolk = (Cell) State.create(Yolk.class);
-        //yolk.setNodes(yolkNodes);
+    public static Cell build(List<Node> yolkNodes, List<Edge> yolkEdges) throws IllegalAccessException, InstantiationException {
+        Cell yolk = State.create(Yolk.class);
+        yolk.getComponent(CellMesh.class).nodes = yolkNodes;
+        yolk.getComponent(CellMesh.class).edges = yolkEdges;
         return yolk;
     }
 
 
     @Override
     public void awake() {
-        //this.osmosisConstant = .004f;
+        addComponent(new CellMesh());
     }
 
     @Override
     public void start() {
-        //getRestingArea();
+        addComponent(new OsmosisForce());
+        getComponent(OsmosisForce.class).osmosisConstant = .01f;
     }
-
-    @Override
-    public void update() {
-        //calculateYolkRestoringForce();
-    }
-
-
-
-    /*private void calculateYolkRestoringForce() {
-        Force.restore(this, osmosisConstant);
-    }*/
 }
