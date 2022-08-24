@@ -19,10 +19,10 @@ public class ApicalConstrictingSpringForce extends SpringForce{
         CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);
 
-        Cell cell = (Cell) parent;
+        Cell cell = getParentAs(Cell.class);
         apicalGradient.calculate(10,
-                1, .5f,
-                4, .3f);
+                .1f, .5f,
+                0, .3f);
         setTargetLengthRatio(apicalGradient.getRatios()[1]);
 
     }
@@ -31,7 +31,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
     public void update() {
         for(Edge edge: edges){
             Node[] nodes = edge.getNodes();
-            Cell cell = (Cell) parent;
+            Cell cell = getParentAs(Cell.class);
             calculateSpringForce(edge, apicalGradient.getConstants()[0]);
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());

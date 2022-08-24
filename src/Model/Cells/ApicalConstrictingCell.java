@@ -2,10 +2,13 @@ package Model.Cells;
 
 import Engine.States.State;
 
+import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ApicalConstrictingSpringForce;
 import Model.Components.Physics.ElasticForce;
+import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +31,7 @@ public class ApicalConstrictingCell extends Cell
     public void start() {
         addComponent(new ElasticForce());
         addComponent(new ApicalConstrictingSpringForce());
+        getComponent(CellRenderer.class).setColor(Color.MAGENTA);
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
@@ -58,7 +62,8 @@ public class ApicalConstrictingCell extends Cell
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        //cell.setEdges(edges);
+        cell.getComponent(CellMesh.class).nodes = nodes;
+        cell.getComponent(CellMesh.class).edges = edges;
         return cell;
     }
 }

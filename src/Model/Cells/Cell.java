@@ -38,27 +38,8 @@ public class Cell extends MonoBehavior {
      */
     @Override
     public void awake(){
-        addComponent(new CellRenderer());
         addComponent(new CellMesh());
+        addComponent(new CellRenderer());
     }
-
-    @Override
-    public void start() {
-        addComponent(new ElasticForce());
-        //addComponent(new ApicalConstrictingSpringForce());
-    }
-
-    public void overrideElasticConstants(){
-    }
-    /*
-
-    void generateInternalEdges(List<Node> nodes){
-        int length = nodes.size();
-        int halfLength = length/2;
-        for(int i =0; i <halfLength - 1; i++){
-            //internalEdges.add(new BasicEdge(nodes.get(i), nodes.get(length - i- 2)));
-            //internalEdges.add(new BasicEdge(nodes.get(i + 1), nodes.get(length - i -1)));
-        }
-    }*/
 }
 

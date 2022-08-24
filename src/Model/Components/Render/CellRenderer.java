@@ -33,9 +33,10 @@ public class CellRenderer extends ObjectRenderer
     @Override
     public void setColor(Color color) {
         // set color for all edges in the cell
+        this.color = color;
         for(Edge edge: cellMesh.edges)
         {
-            if(edge instanceof  IColor)
+            if(edge != null)
             {
                 ((IColor) edge).setColor(color);
             }
@@ -49,6 +50,6 @@ public class CellRenderer extends ObjectRenderer
     @Override
     public void render()
     {
-        Painter.drawCell((Cell)parent);
+        Painter.drawCell(getParentAs(Cell.class), color);
     }
 }

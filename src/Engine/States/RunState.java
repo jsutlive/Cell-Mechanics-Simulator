@@ -14,18 +14,18 @@ import java.util.ConcurrentModificationException;
 
 public class RunState extends State
 {
-    Model model;
+    MonoBehavior model;
 
     /**
      * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @throws InstantiationException fails to create object
+     * @throws IllegalAccessException improperly accesses memory during object creation
      */
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
-        model = (Model)findObjectWithTag(Tag.MODEL);
+        model = findObjectWithTag(Tag.MODEL);
         if(model == null) {
-            model = (Model) State.create(Model.class);
+            model = State.create(Model.class);
         }
         for(MonoBehavior obj: allObjects){
             obj.start();

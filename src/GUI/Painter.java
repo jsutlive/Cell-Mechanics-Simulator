@@ -17,26 +17,19 @@ import java.awt.*;
 public class Painter {
     public static Color DEFAULT_COLOR = Color.white;
 
-    public static void drawCell(Cell cell)
+    public static void drawCell(Cell cell, Color color)
     {
-        CellRenderer renderer = (CellRenderer) cell.getComponent(CellRenderer.class);
-        CellMesh cellMesh = (CellMesh)cell.getComponent(CellMesh.class);
-        //for(Node node: cell.getNodes())
+        CellMesh cellMesh = cell.getComponent(CellMesh.class);
         for(Node node: cellMesh.nodes)
         {
-            drawPoint(node.getPosition().asInt(), renderer.getColor());
+            drawPoint(node.getPosition().asInt(),color);
         }
         for(Edge edge: cellMesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
+            drawLine(positions[0].asInt(), positions[1].asInt(), color);
             drawEdgeNormal(edge);
         }
-        /*for(Edge edge: cell.getInternalEdges())
-        {
-            Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].asInt(), positions[1].asInt(), edge.getColor());
-        }*/
     }
 
     public static void drawForce(Node node, Vector2f forceVector){

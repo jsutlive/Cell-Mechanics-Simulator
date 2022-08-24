@@ -1,43 +1,27 @@
 package Model.Cells;
 
 import Engine.States.State;
-import Physics.Forces.Force;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.LateralShorteningSpringForce;
+import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShorteningCell extends Cell{
-    float lateralShorteningRatio = .75f;
-    float lateralShorteningConstant = .10f;
 
-    public ShorteningCell()
-    {
-
-    }
-
-
-    /**
-     * update physics on Apical Constricting Cells
-     * overrides the update method as described in Cells
-     */
     @Override
-    public void update() {
-        super.update();
-        applyLateralShortening();
-    }
-
-    private void applyLateralShortening() {
-        /*for(Edge edge: edges)
-        {
-            if(edge instanceof LateralEdge) {
-                Force.constrict(edge, lateralShorteningConstant, lateralShorteningRatio);
-            }
-        }*/
+    public void start() {
+        addComponent(new ElasticForce());
+        addComponent(new LateralShorteningSpringForce());
+        getComponent(CellRenderer.class).setColor(Color.BLUE);
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
-        Cell cell = (Cell) State.create(ShorteningCell.class);
+        Cell cell = State.create(ShorteningCell.class);
         List<Edge> edges = new ArrayList<>();
 
         // Start from top left, move along til end of lateral resolution
@@ -63,8 +47,8 @@ public class ShorteningCell extends Cell{
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        //cell.setNodes(nodes);
-        //cell.setEdges(edges);
+        cell.getComponent(CellMesh.class).nodes = nodes;
+        cell.getComponent(CellMesh.class).edges = edges;
         return cell;
     }
 

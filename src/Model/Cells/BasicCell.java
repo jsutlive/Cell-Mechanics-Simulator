@@ -52,9 +52,8 @@ public class BasicCell extends Cell{
                 e.setNodesReference(nodeCount-1, nodeCount);
                 edges.add(e);            }
         }
-        CellMesh mesh = cell.getComponent(CellMesh.class);
-        mesh.nodes = nodes;
-        mesh.edges = edges;
+        cell.getComponent(CellMesh.class).nodes = nodes;
+        cell.getComponent(CellMesh.class).edges = edges;
         return cell;
     }
 }

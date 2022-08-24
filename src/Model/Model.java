@@ -56,8 +56,7 @@ public class Model extends MonoBehavior
         allNodes = organism.getAllNodes();
 
         for(Cell cell : organism.getAllCells()){
-            cell.overrideElasticConstants();
-            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+            CellMesh mesh = cell.getComponent(CellMesh.class);
             for(Edge edge : mesh.edges) {
                 if(edge instanceof BasalEdge) {
                     basalNodes.add(edge.getNodes()[0]);
@@ -183,8 +182,8 @@ public class Model extends MonoBehavior
     private void setCellColors() {
         for(Cell cell: organism.getAllCells())
         {
-            CellRenderer renderer = (CellRenderer) cell.getComponent(CellRenderer.class);
-            CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+            CellRenderer renderer = cell.getComponent(CellRenderer.class);
+            CellMesh mesh = cell.getComponent(CellMesh.class);
 
             System.out.println(cell.getId());
             if(cell instanceof ApicalConstrictingCell)
