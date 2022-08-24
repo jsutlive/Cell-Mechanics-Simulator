@@ -26,7 +26,7 @@ public class EdgeTests
         assertEquals( A.getLength(), C.getXUnit() * C.getLength());
         //assertEquals(B.getLength(), C.getYUnit() * C.getLength());
     }
-  
+
     @Test
     void get_correct_length_of_edge(){
         Node a = new Node(0,0);

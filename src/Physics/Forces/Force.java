@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Force
 {
-    public static List<Vector2f[]> debugDraw = new ArrayList<>();
     /**
      * Constrict or expand an edge based on a spring-mass system (where mass is assumed to be 1).
      * based on a constant "constant" and constriction ratio "ratio". After force calculation, a unit vector is used
@@ -107,7 +106,7 @@ public class Force
      * based on a constant "constant"
      *
      * @param edge to be constricted
-     * @param constant
+     * @param constant spring constant
      */
     public static void elastic(Edge edge, float constant){
         constrict(edge, constant, 1f);
@@ -277,7 +276,7 @@ public class Force
      * Calculate force based on equation 5 in Kang, et al 2021 (https://doi.org/10/1016/j.isci.2021.103252)
      * @param constant parameter to control force magnitude
      * @param distance determines distance at which the force begins to act on other nodes
-     * @return
+     * @return magnitude of the lennard jones-like force
      */
     private static float calculateLennardJonesLikeForce(float constant, float distance)
     {

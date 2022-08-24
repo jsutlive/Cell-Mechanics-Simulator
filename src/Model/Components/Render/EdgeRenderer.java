@@ -1,5 +1,6 @@
 package Model.Components.Render;
 
+import Engine.States.State;
 import GUI.Painter;
 import Model.EdgeMono;
 import Physics.Rigidbodies.BasalEdge;
@@ -23,7 +24,6 @@ public class EdgeRenderer extends ObjectRenderer {
 
     @Override
     public void render() {
-        boolean hasDrawn = false;
         Node[] nodes = edge.getNodes();
         Vector2f pos1 = nodes[0].getPosition();
         Vector2f pos2 = nodes[1].getPosition();
@@ -36,6 +36,7 @@ public class EdgeRenderer extends ObjectRenderer {
 
     @Override
     public void init() {
+        State.setFlagToRender(parent);
         edge = (EdgeMono) parent;
     }
 }
