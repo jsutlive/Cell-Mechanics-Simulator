@@ -1,5 +1,9 @@
 package Engine.Object;
 
+/**
+ * Interface for any object which will be responding to physics loop states such as update, late update, start, and awake
+ * Used primarily by MonoBehavior and Component objects
+ */
 public interface IBehavior
 {
     /**

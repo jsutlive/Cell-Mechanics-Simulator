@@ -23,7 +23,6 @@ public abstract class MonoBehavior implements IBehavior
     * @return uniqueID of a given MonoBehavior
     */
    public int getStateID() {return uniqueID;}
-   public static int getGlobalID(){return _ID_COUNTER;}
    public static void setGlobalID(MonoBehavior monoBehavior)
    {
       monoBehavior.uniqueID = _ID_COUNTER;

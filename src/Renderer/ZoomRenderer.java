@@ -17,14 +17,7 @@ public class ZoomRenderer extends Renderer
     public Vector2i shift;
     public float scale;
 
-    public static Renderer makeInstance(){
-        // prevent creation of multiple renderer instances
-        // if (getInstance()!= null) return getInstance();
-        if(hasInstance()) return getInstance();
-        return new ZoomRenderer();
-    }
-
-    private ZoomRenderer()
+    public ZoomRenderer()
     {
         width = Simulation.bounds.x;
         height = Simulation.bounds.y;

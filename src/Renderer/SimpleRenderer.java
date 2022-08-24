@@ -15,14 +15,7 @@ public class SimpleRenderer extends Renderer
     String title;
     int width, height;
 
-    public static Renderer makeInstance(){
-        // prevent creation of multiple renderer instances
-        // if (getInstance()!= null) return getInstance();
-        if(hasInstance()) return getInstance();
-        return new SimpleRenderer();
-    }
-
-    private SimpleRenderer()
+    public SimpleRenderer()
     {
         width = Simulation.bounds.x;
         height = Simulation.bounds.y;
