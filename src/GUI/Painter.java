@@ -1,11 +1,8 @@
 package GUI;
 
-import Engine.Renderer;
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.BasicCell;
+import Renderer.Renderer;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;

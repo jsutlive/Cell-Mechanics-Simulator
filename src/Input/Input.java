@@ -2,16 +2,14 @@ package Input;
 
 import Engine.States.State;
 
-import javax.sound.sampled.SourceDataLine;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import Engine.ZoomRenderer;
-import Engine.Renderer;
+import Renderer.ZoomRenderer;
+import Renderer.Renderer;
 import Engine.Simulation;
 
 
@@ -42,11 +40,7 @@ public class Input extends JFrame implements KeyListener {
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(10);
         timestepSlider.setPaintTicks(true);
-        timestepSlider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e){
-                Simulation.TIMESTEP = timestepSlider.getValue() / 100f;
-            }
-        });
+        timestepSlider.addChangeListener(e -> Simulation.TIMESTEP = timestepSlider.getValue() / 100f);
         panel.add(timestepLabel);
         panel.add(timestepSlider);
         _instance = this;
@@ -69,9 +63,7 @@ public class Input extends JFrame implements KeyListener {
         if(keyCode == KeyEvent.VK_SPACE){
             try {
                 State.ChangeState();
-            } catch (InstantiationException ex) {
-                ex.printStackTrace();
-            } catch (IllegalAccessException ex) {
+            } catch (InstantiationException | IllegalAccessException ex) {
                 ex.printStackTrace();
             }
 

@@ -6,14 +6,13 @@ import Engine.Timer.Time;
 import Input.Input;
 import Model.Components.Component;
 import Physics.Rigidbodies.Node;
+import Renderer.Renderer;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Simulation implements Runnable
 {
@@ -54,7 +53,7 @@ public class Simulation implements Runnable
 
     /**
      * Simplified simulation constructor where the window is automatically set to be 800x800 px
-     * @param _title
+     * @param _title Window title for the simulation
      */
     public Simulation(String _title)
     {
@@ -64,8 +63,8 @@ public class Simulation implements Runnable
 
     /**
      * Initialize program
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @throws InstantiationException fails to create object
+     * @throws IllegalAccessException illegally accesses memory while attempting to create objects
      */
     private void init() throws InstantiationException, IllegalAccessException {
         // Get current/ create new renderer instance
@@ -76,7 +75,6 @@ public class Simulation implements Runnable
 
         // Get input system
         inputHandler = Input.getInstance();
-        //System.out.println(inputHandler);
 
         // Prepare state loading and timer system
         Time.getInstance();
@@ -101,9 +99,7 @@ public class Simulation implements Runnable
     {
         try {
             init();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         while(applicationIsRunning)
@@ -115,9 +111,7 @@ public class Simulation implements Runnable
             if(Time.isReadyToAdvancePhysics()){
                 try {
                     Tick();
-                } catch (InstantiationException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }

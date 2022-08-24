@@ -1,5 +1,6 @@
-package Engine;
+package Renderer;
 
+import Engine.Simulation;
 import Engine.States.State;
 import GUI.DisplayWindow;
 import Utilities.Geometry.Vector2i;
@@ -51,9 +52,7 @@ public class SimpleRenderer extends Renderer
                 State.GetState().Render();
 
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
 

@@ -1,7 +1,6 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
-import Engine.Simulation;
 import Engine.States.State;
 import GUI.Vector.CircleGraphic;
 import Model.Cells.*;
@@ -9,28 +8,20 @@ import Model.Components.Meshing.CellMesh;
 import Model.Components.Render.CellRenderer;
 import Model.Organisms.*;
 import Physics.Forces.*;
-import Physics.PhysicsSystem;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Boundary;
-import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
-import Utilities.Math.CustomMath;
-import Utilities.Math.Gauss;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.awt.*;
-import java.rmi.ConnectIOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Model extends MonoBehavior
 {
-    PhysicsSystem physicsSystem;
     IOrganism organism = new DrosophilaEmbryo();
     List<Node> allNodes = new ArrayList<>();
     float shellRadius = 302f;
@@ -80,31 +71,6 @@ public class Model extends MonoBehavior
             cell.start();
         }
 
-    }
-
-
-    /**
-     * Update all forces, at node level and cellular level.
-     */
-    @Override
-    public void update()
-    {
-        /*yolk.update();
-
-        checkNodesWithinBoundary(allNodes);
-
-        for(Cell cell: organism.getAllCells())
-        {
-            cell.update();
-        }
-        //calculateLennardJonesForces(maxRadius, ljConstant);
-
-        for(Node node: allNodes)
-        {
-            node.Move();
-        }
-
-        //checkCollision();*/
     }
 
     private void checkNodesWithinBoundary(List<Node> allNodes) {

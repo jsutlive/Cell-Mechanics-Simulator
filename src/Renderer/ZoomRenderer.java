@@ -1,14 +1,12 @@
-package Engine;
+package Renderer;
 
+import Engine.Simulation;
 import Engine.States.State;
 import GUI.DisplayWindow;
-import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-
-import javax.swing.SwingUtilities;
 
 public class ZoomRenderer extends Renderer
 {
@@ -77,9 +75,7 @@ public class ZoomRenderer extends Renderer
                 State.GetState().Render();
 
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -113,7 +109,7 @@ public class ZoomRenderer extends Renderer
 
     private Vector2i transform(Vector2i point)
     {
-        return new Vector2i(Math.round((point.x + shift.x - width/2) * scale + width/2),Math.round((point.y + shift.y - height/2) * scale + height/2));
+        return new Vector2i(Math.round((point.x + shift.x - width/2f) * scale + width/2f),Math.round((point.y + shift.y - height/2f) * scale + height/2f));
     }
 
 }
