@@ -1,5 +1,6 @@
 package Engine.Object;
 
+import Data.LogOnce;
 import Engine.States.State;
 import Model.Components.Component;
 

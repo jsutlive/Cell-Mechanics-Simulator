@@ -1,6 +1,10 @@
 package Model;
 
+import Data.LogDataExclusionStrategy;
+import Data.LogDataOnceExclusionStrategy;
+import Data.LogOnce;
 import Engine.Object.MonoBehavior;
+import Engine.Simulation;
 import Engine.States.State;
 import GUI.Vector.CircleGraphic;
 import Model.Cells.*;
@@ -19,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@LogOnce
 public class DrosophilaRingModel extends MonoBehavior {
 
     int lateralResolution = 4;
@@ -50,6 +55,8 @@ public class DrosophilaRingModel extends MonoBehavior {
             yolkNodes.add(edge.getNodes()[0]);
         }
         Yolk.build(yolkNodes, basalEdges);
+        LogDataOnceExclusionStrategy log = new LogDataOnceExclusionStrategy();
+        System.out.println(log.shouldSkipClass(DrosophilaRingModel.class));
     }
 
     public void generateOrganism() throws InstantiationException, IllegalAccessException {

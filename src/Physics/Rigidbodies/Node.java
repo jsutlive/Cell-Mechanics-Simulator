@@ -108,7 +108,6 @@ public class Node implements IRigidbody {
      * Sets resultant force to 0
      */
     public void resetResultantForce(){
-        Simulation.FORCE_HISTORY.put(this, resultantForce.copy());
         forceVectors.clear();
         resultantForce.set(new Vector2f(0));
         forceVectors.add(resultantForce);

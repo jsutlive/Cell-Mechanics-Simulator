@@ -1,5 +1,6 @@
 package Model.Components.Meshing;
 
+import Data.LogData;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
@@ -7,6 +8,11 @@ import Utilities.Geometry.Vector2f;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
+ * Can be used to determine collision boundaries, etc.
+ */
+@LogData
 public class CellMesh extends Mesh{
 
     private transient float restingArea;

@@ -1,5 +1,6 @@
 package Model.Cells;
 
+import Data.LogData;
 import Engine.States.State;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
@@ -8,6 +9,7 @@ import Physics.Rigidbodies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class BasicCell extends Cell{
 

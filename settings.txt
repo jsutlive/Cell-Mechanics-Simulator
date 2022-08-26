@@ -1,0 +1,16 @@
+{
+  "lateralResolution": 4,
+  "numberOfSegmentsInTotalCircle": 80,
+  "numberOfConstrictingSegmentsInCircle": 18,
+  "shorteningCellBegin": 16,
+  "shorteningCellEnd": 28,
+  "outerRadius": 300.0,
+  "innerRadius": 200.0,
+  "boundingBox": {
+    "x": 800,
+    "y": 800
+  },
+  "uniqueID": 0,
+  "components": [],
+  "tag": "MODEL"
+}

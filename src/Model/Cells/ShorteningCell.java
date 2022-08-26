@@ -1,5 +1,6 @@
 package Model.Cells;
 
+import Data.LogData;
 import Engine.States.State;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;

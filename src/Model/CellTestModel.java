@@ -1,18 +1,23 @@
 package Model;
 
 
+import Data.LogData;
+import Data.LogDataExclusionStrategy;
+import Data.LogOnce;
 import Model.Cells.BasicCell;
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
+import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.Node;
 import java.util.ArrayList;
 import java.util.List;
-
+@LogOnce
 public class CellTestModel extends Model{
 
     int apicalResolution = 2;
     int lateralResolution = 3;
-    Cell cell;
+    transient Cell cell;
 
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
@@ -29,8 +34,8 @@ public class CellTestModel extends Model{
         nodes.add(new Node(235, 200));
         cell = BasicCell.build(nodes, lateralResolution, apicalResolution);
         cell.start();
-        cell.getComponent(ElasticForce.class).update();
-
+        //LogDataExclusionStrategy log = new LogDataExclusionStrategy();
+        //System.out.println(log.shouldSkipClass(CellMesh.class));
     }
 
     /**

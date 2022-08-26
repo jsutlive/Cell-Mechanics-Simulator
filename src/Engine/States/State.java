@@ -158,6 +158,18 @@ public abstract class State
         count++;
     }
 
+    public void saveInitial(){
+        try {
+            FileWriter filewriter = new FileWriter("settings.txt");
+            filewriter.write(Simulation.gsonOnce.toJson(findObjectWithTag(Tag.MODEL)));
+            filewriter.close();
+        }catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
     public void load()
     {
 

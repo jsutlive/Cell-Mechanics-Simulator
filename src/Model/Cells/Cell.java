@@ -1,5 +1,6 @@
 package Model.Cells;
 
+import Data.LogData;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.Component;
@@ -20,7 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Cell extends MonoBehavior {
-    public int ringLocation;
+    public transient int ringLocation;
     public transient int id;
     public int getId() {return id;}
     public void setId(int id) {this.id = id;}

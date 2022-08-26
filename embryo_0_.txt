@@ -1,22 +1,6 @@
 [
+  null,
   {
-    "lateralResolution": 4,
-    "numberOfSegmentsInTotalCircle": 80,
-    "numberOfConstrictingSegmentsInCircle": 18,
-    "shorteningCellBegin": 16,
-    "shorteningCellEnd": 28,
-    "outerRadius": 300.0,
-    "innerRadius": 200.0,
-    "boundingBox": {
-      "x": 800,
-      "y": 800
-    },
-    "uniqueID": 0,
-    "components": [],
-    "tag": "MODEL"
-  },
-  {
-    "ringLocation": 1,
     "uniqueID": 1,
     "components": [
       {
@@ -449,7 +433,6 @@
     ]
   },
   {
-    "ringLocation": 1,
     "uniqueID": 2,
     "components": [
       {
@@ -882,7 +865,6 @@
     ]
   },
   {
-    "ringLocation": 2,
     "uniqueID": 3,
     "components": [
       {
@@ -1315,7 +1297,6 @@
     ]
   },
   {
-    "ringLocation": 2,
     "uniqueID": 4,
     "components": [
       {
@@ -1748,7 +1729,6 @@
     ]
   },
   {
-    "ringLocation": 3,
     "uniqueID": 5,
     "components": [
       {
@@ -2181,7 +2161,6 @@
     ]
   },
   {
-    "ringLocation": 3,
     "uniqueID": 6,
     "components": [
       {
@@ -2614,7 +2593,6 @@
     ]
   },
   {
-    "ringLocation": 4,
     "uniqueID": 7,
     "components": [
       {
@@ -3047,7 +3025,6 @@
     ]
   },
   {
-    "ringLocation": 4,
     "uniqueID": 8,
     "components": [
       {
@@ -3480,7 +3457,6 @@
     ]
   },
   {
-    "ringLocation": 5,
     "uniqueID": 9,
     "components": [
       {
@@ -3913,7 +3889,6 @@
     ]
   },
   {
-    "ringLocation": 5,
     "uniqueID": 10,
     "components": [
       {
@@ -4346,7 +4321,6 @@
     ]
   },
   {
-    "ringLocation": 6,
     "uniqueID": 11,
     "components": [
       {
@@ -4779,7 +4753,6 @@
     ]
   },
   {
-    "ringLocation": 6,
     "uniqueID": 12,
     "components": [
       {
@@ -5212,7 +5185,6 @@
     ]
   },
   {
-    "ringLocation": 7,
     "uniqueID": 13,
     "components": [
       {
@@ -5645,7 +5617,6 @@
     ]
   },
   {
-    "ringLocation": 7,
     "uniqueID": 14,
     "components": [
       {
@@ -6078,7 +6049,6 @@
     ]
   },
   {
-    "ringLocation": 8,
     "uniqueID": 15,
     "components": [
       {
@@ -6511,7 +6481,6 @@
     ]
   },
   {
-    "ringLocation": 8,
     "uniqueID": 16,
     "components": [
       {
@@ -6944,7 +6913,6 @@
     ]
   },
   {
-    "ringLocation": 9,
     "uniqueID": 17,
     "components": [
       {
@@ -7372,7 +7340,6 @@
     ]
   },
   {
-    "ringLocation": 9,
     "uniqueID": 18,
     "components": [
       {
@@ -7800,7 +7767,6 @@
     ]
   },
   {
-    "ringLocation": 10,
     "uniqueID": 19,
     "components": [
       {
@@ -8189,7 +8155,6 @@
     ]
   },
   {
-    "ringLocation": 10,
     "uniqueID": 20,
     "components": [
       {
@@ -8578,7 +8543,6 @@
     ]
   },
   {
-    "ringLocation": 11,
     "uniqueID": 21,
     "components": [
       {
@@ -8967,7 +8931,6 @@
     ]
   },
   {
-    "ringLocation": 11,
     "uniqueID": 22,
     "components": [
       {
@@ -9356,7 +9319,6 @@
     ]
   },
   {
-    "ringLocation": 12,
     "uniqueID": 23,
     "components": [
       {
@@ -9745,7 +9707,6 @@
     ]
   },
   {
-    "ringLocation": 12,
     "uniqueID": 24,
     "components": [
       {
@@ -10134,7 +10095,6 @@
     ]
   },
   {
-    "ringLocation": 13,
     "uniqueID": 25,
     "components": [
       {
@@ -10523,7 +10483,6 @@
     ]
   },
   {
-    "ringLocation": 13,
     "uniqueID": 26,
     "components": [
       {
@@ -10912,7 +10871,6 @@
     ]
   },
   {
-    "ringLocation": 14,
     "uniqueID": 27,
     "components": [
       {
@@ -11301,7 +11259,6 @@
     ]
   },
   {
-    "ringLocation": 14,
     "uniqueID": 28,
     "components": [
       {
@@ -11690,7 +11647,6 @@
     ]
   },
   {
-    "ringLocation": 15,
     "uniqueID": 29,
     "components": [
       {
@@ -12114,7 +12070,6 @@
     ]
   },
   {
-    "ringLocation": 15,
     "uniqueID": 30,
     "components": [
       {
@@ -12538,7 +12493,6 @@
     ]
   },
   {
-    "ringLocation": 16,
     "uniqueID": 31,
     "components": [
       {
@@ -13063,7 +13017,6 @@
     ]
   },
   {
-    "ringLocation": 16,
     "uniqueID": 32,
     "components": [
       {
@@ -13588,7 +13541,6 @@
     ]
   },
   {
-    "ringLocation": 17,
     "uniqueID": 33,
     "components": [
       {
@@ -14113,7 +14065,6 @@
     ]
   },
   {
-    "ringLocation": 17,
     "uniqueID": 34,
     "components": [
       {
@@ -14638,7 +14589,6 @@
     ]
   },
   {
-    "ringLocation": 18,
     "uniqueID": 35,
     "components": [
       {
@@ -15163,7 +15113,6 @@
     ]
   },
   {
-    "ringLocation": 18,
     "uniqueID": 36,
     "components": [
       {
@@ -15688,7 +15637,6 @@
     ]
   },
   {
-    "ringLocation": 19,
     "uniqueID": 37,
     "components": [
       {
@@ -16213,7 +16161,6 @@
     ]
   },
   {
-    "ringLocation": 19,
     "uniqueID": 38,
     "components": [
       {
@@ -16738,7 +16685,6 @@
     ]
   },
   {
-    "ringLocation": 20,
     "uniqueID": 39,
     "components": [
       {
@@ -17263,7 +17209,6 @@
     ]
   },
   {
-    "ringLocation": 20,
     "uniqueID": 40,
     "components": [
       {
@@ -17788,7 +17733,6 @@
     ]
   },
   {
-    "ringLocation": 21,
     "uniqueID": 41,
     "components": [
       {
@@ -18313,7 +18257,6 @@
     ]
   },
   {
-    "ringLocation": 21,
     "uniqueID": 42,
     "components": [
       {
@@ -18838,7 +18781,6 @@
     ]
   },
   {
-    "ringLocation": 22,
     "uniqueID": 43,
     "components": [
       {
@@ -19363,7 +19305,6 @@
     ]
   },
   {
-    "ringLocation": 22,
     "uniqueID": 44,
     "components": [
       {
@@ -19888,7 +19829,6 @@
     ]
   },
   {
-    "ringLocation": 23,
     "uniqueID": 45,
     "components": [
       {
@@ -20413,7 +20353,6 @@
     ]
   },
   {
-    "ringLocation": 23,
     "uniqueID": 46,
     "components": [
       {
@@ -20938,7 +20877,6 @@
     ]
   },
   {
-    "ringLocation": 24,
     "uniqueID": 47,
     "components": [
       {
@@ -21463,7 +21401,6 @@
     ]
   },
   {
-    "ringLocation": 24,
     "uniqueID": 48,
     "components": [
       {
@@ -21988,7 +21925,6 @@
     ]
   },
   {
-    "ringLocation": 25,
     "uniqueID": 49,
     "components": [
       {
@@ -22513,7 +22449,6 @@
     ]
   },
   {
-    "ringLocation": 25,
     "uniqueID": 50,
     "components": [
       {
@@ -23038,7 +22973,6 @@
     ]
   },
   {
-    "ringLocation": 26,
     "uniqueID": 51,
     "components": [
       {
@@ -23563,7 +23497,6 @@
     ]
   },
   {
-    "ringLocation": 26,
     "uniqueID": 52,
     "components": [
       {
@@ -24088,7 +24021,6 @@
     ]
   },
   {
-    "ringLocation": 27,
     "uniqueID": 53,
     "components": [
       {
@@ -24613,7 +24545,6 @@
     ]
   },
   {
-    "ringLocation": 27,
     "uniqueID": 54,
     "components": [
       {
@@ -25138,7 +25069,6 @@
     ]
   },
   {
-    "ringLocation": 28,
     "uniqueID": 55,
     "components": [
       {
@@ -25628,7 +25558,6 @@
     ]
   },
   {
-    "ringLocation": 28,
     "uniqueID": 56,
     "components": [
       {
@@ -26118,7 +26047,6 @@
     ]
   },
   {
-    "ringLocation": 29,
     "uniqueID": 57,
     "components": [
       {
@@ -26507,7 +26435,6 @@
     ]
   },
   {
-    "ringLocation": 29,
     "uniqueID": 58,
     "components": [
       {
@@ -26896,7 +26823,6 @@
     ]
   },
   {
-    "ringLocation": 30,
     "uniqueID": 59,
     "components": [
       {
@@ -27285,7 +27211,6 @@
     ]
   },
   {
-    "ringLocation": 30,
     "uniqueID": 60,
     "components": [
       {
@@ -27674,7 +27599,6 @@
     ]
   },
   {
-    "ringLocation": 31,
     "uniqueID": 61,
     "components": [
       {
@@ -28063,7 +27987,6 @@
     ]
   },
   {
-    "ringLocation": 31,
     "uniqueID": 62,
     "components": [
       {
@@ -28452,7 +28375,6 @@
     ]
   },
   {
-    "ringLocation": 32,
     "uniqueID": 63,
     "components": [
       {
@@ -28841,7 +28763,6 @@
     ]
   },
   {
-    "ringLocation": 32,
     "uniqueID": 64,
     "components": [
       {
@@ -29230,7 +29151,6 @@
     ]
   },
   {
-    "ringLocation": 33,
     "uniqueID": 65,
     "components": [
       {
@@ -29619,7 +29539,6 @@
     ]
   },
   {
-    "ringLocation": 33,
     "uniqueID": 66,
     "components": [
       {
@@ -30008,7 +29927,6 @@
     ]
   },
   {
-    "ringLocation": 34,
     "uniqueID": 67,
     "components": [
       {
@@ -30397,7 +30315,6 @@
     ]
   },
   {
-    "ringLocation": 34,
     "uniqueID": 68,
     "components": [
       {
@@ -30786,7 +30703,6 @@
     ]
   },
   {
-    "ringLocation": 35,
     "uniqueID": 69,
     "components": [
       {
@@ -31175,7 +31091,6 @@
     ]
   },
   {
-    "ringLocation": 35,
     "uniqueID": 70,
     "components": [
       {
@@ -31564,7 +31479,6 @@
     ]
   },
   {
-    "ringLocation": 36,
     "uniqueID": 71,
     "components": [
       {
@@ -31953,7 +31867,6 @@
     ]
   },
   {
-    "ringLocation": 36,
     "uniqueID": 72,
     "components": [
       {
@@ -32342,7 +32255,6 @@
     ]
   },
   {
-    "ringLocation": 37,
     "uniqueID": 73,
     "components": [
       {
@@ -32731,7 +32643,6 @@
     ]
   },
   {
-    "ringLocation": 37,
     "uniqueID": 74,
     "components": [
       {
@@ -33120,7 +33031,6 @@
     ]
   },
   {
-    "ringLocation": 38,
     "uniqueID": 75,
     "components": [
       {
@@ -33509,7 +33419,6 @@
     ]
   },
   {
-    "ringLocation": 38,
     "uniqueID": 76,
     "components": [
       {
@@ -33898,7 +33807,6 @@
     ]
   },
   {
-    "ringLocation": 39,
     "uniqueID": 77,
     "components": [
       {
@@ -34287,7 +34195,6 @@
     ]
   },
   {
-    "ringLocation": 39,
     "uniqueID": 78,
     "components": [
       {
@@ -34676,7 +34583,6 @@
     ]
   },
   {
-    "ringLocation": 40,
     "uniqueID": 79,
     "components": [
       {
@@ -35065,7 +34971,6 @@
     ]
   },
   {
-    "ringLocation": 40,
     "uniqueID": 80,
     "components": [
       {
@@ -35454,7 +35359,6 @@
     ]
   },
   {
-    "ringLocation": 0,
     "uniqueID": 81,
     "components": [
       {

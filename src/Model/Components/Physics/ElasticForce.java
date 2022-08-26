@@ -4,7 +4,6 @@ import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ForceVector.ForceType;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-
 public class ElasticForce extends SpringForce{
 
     @Override

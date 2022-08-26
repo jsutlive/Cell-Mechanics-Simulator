@@ -15,7 +15,7 @@ import java.util.ConcurrentModificationException;
 public class RunState extends State
 {
     MonoBehavior model;
-
+    int count = 0;
     /**
      * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
      * @throws InstantiationException fails to create object
@@ -30,9 +30,9 @@ public class RunState extends State
         for(MonoBehavior obj: allObjects){
             obj.start();
         }
+        saveInitial();
     }
 
-    boolean flag = true;
     /**
      * Physics Loop. All physics objects updated here
      */
@@ -43,7 +43,10 @@ public class RunState extends State
             obj.update();
             obj.lateUpdate();
         }
-        save();
+        if(count%100 == 0) {
+            save();
+        }
+        count++;
     }
 
     /**
@@ -61,9 +64,5 @@ public class RunState extends State
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
-        /*for (Node n: Simulation.FORCE_HISTORY.keySet()) {
-            Painter.drawForce(n, Simulation.FORCE_HISTORY.get(n));
-        }*/
-        Simulation.FORCE_HISTORY.clear();
     }
 }
