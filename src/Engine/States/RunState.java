@@ -35,6 +35,10 @@ public class RunState extends State
         for(MonoBehavior obj: allObjects){
             obj.start();
         }
+        for(float f: Model.apicalGradient.getRatios()){
+            System.out.println(f);
+        }
+
     }
 
     boolean flag = true;

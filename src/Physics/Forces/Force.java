@@ -120,6 +120,7 @@ public class Force
 
         float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea());
 
+
         List<Edge> edges = cell.getEdges();
         for(Edge edge : edges){
             Node[] nodes = edge.getNodes();
@@ -127,12 +128,11 @@ public class Force
             Node node2 = nodes[1];
 
             Vector2f edgeNormalVector = CustomMath.normal(edge);
-             edgeNormalVector.mul(forceMagnitude * 0.05f);
+             edgeNormalVector.mul(forceMagnitude);
 //            edgeNormalVector.mul(-constant);
             
             //multiplies the edgeNormal by the length
             //logically if an edge is larger, there is more force pushing on it
-            // edgeNormalVector.mul(edge.getLength());
             edgeNormalVector.mul(edge.getLength());
 
             node1.AddForceVector(edgeNormalVector);

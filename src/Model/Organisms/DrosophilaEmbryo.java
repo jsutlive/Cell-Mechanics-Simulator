@@ -42,7 +42,7 @@ public class DrosophilaEmbryo implements  IOrganism {
         if(Model.apicalGradient!=null) {
             Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
                     100.5f, 0.99f,
-                    0.1f, .5f);
+                    50f, 0.5f);
         }
         allNodes.clear();
         for(Cell cell: allCells)

@@ -29,8 +29,8 @@ public class ApicalConstrictingCell extends Cell
                                     
     public ApicalConstrictingCell()
     {
-        //internalConstantOverride = .15f;
-        //elasticConstantOverride = .15f;
+        internalConstantOverride = .15f;
+        elasticConstantOverride = .15f;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ApicalConstrictingCell extends Cell
         for(Edge edge: edges){
             edge.setElasticConstant(elasticConstantOverride);
             if(edge instanceof ApicalEdge){
-                edge.setElasticConstant(0.15f);
+                edge.setElasticConstant(0.01f);
             }
         }
         for (Edge edge: internalEdges){

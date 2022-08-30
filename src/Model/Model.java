@@ -1,6 +1,7 @@
 package Model;
 
 import Engine.Object.MonoBehavior;
+import Engine.Timer.Time;
 import Model.Cells.*;
 import Model.Organisms.*;
 import Physics.Forces.*;
@@ -40,7 +41,7 @@ public class Model extends MonoBehavior
      */
     @Override
     public void awake() throws InstantiationException, IllegalAccessException {
-        apicalGradient = new GaussianGradient(0f, 0.8f);
+        apicalGradient = new GaussianGradient(0f, 1000f);
         organism.generateOrganism();
 
         setCellColors();
