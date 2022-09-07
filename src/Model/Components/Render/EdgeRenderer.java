@@ -35,7 +35,7 @@ public class EdgeRenderer extends ObjectRenderer {
     }
 
     @Override
-    public void init() {
+    public void awake() {
         State.setFlagToRender(parent);
         edge = (EdgeMono) parent;
     }

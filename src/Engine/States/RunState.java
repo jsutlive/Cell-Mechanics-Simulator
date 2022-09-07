@@ -61,9 +61,6 @@ public class RunState extends State
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
-        /*for (Node n: Simulation.FORCE_HISTORY.keySet()) {
-            Painter.drawForce(n, Simulation.FORCE_HISTORY.get(n));
-        }*/
-        Simulation.FORCE_HISTORY.clear();
+
     }
 }

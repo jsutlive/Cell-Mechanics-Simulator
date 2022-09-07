@@ -8,8 +8,8 @@ import Physics.Rigidbodies.Node;
 public class ElasticForce extends SpringForce{
 
     @Override
-    public void setup() {
-        edges = parent.getComponent(CellMesh.class).edges;
+    public void awake() {
+        edges = getComponent(CellMesh.class).edges;
         targetLengthRatio = 1;
         forceVector.setType(ForceType.elastic);
     }

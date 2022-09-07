@@ -1,5 +1,7 @@
 package Utilities.Geometry;
 
+import Utilities.Math.CustomMath;
+
 import java.util.Vector;
 
 public class Vector2f
@@ -90,6 +92,12 @@ public class Vector2f
     public static float dist(Vector2f a, Vector2f b){
         return (float)Math.hypot(b.x -a.x, b.y - a.y);
     }
+
+    public static float sqDist(Vector2f a, Vector2f b){
+        float dist = CustomMath.sq(a.x - b.x) + CustomMath.sq(a.y - b.y);
+        return dist;
+    }
+
 
     public float mag() {return(float)Math.sqrt(x*x + y*y);}
 

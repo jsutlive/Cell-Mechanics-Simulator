@@ -5,10 +5,13 @@ import Engine.States.State;
 import Engine.Timer.Time;
 import Input.Input;
 import Model.Components.Component;
+import Model.Components.Physics.ForceVector.CellRingCollider;
 import Physics.Rigidbodies.Node;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -16,10 +19,23 @@ import java.util.HashMap;
 
 public class Simulation implements Runnable
 {
-    //TODO: Method that is NOT THIS for recording forces
     public static HashMap<Node, Vector2f> FORCE_HISTORY = new HashMap<>();
 
-    public static Gson gson = new GsonBuilder().setPrettyPrinting().registerTypeAdapter(Component.class, new ComponentSerializer()).create();
+    static ExclusionStrategy e = new ExclusionStrategy() {
+        @Override
+        public boolean shouldSkipField(FieldAttributes fieldAttributes) {
+            return false;
+        }
+
+        @Override
+        public boolean shouldSkipClass(Class<?> aClass) {
+            return aClass.isAssignableFrom(CellRingCollider.class);
+        }
+    };
+
+    public static Gson gson = new GsonBuilder().setPrettyPrinting().
+            registerTypeAdapter(Component.class, new ComponentSerializer()).
+            setExclusionStrategies(e).create();
 
     public static float TIMESTEP = 1e-1f;
     // rendering system reference

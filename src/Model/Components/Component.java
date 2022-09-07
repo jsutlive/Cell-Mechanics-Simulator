@@ -20,12 +20,22 @@ public abstract class Component implements IBehavior {
         return type.isInstance(parent) ? type.cast(parent) : null;
     }
 
-    public void awake(){init();}
-    public abstract void init();
+    /**
+     * Same as monobehavior "getComponent", used here to make calls more concise in code
+     * @param componentClass component class to be return
+     * @param <T> a subtype of component
+     * @return a given component from this object
+     */
+    protected <T extends Component> T getComponent(Class <T> componentClass){
+        return parent.getComponent(componentClass);
+    }
+
+    public void awake(){}
     public void start(){}
     public void update(){}
     public void earlyUpdate(){}
     public void lateUpdate(){}
+    public void onDestroy(){}
 
 
 }

@@ -2,7 +2,6 @@ package Engine.Object;
 
 import Engine.States.State;
 import Model.Components.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +35,7 @@ public abstract class MonoBehavior implements IBehavior
    public void update() {for (Component c: components) c.update();}
    public void lateUpdate(){for(Component c: components)c.lateUpdate();}
    public void earlyUpdate(){for (Component c: components) c.earlyUpdate();}
+   public void onDestroy(){for (Component c: components) c.onDestroy();}
 
    /**
     * Removes the object and its references from the current state
@@ -45,10 +45,20 @@ public abstract class MonoBehavior implements IBehavior
       State.destroy(this);
    }
 
-   public void addComponent(Component c){
+   /**
+    * Adds a component to this object
+    * @param c component
+    * @param <T> type of component
+    * @return the component (if needed for immediate access)
+    */
+   public <T extends Component> T addComponent(Component c){
+      if(!Component.class.isAssignableFrom(c.getClass())){
+         throw new IllegalArgumentException("Object not instance of component");
+      }
       components.add(c);
       c.setParent(this);
-      c.init();
+      c.awake();
+      return (T) c;
    }
 
    public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -62,7 +72,6 @@ public abstract class MonoBehavior implements IBehavior
             }
          }
       }
-
       return null;
    }
 

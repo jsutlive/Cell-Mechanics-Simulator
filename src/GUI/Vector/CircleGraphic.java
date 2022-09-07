@@ -1,7 +1,6 @@
 package GUI.Vector;
 
 import GUI.Painter;
-import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 
 import java.awt.*;

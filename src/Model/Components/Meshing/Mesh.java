@@ -24,11 +24,6 @@ public abstract class Mesh extends Component {
         return edges.contains(e);
     }
 
-    @Override
-    public void init(){
-
-    }
-
     public float getArea(){return area;}
 
     protected void calculateArea(){
