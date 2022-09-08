@@ -5,12 +5,12 @@ import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.Gauss;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Mesh extends Component {
-
     public List<Node> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 

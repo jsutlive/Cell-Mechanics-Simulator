@@ -4,6 +4,7 @@ import Data.LogData;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
+import com.google.gson.annotations.Expose;
 
 import java.util.ArrayList;
 import java.util.List;
