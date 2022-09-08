@@ -39,7 +39,7 @@ public class OsmosisForce extends Force {
     }
 
     @Override
-    public void setup() {
+    public void awake() {
         this.edges = parent.getComponent(CellMesh.class).edges;
         initialArea = parent.getComponent(CellMesh.class).getRestingArea();
         forceVector.setType(ForceType.osmosis);

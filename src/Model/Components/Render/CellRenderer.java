@@ -19,7 +19,7 @@ public class CellRenderer extends ObjectRenderer
     private Color color = Painter.DEFAULT_COLOR;
 
     @Override
-    public void init() {
+    public void awake() {
         State.setFlagToRender(parent);
         cellMesh = parent.getComponent(CellMesh.class);
     }

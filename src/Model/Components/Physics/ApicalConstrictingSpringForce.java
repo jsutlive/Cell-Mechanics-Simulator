@@ -14,7 +14,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
     private Gradient apicalGradient = new GaussianGradient(0f, 0.8f);
 
     @Override
-    public void setup() {
+    public void awake() {
         forceVector.setType(ForceType.apicalConstriction);
         CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);

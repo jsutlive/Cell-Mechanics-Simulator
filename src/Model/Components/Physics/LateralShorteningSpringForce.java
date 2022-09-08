@@ -24,7 +24,7 @@ public class LateralShorteningSpringForce extends SpringForce{
 
 
     @Override
-    public void setup() {
+    public void awake() {
         forceVector.setType(ForceType.lateralConstriction);
         CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof LateralEdge) edges.add(edge);

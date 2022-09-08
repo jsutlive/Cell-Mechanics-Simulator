@@ -31,5 +31,8 @@ public interface IBehavior
      */
     void earlyUpdate();
 
-
+    /**
+     * This method is called just prior to this object's destruction
+     */
+    void onDestroy();
 }

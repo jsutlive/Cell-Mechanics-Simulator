@@ -170,7 +170,6 @@ public class CustomMath {
         flipped.y = unit.x;
         return flipped;
     }
-
     /**
      * return perpendicular distance squared to an edge from a node
      * @param n a given node in space

@@ -21,31 +21,8 @@ public class Collider extends Force {
 
     @Override
     public void update() {
-        for(Cell cell: cells){
-            CellMesh mesh = cell.getComponent(CellMesh.class);
-            for(Node node: nodes){
-                if(mesh.collidesWithNode(node) && !mesh.contains(node)){
-                    for(Edge e: mesh.edges){
-                        if(e instanceof ApicalEdge && ! e.contains(node)){
-                            forceVector.set(CustomMath.normal(e));
 
-                            e.addForceVector(forceVector);
-                            node.addForceVector(forceVector.mul(-2));
-                        }
-                        if(e instanceof BasalEdge && ! e.contains(node)){
-                            forceVector.set(CustomMath.normal(e));
-                            node.addForceVector(forceVector.mul(-2));
-                        }
-                    }
-                }
-            }
-        }
     }
 
-    @Override
-    public void setup() {
-        cells = getParentAs(DrosophilaRingModel.class).allCells;
-        nodes = getParentAs(DrosophilaRingModel.class).allNodes;
-        forceVector.setType(ForceType.collision);
-    }
+
 }
