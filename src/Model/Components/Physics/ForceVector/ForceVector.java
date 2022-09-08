@@ -22,4 +22,8 @@ public class ForceVector extends Vector2f {
         fvneg.y = this.y*-1;
         return fvneg;
     }
+
+    public void reset(){
+        set(Vector2f.zero);
+    }
 }

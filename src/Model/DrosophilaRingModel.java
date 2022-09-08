@@ -65,11 +65,6 @@ public class DrosophilaRingModel extends MonoBehavior {
 
     public void generateOrganism() throws InstantiationException, IllegalAccessException {
         generateTissueRing();
-        if(Model.apicalGradient!=null) {
-            Model.apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                    100.5f, 0.001f,
-                    40.1f, .3f);
-        }
         ringMesh.nodes.clear();
         for(Cell cell: ringMesh.cellList)
         {

@@ -1,19 +1,19 @@
 package Model.Components.Physics.ForceVector;
 
+import Data.LogOnce;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Force;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
-import com.sun.tools.internal.xjc.reader.Ring;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@LogOnce
 public class CellRingCollider extends Force {
     transient List<Cell> cells;
     transient List<Node> nodes;
@@ -22,6 +22,7 @@ public class CellRingCollider extends Force {
     @Override
     public void awake() {
         forceVector.setType(ForceType.collision);
+        forceVector.reset();
         bothRings = new ArrayList<>(getComponent(RingMesh.class).innerNodes);
         bothRings.addAll(getComponent(RingMesh.class).outerNodes);
         cells = getComponent(RingMesh.class).cellList;
@@ -29,37 +30,41 @@ public class CellRingCollider extends Force {
     }
 
     @Override
-    public void update() {
+    public void earlyUpdate() {
         checkCollision();
+        forceVector.reset();
     }
-    private void checkCollision() {
-        forceVector.set(Vector2f.zero);
-        for (Cell cell : cells) {
+    private void checkCollision(){
+        for(Cell cell: cells){
             CellMesh mesh = cell.getComponent(CellMesh.class);
-            for (Node node : nodes) {
+            for(Node node: nodes){
                 float minDist = Float.POSITIVE_INFINITY;
                 Edge closestEdge = null;
+                Vector2f closestPoint = null;
                 Vector2f nodePosition = node.getPosition();
-                if (mesh.collidesWithNode(node) && !mesh.contains(node)) {
-                    for (Edge e : mesh.edges) {
-                        if (e.contains(node)) {
-                            continue;
-                        }
-                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-                        float dist = Vector2f.sqDist(nodePosition, closePoint);
-                        if (dist < minDist) {
+                if(mesh.collidesWithNode(node) && mesh.contains(node)){
+                    for(Edge e: mesh.edges) {
+                        if(e.contains(node)){continue;}
+                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
+                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+                        if(dist < minDist){
                             minDist = dist;
                             closestEdge = e;
+                            closestPoint = closePoint;
                         }
                     }
-                    if (closestEdge != null) {
-                        forceVector.set(CustomMath.normal(closestEdge));
-                        if(forceVector.isNull()) forceVector.set(Vector2f.zero);
+                    if(closestEdge != null){
+                        ForceVector temp = new ForceVector();
+                        temp.setType(ForceType.collision);
+                        temp.reset();
+//                        node.getPosition().x = closestPoint.x;
+//                        node.getPosition().y = closestPoint.y;
+                        temp.set(CustomMath.normal(closestEdge));
                         Node[] nodes = closestEdge.getNodes();
-                        nodes[0].addForceVector(forceVector);
-                        nodes[1].addForceVector(forceVector);
-                        forceVector.mul(-2);
-                        node.addForceVector(forceVector);
+                        nodes[0].addForceVector(temp);
+                        nodes[1].addForceVector(temp);
+                        temp.mul(-2);
+                        node.addForceVector(temp);
                     }
                 }
             }

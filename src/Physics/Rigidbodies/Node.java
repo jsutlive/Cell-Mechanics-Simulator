@@ -70,6 +70,9 @@ public class Node implements IRigidbody {
      */
     @Override
     public void addForceVector(ForceVector forceVector) {
+        if(forceVector.isNull()){
+            return;
+        }
         forceVectors.add(forceVector);
         resultantForce.add(forceVector);
     }

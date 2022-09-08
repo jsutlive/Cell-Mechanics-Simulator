@@ -1,16 +1,14 @@
 package Model.Components.Physics;
 
-import Model.Cells.Cell;
-import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ForceVector.ForceVector;
 import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpringForce extends Force{
+    // The resting length may not be the initial length of the spring. What percentage
+    // of the initial length is the target?
     protected float targetLengthRatio;
     public List<Edge> edges = new ArrayList<>();
 
@@ -19,6 +17,14 @@ public abstract class SpringForce extends Force{
         targetLengthRatio = ratio;
     }
 
+    /**
+     * Return Hooke's law calculation of spring force to extend or contract an edge.
+     * Hooke's law: y = -k * (l - leq);
+     * This implementation: y = k * (l - (l0 * targetLength));
+     * where k is the spring constant, l , leq, and l0 are length, resting length, andf initial length, respectively.
+     * @param edge edge to be constricted/ extended
+     * @param constant the "k" value in Hooke's law
+     */
     protected void calculateSpringForce(Edge edge, float constant) {
         // Hooke's law calculation to get force magnitude
         float forceMag = constant * (edge.getLength() - (targetLengthRatio * edge.getInitialLength()));
