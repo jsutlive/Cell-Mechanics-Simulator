@@ -40,7 +40,11 @@ public class RunState extends State
     public void Tick() {
         for(MonoBehavior obj : allObjects){
             obj.earlyUpdate();
+        }
+        for(MonoBehavior obj : allObjects){
             obj.update();
+        }
+        for(MonoBehavior obj : allObjects){
             obj.lateUpdate();
         }
 

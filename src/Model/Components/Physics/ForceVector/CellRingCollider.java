@@ -30,11 +30,11 @@ public class CellRingCollider extends Force {
     }
 
     @Override
-    public void earlyUpdate() {
+    public void lateUpdate() {
         checkCollision();
         forceVector.reset();
     }
-    private void checkCollision(){
+    private void checkCollision() {
         for(Cell cell: cells){
             CellMesh mesh = cell.getComponent(CellMesh.class);
             for(Node node: nodes){
@@ -42,7 +42,7 @@ public class CellRingCollider extends Force {
                 Edge closestEdge = null;
                 Vector2f closestPoint = null;
                 Vector2f nodePosition = node.getPosition();
-                if(mesh.collidesWithNode(node) && mesh.contains(node)){
+                if(mesh.collidesWithNode(node) && !mesh.contains(node)){
                     for(Edge e: mesh.edges) {
                         if(e.contains(node)){continue;}
                         Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
@@ -54,21 +54,20 @@ public class CellRingCollider extends Force {
                         }
                     }
                     if(closestEdge != null){
-                        ForceVector temp = new ForceVector();
-                        temp.setType(ForceType.collision);
-                        temp.reset();
 //                        node.getPosition().x = closestPoint.x;
 //                        node.getPosition().y = closestPoint.y;
-                        temp.set(CustomMath.normal(closestEdge));
+                        forceVector.set(CustomMath.normal(closestEdge));
                         Node[] nodes = closestEdge.getNodes();
-                        nodes[0].addForceVector(temp);
-                        nodes[1].addForceVector(temp);
-                        temp.mul(-2);
-                        node.addForceVector(temp);
+                        nodes[0].addForceVector(forceVector);
+                        nodes[1].addForceVector(forceVector);
+                        forceVector.mul(-2);
+                        node.addForceVector(forceVector);
                     }
                 }
             }
         }
+
+
     }
 
     /**

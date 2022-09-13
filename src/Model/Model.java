@@ -59,11 +59,6 @@ public class Model extends MonoBehavior
 
     }
 
-
-    public void printCells(){
-        // pick specific cells to print using cell.print() to debug using this function
-    }
-
     @Override
     public void start() {
         for(Cell cell : organism.getAllCells()) {

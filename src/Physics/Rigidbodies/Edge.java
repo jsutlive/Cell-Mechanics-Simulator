@@ -68,8 +68,8 @@ public abstract class Edge implements IRigidbody, IColor
     public Vector2f[] getPositions(){
         Vector2f[] positions = new Vector2f[2];
         try {
-            positions[0] = nodes[0].getPosition();
-            positions[1] = nodes[1].getPosition();
+            positions[0] = nodes[0].getPosition().copy();
+            positions[1] = nodes[1].getPosition().copy();
         }catch(NullPointerException e)
         {
             System.out.println("One or both nodes in edge is null, cannot determine position.");

@@ -45,12 +45,12 @@ public class CellMesh extends Mesh{
         //if the num of intersections is even, then it is outside, else it is inside
         //because if a point crosses the shape a total of a even amount of times, then it
         // must have entered inside then exited again.
-        Vector2f nodePos = n.getPosition();
+        Vector2f nodePos = n.getPosition().copy();
         int intersections = 0;
         for(Edge edge: edges){
             Vector2f[] positions = edge.getPositions();
-            Vector2f p1 = positions[0].sub(nodePos);
-            Vector2f p2 = positions[1].sub(nodePos);
+            Vector2f p1 = positions[0].sub(nodePos).copy();
+            Vector2f p2 = positions[1].sub(nodePos).copy();
 
             //if they are both on same side of the y-axis, it doesn't intersect
             if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}

@@ -5,7 +5,7 @@ import Engine.Simulation;
 public class BasicEdge extends Edge{
     public BasicEdge(Node a, Node b)
     {
-        elasticConstant = .05f;
+        elasticConstant = .25f;
         MakeNewEdge(a, b);
         isNull = false;
     }
