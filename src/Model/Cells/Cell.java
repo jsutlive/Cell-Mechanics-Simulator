@@ -4,6 +4,7 @@ import Data.LogData;
 import Engine.Object.MonoBehavior;
 import Engine.States.State;
 import Model.Components.Component;
+import Model.Components.Lattice.Lattice;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ApicalConstrictingSpringForce;
 import Model.Components.Physics.ElasticForce;
@@ -33,14 +34,15 @@ public class Cell extends MonoBehavior {
     }
 
     /**
-     * Add components here that are needed for all cells. This includes more generic forces
+     * Add components here that are needed for all cells. This includes meshing
      * and the rendering mechanism.
-     * In each unique cell type's awake method, configure type-specific physics and characteristics.
+     * In each unique cell type's start method, configure type-specific physics and characteristics.
      */
     @Override
     public void awake(){
         addComponent(new CellMesh());
         addComponent(new CellRenderer());
+        addComponent(new Lattice());
     }
 }
 

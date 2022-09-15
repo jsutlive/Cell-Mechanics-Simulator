@@ -30,7 +30,7 @@ public class RunState extends State
         for(MonoBehavior obj: allObjects){
             obj.start();
         }
-        //saveInitial();
+        saveInitial();
     }
 
     /**
@@ -49,7 +49,7 @@ public class RunState extends State
         }
 
         if(count%100 == 0) {
-            //save();
+            save();
         }
         count++;
     }

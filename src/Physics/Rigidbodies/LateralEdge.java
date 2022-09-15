@@ -13,7 +13,7 @@ public class LateralEdge extends Edge{
     public LateralEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
-        elasticConstant = .35f;
+        elasticConstant = .95f;
         isNull = false;
 
     }

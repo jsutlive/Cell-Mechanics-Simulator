@@ -40,7 +40,7 @@ public class Input extends JFrame implements KeyListener {
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(10);
         timestepSlider.setPaintTicks(true);
-        timestepSlider.addChangeListener(e -> Simulation.TIMESTEP = timestepSlider.getValue() / 100f);
+        timestepSlider.addChangeListener(e -> Simulation.TIMESTEP = timestepSlider.getValue() / 1000f);
         panel.add(timestepLabel);
         panel.add(timestepSlider);
         _instance = this;

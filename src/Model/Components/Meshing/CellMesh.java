@@ -6,9 +6,6 @@ import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import com.google.gson.annotations.Expose;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * CellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
  * Can be used to determine collision boundaries, etc.
@@ -49,8 +46,8 @@ public class CellMesh extends Mesh{
         int intersections = 0;
         for(Edge edge: edges){
             Vector2f[] positions = edge.getPositions();
-            Vector2f p1 = positions[0].sub(nodePos).copy();
-            Vector2f p2 = positions[1].sub(nodePos).copy();
+            Vector2f p1 = positions[0].sub(nodePos);
+            Vector2f p2 = positions[1].sub(nodePos);
 
             //if they are both on same side of the y-axis, it doesn't intersect
             if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}

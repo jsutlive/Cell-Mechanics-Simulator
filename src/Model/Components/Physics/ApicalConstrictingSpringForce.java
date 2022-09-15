@@ -23,7 +23,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
         apicalGradient.calculate(10,
                 .4f, .01f,
                 .1f, .05f);
-        setTargetLengthRatio(apicalGradient.getRatios()[1]);
+        setTargetLengthRatio(.001f);
 
     }
 
@@ -32,7 +32,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
         for(Edge edge: edges){
             Node[] nodes = edge.getNodes();
             Cell cell = getParentAs(Cell.class);
-            calculateSpringForce(edge, apicalGradient.getConstants()[0]);
+            calculateSpringForce(edge, 2);
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());
         }
