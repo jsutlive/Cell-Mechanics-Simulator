@@ -2,8 +2,10 @@ package Model.Cells;
 
 import Data.LogData;
 import Engine.States.State;
+import Model.Components.Lattice.Lattice;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.InternalElasticForce;
 import Model.Components.Physics.LateralShorteningSpringForce;
 import Model.Components.Physics.OsmosisForce;
 import Model.Components.Render.CellRenderer;
@@ -20,10 +22,11 @@ public class ShorteningCell extends Cell{
         addComponent(new ElasticForce());
         addComponent(new LateralShorteningSpringForce());
         addComponent(new OsmosisForce());
+        addComponent(new InternalElasticForce());
         getComponent(CellRenderer.class).setColor(Color.BLUE);
     }
 
-    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
+    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) {
         Cell cell = State.create(ShorteningCell.class);
         List<Edge> edges = new ArrayList<>();
 
@@ -52,6 +55,7 @@ public class ShorteningCell extends Cell{
         }
         cell.getComponent(CellMesh.class).nodes = nodes;
         cell.getComponent(CellMesh.class).edges = edges;
+        cell.getComponent(Lattice.class).buildLattice();
         return cell;
     }
 

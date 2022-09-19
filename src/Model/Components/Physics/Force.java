@@ -5,5 +5,5 @@ import Model.Components.Physics.ForceVector.ForceVector;
 
 public abstract class Force extends Component {
 
-    protected transient ForceVector forceVector = new ForceVector();
+    public transient ForceVector forceVector = new ForceVector();
 }

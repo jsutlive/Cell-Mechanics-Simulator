@@ -14,6 +14,7 @@ public abstract class Mesh extends Component {
     public List<Node> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 
+    protected transient float restingArea;
     protected float area;
     private Vector2f centroid;
 
@@ -24,10 +25,17 @@ public abstract class Mesh extends Component {
         return edges.contains(e);
     }
 
-    public float getArea(){return area;}
+    public float getArea(){
+        calculateArea();
+        return area;
+    }
 
     protected void calculateArea(){
         area = Gauss.nShoelace(nodes);
+        if(restingArea == 0)restingArea = area;
+    }
+    public float getRestingArea(){
+        return restingArea;
     }
 
     private void calculateCentroid(){

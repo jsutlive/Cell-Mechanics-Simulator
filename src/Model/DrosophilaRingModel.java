@@ -1,17 +1,19 @@
 package Model;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.States.State;
 import GUI.Vector.CircleGraphic;
 import Model.Cells.*;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
-import Model.Components.Physics.Collider;
 import Model.Components.Physics.ForceVector.CellRingCollider;
+import Physics.Forces.GaussianGradient;
+import Physics.Forces.Gradient;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
 import Utilities.Math.CustomMath;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrosophilaRingModel extends MonoBehavior {
+public class DrosophilaRingModel extends Entity {
 
     int lateralResolution = 4;
 
@@ -36,13 +38,14 @@ public class DrosophilaRingModel extends MonoBehavior {
     float innerRadius = 200;
 
     public transient RingMesh ringMesh;
+    public Gradient apicalGradient;
     private transient List<Edge> basalEdges = new ArrayList<>();
     private transient List<Edge> apicalEdges = new ArrayList<>();
     private final Vector2i boundingBox = new Vector2i(800);
 
 
     @Override
-    public void awake() throws InstantiationException, IllegalAccessException {
+    public void awake() throws InstantiationException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
@@ -56,6 +59,10 @@ public class DrosophilaRingModel extends MonoBehavior {
 
         Yolk.build(yolkNodes, basalEdges);
         ringMesh.innerNodes.addAll(yolkNodes);
+        apicalGradient = new GaussianGradient(0f, 1.1f);
+        apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
+                10.4f, .01f,
+                .1f, .1f);
     }
 
     @Override
@@ -63,7 +70,7 @@ public class DrosophilaRingModel extends MonoBehavior {
         addComponent(new CellRingCollider());
     }
 
-    public void generateOrganism() throws InstantiationException, IllegalAccessException {
+    public void generateOrganism() throws InstantiationException {
         generateTissueRing();
         ringMesh.nodes.clear();
         for(Cell cell: ringMesh.cellList)
@@ -87,7 +94,7 @@ public class DrosophilaRingModel extends MonoBehavior {
 
     }
 
-    private void generateTissueRing() throws InstantiationException, IllegalAccessException {
+    private void generateTissueRing() {
         Vector2f position, unitVector;
         ArrayList<Cell> mirroredCells = new ArrayList<>();
 
@@ -228,5 +235,21 @@ public class DrosophilaRingModel extends MonoBehavior {
     private float getRadiusToNode(int j) {
         float radiusStep = (innerRadius - outerRadius) / lateralResolution;
         return outerRadius +  radiusStep * j;
+    }
+
+    @Override
+    public void earlyUpdate() {
+       checkNodesWithinBoundary(getComponent(RingMesh.class).nodes);
+    }
+
+    private void checkNodesWithinBoundary(List<Node> allNodes) {
+        for(Node node: allNodes)
+        {
+            if(!Boundary.ContainsNode(node, new Vector2f(400), outerRadius))
+            {
+                Boundary.clampNodeToBoundary(node, new Vector2f(400), outerRadius);
+            }
+
+        }
     }
 }

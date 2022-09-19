@@ -1,6 +1,6 @@
 package Model;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.States.State;
 import Model.Components.Physics.ApicalConstrictingSpringForce;
 import Model.Components.Physics.ElasticForce;
@@ -14,7 +14,7 @@ import java.awt.*;
  * Uses a specialized renderer.
  * Used for debugging purposes.
  */
-public class EdgeMono extends MonoBehavior {
+public class EdgeMono extends Entity {
 
     private Edge edge;
 

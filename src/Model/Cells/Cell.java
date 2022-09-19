@@ -1,27 +1,11 @@
 package Model.Cells;
 
-import Data.LogData;
-import Engine.Object.MonoBehavior;
-import Engine.States.State;
-import Model.Components.Component;
+import Engine.Object.Entity;
 import Model.Components.Lattice.Lattice;
 import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ApicalConstrictingSpringForce;
-import Model.Components.Physics.ElasticForce;
 import Model.Components.Render.CellRenderer;
-import Physics.Forces.Force;
-import Physics.Rigidbodies.*;
-import Utilities.Geometry.Corner;
-import Utilities.Geometry.Geometry;
-import Utilities.Geometry.Vector2f;
-import Utilities.Math.Gauss;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-
-public class Cell extends MonoBehavior {
+public class Cell extends Entity {
     public transient int ringLocation;
     public transient int id;
     public int getId() {return id;}

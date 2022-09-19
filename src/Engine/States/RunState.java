@@ -1,20 +1,16 @@
 package Engine.States;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.Object.Tag;
-import Engine.Simulation;
 import GUI.IRender;
-import GUI.Painter;
 import Model.*;
-import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2i;
 
-import java.awt.*;
 import java.util.ConcurrentModificationException;
 
 public class RunState extends State
 {
-    MonoBehavior model;
+    boolean isChangingState = false;
+    Entity model;
     int count = 0;
     /**
      * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
@@ -27,10 +23,10 @@ public class RunState extends State
         if(model == null) {
             model = State.create(Model.class);
         }
-        for(MonoBehavior obj: allObjects){
+        for(Entity obj: allObjects){
             obj.start();
         }
-        saveInitial();
+        //saveInitial();
     }
 
     /**
@@ -38,18 +34,21 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
-        for(MonoBehavior obj : allObjects){
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
             obj.earlyUpdate();
         }
-        for(MonoBehavior obj : allObjects){
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
             obj.update();
         }
-        for(MonoBehavior obj : allObjects){
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
             obj.lateUpdate();
         }
 
         if(count%100 == 0) {
-            save();
+            //save();
         }
         count++;
     }
@@ -64,10 +63,16 @@ public class RunState extends State
         try {
             for(IRender rend: renderBatch)
             {
+                if(isChangingState) return;
                 rend.render();
             }
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
+    }
+
+    void OnChangeState()
+    {
+        isChangingState = true;
     }
 }

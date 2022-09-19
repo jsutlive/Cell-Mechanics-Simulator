@@ -1,6 +1,6 @@
 package Engine.States;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.Object.Tag;
 import Engine.Simulation;
 import Engine.Timer.Time;
@@ -28,8 +28,8 @@ public abstract class State
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
     public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
 
-    protected static List<MonoBehavior> allObjects = new ArrayList<>();
-    protected static List<IRender> renderBatch = new ArrayList<>();
+    protected List<Entity> allObjects = new ArrayList<>();
+    protected List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
     /**
@@ -39,21 +39,34 @@ public abstract class State
      * @throws IllegalAccessException
      */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
+        List<Entity> currentObjects = new ArrayList<>();
+        List<IRender> renderBatch = new ArrayList<>();
+        if(state!= null) {
+            currentObjects = state.allObjects;
+            renderBatch = state.renderBatch;
+        }
         if(state == null || state instanceof RunState)
         {
+            if(state!= null) {
+                state.OnChangeState();
+                state.allObjects = currentObjects;
+                state.renderBatch = renderBatch;
+            }
             SetState(new EditorState());
         }
         else
         {
             SetState(new RunState());
+            state.allObjects = currentObjects;
+            state.renderBatch = renderBatch;
         }
         Time.reset();
         GetState().Init();
     }
 
     protected static void reset() {
-        renderBatch.clear();
-        allObjects.clear();
+        state.renderBatch.clear();
+        state.allObjects.clear();
         physicsThreads.clear();
     }
 
@@ -71,23 +84,26 @@ public abstract class State
 
     /**
      * Base method to create an object and assign it to the given state
-     * @param type a MonoBehavior class to create an instance of
-     * @param <T> type of MonoBehavior class
+     * @param type a Entity class to create an instance of
+     * @param <T> type of Entity class
      * @return
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    public static <T extends MonoBehavior> T create(Class<T> type)
-            throws InstantiationException, IllegalAccessException {
-        if(!MonoBehavior.class.isAssignableFrom(type)) {
-            throw new IllegalArgumentException("Class not assignable from MonoBehavior");
+    public static <T extends Entity> T create(Class<T> type) {
+        if(!Entity.class.isAssignableFrom(type)) {
+            throw new IllegalArgumentException("Class not assignable from Entity");
         }
-        MonoBehavior mono = MonoBehavior.createObject(type);
-        MonoBehavior.setGlobalID(mono);
-        allObjects.add(mono);
-        mono.awake();
-
-        return type.cast(mono);
+        Entity obj = Entity.createObject(type);
+        Entity.setGlobalID(obj);
+        state.allObjects.add(obj);
+        try {
+            obj.awake();
+        }
+        catch(InstantiationException e){
+            e.printStackTrace();
+        }
+        return type.cast(obj);
     }
 
     /**
@@ -95,9 +111,9 @@ public abstract class State
      * @param tag
      * @return
      */
-    public static MonoBehavior findObjectWithTag(Tag tag)
+    public static Entity findObjectWithTag(Tag tag)
     {
-        for (MonoBehavior mono: allObjects) {
+        for (Entity mono: state.allObjects) {
             if(mono.getTag() == tag) return mono;
         }
         return null;
@@ -109,11 +125,11 @@ public abstract class State
      * @param <T>
      * @return
      */
-    public static <T extends MonoBehavior>T findObjectOfType(Class<T> type){
-        for(MonoBehavior mono: allObjects){
-            if(type.isAssignableFrom(mono.getClass())){
+    public static <T extends Entity>T findObjectOfType(Class<T> type){
+        for(Entity obj: state.allObjects){
+            if(type.isAssignableFrom(obj.getClass())){
                 try {
-                    return type.cast(mono);
+                    return type.cast(obj);
                 } catch (ClassCastException e) {
                     e.printStackTrace();
                     assert false : "Error: Casting component.";
@@ -123,10 +139,10 @@ public abstract class State
         return null;
     }
 
-    public static void setFlagToRender(MonoBehavior mono)
+    public static void setFlagToRender(Entity mono)
     {
         IRender rend = mono.getComponent(ObjectRenderer.class);
-        renderBatch.add(rend);
+        state.renderBatch.add(rend);
     }
 
     /**
@@ -134,13 +150,13 @@ public abstract class State
      * @param rend
      */
     public static void addGraphicToScene(IRender rend){
-        renderBatch.add(rend);
+        state.renderBatch.add(rend);
     }
 
-    public static void destroy(MonoBehavior mono)
+    public static void destroy(Entity obj)
     {
-        allObjects.remove(mono);
-        mono.removeComponent(ObjectRenderer.class);
+        state.allObjects.remove(obj);
+        obj.removeComponent(ObjectRenderer.class);
 
     }
 
@@ -175,4 +191,5 @@ public abstract class State
 
     }
 
+    abstract void OnChangeState();
 }

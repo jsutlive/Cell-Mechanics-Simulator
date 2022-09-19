@@ -1,6 +1,6 @@
 package Model;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.States.State;
 import GUI.Vector.CircleGraphic;
 import Model.Cells.*;
@@ -20,7 +20,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Model extends MonoBehavior
+public class Model extends Entity
 {
     IOrganism organism = new DrosophilaEmbryo();
     List<Node> allNodes = new ArrayList<>();
@@ -35,14 +35,17 @@ public class Model extends MonoBehavior
      * In the Model Monobehavior object, awake is used to generate the cells and other physical components
      * of the simulation.
      * @throws InstantiationException Cannot instantiate cells in model due to an error
-     * @throws IllegalAccessException Problems accessing memory during cell creation
      */
     @Override
-    public void awake() throws InstantiationException, IllegalAccessException {
+    public void awake() throws InstantiationException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         apicalGradient = new GaussianGradient(0f, 0.8f);
-        organism.generateOrganism();
-
+        try {
+            organism.generateOrganism();
+        }
+        catch(IllegalAccessException e){
+            e.printStackTrace();
+        }
         setCellColors();
         allNodes = organism.getAllNodes();
 

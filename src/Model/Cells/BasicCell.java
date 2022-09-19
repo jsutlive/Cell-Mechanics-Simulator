@@ -1,8 +1,10 @@
 package Model.Cells;
 
 import Engine.States.State;
+import Model.Components.Lattice.Lattice;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.InternalElasticForce;
 import Model.Components.Physics.OsmosisForce;
 import Physics.Rigidbodies.*;
 
@@ -16,9 +18,10 @@ public class BasicCell extends Cell{
     public void start() {
         addComponent(new ElasticForce());
         addComponent(new OsmosisForce());
+        addComponent(new InternalElasticForce());
     }
 
-    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
+    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) {
         Cell cell = State.create(BasicCell.class);
         List<Edge> edges = new ArrayList<>();
 
@@ -57,6 +60,7 @@ public class BasicCell extends Cell{
         }
         cell.getComponent(CellMesh.class).nodes = nodes;
         cell.getComponent(CellMesh.class).edges = edges;
+        cell.getComponent(Lattice.class).buildLattice();
         return cell;
     }
 }

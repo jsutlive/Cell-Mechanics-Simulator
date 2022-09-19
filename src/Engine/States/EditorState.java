@@ -1,6 +1,6 @@
 package Engine.States;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.Object.Tag;
 import GUI.IRender;
 import Model.*;
@@ -8,7 +8,7 @@ import java.util.ConcurrentModificationException;
 
 public class EditorState extends State
 {
-    MonoBehavior model;
+    Entity model;
     @Override
     public void Init() throws InstantiationException, IllegalAccessException {
         State.reset();
@@ -30,5 +30,10 @@ public class EditorState extends State
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    void OnChangeState() {
+
     }
 }

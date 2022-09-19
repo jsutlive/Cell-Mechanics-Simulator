@@ -1,7 +1,5 @@
 package Model;
 
-import Engine.Object.MonoBehavior;
-import Model.Cells.BasicCell;
 import Model.Components.Component;
 import Model.Components.Meshing.RingMesh;
 import org.junit.jupiter.api.Test;

@@ -5,6 +5,7 @@ import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,5 +93,36 @@ public class MeshTests {
             assertNotNull(node.getPosition().x);
             assertNotNull(node.getPosition().y);
         }
+    }
+
+    @Test
+    void check_if_node_area_calculates_correctly_for_basic_square(){
+        assertEquals(4.0f, testMesh.getArea());
+    }
+
+    @Test
+    void check_if_node_area_calculated_as_larger_after_area_enlarged(){
+        float initialArea = testMesh.getArea();
+        testMesh.nodes.get(0).MoveTo(new Vector2f(-1,-2));
+        float newArea = testMesh.getArea();
+        assertTrue(newArea > initialArea);
+    }
+
+    @Test
+    void check_ifi_initial_area_assigned_on_awake(){
+        assertEquals(testMesh.getRestingArea(), testMesh.getArea());
+    }
+
+    @Test
+    void check_if_node_area_calculated_as_smaller_after_area_lessened(){
+        float initialArea = testMesh.getArea();
+        testMesh.nodes.get(0).MoveTo(new Vector2f(-0.5f,-0.5f));
+        float newArea = testMesh.getArea();
+        assertTrue(newArea < initialArea);
+    }
+
+    @BeforeEach
+    void reset_first_node(){
+        testMesh.nodes.get(0).MoveTo(new Vector2f(-1,-1));
     }
 }

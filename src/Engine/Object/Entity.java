@@ -1,37 +1,41 @@
 package Engine.Object;
 
-import Data.LogOnce;
 import Engine.States.State;
 import Model.Components.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MonoBehavior implements IBehavior
+public abstract class Entity implements IBehavior
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;
    private List<Component> components = new ArrayList<>();
    private Tag tag;
 
-   public static <T extends MonoBehavior> T createObject(Class<T> monoClass)
-           throws InstantiationException, IllegalAccessException {
-      return monoClass.newInstance();
+   public static <T extends Entity> T createObject(Class<T> monoClass){
+      try {
+         return monoClass.newInstance();
+      }
+      catch (IllegalAccessException | InstantiationException exception) {
+         exception.printStackTrace();
+      }
+      return null;
    }
 
    /**
     * Each object has a unique ID, which we can access if necessary. Currently not used for anything.
-    * @return uniqueID of a given MonoBehavior
+    * @return uniqueID of a given Entity
     */
    public int getStateID() {return uniqueID;}
-   public static void setGlobalID(MonoBehavior monoBehavior)
+   public static void setGlobalID(Entity entity)
    {
-      monoBehavior.uniqueID = _ID_COUNTER;
+      entity.uniqueID = _ID_COUNTER;
       _ID_COUNTER++;
    }
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){this.tag = tag;}
 
-   public void awake() throws InstantiationException, IllegalAccessException {}
+   public void awake() throws InstantiationException {}
    public void start() {for (Component c: components) c.start();}
    public void update() {for (Component c: components) c.update();}
    public void lateUpdate(){for(Component c: components)c.lateUpdate();}

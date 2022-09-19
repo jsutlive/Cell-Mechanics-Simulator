@@ -1,29 +1,32 @@
 package Model.Components.Physics;
 
+import Engine.Object.Tag;
+import Engine.States.State;
+import Engine.Timer.Time;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Physics.ForceVector.ForceType;
-import Model.Model;
-import Physics.Forces.GaussianGradient;
+import Model.DrosophilaRingModel;
 import Physics.Forces.Gradient;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 
-public class ApicalConstrictingSpringForce extends SpringForce{
-    private Gradient apicalGradient = new GaussianGradient(0f, 0.8f);
 
+public class ApicalConstrictingSpringForce extends SpringForce{
+    float constant;
+    float rampTime = 2f;
     @Override
     public void awake() {
         forceVector.setType(ForceType.apicalConstriction);
         CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);
 
-        Cell cell = getParentAs(Cell.class);
-        apicalGradient.calculate(10,
-                .4f, .01f,
-                .1f, .05f);
-        setTargetLengthRatio(.001f);
+        int ringPosition = getParentAs(Cell.class).getRingLocation();
+        DrosophilaRingModel model = (DrosophilaRingModel)State.findObjectWithTag(Tag.MODEL);
+        Gradient apicalGradient = model.apicalGradient;
+        constant = apicalGradient.getConstants()[ringPosition - 1];
+        setTargetLengthRatio(apicalGradient.getRatios()[ringPosition - 1]);
 
     }
 
@@ -32,7 +35,12 @@ public class ApicalConstrictingSpringForce extends SpringForce{
         for(Edge edge: edges){
             Node[] nodes = edge.getNodes();
             Cell cell = getParentAs(Cell.class);
-            calculateSpringForce(edge, 2);
+            if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
+                calculateSpringForce(edge, constant * (Time.elapsedTime / Time.asNanoseconds(rampTime)));
+            }
+            else {
+                calculateSpringForce(edge, constant);
+            }
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());
         }

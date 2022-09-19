@@ -16,7 +16,7 @@ public class CornerStiffnessModel extends Model {
     List<Corner> corners = new ArrayList<>();
     List<Node> nodes = new ArrayList<>();
     float cornerAdjustConst = 0.25f;
-    @Override
+    /*@Override
     public void awake() throws InstantiationException, IllegalAccessException {
         Node origin = new Node(350,350);
         Node north = new Node(400,600);
@@ -38,7 +38,7 @@ public class CornerStiffnessModel extends Model {
         EdgeMono.build(new BasicEdge(origin, east));
         //EdgeMono.build(new BasicEdge(origin, west));
 
-    }
+    }*/
 
     protected void adjustCorners() {
         int sign = -1;

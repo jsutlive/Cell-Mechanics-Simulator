@@ -1,22 +1,22 @@
 package Model.Components;
 
 import Engine.Object.IBehavior;
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 
 public abstract class Component implements IBehavior {
-    protected transient MonoBehavior parent;
-    public void setParent(MonoBehavior mono){
+    protected transient Entity parent;
+    public void setParent(Entity mono){
         parent = mono;
     }
 
     /**
      * Casts parent as an assignable subclass of monobehavior, used for more specific operations. Returns null if parent
      * is not an instance of "type"
-     * @param type subclass of MonoBehavior denoted by T
-     * @param <T> type of MonoBehavior
-     * @return parent as a subclass of MonoBehavior
+     * @param type subclass of Entity denoted by T
+     * @param <T> type of Entity
+     * @return parent as a subclass of Entity
      */
-    public <T extends MonoBehavior> T getParentAs(Class<T> type){
+    public <T extends Entity> T getParentAs(Class<T> type){
         return type.isInstance(parent) ? type.cast(parent) : null;
     }
 

@@ -20,7 +20,7 @@ public class CellTestModel extends Model{
     transient Cell cell;
 
     @Override
-    public void awake() throws InstantiationException, IllegalAccessException {
+    public void awake() {
         List<Node> nodes= new ArrayList<>();
         nodes.add(new Node(200,200));
         nodes.add(new Node(200,250));

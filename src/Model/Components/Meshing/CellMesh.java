@@ -13,7 +13,6 @@ import com.google.gson.annotations.Expose;
 @LogData
 public class CellMesh extends Mesh{
 
-    private transient float restingArea;
     @Override
     public void start() {
         calculateArea();
@@ -31,10 +30,6 @@ public class CellMesh extends Mesh{
             n.Move();
         }
         calculateArea();
-    }
-
-    public float getRestingArea(){
-        return restingArea;
     }
 
     public boolean collidesWithNode(Node n){
