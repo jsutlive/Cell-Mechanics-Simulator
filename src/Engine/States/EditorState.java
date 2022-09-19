@@ -10,9 +10,10 @@ public class EditorState extends State
 {
     Entity model;
     @Override
-    public void Init() throws InstantiationException, IllegalAccessException {
+    public void Init() {
         State.reset();
         model = State.create(DrosophilaRingModel.class);
+        assert model != null;
         model.addTag(Tag.MODEL);
     }
 

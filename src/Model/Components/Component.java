@@ -10,7 +10,7 @@ public abstract class Component implements IBehavior {
     }
 
     /**
-     * Casts parent as an assignable subclass of monobehavior, used for more specific operations. Returns null if parent
+     * Casts parent as an assignable subclass of entity, used for more specific operations. Returns null if parent
      * is not an instance of "type"
      * @param type subclass of Entity denoted by T
      * @param <T> type of Entity
@@ -21,7 +21,7 @@ public abstract class Component implements IBehavior {
     }
 
     /**
-     * Same as monobehavior "getComponent", used here to make calls more concise in code
+     * Same as entity "getComponent", used here to make calls more concise in code
      * @param componentClass component class to be return
      * @param <T> a subtype of component
      * @return a given component from this object

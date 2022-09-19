@@ -35,8 +35,8 @@ public abstract class State
     /**
      * Change state between running simulation and an editor state
      * editor state not implemented
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @throws InstantiationException problem during object creation upon state loading
+     * @throws IllegalAccessException problem created due to changing states during the creation/ destruction of objects
      */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
         List<Entity> currentObjects = new ArrayList<>();
@@ -86,30 +86,32 @@ public abstract class State
      * Base method to create an object and assign it to the given state
      * @param type a Entity class to create an instance of
      * @param <T> type of Entity class
-     * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @return an Entity as its subclass
      */
     public static <T extends Entity> T create(Class<T> type) {
         if(!Entity.class.isAssignableFrom(type)) {
             throw new IllegalArgumentException("Class not assignable from Entity");
         }
         Entity obj = Entity.createObject(type);
-        Entity.setGlobalID(obj);
-        state.allObjects.add(obj);
-        try {
-            obj.awake();
+
+        //Create entity and have it perform its awake functions, encapsulated in null check
+        if(obj!= null) {
+            Entity.setGlobalID(obj);
+            state.allObjects.add(obj);
+            try {
+                obj.awake();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+            return type.cast(obj);
         }
-        catch(InstantiationException e){
-            e.printStackTrace();
-        }
-        return type.cast(obj);
+        return null;
     }
 
     /**
      * Look for a tagged object and return the first object with that tag
-     * @param tag
-     * @return
+     * @param tag specified tag to search all state entities for
+     * @return the first entity found with the specified tag
      */
     public static Entity findObjectWithTag(Tag tag)
     {
@@ -121,9 +123,9 @@ public abstract class State
 
     /**
      * Returns the first object of a given class type found
-     * @param type
-     * @param <T>
-     * @return
+     * @param type a class which inherits from the entity base class
+     * @param <T> subtype of entity
+     * @return an object as its specific subclass
      */
     public static <T extends Entity>T findObjectOfType(Class<T> type){
         for(Entity obj: state.allObjects){
@@ -147,7 +149,7 @@ public abstract class State
 
     /**
      * Add graphical representation of object that does not have attached physics
-     * @param rend
+     * @param rend object that implements the IRender interface
      */
     public static void addGraphicToScene(IRender rend){
         state.renderBatch.add(rend);

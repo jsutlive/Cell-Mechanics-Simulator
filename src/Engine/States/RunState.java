@@ -13,12 +13,10 @@ public class RunState extends State
     Entity model;
     int count = 0;
     /**
-     * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
-     * @throws InstantiationException fails to create object
-     * @throws IllegalAccessException improperly accesses memory during object creation
+     * Instantiation of entities occurs here. Each behavior will have its awake and start methods called.
      */
     @Override
-    public void Init() throws InstantiationException, IllegalAccessException {
+    public void Init() {
         model = findObjectWithTag(Tag.MODEL);
         if(model == null) {
             model = State.create(Model.class);
@@ -54,7 +52,7 @@ public class RunState extends State
     }
 
     /**
-     * Render loop. All renderable objects added to the render batch will be made visible in the viewport
+     * Render loop. All rendered objects added to the render batch will be made visible in the viewport
      * through referencing its renderer component.
      */
     @Override
