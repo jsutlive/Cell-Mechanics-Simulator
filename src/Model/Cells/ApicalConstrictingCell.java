@@ -36,7 +36,7 @@ public class ApicalConstrictingCell extends Cell
         addComponent(new ElasticForce());
         addComponent(new ApicalConstrictingSpringForce());
         addComponent(new OsmosisForce());
-        addComponent(new InternalElasticForce());
+//        addComponent(new InternalElasticForce());
         getComponent(CellRenderer.class).setColor(Color.MAGENTA);
     }
 

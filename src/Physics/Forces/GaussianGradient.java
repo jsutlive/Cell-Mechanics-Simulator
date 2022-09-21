@@ -25,15 +25,25 @@ public class GaussianGradient extends Gradient{
         ratios = new float[halfCells];
 
         float xStep = getLinearStep(3,0, halfCells);
-        constants[0] = constantCeiling;
-        ratios[0] = ratioCeiling;
-        for(int i = 1; i < halfCells; i++)
+        for(int i = 0; i < halfCells; i++)
         {
             float x = xStep*i;
             float y = Gauss.pdf(x, mu, sigma);
             constants[i] = CustomMath.floor(y * constantCeiling, constantFloor);
             ratios[i] = CustomMath.floor(y * ratioCeiling, ratioFloor);
         }
+        float constOffset = constantFloor - constants[halfCells-1];
+        float constMultiplier = constantCeiling / (constants[0] + constOffset);
+        float ratioOffset = ratioFloor - ratios[halfCells-1];
+        float ratioMultiplier = ratioCeiling / (ratios[0] + ratioOffset);
+        for(int i = 0; i < halfCells; i++)
+        {
+            constants[i] += constOffset;
+            constants[i] *= constMultiplier;
+            ratios[i] += ratioOffset;
+            ratios[i] *= ratioMultiplier;
+        }
+
 
     }
 

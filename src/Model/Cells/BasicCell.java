@@ -18,7 +18,7 @@ public class BasicCell extends Cell{
     public void start() {
         addComponent(new ElasticForce());
         addComponent(new OsmosisForce());
-        addComponent(new InternalElasticForce());
+//        addComponent(new InternalElasticForce());
     }
 
     public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) {

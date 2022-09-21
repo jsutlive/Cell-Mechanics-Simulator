@@ -59,7 +59,7 @@ public class DrosophilaRingModel extends Entity {
 
         Yolk.build(yolkNodes, basalEdges);
         ringMesh.innerNodes.addAll(yolkNodes);
-        apicalGradient = new GaussianGradient(0f, 1.1f);
+        apicalGradient = new GaussianGradient(0f, 1.2f);
         apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
                 10.4f, .01f,
                 .1f, .1f);

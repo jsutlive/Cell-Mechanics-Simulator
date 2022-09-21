@@ -27,7 +27,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
         Gradient apicalGradient = model.apicalGradient;
         constant = apicalGradient.getConstants()[ringPosition - 1];
         setTargetLengthRatio(apicalGradient.getRatios()[ringPosition - 1]);
-
+        System.out.println(constant);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ApicalConstrictingSpringForce extends SpringForce{
             Node[] nodes = edge.getNodes();
             Cell cell = getParentAs(Cell.class);
             if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
-                calculateSpringForce(edge, constant * (Time.elapsedTime / Time.asNanoseconds(rampTime)));
+                calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime));
             }
             else {
                 calculateSpringForce(edge, constant);

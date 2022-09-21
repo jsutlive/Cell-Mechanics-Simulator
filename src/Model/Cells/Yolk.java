@@ -26,7 +26,7 @@ public class Yolk extends Cell {
 
     @Override
     public void start() {
-        addComponent(new OsmosisForce());
-        getComponent(OsmosisForce.class).osmosisConstant = 0.0001f;
+//        addComponent(new OsmosisForce());
+//        getComponent(OsmosisForce.class).osmosisConstant = 0.0001f;
     }
 }

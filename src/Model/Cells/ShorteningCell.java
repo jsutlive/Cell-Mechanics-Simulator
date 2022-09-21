@@ -22,7 +22,7 @@ public class ShorteningCell extends Cell{
         addComponent(new ElasticForce());
         addComponent(new LateralShorteningSpringForce());
         addComponent(new OsmosisForce());
-        addComponent(new InternalElasticForce());
+//        addComponent(new InternalElasticForce());
         getComponent(CellRenderer.class).setColor(Color.BLUE);
     }
 
