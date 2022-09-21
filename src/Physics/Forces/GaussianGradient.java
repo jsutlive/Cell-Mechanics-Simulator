@@ -29,8 +29,10 @@ public class GaussianGradient extends Gradient{
         {
             float x = xStep*i;
             float y = Gauss.pdf(x, mu, sigma);
-            constants[i] = CustomMath.floor(y * constantCeiling, constantFloor);
-            ratios[i] = CustomMath.floor(y * ratioCeiling, ratioFloor);
+            constants[i] = y*constantCeiling;
+            ratios[i] = ratioCeiling;//y * ratioCeiling;
+            //constants[i] = CustomMath.floor(y * constantCeiling, constantFloor);
+            //ratios[i] = CustomMath.floor(y * ratioCeiling, ratioFloor);
         }
         float constOffset = constantFloor - constants[halfCells-1];
         float constMultiplier = constantCeiling / (constants[0] + constOffset);
