@@ -27,7 +27,7 @@ public class Simulation implements Runnable
             registerTypeAdapter(Component.class, new ComponentSerializer()).
             create();
 
-    public static float TIMESTEP = 1e-1f;
+    public static float TIMESTEP = 1e-2f;
     // rendering system reference
     Renderer renderer;
     // Collecting user input
@@ -110,9 +110,8 @@ public class Simulation implements Runnable
         }
         while(applicationIsRunning)
         {
-            
             Time.Advance();
-            
+
             // Physics update
             if(Time.isReadyToAdvancePhysics()){
                 try {

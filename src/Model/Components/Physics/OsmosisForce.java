@@ -12,7 +12,7 @@ public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;
     private transient float initialArea;
-    public float osmosisConstant = 0.01f;
+    public float osmosisConstant = 0.001f;
 
     @Override
     public void update() {
@@ -23,15 +23,15 @@ public class OsmosisForce extends Force {
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude =calculateOsmosisForceMagnitude(getComponent(Mesh.class));
+        float forceMagnitude = calculateOsmosisForceMagnitude(getComponent(Mesh.class));
         System.out.println(forceMagnitude);
         for(Edge edge : edges){
             forceVector.set(CustomMath.normal(edge));
-            //forceVector.mul(-forceMagnitude);
+            forceVector.mul(forceMagnitude);
 
             //multiplies the edgeNormal by the length
             //logically if an edge is larger, there is more force pushing on it
-            //forceVector.mul(edge.getLength());
+            forceVector.mul(edge.getLength());
 
             edge.addForceVector(forceVector);
         }

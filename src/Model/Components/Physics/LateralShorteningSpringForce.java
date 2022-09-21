@@ -9,7 +9,7 @@ import Physics.Rigidbodies.Node;
 
 public class LateralShorteningSpringForce extends SpringForce{
 
-    private float shorteningSpringConstant = .45f;
+    private float shorteningSpringConstant = 2f;
     private float shorteningSpringRatio = .7f;
 
     @Override
