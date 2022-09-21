@@ -47,6 +47,10 @@ public class DrosophilaRingModel extends Entity {
     @Override
     public void awake() throws InstantiationException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
+        apicalGradient = new GaussianGradient(0f, 1.2f);
+        apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
+                10.4f, .01f,
+                .1f, .1f);
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
         List<Node> yolkNodes = new ArrayList<>();
@@ -59,10 +63,7 @@ public class DrosophilaRingModel extends Entity {
 
         Yolk.build(yolkNodes, basalEdges);
         ringMesh.innerNodes.addAll(yolkNodes);
-        apicalGradient = new GaussianGradient(0f, 1.2f);
-        apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                10.4f, .01f,
-                .1f, .1f);
+
     }
 
     @Override

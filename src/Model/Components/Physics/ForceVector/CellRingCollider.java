@@ -5,6 +5,8 @@ import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Force;
+import Physics.Rigidbodies.ApicalEdge;
+import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
@@ -18,6 +20,8 @@ public class CellRingCollider extends Force {
     transient List<Cell> cells;
     transient List<Node> nodes;
     transient List<Node> bothRings;
+    transient List<Node> innerNodes;
+    transient  List<Node> outerNodes;
 
     @Override
     public void awake() {
@@ -25,6 +29,8 @@ public class CellRingCollider extends Force {
         forceVector.reset();
         bothRings = new ArrayList<>(getComponent(RingMesh.class).innerNodes);
         bothRings.addAll(getComponent(RingMesh.class).outerNodes);
+        innerNodes = getComponent(RingMesh.class).innerNodes;
+        outerNodes = getComponent(RingMesh.class).outerNodes;
         cells = getComponent(RingMesh.class).cellList;
         nodes = getComponent(RingMesh.class).nodes;
     }
@@ -37,31 +43,36 @@ public class CellRingCollider extends Force {
     private void checkCollision() {
         for(Cell cell: cells){
             CellMesh mesh = cell.getComponent(CellMesh.class);
-            for(Node node: nodes){
-                float minDist = Float.POSITIVE_INFINITY;
-                Edge closestEdge = null;
-                Vector2f closestPoint = null;
+            for(Node node: innerNodes){
                 Vector2f nodePosition = node.getPosition();
-                if(mesh.collidesWithNode(node) && !mesh.contains(node)){
-                    for(Edge e: mesh.edges) {
-                        if(e.contains(node)){continue;}
-                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(),e.getPositions());
-                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-                        if(dist < minDist){
-                            minDist = dist;
-                            closestEdge = e;
-                            closestPoint = closePoint;
+                if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
+                    for (Edge e : mesh.edges) {
+                        if (!(e instanceof BasalEdge)) {
+                            continue;
                         }
-                    }
-                    if(closestEdge != null){
-//                        node.getPosition().x = closestPoint.x;
-//                        node.getPosition().y = closestPoint.y;
-                        forceVector.set(CustomMath.normal(closestEdge));
-                        Node[] nodes = closestEdge.getNodes();
-                        nodes[0].addForceVector(forceVector);
-                        nodes[1].addForceVector(forceVector);
+                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
+                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+                        forceVector.set(CustomMath.normal(e));
+                        Node[] nodes = e.getNodes();
+                        e.addForceVector(forceVector);
                         forceVector.mul(-2);
                         node.addForceVector(forceVector);
+                    }
+                }
+            }
+            for(Node node: outerNodes){
+                Vector2f nodePosition = node.getPosition();
+                if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
+                    for (Edge e : mesh.edges) {
+                        if (!(e instanceof ApicalEdge)) {
+                            continue;
+                        }
+                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
+                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+                        Vector2f normal = CustomMath.normal(e);
+                        e.addForceVector(normal);
+                        normal.mul(-2);
+                        node.addForceVector(normal);
                     }
                 }
             }
