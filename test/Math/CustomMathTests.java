@@ -40,18 +40,6 @@ public class CustomMathTests {
         assertEquals(1.0f, norm.x);
     }
 
-    //@Test
-    /*
-    Check accuracy of pDistanceSq in measuring perpendicular distance from point p to the line segment
-    created by a and b if p is a point between a and b
-
-    void check_accuracy_of_pDistanceSq_point_diagonal_from_line(){
-        Vector2f a = new Vector2f(0,5);
-        Vector2f b = new Vector2f(5,0);
-        Vector2f p = new Vector2f(0,0);
-        assertEquals(4f, CustomMath.pDistanceSq(p, a, b));
-    }*/
-
     @Test
     /*
     Should return zero since there a perpendicular line could not be drawn

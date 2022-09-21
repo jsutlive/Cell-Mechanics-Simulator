@@ -6,7 +6,7 @@ import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.Edge;
 import Utilities.Geometry.Vector2f;
 import Utilities.Geometry.Vector2i;
-import Utilities.Model.Builder;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,16 +21,11 @@ public class ApicalConstrictingCellTests {
     static List<Cell> cells = new ArrayList<>();
 
     @BeforeAll
-    static void setup() throws IllegalAccessException, InstantiationException {
-        cells = Builder.getCellRing(
-                80,
-                2,
-                100,
-                300,
-                new Vector2i(800));
+    static void setup() {
+
     }
 
-
+/*
     @ParameterizedTest
     @MethodSource("getValues")
     public void testConstictingCellForcesAreEqualBetweenOppositeCells(int val)
@@ -92,7 +87,7 @@ public class ApicalConstrictingCellTests {
     private static int[] getValues()
     {
         return new int[]{1,2,3,4,5,6,7,8,9,10};
-    }
+    }*/
 
  // class RepeatedNestedTest()
  // {

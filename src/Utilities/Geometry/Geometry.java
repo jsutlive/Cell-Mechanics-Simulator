@@ -1,6 +1,7 @@
 package Utilities.Geometry;
 
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
@@ -18,7 +19,8 @@ public class Geometry {
 
         Vector2f p3 = point.getPosition();
         Vector2f p4 = APPROX_INF;
-        for (Edge edge: cell.getEdges()) {
+        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        for (Edge edge: mesh.edges) {
             Vector2f p1 = edge.getPositions()[0];
             Vector2f p2 = edge.getPositions()[1];
             if(doEdgesIntersect(p1, p2, p3, p4)){
@@ -76,7 +78,8 @@ public class Geometry {
     }
 
     public static Vector2f[] getMinMaxBoundary(Cell cell){
-        return getMinMaxBoundary(cell.getNodes());
+        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        return getMinMaxBoundary(mesh.nodes);
     }
 
     public static Vector2f intersectingPointOfTwoLines(Vector2f p1, Vector2f p2, Vector2f p3, Vector2f p4)
@@ -124,8 +127,9 @@ public class Geometry {
     {
         float shortestDistance = Float.POSITIVE_INFINITY;
         Edge currentEdge = new BasicEdge();
+        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
 
-        for(Edge edge: cell.getEdges()){
+        for(Edge edge: mesh.edges){
             Vector2f start = n.getPosition();
             Vector2f end = getNearestPointOnLine(edge, start);
             float currentDistance = Vector2f.dist(start, end);

@@ -1,54 +1,33 @@
 package Model.Cells;
 
+import Data.LogData;
 import Engine.States.State;
-import Physics.Forces.Force;
+import Model.Components.Lattice.Lattice;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.InternalElasticForce;
+import Model.Components.Physics.LateralShorteningSpringForce;
+import Model.Components.Physics.OsmosisForce;
+import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShorteningCell extends Cell{
-    float lateralShorteningRatio = .5f;
-    float lateralShorteningConstant = .10f;
-
-    public ShorteningCell()
-    {
-        internalConstantOverride = .03f;
-        elasticConstantOverride = .05f;
-    }
 
     @Override
-    public void overrideElasticConstants() {
-        super.overrideElasticConstants();
-        for(Edge edge: edges){
-            edge.setElasticConstant(elasticConstantOverride);
-        }
-        for (Edge edge: internalEdges){
-            edge.setElasticConstant(internalConstantOverride);
-        }
+    public void start() {
+        addComponent(new ElasticForce());
+        addComponent(new LateralShorteningSpringForce());
+        addComponent(new OsmosisForce());
+//        addComponent(new InternalElasticForce());
+        getComponent(CellRenderer.class).setColor(Color.BLUE);
     }
 
-    /**
-     * update physics on Apical Constricting Cells
-     * overrides the update method as described in Cells
-     */
-    @Override
-    public void update() {
-        super.update();
-        applyLateralShortening();
-    }
-
-    private void applyLateralShortening() {
-        for(Edge edge: edges)
-        {
-            if(edge instanceof LateralEdge) {
-                Force.constrict(edge, lateralShorteningConstant, lateralShorteningRatio);
-            }
-        }
-    }
-
-    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) throws IllegalAccessException, InstantiationException {
-        Cell cell = (Cell) State.create(ShorteningCell.class);
+    public static Cell build(List<Node> nodes, int lateralResolution, int apicalResolution) {
+        Cell cell = State.create(ShorteningCell.class);
         List<Edge> edges = new ArrayList<>();
 
         // Start from top left, move along til end of lateral resolution
@@ -74,8 +53,9 @@ public class ShorteningCell extends Cell{
                 edges.add(new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount)));
             }
         }
-        cell.setNodes(nodes);
-        cell.setEdges(edges);
+        cell.getComponent(CellMesh.class).nodes = nodes;
+        cell.getComponent(CellMesh.class).edges = edges;
+        cell.getComponent(Lattice.class).buildLattice();
         return cell;
     }
 

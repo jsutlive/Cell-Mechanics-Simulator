@@ -1,9 +1,10 @@
 package Model;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.States.State;
-import Model.Components.EdgeRenderer;
-import Physics.Forces.Force;
+import Model.Components.Physics.ApicalConstrictingSpringForce;
+import Model.Components.Physics.ElasticForce;
+import Model.Components.Render.EdgeRenderer;
 import Physics.Rigidbodies.*;
 
 import java.awt.*;
@@ -13,14 +14,9 @@ import java.awt.*;
  * Uses a specialized renderer.
  * Used for debugging purposes.
  */
-public class EdgeMono extends MonoBehavior {
+public class EdgeMono extends Entity {
 
     private Edge edge;
-    private int cellID;
-
-    public void setCellID(int id){
-        cellID = id;
-    }
 
     public EdgeMono(){}
 
@@ -34,48 +30,20 @@ public class EdgeMono extends MonoBehavior {
     }
 
     @Override
-    public void run(){}
-
-    @Override
-    public void awake() throws InstantiationException, IllegalAccessException {
+    public void awake() {
         EdgeRenderer renderer = new EdgeRenderer();
         this.addComponent(renderer);
-        State.setFlagToRender(this);
+    }
+
+    @Override
+    public void start() {
+        addComponent(new ElasticForce());
+        addComponent(new ApicalConstrictingSpringForce());
     }
 
     public void setColor(Color color){
-        EdgeRenderer rend = (EdgeRenderer) getComponent(EdgeRenderer.class);
+        EdgeRenderer rend = getComponent(EdgeRenderer.class);
         rend.setColor(color);
-    }
-
-    @Override
-    public void update() {
-        if(edge instanceof BasicEdge)
-        {
-            Force.elastic(edge, .25f);
-
-        }
-        else if(edge instanceof ApicalEdge) {
-            if((cellID > 71 || cellID <= 8)) {
-                edge.setColor(Color.WHITE);
-                if(cellID > 0){
-                    Force.constrict(edge, -.4f, 0.001f);
-                }
-                else Force.constrict(edge, .4f, .001f);
-
-            }
-            Force.elastic(edge,.25f);
-        }
-        else if (edge instanceof BasalEdge){
-            if((cellID > 0 || cellID <= 1)) {
-                Force.elastic(edge, .55f);
-            }
-            Force.elastic(edge, .35f);
-        }
-        else {
-            Force.elastic(edge, .35f);
-        }
-        for (Node node: getNodes()) node.Move();
     }
 
     public static EdgeMono build(Edge e) throws IllegalAccessException, InstantiationException {

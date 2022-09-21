@@ -1,24 +1,26 @@
 package Model;
 
-import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.Cell;
-import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2i;
 
+import Data.LogData;
+import Data.LogDataExclusionStrategy;
+import Data.LogOnce;
+import Model.Cells.BasicCell;
+import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.ElasticForce;
+import Model.Components.Render.CellRenderer;
+import Physics.Rigidbodies.Node;
 import java.util.ArrayList;
 import java.util.List;
-
+@LogOnce
 public class CellTestModel extends Model{
 
     int apicalResolution = 2;
     int lateralResolution = 3;
-    Vector2i offset = new Vector2i(200);
-    int stepSizeApical = 35;
-    int stepSizeLateral = 50;
-    Cell cell;
+    transient Cell cell;
 
     @Override
-    public void awake() throws InstantiationException, IllegalAccessException {
+    public void awake() {
         List<Node> nodes= new ArrayList<>();
         nodes.add(new Node(200,200));
         nodes.add(new Node(200,250));
@@ -30,14 +32,10 @@ public class CellTestModel extends Model{
         nodes.add(new Node(270, 250));
         nodes.add(new Node(270, 200));
         nodes.add(new Node(235, 200));
-        cell = ApicalConstrictingCell.build(nodes, lateralResolution, apicalResolution);
+        cell = BasicCell.build(nodes, lateralResolution, apicalResolution);
         cell.start();
-    }
-
-    @Override
-    public void update() {
-        cell.update();
-        for(Node node: cell.getNodes()) node.Move();
+        //LogDataExclusionStrategy log = new LogDataExclusionStrategy();
+        //System.out.println(log.shouldSkipClass(CellMesh.class));
     }
 
     /**

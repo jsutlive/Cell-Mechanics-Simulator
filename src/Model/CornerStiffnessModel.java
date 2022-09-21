@@ -16,7 +16,7 @@ public class CornerStiffnessModel extends Model {
     List<Corner> corners = new ArrayList<>();
     List<Node> nodes = new ArrayList<>();
     float cornerAdjustConst = 0.25f;
-    @Override
+    /*@Override
     public void awake() throws InstantiationException, IllegalAccessException {
         Node origin = new Node(350,350);
         Node north = new Node(400,600);
@@ -38,7 +38,7 @@ public class CornerStiffnessModel extends Model {
         EdgeMono.build(new BasicEdge(origin, east));
         //EdgeMono.build(new BasicEdge(origin, west));
 
-    }
+    }*/
 
     protected void adjustCorners() {
         int sign = -1;
@@ -51,44 +51,44 @@ public class CornerStiffnessModel extends Model {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 } else if (Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 }
             } else {
                 if (Geometry.calculateAngleBetweenPoints(corner) > Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), 10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), 10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 } else if (Geometry.calculateAngleBetweenPoints(corner) < Geometry.ninetyDegreesAsRadians) {
                     Vector2f n1Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n1.getPosition(), -10 * sign);
                     n1Force.mul(cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n1.AddForceVector(n1Force);
+                    n1.addForceVector(n1Force);
 
                     Vector2f n3Force = Geometry.getForceToMovePointAlongArc(n2.getPosition(), n3.getPosition(), -10 * sign);
                     n3Force.mul(-cornerAdjustConst);
                     //n1Force.dot(corner.direction);
-                    n3.AddForceVector(n3Force);
+                    n3.addForceVector(n3Force);
                 }
             }
 

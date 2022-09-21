@@ -1,11 +1,8 @@
 package Physics;
 
-import Model.Cells.Cell;
 import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
-import Utilities.Model.Builder;
 import org.junit.jupiter.api.Test;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,30 +26,6 @@ public class EdgeTests
         assertEquals( A.getLength(), C.getXUnit() * C.getLength());
         //assertEquals(B.getLength(), C.getYUnit() * C.getLength());
     }
-
-    @Test
-    void edges_equal_on_making_simple_structure() throws InstantiationException, IllegalAccessException {
-        List<Cell> cells = Builder.getSimpleFourCellBox();
-        float lastLength = 0f;
-        float currentLength;
-        int numberOfApicalEdges = 0;
-        for(Cell cell:cells){
-            for(Edge edge: cell.getEdges()) {
-                if (edge instanceof ApicalEdge) {
-                    numberOfApicalEdges++;
-                    currentLength = edge.getLength();
-                    //ASSERT: last apical edge equal to current apical edge
-                    //        apical edge = 0;
-                    if(lastLength!=0f){assertEquals(lastLength, currentLength);}
-                    assertEquals(100f, currentLength);
-                    lastLength = currentLength;
-                }
-            }
-        }
-        //ASSERT: There is one apical edge per cell, or the size of the cell list is equal to the apical edges counted
-        assertEquals(cells.size(), numberOfApicalEdges);
-    }
-
 
     @Test
     void get_correct_length_of_edge(){
@@ -82,7 +55,7 @@ public class EdgeTests
         Node b = new Node(0,1);
         Edge e = new BasicEdge(a,b);
 
-        assertTrue(a==e.getNodes()[0]);
-        assertTrue(b==e.getNodes()[1]);
+        assertSame(a, e.getNodes()[0]);
+        assertSame(b, e.getNodes()[1]);
     }
 }

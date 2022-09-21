@@ -1,6 +1,7 @@
 package Physics.Rigidbodies;
 
 import GUI.IColor;
+import Model.Components.Physics.ForceVector.ForceVector;
 import Utilities.Geometry.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -13,13 +14,14 @@ import java.awt.*;
  */
 public abstract class Edge implements IRigidbody, IColor
 {
-    protected Color color;
-    protected Node[] nodes = new Node[2];
-    protected float initialLength;
+    protected transient Color color;
+    protected transient Node[] nodes = new Node[2];
+    //order of nodes in cell list
+    protected int[] nodesReference = new int[2];
+    protected transient float initialLength;
     protected float elasticConstant;
     protected Vector2f normal;
-    public boolean hasActed;
-    public boolean isNull = true;
+    public transient boolean isNull = true;
 
     public float getElasticConstant()
     {
@@ -32,8 +34,18 @@ public abstract class Edge implements IRigidbody, IColor
      * @param forceVector
      */
     @Override
-    public void AddForceVector(Vector2f forceVector) {
-        for(Node node: nodes) node.AddForceVector(forceVector);
+    public void addForceVector(Vector2f forceVector) {
+        for(Node node: nodes) node.addForceVector(forceVector);
+    }
+
+    @Override
+    public void addForceVector(ForceVector forceVector){
+        for(Node node: nodes) node.addForceVector(forceVector);
+    }
+
+    public void setNodesReference(int a, int b){
+        nodesReference[0] = a;
+        nodesReference[1] = b;
     }
 
     protected void MakeNewEdge(Node a, Node b)
@@ -58,8 +70,8 @@ public abstract class Edge implements IRigidbody, IColor
     public Vector2f[] getPositions(){
         Vector2f[] positions = new Vector2f[2];
         try {
-            positions[0] = nodes[0].getPosition();
-            positions[1] = nodes[1].getPosition();
+            positions[0] = nodes[0].getPosition().copy();
+            positions[1] = nodes[1].getPosition().copy();
         }catch(NullPointerException e)
         {
             System.out.println("One or both nodes in edge is null, cannot determine position.");

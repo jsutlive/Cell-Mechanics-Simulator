@@ -1,11 +1,12 @@
-package Model.Components;
+package Model.Components.Render;
 
+import Data.LogData;
+import Engine.States.State;
 import GUI.IColor;
-import GUI.IRender;
 import GUI.Painter;
 import Model.Cells.Cell;
+import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
 
 import java.awt.*;
 
@@ -14,12 +15,13 @@ import java.awt.*;
  */
 public class CellRenderer extends ObjectRenderer
 {
-    Cell cell;
+    private transient CellMesh cellMesh;
     private Color color = Painter.DEFAULT_COLOR;
 
     @Override
-    public void init() {
-        cell = (Cell) parent;
+    public void awake() {
+        State.setFlagToRender(parent);
+        cellMesh = parent.getComponent(CellMesh.class);
     }
 
     @Override
@@ -29,29 +31,16 @@ public class CellRenderer extends ObjectRenderer
 
     @Override
     public void setColor(Color color) {
-        // set color for all nodes in the cell
-        for(Node node : cell.getNodes() )
-        {
-            if(node instanceof IColor)
-            {
-                ((IColor) node).setColor(color);
-            }
-        }
         // set color for all edges in the cell
-        for(Edge edge: cell.getEdges())
+        this.color = color;
+        for(Edge edge: cellMesh.edges)
         {
-            if(edge instanceof  IColor)
+            if(edge != null)
             {
                 ((IColor) edge).setColor(color);
             }
         }
-        for(Edge edge: cell.getInternalEdges())
-        {
-            if(edge instanceof  IColor)
-            {
-                ((IColor) edge).setColor(color);
-            }
-        }
+
     }
 
     /**
@@ -60,6 +49,6 @@ public class CellRenderer extends ObjectRenderer
     @Override
     public void render()
     {
-        Painter.drawCell(cell);
+        Painter.drawCell(getParentAs(Cell.class), color);
     }
 }

@@ -1,64 +1,59 @@
 package Engine.States;
 
-import Engine.Object.MonoBehavior;
+import Engine.Object.Entity;
 import Engine.Object.Tag;
-import Engine.Simulation;
-import Engine.Timer.Time;
 import GUI.IRender;
-import GUI.Painter;
-import Input.Input;
-import Model.Components.CellRenderer;
 import Model.*;
-import Physics.PhysicsSystem;
-import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2i;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ConcurrentModificationException;
 
 public class RunState extends State
 {
-    Model model;
-
+    boolean isChangingState = false;
+    Entity model;
+    int count = 0;
     /**
-     * Instantiation of monobehaviors occurs here. Each behavior will have its awake and start methods called.
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * Instantiation of entities occurs here. Each behavior will have its awake and start methods called.
      */
     @Override
-    public void Init() throws InstantiationException, IllegalAccessException {
-        model = (Model)findObjectWithTag(Tag.MODEL);
+    public void Init() {
+        model = findObjectWithTag(Tag.MODEL);
         if(model == null) {
-            model = (Model) State.create(Model.class);
+            model = State.create(Model.class);
         }
-        for(MonoBehavior obj: allObjects){
+        for(Entity obj: allObjects){
             obj.start();
         }
-        for(float f: Model.apicalGradient.getRatios()){
-            System.out.println(f);
-        }
-
+        //saveInitial();
     }
 
-    boolean flag = true;
     /**
      * Physics Loop. All physics objects updated here
      */
     @Override
     public void Tick() {
-        if(flag && model != null) {
-            model.update();
-
-            //flag = false;
-
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
+            obj.earlyUpdate();
         }
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
+            obj.update();
+        }
+        for(Entity obj : allObjects){
+            if(isChangingState) return;
+            obj.lateUpdate();
+        }
+
+        if(count%100 == 0) {
+            //save();
+        }
+        count++;
     }
 
     /**
-     * Render loop. Every monobehavior added to the render batch will be made visible in the viewport
-     * through referencing its renderer component. Throws a null reference exception if there is no
-     * renderer on an object.
+     * Render loop. All rendered objects added to the render batch will be made visible in the viewport
+     * through referencing its renderer component.
      */
     @Override
     public void Render()
@@ -66,19 +61,16 @@ public class RunState extends State
         try {
             for(IRender rend: renderBatch)
             {
+                if(isChangingState) return;
                 rend.render();
             }
         } catch (ConcurrentModificationException e){
             e.printStackTrace();
         }
-        for (Node n: Simulation.FORCE_HISTORY.keySet()) {
-            Painter.drawForce(n, Simulation.FORCE_HISTORY.get(n));
-        }
-        Simulation.FORCE_HISTORY.clear();
-        
-        Painter.drawPoint(new Vector2i(400,400));
-        Painter.drawCircle(new Vector2i(400), 604, Color.gray);
-        Painter.drawCircle(new Vector2i(400), 605, Color.gray);
-        Painter.drawCircle(new Vector2i(400), 606, Color.gray);
+    }
+
+    void OnChangeState()
+    {
+        isChangingState = true;
     }
 }

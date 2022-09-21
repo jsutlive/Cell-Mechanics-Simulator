@@ -1,14 +1,11 @@
-package Model.Components;
+package Model.Components.Render;
 
-import GUI.IColor;
-import GUI.IRender;
+import Engine.States.State;
 import GUI.Painter;
 import Model.EdgeMono;
 import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Vector2f;
-import Utilities.Math.CustomMath;
 
 import java.awt.*;
 
@@ -27,7 +24,6 @@ public class EdgeRenderer extends ObjectRenderer {
 
     @Override
     public void render() {
-        boolean hasDrawn = false;
         Node[] nodes = edge.getNodes();
         Vector2f pos1 = nodes[0].getPosition();
         Vector2f pos2 = nodes[1].getPosition();
@@ -39,7 +35,8 @@ public class EdgeRenderer extends ObjectRenderer {
     }
 
     @Override
-    public void init() {
+    public void awake() {
+        State.setFlagToRender(parent);
         edge = (EdgeMono) parent;
     }
 }

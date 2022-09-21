@@ -1,56 +1,38 @@
 package Model.Cells;
 
 import Engine.States.State;
-import Physics.Forces.Force;
+import Model.Components.Meshing.Mesh;
+import Model.Components.Meshing.CellMesh;
+import Model.Components.Physics.OsmosisForce;
+import Model.Components.Render.CellRenderer;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Yolk extends Cell {
 
-    public static Cell build(List<Node> yolkNodes) throws IllegalAccessException, InstantiationException {
-        Cell yolk = (Cell) State.create(Yolk.class);
-        int yolkCount = yolkNodes.size();
-        List<Node> firstHalf = yolkNodes.subList(0, yolkCount/2);
-        List<Node> secondHalf = yolkNodes.subList(yolkCount/2, yolkCount);
-        Collections.reverse(secondHalf);
-        yolkNodes = firstHalf;
-        yolkNodes.addAll(secondHalf);
-        yolk.setNodes(yolkNodes);
-        for(int i = 0; i < yolkCount; i++){
-            yolk.edges.add(new BasalEdge(yolkNodes.get((i+1) % yolkCount),yolkNodes.get(i)));
-        }
+    public static Cell build(List<Node> yolkNodes, List<Edge> yolkEdges) {
+        Cell yolk = State.create(Yolk.class);
+        yolk.getComponent(Mesh.class).nodes = yolkNodes;
+        yolk.getComponent(Mesh.class).edges = yolkEdges;
         return yolk;
     }
 
 
     @Override
     public void awake() {
-        this.osmosisConstant = -.0001f;
+        addComponent(new CellMesh());
+        addComponent(new CellRenderer());
+        getComponent(CellRenderer.class).setColor(Color.GREEN);
     }
 
     @Override
     public void start() {
-        restingArea = getArea();
-        setNodePositions();
-    }
-
-    @Override
-    public void update() {
-        setNodePositions();
-        calculateYolkRestoringForce();
-    }
-
-    @Override
-    public void run() {
-
-    }
-
-    private void calculateYolkRestoringForce() {
-        Force.restore(this, osmosisConstant);
+        addComponent(new OsmosisForce());
+        getComponent(OsmosisForce.class).osmosisConstant = 0.0001f;
     }
 }
