@@ -29,7 +29,7 @@ public class DrosophilaRingModel extends Entity {
 
 
     int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 18;
+    int numberOfConstrictingSegmentsInCircle = 24;
 
     int shorteningCellBegin = 16;
     int shorteningCellEnd = 28;
@@ -59,9 +59,9 @@ public class DrosophilaRingModel extends Entity {
 
         Yolk.build(yolkNodes, basalEdges);
         ringMesh.innerNodes.addAll(yolkNodes);
-        apicalGradient = new GaussianGradient(0f, 1.1f);
+        apicalGradient = new GaussianGradient(0f, .75f);
         apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                10.4f, .01f,
+                18.4f, .01f,
                 .1f, .1f);
     }
 

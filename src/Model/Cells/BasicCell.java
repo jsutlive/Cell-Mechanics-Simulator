@@ -17,7 +17,7 @@ public class BasicCell extends Cell{
     @Override
     public void start() {
         addComponent(new ElasticForce());
-        addComponent(new OsmosisForce());
+        //addComponent(new OsmosisForce());
         addComponent(new InternalElasticForce());
     }
 
