@@ -6,11 +6,10 @@ import Engine.States.State;
 import GUI.Vector.LineGraphic;
 import Model.Components.Physics.ForceVector.ForceType;
 import Model.Components.Physics.ForceVector.ForceVector;
-import Model.Model;
 import Utilities.Geometry.Vector2f;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ public class Node implements IRigidbody {
     /**
      * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
      * forces acting on this specific node.
-     * @param forceVector
+     * @param forceVector object with physics vector and description of physics applied
      */
     @Override
     public void addForceVector(ForceVector forceVector) {
@@ -84,7 +83,7 @@ public class Node implements IRigidbody {
 
     /**
      * Override the current position of the node and move it to a new position
-     * @param newPosition
+     * @param newPosition position to manually move node without physics calculation
      */
     @Override
     public void MoveTo(Vector2f newPosition) {
@@ -99,10 +98,7 @@ public class Node implements IRigidbody {
         resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForce);
         State.addToResultantForce(resultantForce);
-        if(resultantForce.mag() > Model.largestResultantForce.mag())
-        {
-            Model.largestResultantForce = resultantForce;
-        }
+
         debugger.posA = position.asInt();
         debugger.posB = position.add(resultantForce.mul(10)).asInt();
     }
@@ -118,7 +114,7 @@ public class Node implements IRigidbody {
 
     /**
      * Clone a node at this current position
-     * @return
+     * @return clone of node at current position
      */
     public Node clone(){
         return new Node(this.getPosition());
@@ -146,9 +142,7 @@ public class Node implements IRigidbody {
 
     public static List<Node> getAllUnique(Node[] a, Node[] b){
         List<Node> uniqueNodes = new ArrayList<>();
-        for(Node n_a: a){
-            uniqueNodes.add(n_a);
-        }
+        uniqueNodes.addAll(Arrays.asList(a));
         for(Node n_b: b){
             addIfAvailable(uniqueNodes, n_b);
         }

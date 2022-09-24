@@ -20,6 +20,13 @@ public abstract class Component implements IBehavior {
         return type.isInstance(parent) ? type.cast(parent) : null;
     }
 
+    public <T extends Entity> T parent(){
+        if(parent.getClass().isAssignableFrom(Entity.class)){
+            return (T) parent.getClass().cast(parent);
+        }
+        return null;
+    }
+
     /**
      * Same as entity "getComponent", used here to make calls more concise in code
      * @param componentClass component class to be return
@@ -36,6 +43,7 @@ public abstract class Component implements IBehavior {
     public void earlyUpdate(){}
     public void lateUpdate(){}
     public void onDestroy(){}
+    public void onValidate(){}
 
 
 }

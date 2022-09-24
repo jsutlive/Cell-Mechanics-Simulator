@@ -28,20 +28,20 @@ public class DrosophilaRingModel extends Entity {
     int lateralResolution = 4;
 
 
-    int numberOfSegmentsInTotalCircle = 80;
-    int numberOfConstrictingSegmentsInCircle = 18;
+    public int numberOfSegmentsInTotalCircle = 80;
+    public int numberOfConstrictingSegmentsInCircle = 18;
 
-    int shorteningCellBegin = 16;
-    int shorteningCellEnd = 28;
+    public int shorteningCellBegin = 16;
+    public int shorteningCellEnd = 28;
 
-    float outerRadius = 300;
-    float innerRadius = 200;
+    public float outerRadius = 300;
+    public float innerRadius = 200;
 
     public transient RingMesh ringMesh;
     public Gradient apicalGradient;
-    private transient List<Edge> basalEdges = new ArrayList<>();
-    private transient List<Edge> apicalEdges = new ArrayList<>();
-    private final Vector2i boundingBox = new Vector2i(800);
+    public transient List<Edge> basalEdges = new ArrayList<>();
+    public transient List<Edge> apicalEdges = new ArrayList<>();
+    public final Vector2i boundingBox = new Vector2i(800);
 
 
     @Override
@@ -142,7 +142,7 @@ public class DrosophilaRingModel extends Entity {
                     // copy list to prevent assignment issues between collections
                     List<Node> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
-                    newCell = ApicalConstrictingCell.build(oldNodes,lateralResolution, 1);
+                    newCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
                     constructionNodes.addAll(mirroredNodes);
                     if(i == 1)
@@ -154,7 +154,7 @@ public class DrosophilaRingModel extends Entity {
                     {
                         constructionNodes.addAll(oldMirroredNodes);
                     }
-                    mirroredCell = ApicalConstrictingCell.build(constructionNodes,lateralResolution, 1);
+                    mirroredCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(constructionNodes));
                     Collections.reverse(mirroredNodes);
                 }
                 else
@@ -166,19 +166,19 @@ public class DrosophilaRingModel extends Entity {
                             Collections.reverse(mirroredNodes);
                             constructionNodes.addAll(mirroredNodes);
                             constructionNodes.addAll(oldMirroredNodes);
-                            newCell = ShorteningCell.build(oldNodes, lateralResolution, 1);
-                            mirroredCell = ShorteningCell.build(constructionNodes, lateralResolution, 1);
+                            newCell = State.create(ShorteningCell.class, new CellMesh().build(oldNodes));
+                            mirroredCell = State.create(ShorteningCell.class, new CellMesh().build(constructionNodes));
                             Collections.reverse(mirroredNodes);
                         }else
                         {
                             oldNodes.addAll(zeroEdgeNodes);
-                            newCell = ShorteningCell.build(oldNodes, lateralResolution, 1);
+                            newCell = State.create(ShorteningCell.class, new CellMesh().build(oldNodes));
 
                             Collections.reverse(zeroEdgeNodes);
                             constructionNodes.addAll(zeroEdgeNodes);
                             constructionNodes.addAll(oldMirroredNodes);
                             Collections.reverse(zeroEdgeNodes);
-                            mirroredCell = ShorteningCell.build(constructionNodes, lateralResolution, 1);
+                            mirroredCell = State.create(ShorteningCell.class, new CellMesh().build(constructionNodes));
 
                         }
                     }
@@ -188,8 +188,8 @@ public class DrosophilaRingModel extends Entity {
                             Collections.reverse(mirroredNodes);
                             constructionNodes.addAll(mirroredNodes);
                             constructionNodes.addAll(oldMirroredNodes);
-                            newCell = BasicCell.build(oldNodes, lateralResolution, 1);
-                            mirroredCell = BasicCell.build(constructionNodes, lateralResolution, 1);
+                            newCell = State.create(BasicCell.class, new CellMesh().build(oldNodes));
+                            mirroredCell = State.create(BasicCell.class, new CellMesh().build(constructionNodes));
                             Collections.reverse(mirroredNodes);
                         }else
                         {
@@ -198,8 +198,8 @@ public class DrosophilaRingModel extends Entity {
                             constructionNodes.addAll(zeroEdgeNodes);
                             constructionNodes.addAll(oldMirroredNodes);
                             Collections.reverse(zeroEdgeNodes);
-                            newCell = BasicCell.build(oldNodes, lateralResolution, 1);
-                            mirroredCell = BasicCell.build(constructionNodes, lateralResolution, 1);
+                            newCell = State.create(BasicCell.class, new CellMesh().build(oldNodes));
+                            mirroredCell = State.create(BasicCell.class, new CellMesh().build(constructionNodes));
 
                         }
                     }

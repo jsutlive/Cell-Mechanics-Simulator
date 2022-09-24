@@ -19,7 +19,7 @@ public class RunState extends State
     public void Init() {
         model = findObjectWithTag(Tag.MODEL);
         if(model == null) {
-            model = State.create(Model.class);
+            model = State.create(DrosophilaRingModel.class);
         }
         for(Entity obj: allObjects){
             obj.start();

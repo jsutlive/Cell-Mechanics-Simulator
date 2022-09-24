@@ -7,6 +7,8 @@ import Utilities.Geometry.Vector2f;
 import Utilities.Math.Gauss;
 import com.google.gson.annotations.Expose;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +52,19 @@ public abstract class Mesh extends Component {
         centroid = new Vector2f(x,y);
     }
 
+    @Override
+    public void onValidate()
+    {
+        for(Method method: getClass().getDeclaredMethods()){
+            if(method.isAnnotationPresent(Builder.class))
+            {
+                try {
+                    method.invoke(this);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 }

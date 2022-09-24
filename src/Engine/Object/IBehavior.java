@@ -35,4 +35,9 @@ public interface IBehavior
      * This method is called just prior to this object's destruction
      */
     void onDestroy();
+
+    /**
+     * Checks/ methods to be run prior to awake, typically via annotations
+     */
+    void onValidate();
 }

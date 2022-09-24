@@ -24,7 +24,6 @@ public class Cell extends Entity {
      */
     @Override
     public void awake(){
-        addComponent(new CellMesh());
         addComponent(new CellRenderer());
         addComponent(new Lattice());
     }

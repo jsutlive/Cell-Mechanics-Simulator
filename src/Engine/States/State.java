@@ -5,6 +5,7 @@ import Engine.Object.Tag;
 import Engine.Simulation;
 import Engine.Timer.Time;
 import GUI.IRender;
+import Model.Components.Component;
 import Model.Components.Render.ObjectRenderer;
 import Utilities.Geometry.Vector2f;
 
@@ -89,20 +90,24 @@ public abstract class State
      * @return an Entity as its subclass
      */
     public static <T extends Entity> T create(Class<T> type) {
+        return create(type, null);
+    }
+
+    public static <T extends Entity> T create(Class<T> type, Component component) {
+        Entity obj;
         if(!Entity.class.isAssignableFrom(type)) {
             throw new IllegalArgumentException("Class not assignable from Entity");
         }
-        Entity obj = Entity.createObject(type);
-
+        if(component == null) {
+            obj = Entity.createObject(type);
+        }
+        else{
+            obj = Entity.createObject(type, component);
+        }
         //Create entity and have it perform its awake functions, encapsulated in null check
         if(obj!= null) {
             Entity.setGlobalID(obj);
             state.allObjects.add(obj);
-            try {
-                obj.awake();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            }
             return type.cast(obj);
         }
         return null;

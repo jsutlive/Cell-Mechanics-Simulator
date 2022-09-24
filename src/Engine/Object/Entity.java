@@ -14,7 +14,22 @@ public abstract class Entity implements IBehavior
 
    public static <T extends Entity> T createObject(Class<T> monoClass){
       try {
-         return monoClass.newInstance();
+         Entity e = monoClass.newInstance();
+         e.awake();
+         return monoClass.cast(e);
+      }
+      catch (IllegalAccessException | InstantiationException exception) {
+         exception.printStackTrace();
+      }
+      return null;
+   }
+
+   public static <T extends Entity> T createObject(Class<T> monoClass, Component component){
+      try {
+         Entity e = monoClass.newInstance();
+         e.components.add(component);
+         e.awake();
+         return monoClass.cast(e);
       }
       catch (IllegalAccessException | InstantiationException exception) {
          exception.printStackTrace();
@@ -41,6 +56,7 @@ public abstract class Entity implements IBehavior
    public void lateUpdate(){for(Component c: components)c.lateUpdate();}
    public void earlyUpdate(){for (Component c: components) c.earlyUpdate();}
    public void onDestroy(){for (Component c: components) c.onDestroy();}
+   public void onValidate(){}
 
    /**
     * Removes the object and its references from the current state
@@ -57,11 +73,9 @@ public abstract class Entity implements IBehavior
     * @return the component (if needed for immediate access)
     */
    public <T extends Component> T addComponent(Component c){
-      if(!Component.class.isAssignableFrom(c.getClass())){
-         throw new IllegalArgumentException("Object not instance of component");
-      }
       components.add(c);
       c.setParent(this);
+      c.onValidate();
       c.awake();
       return (T) c;
    }
@@ -82,5 +96,10 @@ public abstract class Entity implements IBehavior
 
    public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
+   }
+
+   public <T extends Entity> T withComponent(Component component){
+      components.add(component);
+      return (T) this;
    }
 }

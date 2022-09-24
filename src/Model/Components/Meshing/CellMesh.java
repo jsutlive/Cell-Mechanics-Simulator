@@ -1,10 +1,12 @@
 package Model.Components.Meshing;
 
 import Data.LogData;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.*;
 import Utilities.Geometry.Vector2f;
 import com.google.gson.annotations.Expose;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * CellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
@@ -12,6 +14,10 @@ import com.google.gson.annotations.Expose;
  */
 @LogData
 public class CellMesh extends Mesh{
+
+    transient int lateralResolution = 4;
+    transient int apicalResolution = 1;
+
 
     @Override
     public void start() {
@@ -55,5 +61,47 @@ public class CellMesh extends Mesh{
             intersections++;
         }
         return intersections%2 != 0;
+    }
+
+    public CellMesh build(List<Node> builderNodes){
+        return build(builderNodes, apicalResolution, lateralResolution);
+    }
+
+    public CellMesh build(List<Node> builderNodes, int xRes, int yRes){
+        // Start from top left, move along til end of lateral resolution
+        nodes = builderNodes;
+        int nodeCount = 0;
+        while (nodeCount < yRes){
+            nodeCount++;
+            Edge e = new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
+        }
+        while (nodeCount < yRes + xRes){
+            nodeCount++;
+            Edge e = new ApicalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
+        }
+        while(nodeCount < (2*yRes) + xRes){
+            nodeCount++;
+            Edge e = new LateralEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+            e.setNodesReference(nodeCount-1, nodeCount);
+            edges.add(e);
+        }
+        while (nodeCount < nodes.size()){
+            nodeCount++;
+            if(nodeCount == nodes.size()){
+                Edge e = new BasalEdge(nodes.get(nodeCount-1), nodes.get(0));
+                e.setNodesReference(nodeCount-1, 0);
+                edges.add(e);
+            }
+            else{
+                Edge e = new BasalEdge(nodes.get(nodeCount-1), nodes.get(nodeCount));
+                e.setNodesReference(nodeCount-1, nodeCount);
+                edges.add(e);
+            }
+        }
+        return this;
     }
 }

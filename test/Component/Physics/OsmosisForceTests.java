@@ -24,7 +24,7 @@ public class OsmosisForceTests {
     static void build_base_components(){
         List<Node> nodes  = new ArrayList<>();
         nodes.add(new Node(0,0)); nodes.add(new Node(0,1)); nodes.add(new Node(1,1)); nodes.add(new Node(1, 0));
-        cell = BasicCell.build(nodes, 1, 1);
+        cell = new BasicCell().withComponent(new CellMesh().build(nodes, 1, 1));
         mesh = cell.getComponent(CellMesh.class);
         osmosisForce = cell.addComponent(new OsmosisForce());
     }
