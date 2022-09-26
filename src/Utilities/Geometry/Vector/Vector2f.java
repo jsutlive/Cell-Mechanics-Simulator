@@ -152,8 +152,8 @@ public class Vector2f extends Vector
     }
 
     @Override
-    float[] get() {
-        return new float[]{x, y};
+    public Vector2f get() {
+        return (Vector2f) this;
     }
 
     @Override

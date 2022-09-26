@@ -1,6 +1,6 @@
 package Model.Components.Physics.Spring;
 
-import Model.Components.Meshing.CellMesh;
+import Model.Components.Meshing.Mesh;
 import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edges.Edge;
 import Physics.Rigidbodies.Nodes.Node2D;
@@ -8,7 +8,7 @@ public class ElasticForce extends SpringForce {
 
     @Override
     public void awake() {
-        edges = getComponent(CellMesh.class).edges;
+        edges = getComponent(Mesh.class).edges;
         targetLengthRatio = 1;
         forceVector.setType(ForceType.elastic);
     }

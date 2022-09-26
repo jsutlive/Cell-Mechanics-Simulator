@@ -18,6 +18,6 @@ public abstract class Vector {
     abstract boolean isNull();
     abstract Vector copy();
 
-    abstract float[] get();
+    public abstract Vector get();
     public abstract float get(int index);
 }
