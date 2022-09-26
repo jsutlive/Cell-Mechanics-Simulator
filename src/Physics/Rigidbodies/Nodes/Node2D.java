@@ -1,11 +1,13 @@
-package Physics.Rigidbodies;
+package Physics.Rigidbodies.Nodes;
 
 import Engine.Simulation;
 import Engine.States.State;
 
 import GUI.Vector.LineGraphic;
+import Physics.Rigidbodies.IRigidbody;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Physics.ForceType;
-import Utilities.Physics.ForceVector;
+import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
@@ -15,20 +17,19 @@ import java.util.List;
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
-public class Node implements IRigidbody {
+public class Node2D extends Node implements IRigidbody {
 
-    private Vector2f position;
-    private transient ForceVector resultantForce = new ForceVector();
-    private List<ForceVector> forceVectors = new ArrayList<>();
+    private transient ForceVector2D resultantForce = new ForceVector2D();
+    private List<ForceVector2D> forceVectors = new ArrayList<>();
 
     private transient LineGraphic debugger;
 
     public Vector2f getPosition()
     {
-        return position;
+        return (Vector2f) position;
     }
 
-    private void setPosition(Vector2f pos){
+    protected void setPosition(Vector pos){
         position = pos;
     }
 
@@ -37,28 +38,28 @@ public class Node implements IRigidbody {
         return resultantForce;
     }
 
-    public Node()
+    public Node2D()
     {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(0);
-        debugger = new LineGraphic(position.asInt(),position.asInt());
+        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
         State.addGraphicToScene(debugger);
     }
-    public Node(Vector2f pos)
+    public Node2D(Vector2f pos)
     {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = pos;
-        debugger = new LineGraphic(position.asInt(),position.asInt());
+        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
         State.addGraphicToScene(debugger);
     }
 
-    public Node(float a, float b){
+    public Node2D(float a, float b){
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(a, b);
-        debugger = new LineGraphic(position.asInt(),position.asInt());
+        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
         State.addGraphicToScene(debugger);
     }
 
@@ -68,7 +69,7 @@ public class Node implements IRigidbody {
      * @param forceVector object with physics vector and description of physics applied
      */
     @Override
-    public void addForceVector(ForceVector forceVector) {
+    public void addForceVector(ForceVector2D forceVector) {
         if(forceVector.isNull()){
             return;
         }
@@ -99,8 +100,8 @@ public class Node implements IRigidbody {
         position.add(resultantForce);
         State.addToResultantForce(resultantForce);
 
-        debugger.posA = position.asInt();
-        debugger.posB = position.add(resultantForce.mul(10)).asInt();
+        debugger.posA = getPosition().asInt();
+        debugger.posB = getPosition().add(resultantForce.mul(10)).asInt();
     }
 
     /**
@@ -116,8 +117,8 @@ public class Node implements IRigidbody {
      * Clone a node at this current position
      * @return clone of node at current position
      */
-    public Node clone(){
-        return new Node(this.getPosition());
+    public Node2D clone(){
+        return new Node2D(this.getPosition());
     }
 
     /**
@@ -136,16 +137,5 @@ public class Node implements IRigidbody {
         setPosition(new Vector2f(pos.x, -pos.y + yOffset));
     }
 
-    public static void addIfAvailable(List<Node> nodes, Node n){
-        if(!nodes.contains(n)) nodes.add(n);
-    }
 
-    public static List<Node> getAllUnique(Node[] a, Node[] b){
-        List<Node> uniqueNodes = new ArrayList<>();
-        uniqueNodes.addAll(Arrays.asList(a));
-        for(Node n_b: b){
-            addIfAvailable(uniqueNodes, n_b);
-        }
-        return uniqueNodes;
-    }
 }

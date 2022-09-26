@@ -1,12 +1,11 @@
 package Model.Components.Render;
 
-import Data.LogData;
 import Engine.States.State;
 import GUI.IColor;
 import GUI.Painter;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Edges.Edge;
 
 import java.awt.*;
 

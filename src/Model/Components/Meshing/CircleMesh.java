@@ -1,13 +1,13 @@
 package Model.Components.Meshing;
 
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 
 import java.util.List;
 
 public class CircleMesh extends Mesh{
 
-    public CircleMesh build(List<Node> nodes, List<Edge> edges){
+    public CircleMesh build(List<Node2D> nodes, List<Edge> edges){
         this.nodes = nodes;
         this.edges = edges;
         return this;

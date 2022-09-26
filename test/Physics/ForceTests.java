@@ -1,9 +1,9 @@
 package Physics;
 
 import Physics.Forces.Force;
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,8 +17,8 @@ public class ForceTests {
     @BeforeEach
     void setup()
     {
-        Node a = new Node(pos00);
-        Node b = new Node(pos01);
+        Node2D a = new Node2D(pos00);
+        Node2D b = new Node2D(pos01);
         edge = new BasicEdge(a, b);
     }
     @Test
@@ -26,7 +26,7 @@ public class ForceTests {
     {
         float elasticConstant = 0f;
         Force.elastic(edge, elasticConstant);
-        Node a = edge.getNodes()[0];
+        Node2D a = edge.getNodes()[0];
         assertEquals(a.getPosition().x, pos00.x);
         assertEquals(a.getPosition().y, pos00.y);
     }
@@ -58,8 +58,8 @@ public class ForceTests {
     void determine_constrict_never_flips_edge_nodes(){
         float high_num = 1e10f;
         Force.constrict(edge, high_num, 0.01f);
-        Node a = edge.getNodes()[0];
-        Node b = edge.getNodes()[1];
+        Node2D a = edge.getNodes()[0];
+        Node2D b = edge.getNodes()[1];
         a.Move(); b.Move();
         assertTrue(a.getPosition().y < b.getPosition().y);
     }

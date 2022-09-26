@@ -1,7 +1,11 @@
 package Model.Components.Meshing;
 
 import Data.LogData;
-import Physics.Rigidbodies.*;
+import Physics.Rigidbodies.Edges.ApicalEdge;
+import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Edges.LateralEdge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.List;
@@ -25,18 +29,18 @@ public class CellMesh extends Mesh{
 
     @Override
     public void earlyUpdate() {
-        for(Node n: nodes) n.resetResultantForce();
+        for(Node2D n: nodes) n.resetResultantForce();
     }
 
     @Override
     public void lateUpdate() {
-        for (Node n : nodes) {
+        for (Node2D n : nodes) {
             n.Move();
         }
         calculateArea();
     }
 
-    public boolean collidesWithNode(Node n){
+    public boolean collidesWithNode(Node2D n){
         //checks whether point is inside polygon by drawing a horizontal ray from the point
         //if the num of intersections is even, then it is outside, else it is inside
         //because if a point crosses the shape a total of a even amount of times, then it
@@ -61,11 +65,11 @@ public class CellMesh extends Mesh{
         return intersections%2 != 0;
     }
 
-    public CellMesh build(List<Node> builderNodes){
+    public CellMesh build(List<Node2D> builderNodes){
         return build(builderNodes, apicalResolution, lateralResolution);
     }
 
-    public CellMesh build(List<Node> builderNodes, int xRes, int yRes){
+    public CellMesh build(List<Node2D> builderNodes, int xRes, int yRes){
         // Start from top left, move along til end of lateral resolution
         nodes = builderNodes;
         int nodeCount = 0;

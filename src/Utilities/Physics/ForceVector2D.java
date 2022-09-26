@@ -1,8 +1,9 @@
 package Utilities.Physics;
 
+
 import Utilities.Geometry.Vector.Vector2f;
 
-public class ForceVector extends Vector2f {
+public class ForceVector2D extends Vector2f {
     private ForceType type;
     public void setType(ForceType forceType){ type = forceType;}
     public void set(float x, float y){
@@ -10,13 +11,13 @@ public class ForceVector extends Vector2f {
         this.y = y;
     }
 
-    public void set(Vector2f v){
-        this.x = v.x;
-        this.y = v.y;
+    public void set(Vector2f vec) {
+        this.x = vec.get(0);
+        this.y = vec.get(1);
     }
 
-    public ForceVector neg(){
-        ForceVector fvneg = new ForceVector();
+    public ForceVector2D neg(){
+        ForceVector2D fvneg = new ForceVector2D();
         fvneg.type = this.type;
         fvneg.x = this.x*-1;
         fvneg.y = this.y*-1;

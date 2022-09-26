@@ -1,8 +1,8 @@
 package Math;
 
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
@@ -32,8 +32,8 @@ public class CustomMathTests {
 
     @Test
     void calculate_edge_normal_horiz_line(){
-        Node a = new Node(0,0);
-        Node b = new Node(0, 1);
+        Node2D a = new Node2D(0,0);
+        Node2D b = new Node2D(0, 1);
         Edge e = new BasicEdge(a, b);
         Vector2f norm = CustomMath.normal(e);
         assertEquals(0.0f, norm.y);
@@ -63,8 +63,8 @@ public class CustomMathTests {
     void calculate_edge_normal_45_degree_angle()
     {
         float root2 = (float) (Math.sqrt(2)/2);
-        Node a = new Node(new Vector2f(0));
-        Node b = new Node(new Vector2f(root2));
+        Node2D a = new Node2D(new Vector2f(0));
+        Node2D b = new Node2D(new Vector2f(root2));
         Edge e = new BasicEdge(a,b);
         Vector2f norm = CustomMath.normal(e);
         //assertEquals(-root2, norm.y);
@@ -97,10 +97,10 @@ public class CustomMathTests {
     @Test
     void check_perpendicular_distance_simple_line()
     {
-        Node n = new Node(0,1);
+        Node2D n = new Node2D(0,1);
         Edge e = new BasicEdge(
-                new Node(-1,0),
-                new Node(1,0));
+                new Node2D(-1,0),
+                new Node2D(1,0));
 
         float dist = CustomMath.pDistanceSq(n, e);
         assertEquals(1f, dist);
@@ -109,10 +109,10 @@ public class CustomMathTests {
     @Test
     void check_perpendicular_distance_simple_line_at_end_of_edge()
     {
-        Node n = new Node(-1,1);
+        Node2D n = new Node2D(-1,1);
         Edge e = new BasicEdge(
-                new Node(-1,0),
-                new Node(1,0));
+                new Node2D(-1,0),
+                new Node2D(1,0));
         float dist = CustomMath.pDistanceSq(n, e);
         assertEquals(1f, dist);
     }
@@ -120,10 +120,10 @@ public class CustomMathTests {
     @Test
     void check_perpendicular_distance_simple_line_diagonal_to_edge()
     {
-        Node n = new Node(-4,4);
+        Node2D n = new Node2D(-4,4);
         Edge e = new BasicEdge(
-                new Node(-1,0),
-                new Node(1,0));
+                new Node2D(-1,0),
+                new Node2D(1,0));
         float dist = CustomMath.pDistanceSq(n, e);
         assertEquals(16f, dist);
     }

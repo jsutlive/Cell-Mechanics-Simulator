@@ -9,10 +9,10 @@ import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Collision.CellRingCollider;
 import Physics.Forces.GaussianGradient;
 import Physics.Forces.Gradient;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.ApicalEdge;
+import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
@@ -53,7 +53,7 @@ public class DrosophilaRingModel extends Entity {
                 .1f, .1f);
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
-        List<Node> yolkNodes = new ArrayList<>();
+        List<Node2D> yolkNodes = new ArrayList<>();
         for(Edge edge: basalEdges){
             yolkNodes.add(edge.getNodes()[0]);
         }
@@ -76,7 +76,7 @@ public class DrosophilaRingModel extends Entity {
         ringMesh.nodes.clear();
         for(Cell cell: ringMesh.cellList)
         {
-            for(Node node: cell.getComponent(CellMesh.class).nodes){
+            for(Node2D node: cell.getComponent(CellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
                     if (!ringMesh.contains(node)) ringMesh.nodes.add(node);
                 }
@@ -99,17 +99,17 @@ public class DrosophilaRingModel extends Entity {
         Vector2f position, unitVector;
         ArrayList<Cell> mirroredCells = new ArrayList<>();
 
-        ArrayList<Node> oldNodes = new ArrayList<>();
-        ArrayList<Node> oldMirroredNodes = new ArrayList<>();
+        ArrayList<Node2D> oldNodes = new ArrayList<>();
+        ArrayList<Node2D> oldMirroredNodes = new ArrayList<>();
 
-        ArrayList<Node> zeroEdgeNodes = new ArrayList<>();
+        ArrayList<Node2D> zeroEdgeNodes = new ArrayList<>();
 
         //make lateral edges
         for (int i = 0; i < (numberOfSegmentsInTotalCircle/2)+1; i++) {
 
-            ArrayList<Node> nodes= new ArrayList<>();
-            ArrayList<Node> mirroredNodes = new ArrayList<>();
-            ArrayList<Node> constructionNodes = new ArrayList<>();
+            ArrayList<Node2D> nodes= new ArrayList<>();
+            ArrayList<Node2D> mirroredNodes = new ArrayList<>();
+            ArrayList<Node2D> constructionNodes = new ArrayList<>();
 
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
 
@@ -117,15 +117,15 @@ public class DrosophilaRingModel extends Entity {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
                 position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
-                Node currentNode = new Node(position);
-                Node mirroredNode = currentNode.clone();
+                Node2D currentNode = new Node2D(position);
+                Node2D mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();
                 if(i == numberOfSegmentsInTotalCircle/2)
                 {
                     unitVector = CustomMath.GetUnitVectorOnCircle(0, numberOfSegmentsInTotalCircle);
                     unitVector.y = - unitVector.y;
                     position = CustomMath.TransformToWorldSpace(unitVector,radiusToNode, boundingBox.asFloat());
-                    zeroEdgeNodes.add(new Node(position));
+                    zeroEdgeNodes.add(new Node2D(position));
                 }
                 nodes.add(currentNode);
                 mirroredNodes.add(mirroredNode);
@@ -140,7 +140,7 @@ public class DrosophilaRingModel extends Entity {
                 if(i<=numberOfConstrictingSegmentsInCircle/2)
                 {
                     // copy list to prevent assignment issues between collections
-                    List<Node> oldNodesZ = new ArrayList<>(oldNodes);
+                    List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
                     newCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
@@ -243,8 +243,8 @@ public class DrosophilaRingModel extends Entity {
        checkNodesWithinBoundary(getComponent(RingMesh.class).nodes);
     }
 
-    private void checkNodesWithinBoundary(List<Node> allNodes) {
-        for(Node node: allNodes)
+    private void checkNodesWithinBoundary(List<Node2D> allNodes) {
+        for(Node2D node: allNodes)
         {
             if(!Boundary.ContainsNode(node, new Vector2f(400), outerRadius))
             {

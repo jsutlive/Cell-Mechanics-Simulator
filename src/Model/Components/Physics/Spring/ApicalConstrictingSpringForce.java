@@ -8,9 +8,9 @@ import Model.Components.Meshing.CellMesh;
 import Utilities.Physics.ForceType;
 import Model.DrosophilaRingModel;
 import Physics.Forces.Gradient;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.ApicalEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 
 
 public class ApicalConstrictingSpringForce extends SpringForce {
@@ -34,7 +34,7 @@ public class ApicalConstrictingSpringForce extends SpringForce {
     @Override
     public void update() {
         for(Edge edge: edges){
-            Node[] nodes = edge.getNodes();
+            Node2D[] nodes = edge.getNodes();
             if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
                 calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime));
             }

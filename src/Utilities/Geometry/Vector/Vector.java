@@ -2,7 +2,7 @@ package Utilities.Geometry.Vector;
 
 public abstract class Vector {
 
-    abstract Vector add(Vector vec);
+    public abstract Vector add(Vector vec);
     abstract Vector sub(Vector vec);
     abstract Vector mul(float f);
     abstract Vector div(float f);
@@ -19,5 +19,5 @@ public abstract class Vector {
     abstract Vector copy();
 
     abstract float[] get();
-    abstract float get(int index);
+    public abstract float get(int index);
 }

@@ -3,9 +3,9 @@ package Model.Components.Lattice;
 import Model.Components.Component;
 import Model.Components.Meshing.Builder;
 import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,7 +19,7 @@ public class Lattice extends Component {
      * Assumes apical resolution of 1. Constructs lattice based on the cell mesh     *
      */
     public void buildLattice(){
-        List<Node> nodes = getComponent(CellMesh.class).nodes;
+        List<Node2D> nodes = getComponent(CellMesh.class).nodes;
         if(nodes.size() != 0){
             int nodeSize = nodes.size();
             int count = (nodeSize/2);

@@ -1,9 +1,9 @@
 package Physics.Forces;
 
 
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -23,7 +23,7 @@ public class Force
      */
     public static void constrict(Edge edge, float constant, float ratio)
     {
-        Node[] nodes = edge.getNodes();
+        Node2D[] nodes = edge.getNodes();
         Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
 
         // Apply force to node 0
@@ -36,7 +36,7 @@ public class Force
 
     public static void constantConstrict(Edge edge, float constant, float ratio)
     {
-        Node[] nodes = edge.getNodes();
+        Node2D[] nodes = edge.getNodes();
         Vector2f forceVector = calculateConstrictionForce(edge, constant, ratio);
         // Apply force to node 0
         nodes[0].addForceVector(forceVector);
@@ -48,7 +48,7 @@ public class Force
 
     public static void constrict(Edge edge, float constant, float ratio, int id)
     {
-        Node[] nodes = edge.getNodes();
+        Node2D[] nodes = edge.getNodes();
         Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
         System.out.println("FORCE(" + id + "): " +
                 forceVector.x + ", " +
@@ -66,7 +66,7 @@ public class Force
 
 
     public static void halfConstrict(Edge edge, float constant, float ratio){
-        Node[] nodes = edge.getNodes();
+        Node2D[] nodes = edge.getNodes();
         Vector2f forceVector = calculateSpringForce(edge, constant, ratio);
 
         // Apply force to node 0
@@ -165,7 +165,7 @@ public class Force
             return limitedForce;
         }
     }
-    public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node n, LJForceType type) {
+    public static Vector2f GetLennardJonesLikeForce(float ljConstant, Edge edge, Node2D n, LJForceType type) {
         Vector2f pointOnEdge = CustomMath.pointSlope(n, edge);
         Vector2f forceVector;
         if(Float.isNaN(pointOnEdge.x) || Float.isNaN(pointOnEdge.y))
@@ -188,7 +188,7 @@ public class Force
             }
         }
         Edge temp;
-        Node t = new Node(pointOnEdge);
+        Node2D t = new Node2D(pointOnEdge);
         temp = new BasicEdge(n, t);
         float forceMagnitude = calculateLJForceMagnitude(temp, ljConstant, type);
         if(Float.isNaN(forceMagnitude))

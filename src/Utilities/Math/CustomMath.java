@@ -1,19 +1,12 @@
 package Utilities.Math;
 
 import Model.Cells.Cell;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 
 public class CustomMath {
-    /**
-     * Find unit vector describing the angle of a given point from center given which segment it is and the distance
-     * from the center
-     * @param currentSegment current segment
-     * @param circleSegments total segments in the circle
-     * @return an x,y vector2 (floating point) describing the unit vector.
-     */
 
     public static Vector2f ClosestPointToSegmentFromPoint(Vector2f point, Vector2f[] segment){
         Vector2f edgeVector = segment[1].copy().sub(segment[0]);
@@ -30,6 +23,13 @@ public class CustomMath {
         return closestPoint;
     }
 
+    /**
+     * Find unit vector describing the angle of a given point from center given which segment it is and the distance
+     * from the center
+     * @param currentSegment current segment
+     * @param circleSegments total segments in the circle
+     * @return an x,y vector2 (floating point) describing the unit vector.
+     */
     public static Vector2f GetUnitVectorOnCircle(int currentSegment, float circleSegments)
     {
         float theta = (currentSegment/circleSegments) * 360f;
@@ -192,12 +192,12 @@ public class CustomMath {
      * @param e the edge we want to calculate distance to
      * @return float describing perpendicular distance from a node to the edge
      */
-    public static float pDistanceSq(Node n, Edge e){
+    public static float pDistanceSq(Node2D n, Edge e){
         Vector2f[] edgePositions = e.getPositions();
         return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
-    public static float pDistanceSq(Cell c, Node n, Edge e){
+    public static float pDistanceSq(Cell c, Node2D n, Edge e){
         Vector2f[] edgePositions = e.getPositions();
         return pDistanceSq(c, n.getPosition(), edgePositions[0], edgePositions[1]);
     }
@@ -251,7 +251,7 @@ public class CustomMath {
         return sq(dot) / len_sq;
     }
 
-    public static Vector2f pointSlope(Node n, Edge e){
+    public static Vector2f pointSlope(Node2D n, Edge e){
         Vector2f[] edgePositions = e.getPositions();
         return pointSlope(n.getPosition(), edgePositions[0], edgePositions[1]);
     }

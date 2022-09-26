@@ -1,7 +1,7 @@
 package Model.Components.Physics.Spring;
 
 import Model.Components.Physics.Force;
-import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Edges.Edge;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;

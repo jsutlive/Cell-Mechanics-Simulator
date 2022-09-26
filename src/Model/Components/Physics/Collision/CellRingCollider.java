@@ -6,10 +6,10 @@ import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Force;
 import Utilities.Physics.ForceType;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.ApicalEdge;
+import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -19,10 +19,10 @@ import java.util.List;
 @LogOnce
 public class CellRingCollider extends Force {
     transient List<Cell> cells;
-    transient List<Node> nodes;
-    transient List<Node> bothRings;
-    transient List<Node> innerNodes;
-    transient  List<Node> outerNodes;
+    transient List<Node2D> nodes;
+    transient List<Node2D> bothRings;
+    transient List<Node2D> innerNodes;
+    transient  List<Node2D> outerNodes;
 
     @Override
     public void awake() {
@@ -44,7 +44,7 @@ public class CellRingCollider extends Force {
     private void checkCollision() {
         for(Cell cell: cells){
             CellMesh mesh = cell.getComponent(CellMesh.class);
-            for(Node node: innerNodes){
+            for(Node2D node: innerNodes){
                 Vector2f nodePosition = node.getPosition();
                 if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
                     for (Edge e : mesh.edges) {
@@ -54,14 +54,14 @@ public class CellRingCollider extends Force {
                         Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
                         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
                         forceVector.set(CustomMath.normal(e));
-                        Node[] nodes = e.getNodes();
+                        Node2D[] nodes = e.getNodes();
                         e.addForceVector(forceVector);
                         forceVector.mul(-2);
                         node.addForceVector(forceVector);
                     }
                 }
             }
-            for(Node node: outerNodes){
+            for(Node2D node: outerNodes){
                 Vector2f nodePosition = node.getPosition();
                 if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
                     for (Edge e : mesh.edges) {
@@ -71,7 +71,7 @@ public class CellRingCollider extends Force {
                         Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
                         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
                         forceVector.set(CustomMath.normal(e));
-                        Node[] nodes = e.getNodes();
+                        Node2D[] nodes = e.getNodes();
                         e.addForceVector(forceVector);
                         forceVector.mul(-2);
                         node.addForceVector(forceVector);

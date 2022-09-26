@@ -2,9 +2,9 @@ package Model.Components.Physics.Spring;
 
 import Model.Components.Meshing.CellMesh;
 import Utilities.Physics.ForceType;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.LateralEdge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Edges.LateralEdge;
+import Physics.Rigidbodies.Nodes.Node2D;
 
 public class LateralShorteningSpringForce extends SpringForce {
 
@@ -14,7 +14,7 @@ public class LateralShorteningSpringForce extends SpringForce {
     @Override
     public void update() {
         for(Edge edge: edges){
-            Node[] nodes = edge.getNodes();
+            Node2D[] nodes = edge.getNodes();
             calculateSpringForce(edge, shorteningSpringConstant);
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());

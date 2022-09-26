@@ -5,7 +5,7 @@ import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.Mesh;
 import Model.Components.Physics.OsmosisForce;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -22,8 +22,8 @@ public class OsmosisForceTests {
     static Mesh mesh;
     @BeforeAll
     static void build_base_components(){
-        List<Node> nodes  = new ArrayList<>();
-        nodes.add(new Node(0,0)); nodes.add(new Node(0,1)); nodes.add(new Node(1,1)); nodes.add(new Node(1, 0));
+        List<Node2D> nodes  = new ArrayList<>();
+        nodes.add(new Node2D(0,0)); nodes.add(new Node2D(0,1)); nodes.add(new Node2D(1,1)); nodes.add(new Node2D(1, 0));
         cell = new BasicCell().withComponent(new CellMesh().build(nodes, 1, 1));
         mesh = cell.getComponent(CellMesh.class);
         osmosisForce = cell.addComponent(new OsmosisForce());

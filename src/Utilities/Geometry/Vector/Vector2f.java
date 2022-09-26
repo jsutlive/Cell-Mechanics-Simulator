@@ -157,7 +157,7 @@ public class Vector2f extends Vector
     }
 
     @Override
-    float get(int index) {
+    public float get(int index) {
         if(index == 0) return x;
         if(index == 1) return y;
         else throw new IllegalArgumentException("Out of range argument");

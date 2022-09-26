@@ -3,8 +3,8 @@ package GUI;
 import Renderer.Renderer;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.CustomMath;
@@ -17,7 +17,7 @@ public class Painter {
     public static void drawCell(Cell cell, Color color)
     {
         CellMesh cellMesh = cell.getComponent(CellMesh.class);
-        for(Node node: cellMesh.nodes)
+        for(Node2D node: cellMesh.nodes)
         {
             drawPoint(node.getPosition().asInt(),color);
         }
@@ -29,7 +29,7 @@ public class Painter {
         }
     }
 
-    public static void drawForce(Node node, Vector2f forceVector){
+    public static void drawForce(Node2D node, Vector2f forceVector){
         Vector2f nodePosition = node.getPosition();
         forceVector.mul(50);
         forceVector.add(nodePosition);

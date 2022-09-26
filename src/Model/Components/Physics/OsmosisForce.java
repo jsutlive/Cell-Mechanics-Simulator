@@ -2,7 +2,7 @@ package Model.Components.Physics;
 
 import Model.Components.Meshing.Mesh;
 import Utilities.Physics.ForceType;
-import Physics.Rigidbodies.Edge;
+import Physics.Rigidbodies.Edges.Edge;
 import Utilities.Math.CustomMath;
 
 import java.util.List;

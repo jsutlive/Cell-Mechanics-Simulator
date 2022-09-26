@@ -1,6 +1,6 @@
 package Utilities.Geometry;
 
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Corner
 {
-    Node _a;
-    Node _b;
-    Node _c;
+    Node2D _a;
+    Node2D _b;
+    Node2D _c;
 
-    public List<Node> nodes = new ArrayList<>();
+    public List<Node2D> nodes = new ArrayList<>();
     public Vector2f direction = new Vector2f(0);
 
-    public Corner(Node a, Node b, Node c){
+    public Corner(Node2D a, Node2D b, Node2D c){
         nodes.add(a); nodes.add(b); nodes.add(c);
         _a = a;
         _b = b;

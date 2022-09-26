@@ -1,6 +1,9 @@
 package Physics;
 
-import Physics.Rigidbodies.*;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Edges.LateralEdge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.Test;
 
@@ -12,9 +15,9 @@ public class EdgeTests
     void geometric_functions_work_for_simple_right_triangle_3_4_5()
     {
         // Make a 3-4-5 right triangle
-        Node a = new Node(0f,0f);
-        Node b = new Node(3f, 0f);
-        Node c = new Node(3f, 4f);
+        Node2D a = new Node2D(0f,0f);
+        Node2D b = new Node2D(3f, 0f);
+        Node2D c = new Node2D(3f, 4f);
 
         Edge A = new LateralEdge(a, b);
         Edge B = new LateralEdge(b,c);
@@ -29,10 +32,10 @@ public class EdgeTests
 
     @Test
     void get_correct_length_of_edge(){
-        Node a = new Node(0,0);
-        Node b = new Node(0,5);
+        Node2D a = new Node2D(0,0);
+        Node2D b = new Node2D(0,5);
         Edge e = new BasicEdge(a,b);
-        Node[] nodes = e.getNodes();
+        Node2D[] nodes = e.getNodes();
         Vector2f aVec = nodes[0].getPosition();
         Vector2f bVec = nodes[1].getPosition();
         float dist = Vector2f.dist(aVec, bVec);
@@ -41,18 +44,18 @@ public class EdgeTests
 
     @Test
     void determine_edge_contains_node(){
-        Node n = new Node(0,0);
+        Node2D n = new Node2D(0,0);
         Edge e =  new BasicEdge(
-                new Node(0,0),
-                new Node(0,1)
+                new Node2D(0,0),
+                new Node2D(0,1)
         );
         assertTrue(e.contains(n));
     }
 
     @Test
     void determine_edge_nodes_instances_not_altered(){
-        Node a = new Node(0,0);
-        Node b = new Node(0,1);
+        Node2D a = new Node2D(0,0);
+        Node2D b = new Node2D(0,1);
         Edge e = new BasicEdge(a,b);
 
         assertSame(a, e.getNodes()[0]);

@@ -1,9 +1,9 @@
 package Physics;
 
 import Model.Cells.Cell;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.LateralEdge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Edges.LateralEdge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTests {
-    static List<Node> cellNodes = new ArrayList<>();
+    static List<Node2D> cellNodes = new ArrayList<>();
     static List<Edge> edgeListA = new ArrayList<>();
     static List<Edge> edgeListB = new ArrayList<>();
     static Cell testCell;
@@ -21,12 +21,12 @@ public class CellTests {
     @BeforeAll
     static void cell_setup() {
         // Create six nodes with side a and side b
-        Node a1 = new Node(0,0);    cellNodes.add(a1);
-        Node a2 = new Node(0,1);    cellNodes.add(a2);
-        Node a3 = new Node(0,2);    cellNodes.add(a3);
-        Node b1 = new Node(1,0);    cellNodes.add(b1);
-        Node b2 = new Node(1,1);    cellNodes.add(b2);
-        Node b3 = new Node(1, 2);   cellNodes.add(b3);
+        Node2D a1 = new Node2D(0,0);    cellNodes.add(a1);
+        Node2D a2 = new Node2D(0,1);    cellNodes.add(a2);
+        Node2D a3 = new Node2D(0,2);    cellNodes.add(a3);
+        Node2D b1 = new Node2D(1,0);    cellNodes.add(b1);
+        Node2D b2 = new Node2D(1,1);    cellNodes.add(b2);
+        Node2D b3 = new Node2D(1, 2);   cellNodes.add(b3);
 
         //create 4 lateral edges, two on each side
         //side a
@@ -48,7 +48,7 @@ public class CellTests {
 
     @Test
     void check_that_nodes_consistent_during_cell_creation(){
-        for(Node node: cellNodes){
+        for(Node2D node: cellNodes){
             int numberOfCopiesOfNode = 0;
             //for(Node cellNode: testCell.getNodes()){
             //    if(node == cellNode) numberOfCopiesOfNode++;

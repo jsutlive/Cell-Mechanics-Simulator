@@ -1,8 +1,8 @@
 package Math;
 import Model.Cells.Cell;
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -21,7 +21,7 @@ public class GeometryTests {
     float oneHundredEightyDegreesAsRadians = (float)Math.PI;
     float root2Over2 = CustomMath.round((float)Math.sqrt(2)/2,3);
 
-    static List<Node> testNodes;
+    static List<Node2D> testNodes;
     static List<Edge> testEdges;
     static Cell cell;
 
@@ -31,10 +31,10 @@ public class GeometryTests {
         testNodes = new ArrayList<>();
         testEdges = new ArrayList<>();
 
-        Node a = new Node(new Vector2f(0,0));
-        Node b = new Node(new Vector2f(0,2));
-        Node c = new Node(new Vector2f(2,2));
-        Node d = new Node(new Vector2f(2, 0));
+        Node2D a = new Node2D(new Vector2f(0,0));
+        Node2D b = new Node2D(new Vector2f(0,2));
+        Node2D c = new Node2D(new Vector2f(2,2));
+        Node2D d = new Node2D(new Vector2f(2, 0));
         testNodes.add(a); testNodes.add(b); testNodes.add(c); testNodes.add(d);
 
         Edge e1 = new BasicEdge(a, b);
@@ -87,21 +87,21 @@ public class GeometryTests {
     @Test
     void check_if_point_x1_y1_within_cell()
     {
-        Node point = new Node(1,1.5f);
+        Node2D point = new Node2D(1,1.5f);
         assertTrue(Geometry.polygonContainsPoint(cell, point));
     }
 
     @Test
     void check_if_point_node_position_on_cell_not_counting_as_within_cell()
     {
-        Node point = new Node(0,0);
+        Node2D point = new Node2D(0,0);
         assertFalse(Geometry.polygonContainsPoint(cell, point));
     }
 
     @Test
     void check_if_point_outside_cell()
     {
-        Node point = new Node(-0.5f,0);
+        Node2D point = new Node2D(-0.5f,0);
         assertFalse(Geometry.polygonContainsPoint(cell, point));
     }
 
@@ -164,7 +164,7 @@ public class GeometryTests {
         Vector2f p1 = new Vector2f(1, 0);
         Vector2f p2 = new Vector2f(1, 2);
 
-        Edge e = new BasicEdge(new Node(p1), new Node(p2));
+        Edge e = new BasicEdge(new Node2D(p1), new Node2D(p2));
         Vector2f n = new Vector2f(0,1);
 
         Vector2f intersection = Geometry.getNearestPointOnLine(e, n);
@@ -174,7 +174,7 @@ public class GeometryTests {
 
     @Test
     void check_if_edge_closest_to_point_1_1o5_is_e2(){
-        Node test = new Node(new Vector2f(1, 1.5f));
+        Node2D test = new Node2D(new Vector2f(1, 1.5f));
         Edge e = Geometry.getClosestEdgeToPoint(cell, test);
         System.out.println(testEdges.get(0));
         System.out.println(testEdges.get(1)); // TOP EDGE

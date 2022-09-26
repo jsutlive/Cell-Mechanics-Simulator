@@ -1,11 +1,11 @@
 package Utilities.Geometry;
 
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
 public class Boundary {
-    public static boolean ContainsNode(Node n, Vector2f center, float radius) {
+    public static boolean ContainsNode(Node2D n, Vector2f center, float radius) {
         return ContainsPosition(n.getPosition(), center, radius);
     }
 
@@ -14,7 +14,7 @@ public class Boundary {
                 <= CustomMath.sq(radius);
     }
 
-    public static void clampNodeToBoundary(Node n, Vector2f center, float radius)
+    public static void clampNodeToBoundary(Node2D n, Vector2f center, float radius)
     {
         Vector2f pos = getClampedPosition(n.getPosition(), center, radius);
         n.MoveTo(pos);

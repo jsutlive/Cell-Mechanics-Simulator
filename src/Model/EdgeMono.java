@@ -5,7 +5,8 @@ import Engine.States.State;
 import Model.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Model.Components.Physics.Spring.ElasticForce;
 import Model.Components.Render.EdgeRenderer;
-import Physics.Rigidbodies.*;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 
 import java.awt.*;
 
@@ -25,7 +26,7 @@ public class EdgeMono extends Entity {
     }
     public Edge getEdge(){return edge;}
 
-    public Node[] getNodes(){
+    public Node2D[] getNodes(){
         return edge.getNodes();
     }
 

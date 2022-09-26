@@ -1,10 +1,13 @@
 package Utilities.Geometry;
 
+import Engine.Object.Entity;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasicEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -15,7 +18,7 @@ public class Geometry {
     public static Vector2f APPROX_INF = new Vector2f(1e15f);
     public static float ninetyDegreesAsRadians = (float)Math.PI/2;
 
-    public static boolean polygonContainsPoint(Cell cell, Node point){
+    public static boolean polygonContainsPoint(Cell cell, Node2D point){
         int count = 0;
 
         Vector2f p3 = point.getPosition();
@@ -60,13 +63,13 @@ public class Geometry {
         else return false;
     }
 
-    public static Vector2f[] getMinMaxBoundary(List<Node> nodes)
+    public static Vector2f[] getMinMaxBoundary(List<Node2D> nodes)
     {
         float xMin = 0;
         float yMin = 0;
         float xMax = 0;
         float yMax = 0;
-        for( Node node: nodes){
+        for( Node2D node: nodes){
             Vector2f pos = node.getPosition();
             if(pos.x > xMax) xMax = pos.x;
             if(pos.x < xMin) xMin = pos.x;
@@ -124,7 +127,7 @@ public class Geometry {
         return res;
     }
 
-    public static Edge getClosestEdgeToPoint(Cell cell, Node n)
+    public static Edge getClosestEdgeToPoint(Cell cell, Node2D n)
     {
         float shortestDistance = Float.POSITIVE_INFINITY;
         Edge currentEdge = new BasicEdge();
@@ -143,25 +146,25 @@ public class Geometry {
     }
 
     public static float calculateAngleBetweenEdges(Edge a, Edge b){
-        Node[] edgeANodes = a.getNodes();
-        Node[] edgeBNodes = b.getNodes();
+        Node2D[] edgeANodes = a.getNodes();
+        Node2D[] edgeBNodes = b.getNodes();
         List<Node> cornerNodes = Node.getAllUnique(edgeANodes, edgeBNodes);
         if(cornerNodes.size()!=3){
             throw new IllegalArgumentException("Corners should only consist of three nodes");
         }
 
-        Vector2f p1 = cornerNodes.get(0).getPosition();
-        Vector2f p2 = cornerNodes.get(1).getPosition();
-        Vector2f p3 = cornerNodes.get(2).getPosition();
+        Vector p1 = cornerNodes.get(0).getPosition();
+        Vector p2 = cornerNodes.get(1).getPosition();
+        Vector p3 = cornerNodes.get(2).getPosition();
         return  calculateAngleBetweenPoints(p1, p2, p3);
     }
 
     public static float calculateAngleBetweenPoints(Corner corner){
         return calculateAngleBetweenPoints(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
     }
-    public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
-        Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
-        Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
+    public static float calculateAngleBetweenPoints(Vector p1, Vector p2, Vector p3){
+        Vector2f a = new Vector2f(p2.get(0) - p1.get(0), p2.get(1) - p1.get(1));
+        Vector2f b = new Vector2f(p3.get(0) - p2.get(0), p3.get(1) - p2.get(1));
 
         if(isClockwise(p1,p2,p3))
             return  (float)Math.PI - (float) Math.acos(a.dot(b)/ (a.mag() * b.mag()));
@@ -220,8 +223,8 @@ public class Geometry {
         return isClockwise(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
     }
 
-    public static boolean isClockwise(Vector2f a, Vector2f b, Vector2f c){
-        float value = a.x * (b.y-c.y) + a.y * (c.x-b.x) + b.x * c.y - c.x * b.y;
+    public static boolean isClockwise(Vector a, Vector b, Vector c){
+        float value = a.get(0) * (b.get(1)-c.get(1)) + a.get(1) * (c.get(0)-b.get(0)) + b.get(0) * c.get(1) - c.get(0) * b.get(1);
         return value > 0;
     }
 

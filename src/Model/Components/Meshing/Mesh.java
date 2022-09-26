@@ -1,8 +1,8 @@
 package Model.Components.Meshing;
 
 import Model.Components.Component;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
 
@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Mesh extends Component {
-    public List<Node> nodes = new ArrayList<>();
+    public List<Node2D> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 
     protected transient float restingArea;
     protected float area;
     private Vector2f centroid;
 
-    public boolean contains(Node n){
+    public boolean contains(Node2D n){
         return nodes.contains(n);
     }
     public boolean contains(Edge e){
@@ -42,7 +42,7 @@ public abstract class Mesh extends Component {
     private void calculateCentroid(){
         float x = 0;
         float y = 0;
-        for (Node node: nodes){
+        for (Node2D node: nodes){
             x += node.getPosition().x;
             y += node.getPosition().y;
         }

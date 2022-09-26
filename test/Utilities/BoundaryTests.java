@@ -1,6 +1,6 @@
 package Utilities;
 
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.Test;
@@ -33,7 +33,7 @@ public class BoundaryTests {
 
     @Test
     void node_correctly_moves_to_new_position(){
-        Node a = new Node(new Vector2f(0));
+        Node2D a = new Node2D(new Vector2f(0));
         a.MoveTo(new Vector2f(2));
 
         assertEquals(2, a.getPosition().x);

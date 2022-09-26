@@ -1,7 +1,9 @@
-package Physics.Rigidbodies;
+package Physics.Rigidbodies.Edges;
 
 import GUI.IColor;
-import Utilities.Physics.ForceVector;
+import Physics.Rigidbodies.IRigidbody;
+import Physics.Rigidbodies.Nodes.Node2D;
+import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -15,7 +17,7 @@ import java.awt.*;
 public abstract class Edge implements IRigidbody, IColor
 {
     protected transient Color color;
-    protected transient Node[] nodes = new Node[2];
+    protected transient Node2D[] nodes = new Node2D[2];
     //order of nodes in cell list
     protected int[] nodesReference = new int[2];
     protected transient float initialLength;
@@ -35,12 +37,12 @@ public abstract class Edge implements IRigidbody, IColor
      */
     @Override
     public void addForceVector(Vector2f forceVector) {
-        for(Node node: nodes) node.addForceVector(forceVector);
+        for(Node2D node: nodes) node.addForceVector(forceVector);
     }
 
     @Override
-    public void addForceVector(ForceVector forceVector){
-        for(Node node: nodes) node.addForceVector(forceVector);
+    public void addForceVector(ForceVector2D forceVector){
+        for(Node2D node: nodes) node.addForceVector(forceVector);
     }
 
     public void setNodesReference(int a, int b){
@@ -48,7 +50,7 @@ public abstract class Edge implements IRigidbody, IColor
         nodesReference[1] = b;
     }
 
-    protected void MakeNewEdge(Node a, Node b)
+    protected void MakeNewEdge(Node2D a, Node2D b)
     {
         nodes[0] = a;
         nodes[1] = b;
@@ -57,7 +59,7 @@ public abstract class Edge implements IRigidbody, IColor
 
     public void flip()
     {
-        Node a = nodes[0];
+        Node2D a = nodes[0];
         nodes[0] = nodes[1];
         nodes[1] = a;
     }
@@ -80,7 +82,7 @@ public abstract class Edge implements IRigidbody, IColor
         return positions;
     }
 
-    public Node[] getNodes(){
+    public Node2D[] getNodes(){
         return nodes;
     }
 
@@ -129,7 +131,7 @@ public abstract class Edge implements IRigidbody, IColor
 
     @Override
     public void setColor(Color color) {
-        for(Node node: nodes){
+        for(Node2D node: nodes){
             if(node instanceof IColor){
                 ((IColor)node).setColor(color);
             }
@@ -157,8 +159,8 @@ public abstract class Edge implements IRigidbody, IColor
      * @param n the node we wish to see is part of the edge
      * @return true if n is part of the edge
      */
-    public boolean contains(Node n){
-        for(Node node: nodes){
+    public boolean contains(Node2D n){
+        for(Node2D node: nodes){
             if(Vector2f.isEqual(n.getPosition(), node.getPosition())) return true;
         }
         return false;
@@ -166,23 +168,23 @@ public abstract class Edge implements IRigidbody, IColor
 
     public abstract Edge clone();
 
-    public void setNodes(Node[] nodes){
+    public void setNodes(Node2D[] nodes){
         this.nodes = nodes;
     }
 
-    public void setNodes(Node a, Node b)
+    public void setNodes(Node2D a, Node2D b)
     {
         nodes[0] = a;
         nodes[1] = b;
     }
 
     public void mirrorAcrossXAxis(){
-        for(Node n: getNodes()){
+        for(Node2D n: getNodes()){
             n.mirrorAcrossXAxis();
         }
     }
     public void mirrorAcrossYAxis(){
-        for(Node n: getNodes()){
+        for(Node2D n: getNodes()){
             n.mirrorAcrossYAxis();
         }
     }

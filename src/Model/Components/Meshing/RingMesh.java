@@ -3,10 +3,10 @@ package Model.Components.Meshing;
 import Engine.States.State;
 import Model.Cells.ApicalConstrictingCell;
 import Model.Cells.Cell;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Edge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.ApicalEdge;
+import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.CustomMath;
@@ -30,8 +30,8 @@ public class RingMesh extends Mesh{
     float outerRadius = 300;
     float innerRadius = 200;
 
-    public List<Node> outerNodes = new ArrayList<>();
-    public List<Node> innerNodes = new ArrayList<>();
+    public List<Node2D> outerNodes = new ArrayList<>();
+    public List<Node2D> innerNodes = new ArrayList<>();
     public List<Cell> cellList = new ArrayList<>();
     private transient List<Edge> basalEdges = new ArrayList<>();
     private transient List<Edge> apicalEdges = new ArrayList<>();
@@ -47,7 +47,7 @@ public class RingMesh extends Mesh{
         nodes.clear();
         for(Cell cell: cellList)
         {
-            for(Node node: cell.getComponent(CellMesh.class).nodes){
+            for(Node2D node: cell.getComponent(CellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
                     if (!this.contains(node)) this.nodes.add(node);
                 }
@@ -70,16 +70,16 @@ public class RingMesh extends Mesh{
         Vector2f position, unitVector;
         ArrayList<Cell> mirroredCells = new ArrayList<>();
 
-        ArrayList<Node> oldNodes = new ArrayList<>();
-        ArrayList<Node> oldMirroredNodes = new ArrayList<>();
+        ArrayList<Node2D> oldNodes = new ArrayList<>();
+        ArrayList<Node2D> oldMirroredNodes = new ArrayList<>();
 
-        ArrayList<Node> zeroEdgeNodes = new ArrayList<>();
+        ArrayList<Node2D> zeroEdgeNodes = new ArrayList<>();
 
         //make lateral edges
         for (int i = 0; i < (numberOfSegmentsInTotalCircle/2)+1; i++) {
 
-            ArrayList<Node> nodes = new ArrayList<>();
-            ArrayList<Node> mirroredNodes = new ArrayList<>();
+            ArrayList<Node2D> nodes = new ArrayList<>();
+            ArrayList<Node2D> mirroredNodes = new ArrayList<>();
 
             unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
 
@@ -87,14 +87,14 @@ public class RingMesh extends Mesh{
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
                 position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, new Vector2i(800).asFloat());
-                Node currentNode = new Node(position);
-                Node mirroredNode = currentNode.clone();
+                Node2D currentNode = new Node2D(position);
+                Node2D mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();
                 if (i == numberOfSegmentsInTotalCircle / 2) {
                     unitVector = CustomMath.GetUnitVectorOnCircle(0, numberOfSegmentsInTotalCircle);
                     unitVector.y = -unitVector.y;
                     position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, new Vector2i(800).asFloat());
-                    zeroEdgeNodes.add(new Node(position));
+                    zeroEdgeNodes.add(new Node2D(position));
                 }
                 nodes.add(currentNode);
                 mirroredNodes.add(mirroredNode);
@@ -107,11 +107,11 @@ public class RingMesh extends Mesh{
                 // Build the first set of cells in the cell ring
                 if (i <= numberOfConstrictingSegmentsInCircle / 2) {
                     // copy list to prevent assignment issues between collections
-                    List<Node> oldNodesZ = new ArrayList<>(oldNodes);
+                    List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
                     newCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
-                    ArrayList<Node> constructionNodes = new ArrayList<>(mirroredNodes);
+                    ArrayList<Node2D> constructionNodes = new ArrayList<>(mirroredNodes);
                     if (i == 1) {
                         Collections.reverse(oldNodesZ);
                         constructionNodes.addAll(oldNodesZ);

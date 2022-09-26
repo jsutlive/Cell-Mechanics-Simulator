@@ -3,8 +3,8 @@ package Model.Components.Render;
 import Engine.States.State;
 import GUI.Painter;
 import Model.EdgeMono;
-import Physics.Rigidbodies.BasalEdge;
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.awt.*;
@@ -24,7 +24,7 @@ public class EdgeRenderer extends ObjectRenderer {
 
     @Override
     public void render() {
-        Node[] nodes = edge.getNodes();
+        Node2D[] nodes = edge.getNodes();
         Vector2f pos1 = nodes[0].getPosition();
         Vector2f pos2 = nodes[1].getPosition();
 

@@ -1,6 +1,6 @@
 package Utilities.Math;
 
-import Physics.Rigidbodies.Node;
+import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Gauss {
 
-    public static float nShoelace(List<Node> nodes)
+    public static float nShoelace(List<Node2D> nodes)
     {
         List<Vector2f>coords = new ArrayList<>();
-        for(Node node: nodes)
+        for(Node2D node: nodes)
         {
             coords.add(node.getPosition());
         }
