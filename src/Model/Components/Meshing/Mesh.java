@@ -3,9 +3,8 @@ package Model.Components.Meshing;
 import Model.Components.Component;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
-import com.google.gson.annotations.Expose;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

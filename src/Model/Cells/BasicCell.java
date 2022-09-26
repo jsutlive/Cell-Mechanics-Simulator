@@ -1,10 +1,7 @@
 package Model.Cells;
 
-import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.Collision.Spring.ElasticForce;
 import Model.Components.Physics.OsmosisForce;
-import Model.Components.Render.CellRenderer;
-
-import java.awt.*;
 
 
 public class BasicCell extends Cell{

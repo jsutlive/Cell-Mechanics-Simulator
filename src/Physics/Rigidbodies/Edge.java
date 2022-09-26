@@ -1,8 +1,8 @@
 package Physics.Rigidbodies;
 
 import GUI.IColor;
-import Model.Components.Physics.ForceVector.ForceVector;
-import Utilities.Geometry.Vector2f;
+import Utilities.Physics.ForceVector;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
 import java.awt.*;

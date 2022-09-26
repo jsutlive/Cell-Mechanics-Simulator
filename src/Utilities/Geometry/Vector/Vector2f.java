@@ -1,8 +1,6 @@
-package Utilities.Geometry;
+package Utilities.Geometry.Vector;
 
 import Utilities.Math.CustomMath;
-
-import java.util.Vector;
 
 public class Vector2f
 {

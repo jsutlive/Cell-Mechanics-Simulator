@@ -2,19 +2,14 @@ package Engine;
 
 import Data.ComponentSerializer;
 import Data.LogDataExclusionStrategy;
-import Data.LogDataOnceExclusionStrategy;
 import Engine.States.State;
 import Engine.Timer.Time;
 import Input.Input;
 import Model.Components.Component;
-import Physics.Rigidbodies.Node;
 import Renderer.Renderer;
-import Utilities.Geometry.Vector2f;
-import Utilities.Geometry.Vector2i;
+import Utilities.Geometry.Vector.Vector2i;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import java.util.HashMap;
 
 public class Simulation implements Runnable
 {

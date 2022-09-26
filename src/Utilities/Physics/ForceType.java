@@ -1,4 +1,4 @@
-package Model.Components.Physics.ForceVector;
+package Utilities.Physics;
 
 public enum ForceType {
     RESULTANT,

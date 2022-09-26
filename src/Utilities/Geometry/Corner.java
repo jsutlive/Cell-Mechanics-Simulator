@@ -1,6 +1,7 @@
 package Utilities.Geometry;
 
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;

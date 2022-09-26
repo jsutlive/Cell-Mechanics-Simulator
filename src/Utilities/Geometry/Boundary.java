@@ -1,8 +1,7 @@
 package Utilities.Geometry;
 
-import Physics.Rigidbodies.BasicEdge;
-import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
 public class Boundary {

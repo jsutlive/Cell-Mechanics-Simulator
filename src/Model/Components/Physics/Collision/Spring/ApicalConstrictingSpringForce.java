@@ -1,11 +1,11 @@
-package Model.Components.Physics;
+package Model.Components.Physics.Collision.Spring;
 
 import Engine.Object.Tag;
 import Engine.States.State;
 import Engine.Timer.Time;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ForceVector.ForceType;
+import Utilities.Physics.ForceType;
 import Model.DrosophilaRingModel;
 import Physics.Forces.Gradient;
 import Physics.Rigidbodies.ApicalEdge;
@@ -13,7 +13,7 @@ import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 
 
-public class ApicalConstrictingSpringForce extends SpringForce{
+public class ApicalConstrictingSpringForce extends SpringForce {
     float constant;
     float rampTime = 2f;
     @Override

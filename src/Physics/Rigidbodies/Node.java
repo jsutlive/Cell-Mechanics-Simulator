@@ -4,9 +4,9 @@ import Engine.Simulation;
 import Engine.States.State;
 
 import GUI.Vector.LineGraphic;
-import Model.Components.Physics.ForceVector.ForceType;
-import Model.Components.Physics.ForceVector.ForceVector;
-import Utilities.Geometry.Vector2f;
+import Utilities.Physics.ForceType;
+import Utilities.Physics.ForceVector;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,6 +1,6 @@
 package Renderer;
 
-import Utilities.Geometry.Vector2i;
+import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
 
 public abstract class Renderer implements Runnable {

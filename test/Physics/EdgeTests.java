@@ -1,7 +1,7 @@
 package Physics;
 
 import Physics.Rigidbodies.*;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -5,8 +5,8 @@ import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
-import Utilities.Geometry.Vector2i;
+import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.CustomMath;
 
 import java.awt.*;

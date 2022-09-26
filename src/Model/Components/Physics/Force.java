@@ -1,7 +1,7 @@
 package Model.Components.Physics;
 
 import Model.Components.Component;
-import Model.Components.Physics.ForceVector.ForceVector;
+import Utilities.Physics.ForceVector;
 
 public abstract class Force extends Component {
 

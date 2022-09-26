@@ -3,7 +3,7 @@ package Component;
 import Model.Components.Meshing.CellMesh;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

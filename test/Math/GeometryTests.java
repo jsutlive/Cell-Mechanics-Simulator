@@ -4,7 +4,7 @@ import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,7 +1,7 @@
 package Physics.Rigidbodies;
 
-import Model.Components.Physics.ForceVector.ForceVector;
-import Utilities.Geometry.Vector2f;
+import Utilities.Physics.ForceVector;
+import Utilities.Geometry.Vector.Vector2f;
 
 public interface IRigidbody {
     void addForceVector(ForceVector forceVector);

@@ -2,10 +2,8 @@ package Model.Components.Meshing;
 
 import Data.LogData;
 import Physics.Rigidbodies.*;
-import Utilities.Geometry.Vector2f;
-import com.google.gson.annotations.Expose;
+import Utilities.Geometry.Vector.Vector2f;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

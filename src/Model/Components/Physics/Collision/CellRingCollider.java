@@ -1,15 +1,16 @@
-package Model.Components.Physics.ForceVector;
+package Model.Components.Physics.Collision;
 
 import Data.LogOnce;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Force;
+import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package Math;
 
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
 import org.junit.jupiter.api.Test;
 

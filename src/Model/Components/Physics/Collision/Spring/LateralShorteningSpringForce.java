@@ -1,13 +1,12 @@
-package Model.Components.Physics;
+package Model.Components.Physics.Collision.Spring;
 
 import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ForceVector.ForceType;
-import Physics.Rigidbodies.ApicalEdge;
+import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.LateralEdge;
 import Physics.Rigidbodies.Node;
 
-public class LateralShorteningSpringForce extends SpringForce{
+public class LateralShorteningSpringForce extends SpringForce {
 
     private float shorteningSpringConstant = 3f;
     private float shorteningSpringRatio = .7f;

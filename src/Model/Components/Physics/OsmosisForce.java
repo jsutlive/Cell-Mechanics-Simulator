@@ -1,8 +1,7 @@
 package Model.Components.Physics;
 
-import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.Mesh;
-import Model.Components.Physics.ForceVector.ForceType;
+import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edge;
 import Utilities.Math.CustomMath;
 

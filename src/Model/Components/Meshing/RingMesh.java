@@ -2,16 +2,13 @@ package Model.Components.Meshing;
 
 import Engine.States.State;
 import Model.Cells.ApicalConstrictingCell;
-import Model.Cells.BasicCell;
 import Model.Cells.Cell;
-import Model.Cells.ShorteningCell;
-import Model.DrosophilaRingModel;
 import Physics.Rigidbodies.ApicalEdge;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
-import Utilities.Geometry.Vector2i;
+import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 

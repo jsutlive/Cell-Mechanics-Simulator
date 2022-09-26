@@ -1,20 +1,11 @@
 package Model.Cells;
 
-import Data.LogData;
-import Engine.States.State;
-
-import Model.Components.Lattice.Lattice;
-import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ApicalConstrictingSpringForce;
-import Model.Components.Physics.ElasticForce;
-import Model.Components.Physics.InternalElasticForce;
+import Model.Components.Physics.Collision.Spring.ApicalConstrictingSpringForce;
+import Model.Components.Physics.Collision.Spring.ElasticForce;
 import Model.Components.Physics.OsmosisForce;
 import Model.Components.Render.CellRenderer;
-import Physics.Rigidbodies.*;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * An Apical Constricting Cell undergoes the following forces:

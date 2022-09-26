@@ -3,7 +3,7 @@ package Renderer;
 import Engine.Simulation;
 import Engine.States.State;
 import GUI.DisplayWindow;
-import Utilities.Geometry.Vector2i;
+import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

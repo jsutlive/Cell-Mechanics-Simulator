@@ -1,6 +1,6 @@
-package Model.Components.Physics.ForceVector;
+package Utilities.Physics;
 
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 
 public class ForceVector extends Vector2f {
     private ForceType type;

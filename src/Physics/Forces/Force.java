@@ -1,17 +1,12 @@
 package Physics.Forces;
 
 
-import Model.Cells.Cell;
 import Physics.Rigidbodies.BasicEdge;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
 import Utilities.Geometry.Geometry;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
-import Utilities.Math.Gauss;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Force

@@ -7,7 +7,7 @@ import Engine.Timer.Time;
 import GUI.IRender;
 import Model.Components.Component;
 import Model.Components.Render.ObjectRenderer;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.io.FileWriter;
 import java.io.IOException;

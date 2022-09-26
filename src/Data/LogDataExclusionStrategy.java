@@ -1,6 +1,6 @@
 package Data;
 
-import Model.Components.Physics.ForceVector.CellRingCollider;
+import Model.Components.Physics.Collision.CellRingCollider;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 

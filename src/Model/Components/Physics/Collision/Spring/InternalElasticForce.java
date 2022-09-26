@@ -1,14 +1,15 @@
-package Model.Components.Physics;
+package Model.Components.Physics.Collision.Spring;
 
-import Model.Components.Meshing.CellMesh;
-import Model.Components.Physics.ForceVector.ForceType;
+import Model.Components.Lattice.Lattice;
+import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edge;
 import Physics.Rigidbodies.Node;
-public class ElasticForce extends SpringForce{
+
+public class InternalElasticForce extends SpringForce {
 
     @Override
     public void awake() {
-        edges = getComponent(CellMesh.class).edges;
+        edges = getComponent(Lattice.class).edgeList;
         targetLengthRatio = 1;
         forceVector.setType(ForceType.elastic);
     }

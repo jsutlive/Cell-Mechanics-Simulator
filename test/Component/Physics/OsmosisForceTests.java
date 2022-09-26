@@ -6,7 +6,7 @@ import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.Mesh;
 import Model.Components.Physics.OsmosisForce;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

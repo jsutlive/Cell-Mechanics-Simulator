@@ -1,12 +1,13 @@
-package Model.Components.Physics;
+package Model.Components.Physics.Collision.Spring;
 
+import Model.Components.Physics.Force;
 import Physics.Rigidbodies.Edge;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SpringForce extends Force{
+public abstract class SpringForce extends Force {
     // The resting length may not be the initial length of the spring. What percentage
     // of the initial length is the target?
     protected float targetLengthRatio;

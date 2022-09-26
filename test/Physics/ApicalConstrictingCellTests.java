@@ -1,15 +1,8 @@
 package Physics;
 
-import Model.Cells.ApicalConstrictingCell;
 import Model.Cells.Cell;
-import Physics.Rigidbodies.ApicalEdge;
-import Physics.Rigidbodies.Edge;
-import Utilities.Geometry.Vector2f;
-import Utilities.Geometry.Vector2i;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;

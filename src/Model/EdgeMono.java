@@ -2,8 +2,8 @@ package Model;
 
 import Engine.Object.Entity;
 import Engine.States.State;
-import Model.Components.Physics.ApicalConstrictingSpringForce;
-import Model.Components.Physics.ElasticForce;
+import Model.Components.Physics.Collision.Spring.ApicalConstrictingSpringForce;
+import Model.Components.Physics.Collision.Spring.ElasticForce;
 import Model.Components.Render.EdgeRenderer;
 import Physics.Rigidbodies.*;
 

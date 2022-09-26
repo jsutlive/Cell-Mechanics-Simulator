@@ -5,7 +5,7 @@ import GUI.Painter;
 import Model.EdgeMono;
 import Physics.Rigidbodies.BasalEdge;
 import Physics.Rigidbodies.Node;
-import Utilities.Geometry.Vector2f;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.awt.*;
 
