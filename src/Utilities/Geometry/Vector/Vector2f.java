@@ -2,7 +2,7 @@ package Utilities.Geometry.Vector;
 
 import Utilities.Math.CustomMath;
 
-public class Vector2f
+public class Vector2f extends Vector
 {
     public static Vector2f zero = new Vector2f(0);
     public float x;
@@ -23,18 +23,10 @@ public class Vector2f
         this.y = 0;
     }
 
-    public Vector2f add(Vector2f vec)
+    public Vector2f add(Vector vec)
     {
-        x += vec.x;
-        y += vec.y;
-        return this;
-    }
-
-
-    public Vector2f sub(Vector2f vec)
-    {
-        x -= vec.x;
-        y -= vec.y;
+        x += vec.get(0);
+        y += vec.get(1);
         return this;
     }
 
@@ -45,11 +37,43 @@ public class Vector2f
         return this;
     }
 
+    @Override
+    public Vector2f sub(Vector vec) {
+        x -= vec.get(0);
+        y -= vec.get(1);
+        return this;
+    }
+
     public Vector2f mul(float f)
     {
         x *= f;
         y *= f;
         return this;
+    }
+
+    @Override
+    Vector div(float f) {
+        return null;
+    }
+
+    @Override
+    Vector dot(Vector vec) {
+        return null;
+    }
+
+    @Override
+    Vector cross(Vector vec) {
+        return null;
+    }
+
+    @Override
+    Vector unit() {
+        return null;
+    }
+
+    @Override
+    float distanceTo(Vector b) {
+        return (float)Math.hypot(b.get(0) -x, b.get(1) - y);
     }
 
     public Vector2f copy()
@@ -92,12 +116,16 @@ public class Vector2f
     }
 
     public static float sqDist(Vector2f a, Vector2f b){
-        float dist = CustomMath.sq(a.x - b.x) + CustomMath.sq(a.y - b.y);
-        return dist;
+        return CustomMath.sq(a.x - b.x) + CustomMath.sq(a.y - b.y);
     }
 
-
+    @Override
     public float mag() {return(float)Math.sqrt(x*x + y*y);}
+
+    @Override
+    boolean equals() {
+        return false;
+    }
 
     public static Vector2f unit(Vector2f a, Vector2f b)
     {
@@ -119,12 +147,20 @@ public class Vector2f
         return x + "," + y;
     }
 
-    public Vector2f project(Vector2f v){
-        return new Vector2f(0);
-    }
-
     public boolean isNull(){
         return Float.isNaN(x) || Float.isNaN(y);
+    }
+
+    @Override
+    float[] get() {
+        return new float[]{x, y};
+    }
+
+    @Override
+    float get(int index) {
+        if(index == 0) return x;
+        if(index == 1) return y;
+        else throw new IllegalArgumentException("Out of range argument");
     }
 
     public static boolean isEqual(Vector2f a, Vector2f b){

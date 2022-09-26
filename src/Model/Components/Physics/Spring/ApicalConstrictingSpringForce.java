@@ -35,7 +35,6 @@ public class ApicalConstrictingSpringForce extends SpringForce {
     public void update() {
         for(Edge edge: edges){
             Node[] nodes = edge.getNodes();
-            Cell cell = getParentAs(Cell.class);
             if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
                 calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime));
             }
