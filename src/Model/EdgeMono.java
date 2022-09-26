@@ -2,8 +2,8 @@ package Model;
 
 import Engine.Object.Entity;
 import Engine.States.State;
-import Model.Components.Physics.Collision.Spring.ApicalConstrictingSpringForce;
-import Model.Components.Physics.Collision.Spring.ElasticForce;
+import Model.Components.Physics.Spring.ApicalConstrictingSpringForce;
+import Model.Components.Physics.Spring.ElasticForce;
 import Model.Components.Render.EdgeRenderer;
 import Physics.Rigidbodies.*;
 
@@ -46,8 +46,8 @@ public class EdgeMono extends Entity {
         rend.setColor(color);
     }
 
-    public static EdgeMono build(Edge e) throws IllegalAccessException, InstantiationException {
-        EdgeMono mono = (EdgeMono)State.create(EdgeMono.class);
+    public static EdgeMono build(Edge e) {
+        EdgeMono mono = State.create(EdgeMono.class);
         mono.setEdge(e);
         return mono;
     }

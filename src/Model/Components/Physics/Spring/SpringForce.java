@@ -1,4 +1,4 @@
-package Model.Components.Physics.Collision.Spring;
+package Model.Components.Physics.Spring;
 
 import Model.Components.Physics.Force;
 import Physics.Rigidbodies.Edge;

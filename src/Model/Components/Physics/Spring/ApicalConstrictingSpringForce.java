@@ -1,4 +1,4 @@
-package Model.Components.Physics.Collision.Spring;
+package Model.Components.Physics.Spring;
 
 import Engine.Object.Tag;
 import Engine.States.State;
@@ -24,6 +24,7 @@ public class ApicalConstrictingSpringForce extends SpringForce {
 
         int ringPosition = getParentAs(Cell.class).getRingLocation();
         DrosophilaRingModel model = (DrosophilaRingModel)State.findObjectWithTag(Tag.MODEL);
+        assert model != null;
         Gradient apicalGradient = model.apicalGradient;
         constant = apicalGradient.getConstants()[ringPosition - 1];
         setTargetLengthRatio(apicalGradient.getRatios()[ringPosition - 1]);

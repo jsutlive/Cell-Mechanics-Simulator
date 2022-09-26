@@ -1,7 +1,7 @@
 package Model.Cells;
 
-import Model.Components.Physics.Collision.Spring.ApicalConstrictingSpringForce;
-import Model.Components.Physics.Collision.Spring.ElasticForce;
+import Model.Components.Physics.Spring.ApicalConstrictingSpringForce;
+import Model.Components.Physics.Spring.ElasticForce;
 import Model.Components.Physics.OsmosisForce;
 import Model.Components.Render.CellRenderer;
 
