@@ -1,6 +1,7 @@
 package Physics.Rigidbodies.Nodes;
 
 import Utilities.Geometry.Vector.Vector;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Physics.ForceVector2D;
 
 import java.util.ArrayList;

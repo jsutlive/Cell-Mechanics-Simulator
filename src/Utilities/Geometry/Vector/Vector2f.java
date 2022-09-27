@@ -153,7 +153,7 @@ public class Vector2f extends Vector
 
     @Override
     public Vector2f get() {
-        return (Vector2f) this;
+        return this;
     }
 
     @Override

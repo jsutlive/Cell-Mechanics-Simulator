@@ -20,4 +20,5 @@ public abstract class Vector {
 
     public abstract Vector get();
     public abstract float get(int index);
+
 }
