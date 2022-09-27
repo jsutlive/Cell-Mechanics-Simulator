@@ -15,7 +15,7 @@ import Physics.Rigidbodies.Nodes.Node2D;
 
 public class ApicalConstrictingSpringForce extends SpringForce {
     float constant;
-    float rampTime = 2f;
+    float rampTime = 5f;
     @Override
     public void awake() {
         forceVector.setType(ForceType.apicalConstriction);

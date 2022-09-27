@@ -24,13 +24,13 @@ public class Yolk extends Cell {
     @Override
     public void awake() {
         addComponent(new CellMesh());
-        addComponent(new CellRenderer());
-        getComponent(CellRenderer.class).setColor(Color.GREEN);
+        //addComponent(new CellRenderer());
+        //getComponent(CellRenderer.class).setColor(Color.GREEN);
     }
 
     @Override
     public void start() {
         addComponent(new OsmosisForce());
-        getComponent(OsmosisForce.class).osmosisConstant = 0.0001f;
+        getComponent(OsmosisForce.class).osmosisConstant = 0.0002f;
     }
 }

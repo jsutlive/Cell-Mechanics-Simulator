@@ -49,7 +49,7 @@ public class DrosophilaRingModel extends Entity {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         apicalGradient = new GaussianGradient(0f, 1.2f);
         apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                10.4f, .01f,
+                25.4f, .01f,
                 .1f, .1f);
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
@@ -205,7 +205,9 @@ public class DrosophilaRingModel extends Entity {
                     }
 
                 }
+                assert newCell != null;
                 newCell.setId(i-1);
+                assert mirroredCell != null;
                 mirroredCell.setId(numberOfSegmentsInTotalCircle-i);
                 addCellToList(mirroredCells, mirroredCell, i);
                 addCellToList(ringMesh.cellList, newCell, i);
