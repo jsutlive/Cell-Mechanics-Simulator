@@ -43,24 +43,24 @@ public class Node2D extends Node implements IRigidbody {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(0);
-        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        State.addGraphicToScene(debugger);
+        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
+        //State.addGraphicToScene(debugger);
     }
     public Node2D(Vector2f pos)
     {
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = pos;
-        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        State.addGraphicToScene(debugger);
+        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
+        //State.addGraphicToScene(debugger);
     }
 
     public Node2D(float a, float b){
         resultantForce.setType(ForceType.RESULTANT);
         forceVectors.add(resultantForce);
         position = new Vector2f(a, b);
-        debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        State.addGraphicToScene(debugger);
+        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
+        //State.addGraphicToScene(debugger);
     }
 
     /**

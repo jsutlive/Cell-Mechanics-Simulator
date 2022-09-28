@@ -76,7 +76,7 @@ public class CellRingCollider extends Force {
         Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
         //forceVector.set(CustomMath.normal(e).mul());
-        Vector2f v = CustomMath.normal(e).mul(dist * 1.25f);
+        Vector2f v = CustomMath.normal(e).mul(dist * 5f);
         if(!v.isNull()) {
             Node2D[] nodes = e.getNodes();
             nodes[0].MoveTo(nodes[0].getPosition().add(v));
