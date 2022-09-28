@@ -61,6 +61,7 @@ public class DrosophilaRingModel extends Entity {
             ringMesh.outerNodes.add(edge.getNodes()[0]);
         }
 
+
         Yolk.build(yolkNodes, basalEdges);
         ringMesh.innerNodes.addAll(yolkNodes);
 
@@ -82,9 +83,11 @@ public class DrosophilaRingModel extends Entity {
                 }
             }
             for(Edge edge: cell.getComponent(CellMesh.class).edges){
+                System.out.println(cell.id);
                 if(edge instanceof ApicalEdge) apicalEdges.add(edge);
                 if(edge instanceof BasalEdge) basalEdges.add(edge);
             }
+
         }
         if(ringMesh.nodes.size() > 400){
             System.out.println(ringMesh.nodes.size());
@@ -217,6 +220,7 @@ public class DrosophilaRingModel extends Entity {
             oldMirroredNodes = mirroredNodes;
             oldNodes = nodes;
         }
+        Collections.reverse(mirroredCells);
         ringMesh.cellList.addAll(mirroredCells);
 
     }
