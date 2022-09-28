@@ -83,7 +83,6 @@ public class DrosophilaRingModel extends Entity {
                 }
             }
             for(Edge edge: cell.getComponent(CellMesh.class).edges){
-                System.out.println(cell.id);
                 if(edge instanceof ApicalEdge) apicalEdges.add(edge);
                 if(edge instanceof BasalEdge) basalEdges.add(edge);
             }

@@ -15,7 +15,7 @@ public abstract class Mesh extends Component {
     public List<Node2D> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 
-    protected transient float restingArea;
+    protected transient float restingArea = 0;
     protected float area;
     private Vector2f centroid;
 
@@ -36,6 +36,7 @@ public abstract class Mesh extends Component {
         if(restingArea == 0)restingArea = area;
     }
     public float getRestingArea(){
+        calculateArea();
         return restingArea;
     }
 

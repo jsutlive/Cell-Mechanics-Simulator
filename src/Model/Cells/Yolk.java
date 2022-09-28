@@ -31,6 +31,7 @@ public class Yolk extends Cell {
     @Override
     public void start() {
         addComponent(new OsmosisForce());
-        getComponent(OsmosisForce.class).osmosisConstant = 0.0002f;
+        getComponent(OsmosisForce.class).osmosisConstant = -0.001f;
+        System.out.println("hello"+getComponent(CellMesh.class).getRestingArea() );
     }
 }
