@@ -109,11 +109,6 @@ public class MeshTests {
     }
 
     @Test
-    void check_ifi_initial_area_assigned_on_awake(){
-        assertEquals(testMesh.getRestingArea(), testMesh.getArea());
-    }
-
-    @Test
     void check_if_node_area_calculated_as_smaller_after_area_lessened(){
         float initialArea = testMesh.getArea();
         testMesh.nodes.get(0).MoveTo(new Vector2f(-0.5f,-0.5f));

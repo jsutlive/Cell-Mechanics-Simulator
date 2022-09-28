@@ -51,13 +51,7 @@ public class CellRingCollider extends Force {
                         if (!(e instanceof BasalEdge)) {
                             continue;
                         }
-                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-                        forceVector.set(CustomMath.normal(e));
-                        Node2D[] nodes = e.getNodes();
-                        e.addForceVector(forceVector);
-                        forceVector.mul(-2);
-                        node.addForceVector(forceVector);
+                        setNodePositionToClosestEdge(node, nodePosition, e);
                     }
                 }
             }
@@ -68,18 +62,7 @@ public class CellRingCollider extends Force {
                         if (!(e instanceof ApicalEdge)) {
                             continue;
                         }
-                        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-                        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-                        //forceVector.set(CustomMath.normal(e).mul());
-                        Vector2f v = CustomMath.normal(e).mul(dist);
-                        if(!v.isNull()) {
-                            Node2D[] nodes = e.getNodes();
-                            nodes[0].MoveTo(nodes[0].getPosition().add(v));
-                            nodes[1].MoveTo(nodes[1].getPosition().add(v));
-                            //e.addForceVector(forceVector);
-                            //forceVector.mul(-1);
-                            node.MoveTo(node.getPosition().add(v.mul(-1)));
-                        }
+                        setNodePositionToClosestEdge(node, nodePosition, e);
                         //node.addForceVector(forceVector);
                     }
                 }
@@ -87,6 +70,21 @@ public class CellRingCollider extends Force {
         }
 
 
+    }
+
+    private void setNodePositionToClosestEdge(Node2D node, Vector2f nodePosition, Edge e) {
+        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
+        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+        //forceVector.set(CustomMath.normal(e).mul());
+        Vector2f v = CustomMath.normal(e).mul(dist * 1.25f);
+        if(!v.isNull()) {
+            Node2D[] nodes = e.getNodes();
+            nodes[0].MoveTo(nodes[0].getPosition().add(v));
+            nodes[1].MoveTo(nodes[1].getPosition().add(v));
+            //e.addForceVector(forceVector);
+            //forceVector.mul(-1);
+            node.MoveTo(node.getPosition().add(v.mul(-1)));
+        }
     }
 
     /**

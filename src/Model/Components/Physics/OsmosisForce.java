@@ -15,14 +15,14 @@ public class OsmosisForce extends Force {
 
     @Override
     public void update() {
-        restore();
+        float forceMagnitude = calculateOsmosisForceMagnitude(getComponent(Mesh.class));
+        restore(forceMagnitude);
     }
 
-    public void restore(){
+    public void restore(float forceMagnitude){
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
-        float forceMagnitude = calculateOsmosisForceMagnitude(getComponent(Mesh.class));
         for(Edge edge : edges){
             forceVector.set(CustomMath.normal(edge));
             forceVector.mul(forceMagnitude);
@@ -37,13 +37,13 @@ public class OsmosisForce extends Force {
 
     public float calculateOsmosisForceMagnitude(Mesh mesh)
     {
-        return osmosisConstant * (mesh.getArea() - mesh.getRestingArea());
+        return osmosisConstant * (mesh.getArea() - initialArea);
     }
 
     @Override
     public void awake() {
         this.edges = getComponent(Mesh.class).edges;
-        initialArea = getComponent(Mesh.class).getRestingArea();
+        initialArea = getComponent(Mesh.class).getArea();
         forceVector.setType(ForceType.osmosis);
     }
 }

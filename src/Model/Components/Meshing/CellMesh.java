@@ -25,7 +25,6 @@ public class CellMesh extends Mesh{
     @Override
     public void start() {
         calculateArea();
-        restingArea = area;
     }
 
     @Override
