@@ -18,7 +18,7 @@ public class InternalElasticForce extends SpringForce {
     public void update() {
         for(Edge edge: edges){
             Node2D[] nodes = edge.getNodes();
-            calculateSpringForce(edge, edge.getElasticConstant());
+            forceVector.set(calculateSpringForce(edge, edge.getElasticConstant()));
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());
         }

@@ -15,7 +15,7 @@ public class LateralShorteningSpringForce extends SpringForce {
     public void update() {
         for(Edge edge: edges){
             Node2D[] nodes = edge.getNodes();
-            calculateSpringForce(edge, shorteningSpringConstant);
+            forceVector.set(calculateSpringForce(edge, shorteningSpringConstant));
             nodes[0].addForceVector(forceVector);
             nodes[1].addForceVector(forceVector.neg());
         }

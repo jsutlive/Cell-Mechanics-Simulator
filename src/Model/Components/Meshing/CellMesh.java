@@ -5,7 +5,6 @@ import Physics.Rigidbodies.Edges.ApicalEdge;
 import Physics.Rigidbodies.Edges.BasalEdge;
 import Physics.Rigidbodies.Edges.Edge;
 import Physics.Rigidbodies.Edges.LateralEdge;
-import Physics.Rigidbodies.Nodes.Node;
 import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
@@ -35,7 +34,7 @@ public class CellMesh extends Mesh{
     @Override
     public void lateUpdate() {
         for (Node2D n : nodes) {
-            n.Move();
+            n.move();
         }
         calculateArea();
     }

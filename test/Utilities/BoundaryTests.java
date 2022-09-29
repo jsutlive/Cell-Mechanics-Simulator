@@ -34,7 +34,7 @@ public class BoundaryTests {
     @Test
     void node_correctly_moves_to_new_position(){
         Node2D a = new Node2D(new Vector2f(0));
-        a.MoveTo(new Vector2f(2));
+        a.moveTo(new Vector2f(2));
 
         assertEquals(2, a.getPosition().x);
         assertEquals(2, a.getPosition().y);

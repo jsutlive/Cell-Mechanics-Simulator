@@ -103,7 +103,7 @@ public class MeshTests {
     @Test
     void check_if_node_area_calculated_as_larger_after_area_enlarged(){
         float initialArea = testMesh.getArea();
-        testMesh.nodes.get(0).MoveTo(new Vector2f(-1,-2));
+        testMesh.nodes.get(0).moveTo(new Vector2f(-1,-2));
         float newArea = testMesh.getArea();
         assertTrue(newArea > initialArea);
     }
@@ -111,13 +111,13 @@ public class MeshTests {
     @Test
     void check_if_node_area_calculated_as_smaller_after_area_lessened(){
         float initialArea = testMesh.getArea();
-        testMesh.nodes.get(0).MoveTo(new Vector2f(-0.5f,-0.5f));
+        testMesh.nodes.get(0).moveTo(new Vector2f(-0.5f,-0.5f));
         float newArea = testMesh.getArea();
         assertTrue(newArea < initialArea);
     }
 
     @BeforeEach
     void reset_first_node(){
-        testMesh.nodes.get(0).MoveTo(new Vector2f(-1,-1));
+        testMesh.nodes.get(0).moveTo(new Vector2f(-1,-1));
     }
 }

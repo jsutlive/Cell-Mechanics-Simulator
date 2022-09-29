@@ -109,53 +109,7 @@ public class Force
 
     public static void elastic(Edge edge){constrict(edge, edge.getElasticConstant(), 1f);}
 
-    /*
-
-    public static void restoreWithPerimeter(Cell cell, float constant){
-        float forceMagnitude = constant * (cell.getArea() - cell.getRestingArea()) - 0.001f;
-
-        List<Edge> edges = cell.getEdges();
-        List<Vector2f> edgeVectors = new ArrayList<>();
-        float perimeter = 0f;
-        for(Edge e:edges){
-            Node[] nodes = e.getNodes();
-            Node node1 = nodes[0];
-            Node node2 = nodes[1];
-            Vector2f edgeVector = node2.getPosition().copy();
-            edgeVector.sub(node1.getPosition());
-            edgeVectors.add(edgeVector);
-            perimeter += edgeVector.mag();
-        }
-
-
-        for(int i=0; i<edges.size();i++){
-            Node[] nodes = edges.get(i).getNodes();
-            Node node1 = nodes[0];
-            Node node2 = nodes[1];
-
-            Vector2f perpendicular = Vector2f.zero;
-            perpendicular.x = edgeVectors.get(i).y;
-            perpendicular.y = -edgeVectors.get(i).x;
-            perpendicular.mul(-forceMagnitude * edgeVectors.get(i).mag() / perimeter);
-            node1.AddForceVector(perpendicular);
-            node2.AddForceVector(perpendicular);
-        }
-    }
-
-    public static Vector2f dampen(Vector2f force, float threshold, float ratio)
-    {
-        if(ratio > 1f) throw new IllegalArgumentException("Ratio must not exceed 1");
-        float dampenedComponent = 0f;
-        if (threshold < force.mag()) {
-            dampenedComponent = (force.mag() - threshold) * ratio;
-        }
-        float dampenedMagnitude = dampenedComponent + threshold;
-        Vector2f dampenedForce = Vector2f.unit(force);
-        dampenedForce.mul(dampenedMagnitude);
-        return dampenedForce;
-    }
-    */
-    public static Vector2f limitForceFromLength(Edge edge, Vector2f force){
+      public static Vector2f limitForceFromLength(Edge edge, Vector2f force){
         float limit = (edge.getLength()/2) * 0.999f;
         if(force.mag() < limit) return force;
         else

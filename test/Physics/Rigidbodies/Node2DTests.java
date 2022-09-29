@@ -13,9 +13,9 @@ public class Node2DTests {
         Node2D n = new Node2D(0,0);
         n.addForceVector(new Vector2f(0f,1f));
         n.addForceVector(new Vector2f(1f, 0f));
-        n.Move();
+        n.move();
         //Check to make sure reset occurs
-        n.Move();
+        n.move();
         assertEquals(1 * Simulation.TIMESTEP, n.getPosition().x);
         assertEquals(1 * Simulation.TIMESTEP, n.getPosition().y);
     }
@@ -24,7 +24,7 @@ public class Node2DTests {
     void moveTo_moves_to_correct_position()
     {
         Node2D n = new Node2D(0,0);
-        n.MoveTo(new Vector2f(1));
+        n.moveTo(new Vector2f(1));
         assertEquals(1, n.getPosition().x);
         assertEquals(1, n.getPosition().y);
     }

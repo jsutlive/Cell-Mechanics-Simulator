@@ -17,9 +17,11 @@ public class ElasticForce extends SpringForce {
     public void update() {
         for(Edge edge: edges){
             Node2D[] nodes = edge.getNodes();
-            calculateSpringForce(edge, edge.getElasticConstant());
-            nodes[0].addForceVector(forceVector);
-            nodes[1].addForceVector(forceVector.neg());
+            force = calculateSpringForce(edge, edge.getElasticConstant());
+
+            addForceToNode(nodes[0]);
+            force = force.neg();
+            addForceToNode(nodes[1]);
         }
     }
 }

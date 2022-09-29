@@ -79,11 +79,11 @@ public class CellRingCollider extends Force {
         Vector2f v = CustomMath.normal(e).mul(dist * 5f);
         if(!v.isNull()) {
             Node2D[] nodes = e.getNodes();
-            nodes[0].MoveTo(nodes[0].getPosition().add(v));
-            nodes[1].MoveTo(nodes[1].getPosition().add(v));
+            nodes[0].moveTo(nodes[0].getPosition().add(v));
+            nodes[1].moveTo(nodes[1].getPosition().add(v));
             //e.addForceVector(forceVector);
             //forceVector.mul(-1);
-            node.MoveTo(node.getPosition().add(v.mul(-1)));
+            node.moveTo(node.getPosition().add(v.mul(-1)));
         }
     }
 

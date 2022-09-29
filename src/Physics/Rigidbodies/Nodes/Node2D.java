@@ -4,20 +4,18 @@ import Engine.Simulation;
 import Engine.States.State;
 
 import GUI.Vector.LineGraphic;
-import Physics.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Physics.ForceType;
 import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
-public class Node2D extends Node implements IRigidbody {
+public class Node2D extends Node {
 
     private transient ForceVector2D resultantForce = new ForceVector2D();
     private List<ForceVector2D> forceVectors = new ArrayList<>();
@@ -28,7 +26,6 @@ public class Node2D extends Node implements IRigidbody {
     {
         return (Vector2f) position;
     }
-
     protected void setPosition(Vector pos){
         position = pos;
     }
@@ -41,6 +38,7 @@ public class Node2D extends Node implements IRigidbody {
     public Node2D()
     {
         resultantForce.setType(ForceType.RESULTANT);
+        resultantForceVector = Vector2f.zero;
         forceVectors.add(resultantForce);
         position = new Vector2f(0);
         //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
@@ -49,6 +47,7 @@ public class Node2D extends Node implements IRigidbody {
     public Node2D(Vector2f pos)
     {
         resultantForce.setType(ForceType.RESULTANT);
+        resultantForceVector = Vector2f.zero;
         forceVectors.add(resultantForce);
         position = pos;
         //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
@@ -57,6 +56,7 @@ public class Node2D extends Node implements IRigidbody {
 
     public Node2D(float a, float b){
         resultantForce.setType(ForceType.RESULTANT);
+        resultantForceVector = Vector2f.zero;
         forceVectors.add(resultantForce);
         position = new Vector2f(a, b);
         //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
@@ -77,17 +77,13 @@ public class Node2D extends Node implements IRigidbody {
         resultantForce.add(forceVector);
     }
 
-    @Override
-    public void addForceVector(Vector2f forceVector) {
-
-    }
 
     /**
      * Override the current position of the node and move it to a new position
      * @param newPosition position to manually move node without physics calculation
      */
     @Override
-    public void MoveTo(Vector2f newPosition) {
+    public void moveTo(Vector2f newPosition) {
         setPosition(newPosition);
     }
 
@@ -95,13 +91,13 @@ public class Node2D extends Node implements IRigidbody {
      * Move the node based on its resultant force
      */
     @Override
-    public void Move() {
+    public void move() {
+        resultantForce.add(resultantForceVector);
         resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForce);
-        State.addToResultantForce(resultantForce);
 
-        debugger.posA = getPosition().asInt();
-        debugger.posB = getPosition().add(resultantForce.mul(10)).asInt();
+        //debugger.posA = getPosition().asInt();
+        //debugger.posB = getPosition().add(resultantForce.mul(10)).asInt();
     }
 
     /**

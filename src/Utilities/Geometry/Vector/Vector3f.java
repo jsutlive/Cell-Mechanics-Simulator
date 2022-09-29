@@ -68,17 +68,17 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    boolean equals() {
+    public boolean equals(Vector vec) {
         return false;
     }
 
     @Override
-    boolean isNull() {
-        return false;
+    public boolean isNull() {
+        return Float.isNaN(x) || Float.isNaN(y) || Float.isNaN(z);
     }
 
     @Override
-    Vector copy() {
+    public Vector copy() {
         return null;
     }
 

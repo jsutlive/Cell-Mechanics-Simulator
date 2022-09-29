@@ -60,7 +60,7 @@ public class ForceTests {
         Force.constrict(edge, high_num, 0.01f);
         Node2D a = edge.getNodes()[0];
         Node2D b = edge.getNodes()[1];
-        a.Move(); b.Move();
+        a.move(); b.move();
         assertTrue(a.getPosition().y < b.getPosition().y);
     }
 }

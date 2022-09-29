@@ -2,9 +2,11 @@ package Model.Components.Physics.Spring;
 
 import Model.Components.Physics.Force;
 import Physics.Rigidbodies.Edges.Edge;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class SpringForce extends Force {
@@ -12,7 +14,6 @@ public abstract class SpringForce extends Force {
     // of the initial length is the target?
     protected float targetLengthRatio;
     public List<Edge> edges = new ArrayList<>();
-
 
     public void setTargetLengthRatio(float ratio){
         targetLengthRatio = ratio;
@@ -26,13 +27,13 @@ public abstract class SpringForce extends Force {
      * @param edge edge to be constricted/ extended
      * @param constant the "k" value in Hooke's law
      */
-    protected void calculateSpringForce(Edge edge, float constant) {
+    protected Vector calculateSpringForce(Edge edge, float constant) {
         // Hooke's law calculation to get force magnitude
         float forceMag = constant * (edge.getLength() - (targetLengthRatio * edge.getInitialLength()));
         // Find a unit vector showing x and y components of this edge
         Vector2f unit = new Vector2f(edge.getXUnit(), edge.getYUnit());
         // Multiply magnitude * unit vector
-        forceVector.set(unit.mul(forceMag));
+        return unit.mul(forceMag);
     }
 
 

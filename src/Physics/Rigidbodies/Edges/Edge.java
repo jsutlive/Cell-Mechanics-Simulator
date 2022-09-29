@@ -3,6 +3,7 @@ package Physics.Rigidbodies.Edges;
 import GUI.IColor;
 import Physics.Rigidbodies.IRigidbody;
 import Physics.Rigidbodies.Nodes.Node2D;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -33,10 +34,10 @@ public abstract class Edge implements IRigidbody, IColor
 
     /**
      * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
-     * @param forceVector
+     * @param forceVector vector containing force information
      */
     @Override
-    public void addForceVector(Vector2f forceVector) {
+    public void addForceVector(Vector forceVector) {
         for(Node2D node: nodes) node.addForceVector(forceVector);
     }
 
@@ -91,12 +92,12 @@ public abstract class Edge implements IRigidbody, IColor
     }
 
     @Override
-    public void MoveTo(Vector2f newPosition) {
+    public void moveTo(Vector2f newPosition) {
 
     }
 
     @Override
-    public void Move() {
+    public void move() {
 
     }
 
@@ -161,7 +162,7 @@ public abstract class Edge implements IRigidbody, IColor
      */
     public boolean contains(Node2D n){
         for(Node2D node: nodes){
-            if(Vector2f.isEqual(n.getPosition(), node.getPosition())) return true;
+            if(n.getPosition().equals (node.getPosition())) return true;
         }
         return false;
     }

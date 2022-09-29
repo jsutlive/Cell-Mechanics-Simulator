@@ -1,6 +1,7 @@
 package Utilities.Physics;
 
 
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
 public class ForceVector2D extends Vector2f {
@@ -11,7 +12,7 @@ public class ForceVector2D extends Vector2f {
         this.y = y;
     }
 
-    public void set(Vector2f vec) {
+    public void set(Vector vec) {
         this.x = vec.get(0);
         this.y = vec.get(1);
     }

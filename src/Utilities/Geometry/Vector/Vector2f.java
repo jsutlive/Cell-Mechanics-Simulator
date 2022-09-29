@@ -123,8 +123,9 @@ public class Vector2f extends Vector
     public float mag() {return(float)Math.sqrt(x*x + y*y);}
 
     @Override
-    boolean equals() {
-        return false;
+    public boolean equals(Vector vec) {
+        Vector2f vec2f = (Vector2f) vec;
+        return (this.x == vec2f.x && this.y == vec2f.y);
     }
 
     public static Vector2f unit(Vector2f a, Vector2f b)
@@ -161,9 +162,5 @@ public class Vector2f extends Vector
         if(index == 0) return x;
         if(index == 1) return y;
         else throw new IllegalArgumentException("Out of range argument");
-    }
-
-    public static boolean isEqual(Vector2f a, Vector2f b){
-        return a.x == b.x && a.y == b.y;
     }
 }
