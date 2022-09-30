@@ -58,7 +58,7 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    float distanceTo(Vector b) {
+    public float distanceTo(Vector b) {
         return 0;
     }
 

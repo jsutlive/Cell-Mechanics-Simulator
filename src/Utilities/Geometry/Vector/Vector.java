@@ -11,7 +11,7 @@ public abstract class Vector {
     abstract Vector cross(Vector vec);
 
     abstract Vector unit();
-    abstract float distanceTo(Vector b);
+    public abstract float distanceTo(Vector b);
     abstract float mag();
 
     public abstract boolean equals(Vector vec);

@@ -72,7 +72,7 @@ public class Vector2f extends Vector
     }
 
     @Override
-    float distanceTo(Vector b) {
+    public float distanceTo(Vector b) {
         return (float)Math.hypot(b.get(0) -x, b.get(1) - y);
     }
 

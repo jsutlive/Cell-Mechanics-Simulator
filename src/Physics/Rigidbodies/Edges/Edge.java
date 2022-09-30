@@ -2,6 +2,7 @@ package Physics.Rigidbodies.Edges;
 
 import GUI.IColor;
 import Physics.Rigidbodies.IRigidbody;
+import Physics.Rigidbodies.Nodes.Node;
 import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Physics.ForceVector2D;
@@ -18,7 +19,7 @@ import java.awt.*;
 public abstract class Edge implements IRigidbody, IColor
 {
     protected transient Color color;
-    protected transient Node2D[] nodes = new Node2D[2];
+    protected transient Node[] nodes = new Node[2];
     //order of nodes in cell list
     protected int[] nodesReference = new int[2];
     protected transient float initialLength;
@@ -38,12 +39,12 @@ public abstract class Edge implements IRigidbody, IColor
      */
     @Override
     public void addForceVector(Vector forceVector) {
-        for(Node2D node: nodes) node.addForceVector(forceVector);
+        for(Node node: nodes) node.addForceVector(forceVector);
     }
 
     @Override
     public void addForceVector(ForceVector2D forceVector){
-        for(Node2D node: nodes) node.addForceVector(forceVector);
+        for(Node node: nodes) node.addForceVector(forceVector);
     }
 
     public void setNodesReference(int a, int b){
@@ -60,7 +61,7 @@ public abstract class Edge implements IRigidbody, IColor
 
     public void flip()
     {
-        Node2D a = nodes[0];
+        Node a = nodes[0];
         nodes[0] = nodes[1];
         nodes[1] = a;
     }
@@ -73,8 +74,8 @@ public abstract class Edge implements IRigidbody, IColor
     public Vector2f[] getPositions(){
         Vector2f[] positions = new Vector2f[2];
         try {
-            positions[0] = nodes[0].getPosition().copy();
-            positions[1] = nodes[1].getPosition().copy();
+            positions[0] = (Vector2f) nodes[0].getPosition().copy();
+            positions[1] = (Vector2f) nodes[1].getPosition().copy();
         }catch(NullPointerException e)
         {
             System.out.println("One or both nodes in edge is null, cannot determine position.");
@@ -84,7 +85,7 @@ public abstract class Edge implements IRigidbody, IColor
     }
 
     public Node2D[] getNodes(){
-        return nodes;
+        return new Node2D[]{(Node2D)nodes[0], (Node2D)nodes[1] };
     }
 
     public float getInitialLength(){
@@ -107,9 +108,9 @@ public abstract class Edge implements IRigidbody, IColor
      */
     public float getLength()
     {
-        Vector2f a = nodes[0].getPosition();
-        Vector2f b = nodes[1].getPosition();
-        float dist = Vector2f.dist(a, b);
+        Vector a = nodes[0].getPosition();
+        Vector b = nodes[1].getPosition();
+        float dist = a.distanceTo(b);
         return CustomMath.round(dist, 5);
     }
 
@@ -124,23 +125,6 @@ public abstract class Edge implements IRigidbody, IColor
         Vector2f[] pos = getPositions();
         return (pos[1].y - pos[0].y)/getLength();
     }
-
-    @Override
-    public Color getColor() {
-        return color;
-    }
-
-    @Override
-    public void setColor(Color color) {
-        for(Node2D node: nodes){
-            if(node instanceof IColor){
-                ((IColor)node).setColor(color);
-            }
-        }
-        this.color = color;
-    }
-
-
 
     /**
      * Find the center of the edge as a floating point x,y vector2
@@ -161,7 +145,7 @@ public abstract class Edge implements IRigidbody, IColor
      * @return true if n is part of the edge
      */
     public boolean contains(Node2D n){
-        for(Node2D node: nodes){
+        for(Node node: nodes){
             if(n.getPosition().equals (node.getPosition())) return true;
         }
         return false;
@@ -188,6 +172,21 @@ public abstract class Edge implements IRigidbody, IColor
         for(Node2D n: getNodes()){
             n.mirrorAcrossYAxis();
         }
+    }
+
+    @Override
+    public Color getColor(){
+        return color;
+    }
+
+    @Override
+    public void setColor(Color color){
+        for(Node node: nodes){
+            if(node instanceof IColor){
+                ((IColor)node).setColor(color);
+            }
+        }
+        this.color = color;
     }
 
 }
