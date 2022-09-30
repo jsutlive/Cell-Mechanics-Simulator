@@ -1,26 +1,13 @@
 package Physics.Rigidbodies.Nodes;
 
 import Engine.Simulation;
-import Engine.States.State;
-
-import GUI.Vector.LineGraphic;
 import Utilities.Geometry.Vector.Vector;
-import Utilities.Physics.ForceType;
-import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
 public class Node2D extends Node {
-
-    private transient ForceVector2D resultantForce = new ForceVector2D();
-    private List<ForceVector2D> forceVectors = new ArrayList<>();
-
-    private transient LineGraphic debugger;
 
     public Vector2f getPosition()
     {
@@ -37,44 +24,18 @@ public class Node2D extends Node {
 
     public Node2D()
     {
-        resultantForce.setType(ForceType.RESULTANT);
         resultantForceVector = Vector2f.zero;
-        forceVectors.add(resultantForce);
         position = new Vector2f(0);
-        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        //State.addGraphicToScene(debugger);
     }
     public Node2D(Vector2f pos)
     {
-        resultantForce.setType(ForceType.RESULTANT);
         resultantForceVector = Vector2f.zero;
-        forceVectors.add(resultantForce);
         position = pos;
-        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        //State.addGraphicToScene(debugger);
     }
 
     public Node2D(float a, float b){
-        resultantForce.setType(ForceType.RESULTANT);
         resultantForceVector = Vector2f.zero;
-        forceVectors.add(resultantForce);
         position = new Vector2f(a, b);
-        //debugger = new LineGraphic(getPosition().asInt(),getPosition().asInt());
-        //State.addGraphicToScene(debugger);
-    }
-
-    /**
-     * Add a force vector to move the node on update, is added to the resultant force, a vector composed of all the
-     * forces acting on this specific node.
-     * @param forceVector object with physics vector and description of physics applied
-     */
-    @Override
-    public void addForceVector(ForceVector2D forceVector) {
-        if(forceVector.isNull()){
-            return;
-        }
-        forceVectors.add(forceVector);
-        resultantForce.add(forceVector);
     }
 
 
@@ -92,12 +53,7 @@ public class Node2D extends Node {
      */
     @Override
     public void move() {
-        resultantForce.mul(Simulation.TIMESTEP);
         position.add(resultantForceVector.mul(Simulation.TIMESTEP));
-        position.add(resultantForce);
-
-        //debugger.posA = getPosition().asInt();
-        //debugger.posB = getPosition().add(resultantForce.mul(10)).asInt();
     }
 
     /**
@@ -107,8 +63,6 @@ public class Node2D extends Node {
     public void resetResultantForce(){
         forceVectors.clear();
         resultantForceVector = new Vector2f(0,0);
-        resultantForce.set(new Vector2f(0));
-        forceVectors.add(resultantForce);
     }
 
     /**

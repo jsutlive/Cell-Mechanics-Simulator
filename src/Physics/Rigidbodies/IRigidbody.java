@@ -5,7 +5,6 @@ import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 public interface IRigidbody {
-    void addForceVector(ForceVector2D forceVector);
     void addForceVector(Vector forceVector);
 
     void moveTo(Vector2f newPosition);

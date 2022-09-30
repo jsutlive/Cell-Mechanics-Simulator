@@ -5,7 +5,6 @@ import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
 import Model.Components.Meshing.RingMesh;
 import Model.Components.Physics.Force;
-import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edges.ApicalEdge;
 import Physics.Rigidbodies.Edges.BasalEdge;
 import Physics.Rigidbodies.Edges.Edge;
@@ -26,8 +25,6 @@ public class CellRingCollider extends Force {
 
     @Override
     public void awake() {
-        forceVector.setType(ForceType.collision);
-        forceVector.reset();
         innerNodes = getComponent(RingMesh.class).innerNodes;
         outerNodes = getComponent(RingMesh.class).outerNodes;
         bothRings = new ArrayList<>(innerNodes);
@@ -39,7 +36,6 @@ public class CellRingCollider extends Force {
     @Override
     public void earlyUpdate() {
         checkCollision();
-        forceVector.reset();
     }
     private void checkCollision() {
         for(Cell cell: cells){
@@ -63,7 +59,6 @@ public class CellRingCollider extends Force {
                             continue;
                         }
                         setNodePositionToClosestEdge(node, nodePosition, e);
-                        //node.addForceVector(forceVector);
                     }
                 }
             }
@@ -75,14 +70,11 @@ public class CellRingCollider extends Force {
     private void setNodePositionToClosestEdge(Node2D node, Vector2f nodePosition, Edge e) {
         Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-        //forceVector.set(CustomMath.normal(e).mul());
         Vector2f v = CustomMath.normal(e).mul(dist * 5f);
         if(!v.isNull()) {
             Node2D[] nodes = e.getNodes();
             nodes[0].moveTo(nodes[0].getPosition().add(v));
             nodes[1].moveTo(nodes[1].getPosition().add(v));
-            //e.addForceVector(forceVector);
-            //forceVector.mul(-1);
             node.moveTo(node.getPosition().add(v.mul(-1)));
         }
     }
