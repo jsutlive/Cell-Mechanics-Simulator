@@ -52,22 +52,22 @@ public class Vector2f extends Vector
     }
 
     @Override
-    Vector div(float f) {
+    public Vector div(float f) {
         return null;
     }
 
     @Override
-    Vector dot(Vector vec) {
+    public Vector dot(Vector vec) {
         return null;
     }
 
     @Override
-    Vector cross(Vector vec) {
+    public Vector cross(Vector vec) {
         return null;
     }
 
     @Override
-    Vector unit() {
+    public Vector unit() {
         return null;
     }
 
@@ -146,6 +146,11 @@ public class Vector2f extends Vector
 
     public String print(){
         return x + "," + y;
+    }
+
+    @Override
+    public Vector2f zero() {
+        return new Vector2f(0,0);
     }
 
     public boolean isNull(){

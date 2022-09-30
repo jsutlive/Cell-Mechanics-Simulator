@@ -5,7 +5,6 @@ import Physics.Rigidbodies.IRigidbody;
 import Physics.Rigidbodies.Nodes.Node;
 import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
-import Utilities.Physics.ForceVector2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
@@ -64,7 +63,7 @@ public abstract class Edge implements IRigidbody, IColor
         nodesReference[1] = b;
     }
 
-    protected void MakeNewEdge(Node2D a, Node2D b)
+    protected void MakeNewEdge(Node a, Node b)
     {
         nodes[0] = a;
         nodes[1] = b;
@@ -96,8 +95,8 @@ public abstract class Edge implements IRigidbody, IColor
         return positions;
     }
 
-    public Node2D[] getNodes(){
-        return new Node2D[]{(Node2D)nodes[0], (Node2D)nodes[1] };
+    public Node[] getNodes(){
+        return nodes;
     }
 
     public float getInitialLength(){
@@ -105,8 +104,10 @@ public abstract class Edge implements IRigidbody, IColor
     }
 
     @Override
-    public void moveTo(Vector2f newPosition) {
-
+    public void moveTo(Vector newPosition) {
+        for(Node node: nodes){
+            node.moveTo(newPosition);
+        }
     }
 
     @Override
@@ -156,7 +157,7 @@ public abstract class Edge implements IRigidbody, IColor
      * @param n the node we wish to see is part of the edge
      * @return true if n is part of the edge
      */
-    public boolean contains(Node2D n){
+    public boolean contains(Node n){
         for(Node node: nodes){
             if(n.getPosition().equals (node.getPosition())) return true;
         }
@@ -165,23 +166,23 @@ public abstract class Edge implements IRigidbody, IColor
 
     public abstract Edge clone();
 
-    public void setNodes(Node2D[] nodes){
+    public void setNodes(Node[] nodes){
         this.nodes = nodes;
     }
 
-    public void setNodes(Node2D a, Node2D b)
+    public void setNodes(Node a, Node b)
     {
         nodes[0] = a;
         nodes[1] = b;
     }
 
     public void mirrorAcrossXAxis(){
-        for(Node2D n: getNodes()){
+        for(Node n: getNodes()){
             n.mirrorAcrossXAxis();
         }
     }
     public void mirrorAcrossYAxis(){
-        for(Node2D n: getNodes()){
+        for(Node n: getNodes()){
             n.mirrorAcrossYAxis();
         }
     }

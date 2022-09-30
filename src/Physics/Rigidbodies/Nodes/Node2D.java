@@ -33,33 +33,6 @@ public class Node2D extends Node {
         position = new Vector2f(a, b);
     }
 
-
-    /**
-     * Override the current position of the node and move it to a new position
-     * @param newPosition position to manually move node without physics calculation
-     */
-    @Override
-    public void moveTo(Vector2f newPosition) {
-        setPosition(newPosition);
-    }
-
-    /**
-     * Move the node based on its resultant force
-     */
-    @Override
-    public void move() {
-        position.add(resultantForceVector.mul(Simulation.TIMESTEP));
-    }
-
-    /**
-     * Sets resultant force to 0 and clears the forceVectors hashmap
-     */
-    @Override
-    public void resetResultantForce(){
-        forceVectors.clear();
-        resultantForceVector = new Vector2f(0,0);
-    }
-
     /**
      * Clone a node at this current position
      * @return clone of node at current position

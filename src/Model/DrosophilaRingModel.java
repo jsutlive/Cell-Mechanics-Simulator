@@ -55,10 +55,10 @@ public class DrosophilaRingModel extends Entity {
         generateOrganism();
         List<Node2D> yolkNodes = new ArrayList<>();
         for(Edge edge: basalEdges){
-            yolkNodes.add(edge.getNodes()[0]);
+            yolkNodes.add((Node2D) edge.getNodes()[0]);
         }
         for(Edge edge: apicalEdges){
-            ringMesh.outerNodes.add(edge.getNodes()[0]);
+            ringMesh.outerNodes.add((Node2D) edge.getNodes()[0]);
         }
 
 

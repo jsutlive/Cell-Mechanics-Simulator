@@ -1,9 +1,9 @@
 package Physics.Rigidbodies.Edges;
 
-import Physics.Rigidbodies.Nodes.Node2D;
+import Physics.Rigidbodies.Nodes.Node;
 
 public class BasalEdge extends Edge{
-    public BasalEdge(Node2D a, Node2D b)
+    public BasalEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
         elasticConstant = 5.55f;

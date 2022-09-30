@@ -1,6 +1,6 @@
 package Physics.Rigidbodies.Edges;
 
-import Physics.Rigidbodies.Nodes.Node2D;
+import Physics.Rigidbodies.Nodes.Node;
 
 /**
  * Lateral edges are the boundaries between cells on their lateral sides and in a tissue ring monolayer
@@ -12,7 +12,7 @@ public class LateralEdge extends Edge {
      * @param a first node in "nodes" array
      * @param b second node in "nodes" array
      */
-    public LateralEdge(Node2D a, Node2D b)
+    public LateralEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
         elasticConstant = 5.95f;

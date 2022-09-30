@@ -3,14 +3,14 @@ package Utilities.Geometry.Vector;
 public abstract class Vector {
 
     public abstract Vector add(Vector vec);
-    abstract Vector sub(Vector vec);
+    public abstract Vector sub(Vector vec);
     public abstract Vector mul(float f);
-    abstract Vector div(float f);
+    public abstract Vector div(float f);
     
-    abstract Vector dot(Vector vec);
-    abstract Vector cross(Vector vec);
+    public abstract Vector dot(Vector vec);
+    public abstract Vector cross(Vector vec);
 
-    abstract Vector unit();
+    public abstract Vector unit();
     public abstract float distanceTo(Vector b);
     abstract float mag();
 
@@ -31,6 +31,8 @@ public abstract class Vector {
         v.mul(-1);
         return v;
     }
+
+    public abstract Vector zero();
 
 
 }

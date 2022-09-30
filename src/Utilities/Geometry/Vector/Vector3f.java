@@ -3,6 +3,12 @@ package Utilities.Geometry.Vector;
 public class Vector3f extends Vector{
     public float x,y,z;
 
+    public Vector3f(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
 
     @Override
     public Vector add(Vector vec) {
@@ -14,7 +20,7 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    Vector sub(Vector vec) {
+    public Vector sub(Vector vec) {
         Vector3f v = (Vector3f)vec;
         x -= v.x;
         y -= v.y;
@@ -31,7 +37,7 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    Vector div(float f) {
+    public Vector div(float f) {
         x *= 1/f;
         y *= 1/f;
         z *= 1/f;
@@ -39,7 +45,7 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    Vector dot(Vector vec) {
+    public Vector dot(Vector vec) {
         Vector3f v = (Vector3f) vec;
         x = x * v.x;
         y = y * v.y;
@@ -48,12 +54,12 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    Vector cross(Vector vec) {
+    public Vector cross(Vector vec) {
         return null;
     }
 
     @Override
-    Vector unit() {
+    public Vector unit() {
         return null;
     }
 
@@ -94,6 +100,11 @@ public class Vector3f extends Vector{
 
     @Override
     public String print() {
-        return null;
+        return x + "," + y + "," + z;
+    }
+
+    @Override
+    public Vector3f zero() {
+        return new Vector3f(0f, 0f, 0f);
     }
 }

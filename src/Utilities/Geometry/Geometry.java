@@ -146,8 +146,8 @@ public class Geometry {
     }
 
     public static float calculateAngleBetweenEdges(Edge a, Edge b){
-        Node2D[] edgeANodes = a.getNodes();
-        Node2D[] edgeBNodes = b.getNodes();
+        Node[] edgeANodes = a.getNodes();
+        Node[] edgeBNodes = b.getNodes();
         List<Node> cornerNodes = Node.getAllUnique(edgeANodes, edgeBNodes);
         if(cornerNodes.size()!=3){
             throw new IllegalArgumentException("Corners should only consist of three nodes");

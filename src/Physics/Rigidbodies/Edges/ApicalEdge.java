@@ -1,12 +1,12 @@
 package Physics.Rigidbodies.Edges;
 
-import Physics.Rigidbodies.Nodes.Node2D;
+import Physics.Rigidbodies.Nodes.Node;
 
 /**
  * Apical edges form the outer boundary of the cell that is facing towards the epithelium.
  */
 public class ApicalEdge extends Edge{
-    public ApicalEdge(Node2D a, Node2D b)
+    public ApicalEdge(Node a, Node b)
     {
         MakeNewEdge(a,b);
         elasticConstant = 5.55f;

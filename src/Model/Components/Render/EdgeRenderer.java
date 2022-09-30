@@ -4,6 +4,7 @@ import Engine.States.State;
 import GUI.Painter;
 import Model.EdgeMono;
 import Physics.Rigidbodies.Edges.BasalEdge;
+import Physics.Rigidbodies.Nodes.Node;
 import Physics.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
@@ -24,9 +25,9 @@ public class EdgeRenderer extends ObjectRenderer {
 
     @Override
     public void render() {
-        Node2D[] nodes = edge.getNodes();
-        Vector2f pos1 = nodes[0].getPosition();
-        Vector2f pos2 = nodes[1].getPosition();
+        Node[] nodes = edge.getNodes();
+        Vector2f pos1 = (Vector2f) nodes[0].getPosition();
+        Vector2f pos2 = (Vector2f) nodes[1].getPosition();
 
         Painter.drawLine(pos1.asInt(), pos2.asInt(), color);
         if(edge.getEdge() instanceof BasalEdge){

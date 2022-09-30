@@ -30,17 +30,7 @@ public class EdgeTests
         //assertEquals(B.getLength(), C.getYUnit() * C.getLength());
     }
 
-    @Test
-    void get_correct_length_of_edge(){
-        Node2D a = new Node2D(0,0);
-        Node2D b = new Node2D(0,5);
-        Edge e = new BasicEdge(a,b);
-        Node2D[] nodes = e.getNodes();
-        Vector2f aVec = nodes[0].getPosition();
-        Vector2f bVec = nodes[1].getPosition();
-        float dist = Vector2f.dist(aVec, bVec);
-        assertEquals(5,dist);
-    }
+
 
     @Test
     void determine_edge_contains_node(){

@@ -1,7 +1,9 @@
 package Physics.Rigidbodies.Nodes;
 
+import Engine.Simulation;
 import Physics.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.*;
 
@@ -43,6 +45,27 @@ public abstract class Node implements IRigidbody {
         forceVectors.put(type, forceVector);
     }
 
-    public abstract void resetResultantForce();
+    /**
+     * Override the current position of the node and move it to a new position
+     * @param newPosition position to manually move node without physics calculation
+     */
+    public void moveTo(Vector newPosition) {
+        setPosition(newPosition);
+    }
 
+    /**
+     * Move the node based on its resultant force
+     */
+    @Override
+    public void move() {
+        position.add(resultantForceVector.mul(Simulation.TIMESTEP));
+    }
+
+    /**
+     * Sets resultant force to 0 and clears the forceVectors hashmap
+     */
+    public void resetResultantForce(){
+        forceVectors.clear();
+        resultantForceVector = resultantForceVector.zero();
+    }
 }
