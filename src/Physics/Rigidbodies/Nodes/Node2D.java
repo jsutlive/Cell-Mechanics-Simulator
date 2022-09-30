@@ -17,11 +17,6 @@ public class Node2D extends Node {
         position = pos;
     }
 
-    public Vector getResultantForce()
-    {
-        return resultantForceVector;
-    }
-
     public Node2D()
     {
         resultantForceVector = Vector2f.zero;
@@ -57,7 +52,7 @@ public class Node2D extends Node {
     }
 
     /**
-     * Sets resultant force to 0
+     * Sets resultant force to 0 and clears the forceVectors hashmap
      */
     @Override
     public void resetResultantForce(){

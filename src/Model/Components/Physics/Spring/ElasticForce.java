@@ -17,7 +17,7 @@ public class ElasticForce extends SpringForce {
         Vector force;
         for(Edge edge: edges){
             force = calculateSpringForce(edge, edge.getElasticConstant());
-            addConstrictionForceToEdge(edge, force);
+            edge.addConstrictionForceVector(getClass().getSimpleName(), force);
         }
     }
 }

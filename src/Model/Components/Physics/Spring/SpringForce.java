@@ -38,19 +38,16 @@ public abstract class SpringForce extends Force {
         return unit.mul(forceMag);
     }
 
-    protected void addConstrictionForceToEdge(Edge edge, Vector force){
-        Node[] nodes = edge.getNodes();
-        Vector forceNeg = force.neg();
-        nodes[0].addForceVector(force);
-        nodes[1].addForceVector(forceNeg);
-    }
-
     @Override
+    /*
+      Use this update call if spring constants between all edges are equal,
+      override in subclasses if this is not the case.
+     */
     public void update() {
         Vector force;
         for(Edge edge: edges){
             force = calculateSpringForce(edge, constant);
-            addConstrictionForceToEdge(edge, force);
+            edge.addConstrictionForceVector(getClass().getSimpleName(), force);
         }
     }
 }

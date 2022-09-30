@@ -11,7 +11,9 @@ public abstract class Node implements IRigidbody {
     protected Vector resultantForceVector;
     public abstract Vector getPosition();
     protected  abstract void setPosition(Vector vector);
-    public abstract Vector getResultantForce();
+    public Vector getResultantForce(){
+        return resultantForceVector;
+    }
 
     public static void addIfAvailable(List<Node> nodes, Node n){
         if(!nodes.contains(n)) nodes.add(n);

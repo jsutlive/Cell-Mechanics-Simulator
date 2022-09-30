@@ -38,7 +38,7 @@ public class ApicalConstrictingSpringForce extends SpringForce {
             else {
                 force = calculateSpringForce(edge, constant);
             }
-            addConstrictionForceToEdge(edge, force);
+            edge.addConstrictionForceVector(getClass().getSimpleName(), force);
         }
     }
 }

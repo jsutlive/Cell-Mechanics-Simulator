@@ -47,6 +47,18 @@ public abstract class Edge implements IRigidbody, IColor
         for(Node node: nodes) node.addForceVector(name, forceVector);
     }
 
+    public void addConstrictionForceVector(String type, Vector force){
+        Vector forceNeg = force.neg();
+        nodes[0].addForceVector(type, force);
+        nodes[1].addForceVector(type, forceNeg);
+    }
+
+    public void addConstrictionForceVector(Vector force){
+        Vector forceNeg = force.neg();
+        nodes[0].addForceVector("", force);
+        nodes[1].addForceVector("", forceNeg);
+    }
+
     public void setNodesReference(int a, int b){
         nodesReference[0] = a;
         nodesReference[1] = b;
