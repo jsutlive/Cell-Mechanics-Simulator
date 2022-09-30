@@ -1,6 +1,7 @@
 package Model.Components.Physics;
 
 import Model.Components.Meshing.Mesh;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Physics.ForceType;
 import Physics.Rigidbodies.Edges.Edge;
 import Utilities.Math.CustomMath;
@@ -20,18 +21,19 @@ public class OsmosisForce extends Force {
     }
 
     public void restore(float forceMagnitude){
+        Vector force;
         //determine orientation of edges by finding perpendicular, instead of applying force to push from center, we lift each edge outwards
         //calculate normals
 
         for(Edge edge : edges){
-            forceVector.set(CustomMath.normal(edge));
-            forceVector.mul(forceMagnitude);
+            force = CustomMath.normal(edge);
+            force.mul(forceMagnitude);
 
             //multiplies the edgeNormal by the length
             //logically if an edge is larger, there is more force pushing on it
-            forceVector.mul(edge.getLength());
+            force.mul(edge.getLength());
 
-            edge.addForceVector(forceVector);
+            addForceToBody(edge, force);
         }
     }
 
@@ -44,6 +46,5 @@ public class OsmosisForce extends Force {
     public void awake() {
         this.edges = getComponent(Mesh.class).edges;
         initialArea = getComponent(Mesh.class).getArea();
-        forceVector.setType(ForceType.osmosis);
     }
 }
