@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DrosophilaRingModel extends Entity {
+public class DrosophilaRingModel extends Model {
 
     int lateralResolution = 4;
 
