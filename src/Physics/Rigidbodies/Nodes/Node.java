@@ -2,8 +2,6 @@ package Physics.Rigidbodies.Nodes;
 
 import Physics.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
-import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Physics.ForceVector2D;
 
 import java.util.*;
 
@@ -12,10 +10,10 @@ public abstract class Node implements IRigidbody {
     protected HashMap<String, Vector> forceVectors = new HashMap<>();
     protected Vector resultantForceVector;
     public abstract Vector getPosition();
-    abstract void setPosition(Vector vector);
-    abstract Vector getResultantForce();
+    protected  abstract void setPosition(Vector vector);
+    public abstract Vector getResultantForce();
 
-    public static  void addIfAvailable(List<Node> nodes, Node n){
+    public static void addIfAvailable(List<Node> nodes, Node n){
         if(!nodes.contains(n)) nodes.add(n);
     }
 
@@ -32,9 +30,9 @@ public abstract class Node implements IRigidbody {
     public abstract void mirrorAcrossXAxis();
     public abstract void mirrorAcrossYAxis();
 
-
     @Override
     public void addForceVector(Vector forceVector) {
+        forceVectors.put("", forceVector);
         resultantForceVector.add(forceVector);
     }
 
@@ -42,5 +40,7 @@ public abstract class Node implements IRigidbody {
         resultantForceVector.add(forceVector);
         forceVectors.put(type, forceVector);
     }
+
+    public abstract void resetResultantForce();
 
 }

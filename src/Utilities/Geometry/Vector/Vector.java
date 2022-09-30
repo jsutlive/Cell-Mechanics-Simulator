@@ -4,7 +4,7 @@ public abstract class Vector {
 
     public abstract Vector add(Vector vec);
     abstract Vector sub(Vector vec);
-    abstract Vector mul(float f);
+    public abstract Vector mul(float f);
     abstract Vector div(float f);
     
     abstract Vector dot(Vector vec);
@@ -19,6 +19,8 @@ public abstract class Vector {
     public abstract Vector copy();
     public abstract Vector get();
     public abstract float get(int index);
+
+    public abstract String print();
 
     /**
      * Makes a copy of a vector and multiplies all elements by -1

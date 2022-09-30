@@ -23,7 +23,7 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    Vector mul(float f) {
+    public Vector mul(float f) {
         x *= f;
         y *= f;
         z *= f;
@@ -90,5 +90,10 @@ public class Vector3f extends Vector{
     @Override
     public float get(int index) {
         return 0;
+    }
+
+    @Override
+    public String print() {
+        return null;
     }
 }

@@ -5,12 +5,11 @@ import Engine.States.State;
 import Engine.Timer.Time;
 import Model.Cells.Cell;
 import Model.Components.Meshing.CellMesh;
-import Utilities.Physics.ForceType;
+import Utilities.Geometry.Vector.Vector;
 import Model.DrosophilaRingModel;
 import Physics.Forces.Gradient;
 import Physics.Rigidbodies.Edges.ApicalEdge;
 import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
 
 
 public class ApicalConstrictingSpringForce extends SpringForce {
@@ -18,7 +17,6 @@ public class ApicalConstrictingSpringForce extends SpringForce {
     float rampTime = 5f;
     @Override
     public void awake() {
-        forceVector.setType(ForceType.apicalConstriction);
         CellMesh mesh = parent.getComponent(CellMesh.class);
         for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);
 
@@ -32,16 +30,15 @@ public class ApicalConstrictingSpringForce extends SpringForce {
 
     @Override
     public void update() {
+        Vector force;
         for(Edge edge: edges){
-            Node2D[] nodes = edge.getNodes();
             if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
-                forceVector.set(calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime)));
+                force  = calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime));
             }
             else {
-                forceVector.set(calculateSpringForce(edge, constant));
+                force = calculateSpringForce(edge, constant);
             }
-            nodes[0].addForceVector(forceVector);
-            nodes[1].addForceVector(forceVector.neg());
+            addConstrictionForceToEdge(edge, force);
         }
     }
 }

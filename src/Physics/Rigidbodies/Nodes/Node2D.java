@@ -30,9 +30,9 @@ public class Node2D extends Node {
         position = pos;
     }
 
-    public Vector2f getResultantForce()
+    public Vector getResultantForce()
     {
-        return resultantForce;
+        return resultantForceVector;
     }
 
     public Node2D()
@@ -92,8 +92,8 @@ public class Node2D extends Node {
      */
     @Override
     public void move() {
-        resultantForce.add(resultantForceVector);
         resultantForce.mul(Simulation.TIMESTEP);
+        position.add(resultantForceVector.mul(Simulation.TIMESTEP));
         position.add(resultantForce);
 
         //debugger.posA = getPosition().asInt();
@@ -103,8 +103,10 @@ public class Node2D extends Node {
     /**
      * Sets resultant force to 0
      */
+    @Override
     public void resetResultantForce(){
         forceVectors.clear();
+        resultantForceVector = new Vector2f(0,0);
         resultantForce.set(new Vector2f(0));
         forceVectors.add(resultantForce);
     }

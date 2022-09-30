@@ -2,6 +2,7 @@ package Model.Components.Physics.Spring;
 
 import Model.Components.Physics.Force;
 import Physics.Rigidbodies.Edges.Edge;
+import Physics.Rigidbodies.Nodes.Node;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public abstract class SpringForce extends Force {
     // The resting length may not be the initial length of the spring. What percentage
     // of the initial length is the target?
+    protected float constant;
     protected float targetLengthRatio;
     public List<Edge> edges = new ArrayList<>();
 
@@ -36,5 +38,19 @@ public abstract class SpringForce extends Force {
         return unit.mul(forceMag);
     }
 
+    protected void addConstrictionForceToEdge(Edge edge, Vector force){
+        Node[] nodes = edge.getNodes();
+        Vector forceNeg = force.neg();
+        nodes[0].addForceVector(force);
+        nodes[1].addForceVector(forceNeg);
+    }
 
+    @Override
+    public void update() {
+        Vector force;
+        for(Edge edge: edges){
+            force = calculateSpringForce(edge, constant);
+            addConstrictionForceToEdge(edge, force);
+        }
+    }
 }

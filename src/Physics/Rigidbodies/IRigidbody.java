@@ -10,4 +10,6 @@ public interface IRigidbody {
 
     void moveTo(Vector2f newPosition);
     void move();
+
+    void addForceVector(String name, Vector vec);
 }

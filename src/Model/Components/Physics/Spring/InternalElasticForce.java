@@ -1,9 +1,8 @@
 package Model.Components.Physics.Spring;
 
 import Model.Components.Lattice.Lattice;
-import Utilities.Physics.ForceType;
+import Utilities.Geometry.Vector.Vector;
 import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
 
 public class InternalElasticForce extends SpringForce {
 
@@ -11,16 +10,14 @@ public class InternalElasticForce extends SpringForce {
     public void awake() {
         edges = getComponent(Lattice.class).edgeList;
         targetLengthRatio = 1;
-        forceVector.setType(ForceType.elastic);
     }
 
     @Override
     public void update() {
+        Vector force;
         for(Edge edge: edges){
-            Node2D[] nodes = edge.getNodes();
-            forceVector.set(calculateSpringForce(edge, edge.getElasticConstant()));
-            nodes[0].addForceVector(forceVector);
-            nodes[1].addForceVector(forceVector.neg());
+            force = calculateSpringForce(edge, edge.getElasticConstant());
+            addConstrictionForceToEdge(edge, force);
         }
     }
 }

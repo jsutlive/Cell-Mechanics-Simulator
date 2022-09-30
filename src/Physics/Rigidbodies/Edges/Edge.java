@@ -43,6 +43,11 @@ public abstract class Edge implements IRigidbody, IColor
     }
 
     @Override
+    public void addForceVector(String name, Vector forceVector) {
+        for(Node node: nodes) node.addForceVector(name, forceVector);
+    }
+
+    @Override
     public void addForceVector(ForceVector2D forceVector){
         for(Node node: nodes) node.addForceVector(forceVector);
     }
