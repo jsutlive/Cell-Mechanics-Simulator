@@ -1,8 +1,15 @@
 # MorphogenesisSimulationV2
 Morphogenesis Simulator Updated
 
-Note: The readme/ documentation currently describes the DevStable branch of the project.
-To have the most up-to-date, stable code, please refer to the DevStable branch.
+Note: The readme/ documentation currently describes the Master branch of the project.
+To have the most up-to-date, stable code, please refer to the Master branch.
+
+Folder organization:
+Framework: the base engine and base object classes of the simulation including states, entity/component modules, and data saving
+Input: classes responsible for handling user input
+Morphogenesis: specific physics/ objects to the morophogenesis project including physics entities, vertex/edge rigidbodies, and physics components
+Renderer: classes responsible for graphics
+Utilities: Additional math/physics functions, i.e. vector mathematics and complex algorithms
 
 Morphogenesis Simulator:
 An animated physics simulator used to model folding of tissue during morphogenesis.
