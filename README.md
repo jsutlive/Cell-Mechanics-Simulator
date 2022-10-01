@@ -5,10 +5,15 @@ Note: The readme/ documentation currently describes the Master branch of the pro
 To have the most up-to-date, stable code, please refer to the Master branch.
 
 Folder organization:
+
 Framework: the base engine and base object classes of the simulation including states, entity/component modules, and data saving
+
 Input: classes responsible for handling user input
+
 Morphogenesis: specific physics/ objects to the morophogenesis project including physics entities, vertex/edge rigidbodies, and physics components
+
 Renderer: classes responsible for graphics
+
 Utilities: Additional math/physics functions, i.e. vector mathematics and complex algorithms
 
 Morphogenesis Simulator:
