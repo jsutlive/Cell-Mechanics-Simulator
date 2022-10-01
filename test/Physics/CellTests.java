@@ -1,9 +1,9 @@
 package Physics;
 
-import Model.Cells.Cell;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Edges.LateralEdge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Entities.Cell;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edges.LateralEdge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

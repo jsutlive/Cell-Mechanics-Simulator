@@ -69,8 +69,8 @@ public class Vector3f extends Vector{
     }
 
     @Override
-    float mag() {
-        return 0;
+    public float mag() {
+        return(float)Math.sqrt(x*x + y*y + z*z);
     }
 
     @Override
@@ -107,4 +107,5 @@ public class Vector3f extends Vector{
     public Vector3f zero() {
         return new Vector3f(0f, 0f, 0f);
     }
+
 }

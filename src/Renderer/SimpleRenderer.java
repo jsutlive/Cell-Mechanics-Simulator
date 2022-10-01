@@ -1,8 +1,8 @@
 package Renderer;
 
-import Engine.Simulation;
-import Engine.States.State;
-import GUI.DisplayWindow;
+import Framework.Engine;
+import Framework.States.State;
+import Renderer.Graphics.DisplayWindow;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -17,14 +17,14 @@ public class SimpleRenderer extends Renderer
 
     public SimpleRenderer()
     {
-        width = Simulation.bounds.x;
-        height = Simulation.bounds.y;
-        title = Simulation.title;
+        width = Engine.bounds.x;
+        height = Engine.bounds.y;
+        title = Engine.title;
         displayWindow = new DisplayWindow(title, width, height);
     }
 
     /**
-     * Renders graphics to the screen. Should only be accessed from the Simulation object.
+     * Renders graphics to the screen. Should only be accessed from the Engine object.
      */
     @Override
     public void run()

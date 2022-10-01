@@ -1,13 +1,10 @@
 package Physics;
 
-import Physics.Forces.Force;
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ForceTests {
 

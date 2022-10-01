@@ -1,6 +1,6 @@
 package Physics;
 
-import Model.Cells.Cell;
+import Morphogenesis.Entities.Cell;
 
 import org.junit.jupiter.api.BeforeAll;
 

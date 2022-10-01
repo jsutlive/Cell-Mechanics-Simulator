@@ -1,9 +1,10 @@
 package Utilities.Math;
 
-import Model.Cells.Cell;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Entities.Cell;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
 public class CustomMath {
@@ -48,7 +49,7 @@ public class CustomMath {
      * @param unitVector equivalent of "theta" when considering polar coordinates
      * @param radius equivalent of "r" when considering polar coordinates
      * @param axis offset determined by x/y axis created by the bounding box
-     * @return
+     * @return 2D vector indicating a point in world space
      */
     public static Vector2f TransformToWorldSpace(Vector2f unitVector, float radius, Vector2f axis)
     {
@@ -138,10 +139,10 @@ public class CustomMath {
 
     /**
      * Returns a unit vector corresponding to the normal of an edge
-     * @param edge
-     * @return
+     * @param edge home edge
+     * @return normal to input edge
      */
-    public static Vector2f normal(Edge edge){
+    public static Vector normal(Edge edge){
         Vector2f[] positions = edge.getPositions();
         return normal(positions[1], positions[0]);
     }
@@ -166,20 +167,20 @@ public class CustomMath {
      * @param b point b
      * @return the normal of the line made by a and b
      */
-    public static Vector2f normal(Vector2f a, Vector2f b){
+    public static Vector normal(Vector2f a, Vector2f b){
         Vector2f unit;
         unit = new Vector2f(-(b.y-a.y), b.x-a.x);
-        return Vector2f.unit(unit);
+        return unit.unit();
     }
 
     /**
      * Return "flipped" normal, or the negative of the regular normal
-     * @param a
-     * @param b
-     * @return
+     * @param a a 2-dimensional vector representing a 2D point
+     * @param b a 2-dimensional vector representing another 2D point
+     * @return normal (counterclockwise) of the line segment between a and b
      */
     public static Vector2f normalFlipped(Vector2f a, Vector2f b){
-        Vector2f unit = normal(a,b);
+        Vector2f unit = (Vector2f) normal(a,b);
         unit.mul(-1);
         Vector2f flipped = new Vector2f();
         flipped.x = unit.y;
@@ -268,12 +269,6 @@ public class CustomMath {
         float x = (normalIntercept - intercept)/(slope-normalSlope);
         float y = (slope * x) + intercept;
         if(Float.isNaN(x) || Float.isNaN(y)) {
-            /*System.out.println("-------------------------");
-            System.out.println("P: " + p.print());
-            System.out.println("A: " + a.print());
-            System.out.println("B: " + b.print());
-            System.out.println("X: " + x + ", Y:" + y);
-            System.out.println("-------------------------");*/
             return Geometry.APPROX_INF;
 
         }

@@ -1,8 +1,8 @@
 package Math;
-import Model.Cells.Cell;
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Entities.Cell;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;

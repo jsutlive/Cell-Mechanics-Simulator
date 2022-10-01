@@ -13,9 +13,13 @@ public class Vector2f extends Vector
         this.y = y;
     }
 
-    public Vector2f(float x) {
-        this.x = x;
-        this.y = x;
+    /**
+     * Apply the same value (n) to both x and y
+     * @param n floating point value assigned to x and y
+     */
+    public Vector2f(float n) {
+        this.x = n;
+        this.y = n;
     }
 
     public Vector2f() {
@@ -25,8 +29,9 @@ public class Vector2f extends Vector
 
     public Vector2f add(Vector vec)
     {
-        x += vec.get(0);
-        y += vec.get(1);
+        Vector2f vec2f = (Vector2f) vec;
+        x += vec2f.x;
+        y += vec2f.y;
         return this;
     }
 
@@ -39,8 +44,9 @@ public class Vector2f extends Vector
 
     @Override
     public Vector2f sub(Vector vec) {
-        x -= vec.get(0);
-        y -= vec.get(1);
+        Vector2f vec2f = (Vector2f) vec;
+        x -= vec2f.x;
+        y -= vec2f.y;
         return this;
     }
 
@@ -68,7 +74,7 @@ public class Vector2f extends Vector
 
     @Override
     public Vector unit() {
-        return null;
+        return unit(new Vector2f(0), this);
     }
 
     @Override
@@ -120,7 +126,9 @@ public class Vector2f extends Vector
     }
 
     @Override
-    public float mag() {return(float)Math.sqrt(x*x + y*y);}
+    public float mag() {
+        return(float)Math.sqrt(x*x + y*y);
+    }
 
     @Override
     public boolean equals(Vector vec) {

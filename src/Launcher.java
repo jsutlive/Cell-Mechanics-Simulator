@@ -1,14 +1,14 @@
-import Engine.Simulation;
+import Framework.Engine;
 
 /**
  * Entry point for the program.
- * Creates a new Simulation object and runs the "Start" function for it.
+ * Creates a new Engine object and runs the "Start" function for it.
  */
 public class Launcher
 {
     public static void main(String[] args)
     {
-        Simulation sim = new Simulation("Simulation");
+        Engine sim = new Engine("Framework");
         sim.Start();
     }
 }

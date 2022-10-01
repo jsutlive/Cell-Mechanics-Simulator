@@ -4,7 +4,7 @@ import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
 
 public abstract class Renderer implements Runnable {
-    //Graphics object that our painter class references to draw objects
+    //Renderer.Graphics object that our painter class references to draw objects
     protected static Graphics g;
 
     //Default color by which to paint objects in a scene

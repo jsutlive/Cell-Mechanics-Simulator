@@ -1,10 +1,9 @@
 package Physics;
 
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Edges.LateralEdge;
-import Physics.Rigidbodies.Nodes.Node2D;
-import Utilities.Geometry.Vector.Vector2f;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edges.LateralEdge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

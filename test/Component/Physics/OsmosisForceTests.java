@@ -1,19 +1,7 @@
 package Component.Physics;
 
-import Model.Cells.BasicCell;
-import Model.Cells.Cell;
-import Model.Components.Meshing.CellMesh;
-import Model.Components.Meshing.Mesh;
-import Model.Components.Physics.OsmosisForce;
-import Physics.Rigidbodies.Nodes.Node2D;
-import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class OsmosisForceTests {
 

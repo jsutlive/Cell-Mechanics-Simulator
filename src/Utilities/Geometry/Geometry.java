@@ -1,12 +1,11 @@
 package Utilities.Geometry;
 
-import Engine.Object.Entity;
-import Model.Cells.Cell;
-import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Entities.Cell;
+import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -23,7 +22,7 @@ public class Geometry {
 
         Vector2f p3 = point.getPosition();
         Vector2f p4 = APPROX_INF;
-        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        Mesh mesh = cell.getComponent(Mesh.class);
         for (Edge edge: mesh.edges) {
             Vector2f p1 = edge.getPositions()[0];
             Vector2f p2 = edge.getPositions()[1];
@@ -31,8 +30,7 @@ public class Geometry {
                 count++;
             }
         }
-        if(count%2==0)return false;
-        else return true;
+        return count % 2 != 0;
 
 
     }
@@ -45,8 +43,7 @@ public class Geometry {
     }
 
     public static boolean lineSegmentContainsPoint(Vector2f point, Vector2f lineA, Vector2f lineB) {
-        if(Vector2f.dist(point, lineA) + Vector2f.dist(point, lineB) == Vector2f.dist(lineA, lineB)) return true;
-        else return false;
+        return Vector2f.dist(point, lineA) + Vector2f.dist(point, lineB) == Vector2f.dist(lineA, lineB);
     }
 
     public static boolean doEdgesIntersect(Vector2f p1, Vector2f p2, Vector2f p3, Vector2f p4){
@@ -59,8 +56,7 @@ public class Geometry {
         float s = (-s1_y * (p1.x - p3.x) + s1_x * (p1.y - p3.y)) / (-s2_x * s1_y + s1_x * s2_y);
         float t = (s2_x * (p1.y - p3.y) - s2_y * (p1.x - p3.x)) / (-s2_x * s1_y + s1_x * s2_y);
 
-        if (s >= 0 && s <= 1 && t >= 0 && t <= 1) return true;
-        else return false;
+        return s >= 0 && s <= 1 && t >= 0 && t <= 1;
     }
 
     public static Vector2f[] getMinMaxBoundary(List<Node2D> nodes)
@@ -82,7 +78,7 @@ public class Geometry {
     }
 
     public static Vector2f[] getMinMaxBoundary(Cell cell){
-        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        Mesh mesh = cell.getComponent(Mesh.class);
         return getMinMaxBoundary(mesh.nodes);
     }
 
@@ -118,20 +114,19 @@ public class Geometry {
         Vector2f v = n.copy();
         v.sub(p1);
         float d = v.dot(unit);
-        CustomMath.clamp(d, 0, magnitude);
+        d = CustomMath.clamp(d, 0, magnitude);
 
         unit.mul(d);
-        Vector2f res = p1;
-        res.add(unit);
+        p1.add(unit);
 
-        return res;
+        return p1;
     }
 
     public static Edge getClosestEdgeToPoint(Cell cell, Node2D n)
     {
         float shortestDistance = Float.POSITIVE_INFINITY;
         Edge currentEdge = new BasicEdge();
-        CellMesh mesh = (CellMesh)cell.getComponent(CellMesh.class);
+        Mesh mesh = cell.getComponent(Mesh.class);
 
         for(Edge edge: mesh.edges){
             Vector2f start = n.getPosition();

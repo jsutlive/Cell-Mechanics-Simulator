@@ -1,8 +1,8 @@
 package Math;
 
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Edges.Edge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
@@ -15,7 +15,7 @@ public class CustomMathTests {
     {
         Vector2f a = new Vector2f(0);
         Vector2f b = new Vector2f(0, 1);
-        Vector2f norm = CustomMath.normal(a, b);
+        Vector2f norm = (Vector2f)CustomMath.normal(a, b);
         assertEquals(0, norm.y);
         assertEquals(-1, norm.x);
     }
@@ -35,7 +35,7 @@ public class CustomMathTests {
         Node2D a = new Node2D(0,0);
         Node2D b = new Node2D(0, 1);
         Edge e = new BasicEdge(a, b);
-        Vector2f norm = CustomMath.normal(e);
+        Vector2f norm = (Vector2f)CustomMath.normal(e);
         assertEquals(0.0f, norm.y);
         assertEquals(1.0f, norm.x);
     }
@@ -66,7 +66,7 @@ public class CustomMathTests {
         Node2D a = new Node2D(new Vector2f(0));
         Node2D b = new Node2D(new Vector2f(root2));
         Edge e = new BasicEdge(a,b);
-        Vector2f norm = CustomMath.normal(e);
+        Vector2f norm = (Vector2f) CustomMath.normal(e);
         //assertEquals(-root2, norm.y);
         assertEquals(root2, norm.x);
     }

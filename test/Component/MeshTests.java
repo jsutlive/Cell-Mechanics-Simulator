@@ -1,8 +1,8 @@
 package Component;
 
-import Model.Components.Meshing.CellMesh;
-import Physics.Rigidbodies.Edges.BasicEdge;
-import Physics.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Components.Meshing.CellMesh;
+import Morphogenesis.Rigidbodies.Edges.BasicEdge;
+import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

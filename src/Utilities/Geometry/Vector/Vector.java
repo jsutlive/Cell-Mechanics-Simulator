@@ -12,7 +12,7 @@ public abstract class Vector {
 
     public abstract Vector unit();
     public abstract float distanceTo(Vector b);
-    abstract float mag();
+    public abstract float mag();
 
     public abstract boolean equals(Vector vec);
     public abstract boolean isNull();

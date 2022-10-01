@@ -1,16 +1,14 @@
 package Input;
 
-import Engine.States.State;
+import Framework.Engine;
+import Framework.States.State;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import Renderer.ZoomRenderer;
 import Renderer.Renderer;
-import Engine.Simulation;
 
 
 public class Input extends JFrame implements KeyListener {
@@ -40,7 +38,7 @@ public class Input extends JFrame implements KeyListener {
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(10);
         timestepSlider.setPaintTicks(true);
-        timestepSlider.addChangeListener(e -> Simulation.TIMESTEP = timestepSlider.getValue() / 10000f);
+        timestepSlider.addChangeListener(e -> Engine.TIMESTEP = timestepSlider.getValue() / 10000f);
         panel.add(timestepLabel);
         panel.add(timestepSlider);
         _instance = this;
