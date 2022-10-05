@@ -1,7 +1,14 @@
 package Renderer.Graphics;
 
+import Framework.Engine;
+import Framework.States.State;
+import Input.InputEvents;
+import Input.InputPanel;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DisplayWindow
 {
@@ -18,6 +25,12 @@ public class DisplayWindow
         CreateDisplay();
         CreateCanvas();
         frame.add(canvas);
+
+        InputPanel inputPanel = new InputPanel();
+        frame.add(inputPanel.getPanel(), BorderLayout.WEST);
+        frame.addKeyListener(new InputEvents());
+        frame.setFocusable(true);
+        frame.requestFocus();
         frame.pack();
     }
 

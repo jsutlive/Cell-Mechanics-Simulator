@@ -20,7 +20,7 @@ public abstract class Renderer implements Runnable {
     public static Renderer getInstance() {
         if(instance == null)
         {
-            instance = ZoomRenderer.build(ZoomRenderer.class);
+            instance = build(ZoomRenderer.class);
         }
         return instance;
     }
@@ -47,4 +47,6 @@ public abstract class Renderer implements Runnable {
 
     // Set the renderer color
     public abstract  void setColor(Color color);
+
+    public void clearAllEvents(){}
 }

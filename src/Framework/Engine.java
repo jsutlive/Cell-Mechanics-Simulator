@@ -2,10 +2,12 @@ package Framework;
 
 import Framework.Data.ComponentSerializer;
 import Framework.Data.LogDataExclusionStrategy;
+import Framework.Events.IEvent;
 import Framework.States.State;
 import Framework.Timer.Time;
-import Input.Input;
 import Framework.Object.Component;
+import Input.InputEvents;
+import Input.InputPanel;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
 import com.google.gson.Gson;
@@ -26,7 +28,6 @@ public class Engine implements Runnable
     // rendering system reference
     Renderer renderer;
     // Collecting user input
-    Input inputHandler;
     // window boundary, in px
     public static Vector2i bounds;
     // window title
@@ -52,6 +53,10 @@ public class Engine implements Runnable
         title = _title;
     }
 
+    private void setTimeStep(float f){
+        TIMESTEP = f;
+    }
+
     /**
      * Simplified simulation constructor where the window is automatically set to be 800x800 px
      * @param _title Window title for the simulation
@@ -74,8 +79,9 @@ public class Engine implements Runnable
         render = new Thread(renderer);
         render.setDaemon(true);
 
-        // Get input system
-        inputHandler = Input.getInstance();
+        // subscribe to necessary input events. Please refactor this.
+        IEvent<Float> timeStepSink = this::setTimeStep;
+        InputPanel.onTimestepSliderChanged.subscribe(timeStepSink);
 
         // Prepare state loading and timer system
         Time.getInstance();

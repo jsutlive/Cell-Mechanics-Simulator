@@ -1,7 +1,10 @@
 package Renderer;
 
 import Framework.Engine;
+import Framework.Events.IEvent;
 import Framework.States.State;
+import Input.InputEvents;
+import Input.InputPanel;
 import Renderer.Graphics.DisplayWindow;
 import Utilities.Geometry.Vector.Vector2i;
 
@@ -25,11 +28,17 @@ public class ZoomRenderer extends Renderer
         shift = new Vector2i(0);
         scale = 1f;
         displayWindow = new DisplayWindow(title, width, height);
+
+        IEvent<Vector2i> shiftEventSink = this::setShift;
+        IEvent<Float> scaleEventSink = this::setScale;
+
+        InputEvents.onShift.subscribe(shiftEventSink);
+        InputEvents.onScale.subscribe(scaleEventSink);
     }
 
     public void setScale(float newScale)
     {
-        scale = newScale;
+        scale *= newScale;
     }
 
     public float getScale(){
@@ -38,7 +47,7 @@ public class ZoomRenderer extends Renderer
 
     public void setShift(Vector2i newShift)
     {
-        shift = newShift;
+        shift.add(newShift);
     }
 
     public Vector2i getShift(){
@@ -76,6 +85,11 @@ public class ZoomRenderer extends Renderer
         g.dispose();
 
 
+    }
+
+    @Override
+    public void clearAllEvents(){
+        InputEvents.onShift.close();
     }
 
     public DisplayWindow GetDisplayWindow()

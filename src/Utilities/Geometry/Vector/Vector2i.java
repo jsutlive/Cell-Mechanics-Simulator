@@ -19,7 +19,7 @@ public class Vector2i {
         this.y = 0;
     }
 
-    public void add(Vector2f vec)
+    public void add(Vector2i vec)
     {
         x += vec.x;
         y += vec.y;
