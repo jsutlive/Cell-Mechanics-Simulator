@@ -2,7 +2,7 @@ package Morphogenesis.Entities;
 
 import Framework.States.State;
 import Morphogenesis.Components.Meshing.Mesh;
-import Morphogenesis.Components.Meshing.CellMesh;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
@@ -21,7 +21,7 @@ public class Yolk extends Cell {
 
     @Override
     public void awake() {
-        addComponent(new CellMesh());
+        addComponent(new RingCellMesh());
         //addComponent(new CellRenderer());
         //getComponent(CellRenderer.class).setColor(Color.GREEN);
     }

@@ -1,8 +1,9 @@
 package Renderer.Graphics;
 
+import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Renderer.Renderer;
 import Morphogenesis.Entities.Cell;
-import Morphogenesis.Components.Meshing.CellMesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
@@ -16,12 +17,12 @@ public class Painter {
 
     public static void drawCell(Cell cell, Color color)
     {
-        CellMesh cellMesh = cell.getComponent(CellMesh.class);
-        for(Node2D node: cellMesh.nodes)
+        Mesh mesh = cell.getComponent(Mesh.class);
+        for(Node2D node: mesh.nodes)
         {
             drawPoint(node.getPosition().asInt(),color);
         }
-        for(Edge edge: cellMesh.edges)
+        for(Edge edge: mesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].asInt(), positions[1].asInt(), color);

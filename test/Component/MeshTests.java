@@ -1,6 +1,6 @@
 package Component;
 
-import Morphogenesis.Components.Meshing.CellMesh;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Rigidbodies.Edges.BasicEdge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class MeshTests {
-    static CellMesh testMesh;
+    static RingCellMesh testMesh;
 
     @BeforeAll
     static void createMeshes()
     {
-        testMesh = new CellMesh();
+        testMesh = new RingCellMesh();
         Node2D a = new Node2D(-1,-1); testMesh.nodes.add(a);
         Node2D b = new Node2D(-1, 0); testMesh.nodes.add(b);
         Node2D c = new Node2D(-1, 1); testMesh.nodes.add(c);

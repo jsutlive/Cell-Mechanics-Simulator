@@ -2,6 +2,7 @@ package Framework.States;
 
 import Framework.Object.Entity;
 import Framework.Object.Tag;
+import Morphogenesis.Models.BasicCellsModel;
 import Renderer.Graphics.IRender;
 import Morphogenesis.Models.DrosophilaRingModel;
 

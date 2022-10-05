@@ -2,7 +2,7 @@ package Morphogenesis.Components.Lattice;
 
 import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.Builder;
-import Morphogenesis.Components.Meshing.CellMesh;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Rigidbodies.Edges.BasicEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
@@ -19,7 +19,7 @@ public class Lattice extends Component {
      * Assumes apical resolution of 1. Constructs lattice based on the cell mesh     *
      */
     public void buildLattice(){
-        List<Node2D> nodes = getComponent(CellMesh.class).nodes;
+        List<Node2D> nodes = getComponent(RingCellMesh.class).nodes;
         if(nodes.size() != 0){
             int nodeSize = nodes.size();
             int count = (nodeSize/2);

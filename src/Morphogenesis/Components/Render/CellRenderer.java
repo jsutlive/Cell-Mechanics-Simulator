@@ -4,7 +4,7 @@ import Framework.States.State;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.Painter;
 import Morphogenesis.Entities.Cell;
-import Morphogenesis.Components.Meshing.CellMesh;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 
 import java.awt.*;
@@ -14,13 +14,13 @@ import java.awt.*;
  */
 public class CellRenderer extends ObjectRenderer
 {
-    private transient CellMesh cellMesh;
+    private transient Mesh cellMesh;
     private Color color = Painter.DEFAULT_COLOR;
 
     @Override
     public void awake() {
         State.setFlagToRender(parent);
-        cellMesh = parent.getComponent(CellMesh.class);
+        cellMesh = parent.getComponent(Mesh.class);
     }
 
     @Override

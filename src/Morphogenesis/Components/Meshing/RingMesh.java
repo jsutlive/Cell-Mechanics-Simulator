@@ -47,12 +47,12 @@ public class RingMesh extends Mesh{
         nodes.clear();
         for(Cell cell: cellList)
         {
-            for(Node2D node: cell.getComponent(CellMesh.class).nodes){
+            for(Node2D node: cell.getComponent(RingCellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
                     if (!this.contains(node)) this.nodes.add(node);
                 }
             }
-            for(Edge edge: cell.getComponent(CellMesh.class).edges){
+            for(Edge edge: cell.getComponent(RingCellMesh.class).edges){
                 if(edge instanceof ApicalEdge) apicalEdges.add(edge);
                 if(edge instanceof BasalEdge) basalEdges.add(edge);
             }
@@ -109,7 +109,7 @@ public class RingMesh extends Mesh{
                     // copy list to prevent assignment issues between collections
                     List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
-                    newCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(oldNodes));
+                    newCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
                     ArrayList<Node2D> constructionNodes = new ArrayList<>(mirroredNodes);
                     if (i == 1) {
@@ -118,7 +118,7 @@ public class RingMesh extends Mesh{
                     } else {
                         constructionNodes.addAll(oldMirroredNodes);
                     }
-                    mirroredCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(constructionNodes));
+                    mirroredCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(constructionNodes));
                     Collections.reverse(mirroredNodes);
                 }
             }
@@ -135,7 +135,7 @@ public class RingMesh extends Mesh{
         {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
-        if(cell.getComponent(CellMesh.class).nodes.size() == 0){
+        if(cell.getComponent(RingCellMesh.class).nodes.size() == 0){
             throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
         }
     }

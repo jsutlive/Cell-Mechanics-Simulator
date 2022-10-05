@@ -1,6 +1,6 @@
 package Morphogenesis.Components.Meshing;
 
-import Framework.Data.LogData;
+import Framework.Data.*;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -11,11 +11,11 @@ import Utilities.Geometry.Vector.Vector2f;
 import java.util.List;
 
 /**
- * CellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
+ * RingCellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
  * Can be used to determine collision boundaries, etc.
  */
 @LogData
-public class CellMesh extends Mesh{
+public class RingCellMesh extends Mesh{
 
     transient int lateralResolution = 4;
     transient int apicalResolution = 1;
@@ -64,11 +64,11 @@ public class CellMesh extends Mesh{
         return intersections%2 != 0;
     }
 
-    public CellMesh build(List<Node2D> builderNodes){
+    public RingCellMesh build(List<Node2D> builderNodes){
         return build(builderNodes, apicalResolution, lateralResolution);
     }
 
-    public CellMesh build(List<Node2D> builderNodes, int xRes, int yRes){
+    public RingCellMesh build(List<Node2D> builderNodes, int xRes, int yRes){
         // Start from top left, move along til end of lateral resolution
         nodes = builderNodes;
         int nodeCount = 0;

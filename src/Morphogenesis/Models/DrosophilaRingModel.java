@@ -1,9 +1,9 @@
 package Morphogenesis.Models;
 
 import Framework.States.State;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Morphogenesis.Entities.*;
-import Morphogenesis.Components.Meshing.CellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Forces.GaussianGradient;
 import Morphogenesis.Components.Physics.Forces.Gradient;
@@ -75,12 +75,12 @@ public class DrosophilaRingModel extends Model {
         ringMesh.nodes.clear();
         for(Cell cell: ringMesh.cellList)
         {
-            for(Node2D node: cell.getComponent(CellMesh.class).nodes){
+            for(Node2D node: cell.getComponent(RingCellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
                     if (!ringMesh.contains(node)) ringMesh.nodes.add(node);
                 }
             }
-            for(Edge edge: cell.getComponent(CellMesh.class).edges){
+            for(Edge edge: cell.getComponent(RingCellMesh.class).edges){
                 if(edge instanceof ApicalEdge) apicalEdges.add(edge);
                 if(edge instanceof BasalEdge) basalEdges.add(edge);
             }
@@ -142,7 +142,7 @@ public class DrosophilaRingModel extends Model {
                     // copy list to prevent assignment issues between collections
                     List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
-                    newCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(oldNodes));
+                    newCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
                     constructionNodes.addAll(mirroredNodes);
                     if(i == 1)
@@ -154,7 +154,7 @@ public class DrosophilaRingModel extends Model {
                     {
                         constructionNodes.addAll(oldMirroredNodes);
                     }
-                    mirroredCell = State.create(ApicalConstrictingCell.class, new CellMesh().build(constructionNodes));
+                    mirroredCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(constructionNodes));
                     Collections.reverse(mirroredNodes);
                 }
                 else
@@ -166,19 +166,19 @@ public class DrosophilaRingModel extends Model {
                             Collections.reverse(mirroredNodes);
                             constructionNodes.addAll(mirroredNodes);
                             constructionNodes.addAll(oldMirroredNodes);
-                            newCell = State.create(ShorteningCell.class, new CellMesh().build(oldNodes));
-                            mirroredCell = State.create(ShorteningCell.class, new CellMesh().build(constructionNodes));
+                            newCell = State.create(ShorteningCell.class, new RingCellMesh().build(oldNodes));
+                            mirroredCell = State.create(ShorteningCell.class, new RingCellMesh().build(constructionNodes));
                             Collections.reverse(mirroredNodes);
                         }else
                         {
                             oldNodes.addAll(zeroEdgeNodes);
-                            newCell = State.create(ShorteningCell.class, new CellMesh().build(oldNodes));
+                            newCell = State.create(ShorteningCell.class, new RingCellMesh().build(oldNodes));
 
                             Collections.reverse(zeroEdgeNodes);
                             constructionNodes.addAll(zeroEdgeNodes);
                             constructionNodes.addAll(oldMirroredNodes);
                             Collections.reverse(zeroEdgeNodes);
-                            mirroredCell = State.create(ShorteningCell.class, new CellMesh().build(constructionNodes));
+                            mirroredCell = State.create(ShorteningCell.class, new RingCellMesh().build(constructionNodes));
 
                         }
                     }
@@ -188,8 +188,8 @@ public class DrosophilaRingModel extends Model {
                             Collections.reverse(mirroredNodes);
                             constructionNodes.addAll(mirroredNodes);
                             constructionNodes.addAll(oldMirroredNodes);
-                            newCell = State.create(BasicCell.class, new CellMesh().build(oldNodes));
-                            mirroredCell = State.create(BasicCell.class, new CellMesh().build(constructionNodes));
+                            newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
+                            mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
                             Collections.reverse(mirroredNodes);
                         }else
                         {
@@ -198,8 +198,8 @@ public class DrosophilaRingModel extends Model {
                             constructionNodes.addAll(zeroEdgeNodes);
                             constructionNodes.addAll(oldMirroredNodes);
                             Collections.reverse(zeroEdgeNodes);
-                            newCell = State.create(BasicCell.class, new CellMesh().build(oldNodes));
-                            mirroredCell = State.create(BasicCell.class, new CellMesh().build(constructionNodes));
+                            newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
+                            mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
 
                         }
                     }
@@ -231,7 +231,7 @@ public class DrosophilaRingModel extends Model {
         {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
-        if(cell.getComponent(CellMesh.class).nodes.size() == 0){
+        if(cell.getComponent(RingCellMesh.class).nodes.size() == 0){
             throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
         }
     }

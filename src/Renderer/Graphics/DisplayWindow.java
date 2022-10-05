@@ -49,8 +49,7 @@ public class DisplayWindow
 
     private void CreateCanvas() {
         canvas = new Canvas();
-        canvas.setPreferredSize(new Dimension(width, height));
-        canvas.setMaximumSize(new Dimension(width, height));
+        canvas.setSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
     }
 
