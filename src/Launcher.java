@@ -8,7 +8,7 @@ public class Launcher
 {
     public static void main(String[] args)
     {
-        Engine sim = new Engine("Framework");
+        Engine sim = new Engine("Morphogenesis Simulator");
         sim.Start();
     }
 }

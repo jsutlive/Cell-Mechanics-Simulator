@@ -32,6 +32,7 @@ public class DisplayWindow
         frame.setFocusable(true);
         frame.requestFocus();
         frame.pack();
+        frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
     }
 
     private void CreateDisplay()
