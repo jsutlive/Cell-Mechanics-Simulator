@@ -5,8 +5,10 @@ import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class InputEvents implements KeyListener {
+public class InputEvents implements KeyListener, MouseListener {
 
     private boolean spaceToggle = false;
 
@@ -48,11 +50,42 @@ public class InputEvents implements KeyListener {
 
     }
 
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        click(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
     public static EventHandler<Vector2i> onShift = new EventHandler<>();
     public static EventHandler<Float> onScale = new EventHandler<>();
 
     public static EventHandler<Boolean> onPlay = new EventHandler<>();
     public static EventHandler<Boolean> onStop = new EventHandler<>();
+    public static EventHandler<MouseEvent> onClick = new EventHandler<>();
+
+    public void click(MouseEvent event){
+        onClick.invoke(event);
+    }
 
     public static void play(){
         onPlay.invoke(true);

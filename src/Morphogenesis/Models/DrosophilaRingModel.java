@@ -2,6 +2,8 @@ package Morphogenesis.Models;
 
 import Framework.States.State;
 import Morphogenesis.Components.Meshing.RingCellMesh;
+import Morphogenesis.Components.MouseSelector;
+import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Morphogenesis.Entities.*;
 import Morphogenesis.Components.Meshing.RingMesh;
@@ -29,8 +31,8 @@ public class DrosophilaRingModel extends Model {
     public int numberOfSegmentsInTotalCircle = 80;
     public int numberOfConstrictingSegmentsInCircle = 18;
 
-    public int shorteningCellBegin = 16;
-    public int shorteningCellEnd = 28;
+    public int shorteningCellBegin = 10;
+    public int shorteningCellEnd = 40;
 
     public float outerRadius = 300;
     public float innerRadius = 200;
@@ -47,8 +49,8 @@ public class DrosophilaRingModel extends Model {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         apicalGradient = new GaussianGradient(0f, 1.2f);
         apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                25.4f, .01f,
-                .1f, .1f);
+                75.4f, .01f,
+                5f, .05f);
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
         List<Node2D> yolkNodes = new ArrayList<>();
@@ -67,7 +69,8 @@ public class DrosophilaRingModel extends Model {
 
     @Override
     public void start() {
-        //addComponent(new CellRingCollider());
+        addComponent(new MouseSelector());
+        addComponent(new CellRingCollider());
     }
 
     public void generateOrganism() throws InstantiationException {

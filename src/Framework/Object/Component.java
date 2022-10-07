@@ -1,6 +1,8 @@
 package Framework.Object;
 
-public abstract class Component implements IBehavior {
+import java.lang.reflect.Field;
+
+public abstract class Component implements IBehavior, IExposeToGUI {
     protected transient Entity parent;
     public void setParent(Entity mono){
         parent = mono;
@@ -42,5 +44,19 @@ public abstract class Component implements IBehavior {
     public void onDestroy(){}
     public void onValidate(){}
 
+    @Override
+    public void gui() {
+        try {
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                Class type = field.getType();
+                Object value = field.get(this);
+                String name = field.getName();
 
+
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 }

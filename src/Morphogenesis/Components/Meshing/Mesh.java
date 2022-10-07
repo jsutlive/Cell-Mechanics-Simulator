@@ -1,6 +1,8 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Component;
+import Framework.Object.Entity;
+import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
@@ -17,12 +19,17 @@ public abstract class Mesh extends Component {
 
     protected float area;
     private Vector2f centroid;
+    public float restingArea;
 
     public boolean contains(Node2D n){
         return nodes.contains(n);
     }
     public boolean contains(Edge e){
         return edges.contains(e);
+    }
+
+    public Entity returnCellContainingPoint(Vector2f vec){
+        return null;
     }
 
     public float getArea(){
@@ -32,6 +39,7 @@ public abstract class Mesh extends Component {
 
     protected void calculateArea(){
         area = Gauss.nShoelace(nodes);
+        if(restingArea == 0) restingArea = area;
     }
 
     private void calculateCentroid(){

@@ -1,11 +1,15 @@
 package Morphogenesis.Entities;
 
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Render.CellRenderer;
+import Morphogenesis.Rigidbodies.Edges.BasalEdge;
+import Morphogenesis.Rigidbodies.Edges.Edge;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * An Apical Constricting Cell undergoes the following forces:
@@ -34,5 +38,15 @@ public class ApicalConstrictingCell extends Cell
     public void awake() {
         super.awake();
         getComponent(CellRenderer.class).setColor(Color.MAGENTA);
+        adjustBasalMembrane();
+    }
+
+    private void adjustBasalMembrane(){
+        ArrayList<Edge> edgeList = (ArrayList<Edge>) getComponent(Mesh.class).edges;
+        for(Edge edge: edgeList){
+            if(edge instanceof BasalEdge){
+                edge.setElasticConstant(edge.getElasticConstant()/2f);
+            }
+        }
     }
 }

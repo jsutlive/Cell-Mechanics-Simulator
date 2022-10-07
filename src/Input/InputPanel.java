@@ -1,11 +1,12 @@
 package Input;
 
-import Framework.Engine;
 import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
+import Renderer.ComponentPanel;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 
 public class InputPanel {
@@ -26,10 +27,15 @@ public class InputPanel {
     }
 
     public void initialize() {
-        panel = new JPanel(new GridLayout(15, 1));
+        panel = new JPanel(new GridLayout(15, 1, 10, 10));
+        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         createPlayButton();
         createStopButton();
         createTimestepSlider();
+        ComponentPanel componentPanel = new ComponentPanel();
+
+        panel.add(componentPanel.getPanel());
+
     }
 
     private void createTimestepSlider() {
@@ -39,19 +45,31 @@ public class InputPanel {
         timestepSlider.setMajorTickSpacing(10);
         timestepSlider.setPaintTicks(true);
         timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 10000f));
+
         panel.add(timestepLabel);
         panel.add(timestepSlider);
+
     }
 
     private void createPlayButton() {
         playButton = new JButton("Play");
+        ImageIcon playIcon = new ImageIcon("assets/play.png");
+        Image play = playIcon.getImage();
+        play = play.getScaledInstance(120,120, Image.SCALE_SMOOTH);
+        playButton.setIcon(new ImageIcon(play));
         playButton.addActionListener(e -> InputEvents.play());
+        playButton.setBackground(Color.GREEN);
         panel.add(playButton);
     }
 
     private void createStopButton() {
         stopButton = new JButton("Stop");
+        ImageIcon stopIcon = new ImageIcon("assets/stop.png");
+        Image stop = stopIcon.getImage();
+        stop = stop.getScaledInstance(120,120, Image.SCALE_SMOOTH);
+        stopButton.setIcon(new ImageIcon(stop));
         stopButton.addActionListener(e -> InputEvents.stop());
+        stopButton.setBackground(Color.RED);
         stopButton.setEnabled(false);
         panel.add(stopButton);
     }

@@ -1,6 +1,8 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Data.*;
+import Framework.Object.Entity;
+import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -39,17 +41,28 @@ public class RingCellMesh extends Mesh{
         calculateArea();
     }
 
-    public boolean collidesWithNode(Node2D n){
+    @Override
+    public Entity returnCellContainingPoint(Vector2f vector2f){
+        if(collidesWithPoint(vector2f)) return parent;
+        return null;
+    }
+
+    public boolean collidesWithNode(Node2D n) {
+        Vector2f nodePos = n.getPosition().copy();
+        return collidesWithPoint(nodePos);
+    }
+
+
+    public boolean collidesWithPoint(Vector2f vec){
         //checks whether point is inside polygon by drawing a horizontal ray from the point
         //if the num of intersections is even, then it is outside, else it is inside
         //because if a point crosses the shape a total of a even amount of times, then it
         // must have entered inside then exited again.
-        Vector2f nodePos = n.getPosition().copy();
         int intersections = 0;
         for(Edge edge: edges){
             Vector2f[] positions = edge.getPositions();
-            Vector2f p1 = positions[0].sub(nodePos);
-            Vector2f p2 = positions[1].sub(nodePos);
+            Vector2f p1 = positions[0].sub(vec);
+            Vector2f p2 = positions[1].sub(vec);
 
             //if they are both on same side of the y-axis, it doesn't intersect
             if(Math.signum(p1.y) == Math.signum(p2.y)){continue;}

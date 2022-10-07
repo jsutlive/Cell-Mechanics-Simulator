@@ -13,6 +13,7 @@ import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
+import Utilities.Physics.Collision2D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +71,7 @@ public class CellRingCollider extends Force {
     }
 
     private void setNodePositionToClosestEdge(Node2D node, Vector2f nodePosition, Edge e) {
-        Vector2f closePoint = closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
+        Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
         float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
         Vector v = CustomMath.normal(e).mul(dist * 5f);
         if(!v.isNull()) {
@@ -81,27 +82,6 @@ public class CellRingCollider extends Force {
         }
     }
 
-    /**
-    * Find unit vector describing the angle of a given point from center given which segment it is and the distance
-     * from the center
-     * @param segment current segment
-     * @param point total segments in the circle
-     * @return an x,y vector2 (floating point) describing the unit vector.
-    */
 
-    public Vector2f closestPointToSegmentFromPoint(Vector2f point, Vector2f[] segment){
-        Vector2f edgeVector = segment[1].copy().sub(segment[0]);
-        Vector2f pointToEdgeP0 = point.copy().sub(segment[0]);
-
-        float p0Dot = pointToEdgeP0.dot(edgeVector);
-        float magnitudeSquared = edgeVector.dot(edgeVector);
-        if (p0Dot <= 0){return segment[0].copy();}
-        if (p0Dot > magnitudeSquared){return segment[1].copy();}
-
-        Vector2f closestPoint = segment[0].copy();
-        closestPoint.add(edgeVector.mul(p0Dot/magnitudeSquared));
-
-        return closestPoint;
-    }
 
 }

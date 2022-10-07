@@ -1,5 +1,7 @@
 package Framework.Object;
 
+import Framework.Events.EventHandler;
+import Framework.Events.IEvent;
 import Framework.States.State;
 
 import java.util.ArrayList;
@@ -102,4 +104,5 @@ public abstract class Entity implements IBehavior
       components.add(component);
       return (T) this;
    }
+
 }

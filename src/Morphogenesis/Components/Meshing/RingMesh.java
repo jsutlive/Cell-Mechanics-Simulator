@@ -1,5 +1,6 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Object.Entity;
 import Framework.States.State;
 import Morphogenesis.Entities.ApicalConstrictingCell;
 import Morphogenesis.Entities.Cell;
@@ -39,6 +40,16 @@ public class RingMesh extends Mesh{
     @Override
     protected void calculateArea(){
         area = Gauss.nShoelace(outerNodes) - Gauss.nShoelace(innerNodes);
+    }
+
+    @Override
+    public Entity returnCellContainingPoint(Vector2f vector2f){
+        for(Cell cell: cellList){
+            if(cell.getComponent(RingCellMesh.class).collidesWithPoint(vector2f)){
+                return cell;
+            }
+        }
+        return parent;
     }
 
     //@Builder

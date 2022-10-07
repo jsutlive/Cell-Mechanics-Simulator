@@ -27,12 +27,14 @@ public class DisplayWindow
         frame.add(canvas);
 
         InputPanel inputPanel = new InputPanel();
+        frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
-        frame.addKeyListener(new InputEvents());
+        InputEvents input = new InputEvents();
+        frame.addKeyListener(input);
+        canvas.addMouseListener(input);
         frame.setFocusable(true);
         frame.requestFocus();
         frame.pack();
-        frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
     }
 
     private void CreateDisplay()
@@ -49,7 +51,7 @@ public class DisplayWindow
 
     private void CreateCanvas() {
         canvas = new Canvas();
-        canvas.setSize(new Dimension(width, height));
+        canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
     }
 
