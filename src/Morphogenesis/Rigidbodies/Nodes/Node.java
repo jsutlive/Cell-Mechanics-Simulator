@@ -1,6 +1,7 @@
 package Morphogenesis.Rigidbodies.Nodes;
 
 import Framework.Engine;
+import Morphogenesis.Components.Physics.Force;
 import Morphogenesis.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
 
@@ -57,6 +58,7 @@ public abstract class Node implements IRigidbody {
      */
     @Override
     public void move() {
+        //resultantForceVector = Force.limitForce(resultantForceVector, 5f);
         position.add(resultantForceVector.mul(Engine.TIMESTEP));
     }
 

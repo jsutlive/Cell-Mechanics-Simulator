@@ -82,6 +82,10 @@ public abstract class Entity implements IBehavior
       return (T) c;
    }
 
+   public List<Component> getComponents(){
+      return components;
+   }
+
    public <T extends Component> T getComponent(Class<T> componentClass) {
       for (Component c : components) {
          if (componentClass.isAssignableFrom(c.getClass())) {
