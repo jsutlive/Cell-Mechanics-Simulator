@@ -1,6 +1,6 @@
 [
   {
-    "uniqueID": 164,
+    "uniqueID": 0,
     "components": [
       {
         "type": "RingCellMesh",
@@ -89,7 +89,7 @@
             {
               "position": {
                 "x": 400.0,
-                "y": 699.99963
+                "y": 699.9996
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -97,8 +97,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.610113,
-                  "y": -0.18113285
+                  "x": -5.6547885,
+                  "y": -0.22217849
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -107,13 +107,13 @@
               },
               "resultantForceVector": {
                 "x": 0.0,
-                "y": -3.6226572E-7
+                "y": -4.4435703E-7
               }
             },
             {
               "position": {
-                "x": 423.5375,
-                "y": 699.0748
+                "x": 423.53745,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -121,8 +121,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 4.392744,
-                  "y": -0.51991093
+                  "x": 5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -130,8 +130,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -2.1736909E-7,
-                "y": -3.387781E-7
+                "x": -2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
@@ -411,7 +411,7 @@
     ]
   },
   {
-    "uniqueID": 165,
+    "uniqueID": 1,
     "components": [
       {
         "type": "RingCellMesh",
@@ -499,8 +499,8 @@
             },
             {
               "position": {
-                "x": 376.4625,
-                "y": 699.0748
+                "x": 376.46255,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -508,8 +508,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.392744,
-                  "y": -0.51991093
+                  "x": -5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -517,14 +517,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": 2.1736909E-7,
-                "y": -3.387781E-7
+                "x": 2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
               "position": {
                 "x": 400.0,
-                "y": 699.99963
+                "y": 699.9996
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -532,8 +532,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.610113,
-                  "y": -0.18113285
+                  "x": -5.6547885,
+                  "y": -0.22217849
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -542,7 +542,7 @@
               },
               "resultantForceVector": {
                 "x": 0.0,
-                "y": -3.6226572E-7
+                "y": -4.4435703E-7
               }
             },
             {
@@ -698,7 +698,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4766,
+          "area": 1961.4609,
           "restingArea": 1961.4609
         }
       },
@@ -822,7 +822,7 @@
     ]
   },
   {
-    "uniqueID": 166,
+    "uniqueID": 2,
     "components": [
       {
         "type": "RingCellMesh",
@@ -910,8 +910,8 @@
             },
             {
               "position": {
-                "x": 423.5375,
-                "y": 699.0748
+                "x": 423.53745,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -919,8 +919,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 4.392744,
-                  "y": -0.51991093
+                  "x": 5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -928,14 +928,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": -2.1736909E-7,
-                "y": -3.387781E-7
+                "x": -2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
               "position": {
-                "x": 446.9298,
-                "y": 696.3063
+                "x": 446.92966,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -943,8 +943,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.8302398,
-                  "y": -0.76189107
+                  "x": 4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -952,8 +952,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": -6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
@@ -1109,7 +1109,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4844,
+          "area": 1961.4688,
           "restingArea": 1961.5
         }
       },
@@ -1233,7 +1233,7 @@
     ]
   },
   {
-    "uniqueID": 167,
+    "uniqueID": 3,
     "components": [
       {
         "type": "RingCellMesh",
@@ -1321,8 +1321,8 @@
             },
             {
               "position": {
-                "x": 353.0702,
-                "y": 696.3063
+                "x": 353.07034,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -1330,8 +1330,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.8302398,
-                  "y": -0.76189107
+                  "x": -4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -1339,14 +1339,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": 5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": 6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
               "position": {
-                "x": 376.4625,
-                "y": 699.0748
+                "x": 376.46255,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -1354,8 +1354,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.392744,
-                  "y": -0.51991093
+                  "x": -5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -1363,8 +1363,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 2.1736909E-7,
-                "y": -3.387781E-7
+                "x": 2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
@@ -1520,7 +1520,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4609,
+          "area": 1961.4766,
           "restingArea": 1961.4844
         }
       },
@@ -1644,7 +1644,7 @@
     ]
   },
   {
-    "uniqueID": 168,
+    "uniqueID": 4,
     "components": [
       {
         "type": "RingCellMesh",
@@ -1732,8 +1732,8 @@
             },
             {
               "position": {
-                "x": 446.9298,
-                "y": 696.3063
+                "x": 446.92966,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -1741,8 +1741,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.8302398,
-                  "y": -0.76189107
+                  "x": 4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -1750,13 +1750,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": -6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
               "position": {
-                "x": 470.03287,
+                "x": 470.0327,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -1765,8 +1765,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.0739126,
-                  "y": -0.86692816
+                  "x": 3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -1774,8 +1774,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.563272E-7,
-                "y": -1.050371E-7
+                "x": -9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
@@ -2055,7 +2055,7 @@
     ]
   },
   {
-    "uniqueID": 169,
+    "uniqueID": 5,
     "components": [
       {
         "type": "RingCellMesh",
@@ -2143,7 +2143,7 @@
             },
             {
               "position": {
-                "x": 329.96713,
+                "x": 329.9673,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -2152,8 +2152,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.0739126,
-                  "y": -0.86692816
+                  "x": -3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -2161,14 +2161,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.563272E-7,
-                "y": -1.050371E-7
+                "x": 9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
               "position": {
-                "x": 353.0702,
-                "y": 696.3063
+                "x": 353.07034,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -2176,8 +2176,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.8302398,
-                  "y": -0.76189107
+                  "x": -4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -2185,8 +2185,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": 6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
@@ -2466,7 +2466,7 @@
     ]
   },
   {
-    "uniqueID": 170,
+    "uniqueID": 6,
     "components": [
       {
         "type": "RingCellMesh",
@@ -2554,7 +2554,7 @@
             },
             {
               "position": {
-                "x": 470.03287,
+                "x": 470.0327,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -2563,8 +2563,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.0739126,
-                  "y": -0.86692816
+                  "x": 3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -2572,13 +2572,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.563272E-7,
-                "y": -1.050371E-7
+                "x": -9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
               "position": {
-                "x": 492.70435,
+                "x": 492.70416,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -2587,8 +2587,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 2.2976022,
-                  "y": -0.847634
+                  "x": 2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -2596,8 +2596,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": -9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
@@ -2753,7 +2753,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4531,
+          "area": 1961.4688,
           "restingArea": 1961.4375
         }
       },
@@ -2877,7 +2877,7 @@
     ]
   },
   {
-    "uniqueID": 171,
+    "uniqueID": 7,
     "components": [
       {
         "type": "RingCellMesh",
@@ -2965,7 +2965,7 @@
             },
             {
               "position": {
-                "x": 307.29565,
+                "x": 307.29584,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -2974,8 +2974,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -2.2976022,
-                  "y": -0.847634
+                  "x": -2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -2983,13 +2983,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": 9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
               "position": {
-                "x": 329.96713,
+                "x": 329.9673,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -2998,8 +2998,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.0739126,
-                  "y": -0.86692816
+                  "x": -3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -3007,8 +3007,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.563272E-7,
-                "y": -1.050371E-7
+                "x": 9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
@@ -3288,7 +3288,7 @@
     ]
   },
   {
-    "uniqueID": 172,
+    "uniqueID": 8,
     "components": [
       {
         "type": "RingCellMesh",
@@ -3376,7 +3376,7 @@
             },
             {
               "position": {
-                "x": 492.70435,
+                "x": 492.70416,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -3385,8 +3385,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 2.2976022,
-                  "y": -0.847634
+                  "x": 2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -3394,13 +3394,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": -9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
               "position": {
-                "x": 514.8044,
+                "x": 514.80426,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -3409,8 +3409,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.6336708,
-                  "y": -0.7531271
+                  "x": 2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -3418,8 +3418,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -6.639315E-7,
-                "y": 9.450693E-8
+                "x": -8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
@@ -3575,7 +3575,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4844,
+          "area": 1961.4688,
           "restingArea": 1961.4844
         }
       },
@@ -3699,7 +3699,7 @@
     ]
   },
   {
-    "uniqueID": 173,
+    "uniqueID": 9,
     "components": [
       {
         "type": "RingCellMesh",
@@ -3787,7 +3787,7 @@
             },
             {
               "position": {
-                "x": 285.19562,
+                "x": 285.19577,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -3796,8 +3796,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.6336708,
-                  "y": -0.7531271
+                  "x": -2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -3805,13 +3805,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 6.639315E-7,
-                "y": 9.450693E-8
+                "x": 8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
               "position": {
-                "x": 307.29565,
+                "x": 307.29584,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -3820,8 +3820,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -2.2976022,
-                  "y": -0.847634
+                  "x": -2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -3829,8 +3829,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": 9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
@@ -3986,7 +3986,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4844,
+          "area": 1961.4766,
           "restingArea": 1961.4844
         }
       },
@@ -4110,7 +4110,7 @@
     ]
   },
   {
-    "uniqueID": 174,
+    "uniqueID": 10,
     "components": [
       {
         "type": "RingCellMesh",
@@ -4198,7 +4198,7 @@
             },
             {
               "position": {
-                "x": 514.8044,
+                "x": 514.80426,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -4207,8 +4207,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.6336708,
-                  "y": -0.7531271
+                  "x": 2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -4216,13 +4216,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -6.639315E-7,
-                "y": 9.450693E-8
+                "x": -8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
               "position": {
-                "x": 536.19666,
+                "x": 536.19653,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -4231,8 +4231,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.1424534,
-                  "y": -0.6398066
+                  "x": 1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -4240,8 +4240,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": -6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
@@ -4397,7 +4397,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4688,
+          "area": 1961.5,
           "restingArea": 1961.4844
         }
       },
@@ -4521,7 +4521,7 @@
     ]
   },
   {
-    "uniqueID": 175,
+    "uniqueID": 11,
     "components": [
       {
         "type": "RingCellMesh",
@@ -4609,7 +4609,7 @@
             },
             {
               "position": {
-                "x": 263.80334,
+                "x": 263.80347,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -4618,8 +4618,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.1424534,
-                  "y": -0.6398066
+                  "x": -1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -4627,13 +4627,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": 6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
               "position": {
-                "x": 285.19562,
+                "x": 285.19577,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -4642,8 +4642,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.6336708,
-                  "y": -0.7531271
+                  "x": -2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -4651,8 +4651,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 6.639315E-7,
-                "y": 9.450693E-8
+                "x": 8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
@@ -4808,7 +4808,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.4688,
+          "area": 1961.4766,
           "restingArea": 1961.4688
         }
       },
@@ -4932,7 +4932,7 @@
     ]
   },
   {
-    "uniqueID": 176,
+    "uniqueID": 12,
     "components": [
       {
         "type": "RingCellMesh",
@@ -5020,7 +5020,7 @@
             },
             {
               "position": {
-                "x": 536.19666,
+                "x": 536.19653,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -5029,8 +5029,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.1424534,
-                  "y": -0.6398066
+                  "x": 1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5038,13 +5038,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": -6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
               "position": {
-                "x": 556.74927,
+                "x": 556.7492,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -5053,8 +5053,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.8197357,
-                  "y": -0.54773116
+                  "x": 1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5062,8 +5062,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": -3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
@@ -5219,7 +5219,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.5,
+          "area": 1961.4844,
           "restingArea": 1961.4844
         }
       },
@@ -5343,7 +5343,7 @@
     ]
   },
   {
-    "uniqueID": 177,
+    "uniqueID": 13,
     "components": [
       {
         "type": "RingCellMesh",
@@ -5431,7 +5431,7 @@
             },
             {
               "position": {
-                "x": 243.25075,
+                "x": 243.25082,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -5440,8 +5440,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.8197357,
-                  "y": -0.54773116
+                  "x": -1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5449,13 +5449,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": 3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
               "position": {
-                "x": 263.80334,
+                "x": 263.80347,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -5464,8 +5464,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.1424534,
-                  "y": -0.6398066
+                  "x": -1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5473,8 +5473,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": 6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
@@ -5630,7 +5630,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.5,
+          "area": 1961.4922,
           "restingArea": 1961.4922
         }
       },
@@ -5754,7 +5754,7 @@
     ]
   },
   {
-    "uniqueID": 178,
+    "uniqueID": 14,
     "components": [
       {
         "type": "RingCellMesh",
@@ -5842,7 +5842,7 @@
             },
             {
               "position": {
-                "x": 556.74927,
+                "x": 556.7492,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -5851,8 +5851,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.8197357,
-                  "y": -0.54773116
+                  "x": 1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5860,13 +5860,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": -3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
               "position": {
-                "x": 576.3354,
+                "x": 576.3353,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -5875,8 +5875,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": -0.49305138
+                  "x": 0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -5884,8 +5884,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": -2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
@@ -6165,7 +6165,7 @@
     ]
   },
   {
-    "uniqueID": 179,
+    "uniqueID": 15,
     "components": [
       {
         "type": "RingCellMesh",
@@ -6253,7 +6253,7 @@
             },
             {
               "position": {
-                "x": 223.66463,
+                "x": 223.66467,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -6262,8 +6262,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": -0.49305138
+                  "x": -0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -6271,13 +6271,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": 2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
               "position": {
-                "x": 243.25075,
+                "x": 243.25082,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -6286,8 +6286,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.8197357,
-                  "y": -0.54773116
+                  "x": -1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -6295,8 +6295,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": 3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
@@ -6576,7 +6576,7 @@
     ]
   },
   {
-    "uniqueID": 180,
+    "uniqueID": 16,
     "components": [
       {
         "type": "RingCellMesh",
@@ -6664,7 +6664,7 @@
             },
             {
               "position": {
-                "x": 576.3354,
+                "x": 576.3353,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -6673,8 +6673,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": -0.49305138
+                  "x": 0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -6682,14 +6682,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": -2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
               "position": {
-                "x": 594.81915,
-                "y": 628.10516
+                "x": 594.81903,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -6701,8 +6701,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": 0.49305138
+                  "x": -0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -6710,8 +6710,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.5238023E-5,
-                "y": -1.661607E-5
+                "x": -1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -6883,7 +6883,7 @@
               "elasticConstant": 2.775
             }
           ],
-          "area": 1961.0469,
+          "area": 1961.0625,
           "restingArea": 1961.4844
         }
       },
@@ -7007,7 +7007,7 @@
     ]
   },
   {
-    "uniqueID": 181,
+    "uniqueID": 17,
     "components": [
       {
         "type": "RingCellMesh",
@@ -7111,8 +7111,8 @@
             },
             {
               "position": {
-                "x": 205.18085,
-                "y": 628.10516
+                "x": 205.18098,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -7124,8 +7124,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": 0.49305138
+                  "x": 0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -7133,13 +7133,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.5238023E-5,
-                "y": -1.661607E-5
+                "x": 1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
               "position": {
-                "x": 223.66463,
+                "x": 223.66467,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -7148,8 +7148,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": -0.49305138
+                  "x": -0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -7157,8 +7157,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": 2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
@@ -7438,7 +7438,7 @@
     ]
   },
   {
-    "uniqueID": 182,
+    "uniqueID": 18,
     "components": [
       {
         "type": "RingCellMesh",
@@ -7542,8 +7542,8 @@
             },
             {
               "position": {
-                "x": 594.81915,
-                "y": 628.10516
+                "x": 594.81903,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -7555,8 +7555,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": 0.49305138
+                  "x": -0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -7564,8 +7564,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.5238023E-5,
-                "y": -1.661607E-5
+                "x": -1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -7761,7 +7761,7 @@
               "elasticConstant": 5.55
             }
           ],
-          "area": 1960.1562,
+          "area": 1960.1406,
           "restingArea": 1961.4688
         }
       },
@@ -7933,7 +7933,7 @@
     ]
   },
   {
-    "uniqueID": 183,
+    "uniqueID": 19,
     "components": [
       {
         "type": "RingCellMesh",
@@ -8061,8 +8061,8 @@
             },
             {
               "position": {
-                "x": 205.18085,
-                "y": 628.10516
+                "x": 205.18098,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -8074,8 +8074,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": 0.49305138
+                  "x": 0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -8083,8 +8083,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.5238023E-5,
-                "y": -1.661607E-5
+                "x": 1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -8428,7 +8428,7 @@
     ]
   },
   {
-    "uniqueID": 184,
+    "uniqueID": 20,
     "components": [
       {
         "type": "RingCellMesh",
@@ -8919,7 +8919,7 @@
     ]
   },
   {
-    "uniqueID": 185,
+    "uniqueID": 21,
     "components": [
       {
         "type": "RingCellMesh",
@@ -9410,7 +9410,7 @@
     ]
   },
   {
-    "uniqueID": 186,
+    "uniqueID": 22,
     "components": [
       {
         "type": "RingCellMesh",
@@ -9901,7 +9901,7 @@
     ]
   },
   {
-    "uniqueID": 187,
+    "uniqueID": 23,
     "components": [
       {
         "type": "RingCellMesh",
@@ -10392,7 +10392,7 @@
     ]
   },
   {
-    "uniqueID": 188,
+    "uniqueID": 24,
     "components": [
       {
         "type": "RingCellMesh",
@@ -10883,7 +10883,7 @@
     ]
   },
   {
-    "uniqueID": 189,
+    "uniqueID": 25,
     "components": [
       {
         "type": "RingCellMesh",
@@ -11374,7 +11374,7 @@
     ]
   },
   {
-    "uniqueID": 190,
+    "uniqueID": 26,
     "components": [
       {
         "type": "RingCellMesh",
@@ -11865,7 +11865,7 @@
     ]
   },
   {
-    "uniqueID": 191,
+    "uniqueID": 27,
     "components": [
       {
         "type": "RingCellMesh",
@@ -12356,7 +12356,7 @@
     ]
   },
   {
-    "uniqueID": 192,
+    "uniqueID": 28,
     "components": [
       {
         "type": "RingCellMesh",
@@ -12847,7 +12847,7 @@
     ]
   },
   {
-    "uniqueID": 193,
+    "uniqueID": 29,
     "components": [
       {
         "type": "RingCellMesh",
@@ -13338,7 +13338,7 @@
     ]
   },
   {
-    "uniqueID": 194,
+    "uniqueID": 30,
     "components": [
       {
         "type": "RingCellMesh",
@@ -13829,7 +13829,7 @@
     ]
   },
   {
-    "uniqueID": 195,
+    "uniqueID": 31,
     "components": [
       {
         "type": "RingCellMesh",
@@ -14320,7 +14320,7 @@
     ]
   },
   {
-    "uniqueID": 196,
+    "uniqueID": 32,
     "components": [
       {
         "type": "RingCellMesh",
@@ -14811,7 +14811,7 @@
     ]
   },
   {
-    "uniqueID": 197,
+    "uniqueID": 33,
     "components": [
       {
         "type": "RingCellMesh",
@@ -15302,7 +15302,7 @@
     ]
   },
   {
-    "uniqueID": 198,
+    "uniqueID": 34,
     "components": [
       {
         "type": "RingCellMesh",
@@ -15793,7 +15793,7 @@
     ]
   },
   {
-    "uniqueID": 199,
+    "uniqueID": 35,
     "components": [
       {
         "type": "RingCellMesh",
@@ -16284,7 +16284,7 @@
     ]
   },
   {
-    "uniqueID": 200,
+    "uniqueID": 36,
     "components": [
       {
         "type": "RingCellMesh",
@@ -16775,7 +16775,7 @@
     ]
   },
   {
-    "uniqueID": 201,
+    "uniqueID": 37,
     "components": [
       {
         "type": "RingCellMesh",
@@ -17266,7 +17266,7 @@
     ]
   },
   {
-    "uniqueID": 202,
+    "uniqueID": 38,
     "components": [
       {
         "type": "RingCellMesh",
@@ -17757,7 +17757,7 @@
     ]
   },
   {
-    "uniqueID": 203,
+    "uniqueID": 39,
     "components": [
       {
         "type": "RingCellMesh",
@@ -18248,7 +18248,7 @@
     ]
   },
   {
-    "uniqueID": 204,
+    "uniqueID": 40,
     "components": [
       {
         "type": "RingCellMesh",
@@ -18739,7 +18739,7 @@
     ]
   },
   {
-    "uniqueID": 205,
+    "uniqueID": 41,
     "components": [
       {
         "type": "RingCellMesh",
@@ -19230,7 +19230,7 @@
     ]
   },
   {
-    "uniqueID": 206,
+    "uniqueID": 42,
     "components": [
       {
         "type": "RingCellMesh",
@@ -19721,7 +19721,7 @@
     ]
   },
   {
-    "uniqueID": 207,
+    "uniqueID": 43,
     "components": [
       {
         "type": "RingCellMesh",
@@ -20212,7 +20212,7 @@
     ]
   },
   {
-    "uniqueID": 208,
+    "uniqueID": 44,
     "components": [
       {
         "type": "RingCellMesh",
@@ -20703,7 +20703,7 @@
     ]
   },
   {
-    "uniqueID": 209,
+    "uniqueID": 45,
     "components": [
       {
         "type": "RingCellMesh",
@@ -21194,7 +21194,7 @@
     ]
   },
   {
-    "uniqueID": 210,
+    "uniqueID": 46,
     "components": [
       {
         "type": "RingCellMesh",
@@ -21685,7 +21685,7 @@
     ]
   },
   {
-    "uniqueID": 211,
+    "uniqueID": 47,
     "components": [
       {
         "type": "RingCellMesh",
@@ -22176,7 +22176,7 @@
     ]
   },
   {
-    "uniqueID": 212,
+    "uniqueID": 48,
     "components": [
       {
         "type": "RingCellMesh",
@@ -22667,7 +22667,7 @@
     ]
   },
   {
-    "uniqueID": 213,
+    "uniqueID": 49,
     "components": [
       {
         "type": "RingCellMesh",
@@ -23158,7 +23158,7 @@
     ]
   },
   {
-    "uniqueID": 214,
+    "uniqueID": 50,
     "components": [
       {
         "type": "RingCellMesh",
@@ -23649,7 +23649,7 @@
     ]
   },
   {
-    "uniqueID": 215,
+    "uniqueID": 51,
     "components": [
       {
         "type": "RingCellMesh",
@@ -24140,7 +24140,7 @@
     ]
   },
   {
-    "uniqueID": 216,
+    "uniqueID": 52,
     "components": [
       {
         "type": "RingCellMesh",
@@ -24631,7 +24631,7 @@
     ]
   },
   {
-    "uniqueID": 217,
+    "uniqueID": 53,
     "components": [
       {
         "type": "RingCellMesh",
@@ -25122,7 +25122,7 @@
     ]
   },
   {
-    "uniqueID": 218,
+    "uniqueID": 54,
     "components": [
       {
         "type": "RingCellMesh",
@@ -25613,7 +25613,7 @@
     ]
   },
   {
-    "uniqueID": 219,
+    "uniqueID": 55,
     "components": [
       {
         "type": "RingCellMesh",
@@ -26104,7 +26104,7 @@
     ]
   },
   {
-    "uniqueID": 220,
+    "uniqueID": 56,
     "components": [
       {
         "type": "RingCellMesh",
@@ -26595,7 +26595,7 @@
     ]
   },
   {
-    "uniqueID": 221,
+    "uniqueID": 57,
     "components": [
       {
         "type": "RingCellMesh",
@@ -27086,7 +27086,7 @@
     ]
   },
   {
-    "uniqueID": 222,
+    "uniqueID": 58,
     "components": [
       {
         "type": "RingCellMesh",
@@ -27577,7 +27577,7 @@
     ]
   },
   {
-    "uniqueID": 223,
+    "uniqueID": 59,
     "components": [
       {
         "type": "RingCellMesh",
@@ -28068,7 +28068,7 @@
     ]
   },
   {
-    "uniqueID": 224,
+    "uniqueID": 60,
     "components": [
       {
         "type": "RingCellMesh",
@@ -28559,7 +28559,7 @@
     ]
   },
   {
-    "uniqueID": 225,
+    "uniqueID": 61,
     "components": [
       {
         "type": "RingCellMesh",
@@ -29050,7 +29050,7 @@
     ]
   },
   {
-    "uniqueID": 226,
+    "uniqueID": 62,
     "components": [
       {
         "type": "RingCellMesh",
@@ -29541,7 +29541,7 @@
     ]
   },
   {
-    "uniqueID": 227,
+    "uniqueID": 63,
     "components": [
       {
         "type": "RingCellMesh",
@@ -30032,7 +30032,7 @@
     ]
   },
   {
-    "uniqueID": 228,
+    "uniqueID": 64,
     "components": [
       {
         "type": "RingCellMesh",
@@ -30523,7 +30523,7 @@
     ]
   },
   {
-    "uniqueID": 229,
+    "uniqueID": 65,
     "components": [
       {
         "type": "RingCellMesh",
@@ -31014,7 +31014,7 @@
     ]
   },
   {
-    "uniqueID": 230,
+    "uniqueID": 66,
     "components": [
       {
         "type": "RingCellMesh",
@@ -31505,7 +31505,7 @@
     ]
   },
   {
-    "uniqueID": 231,
+    "uniqueID": 67,
     "components": [
       {
         "type": "RingCellMesh",
@@ -31996,7 +31996,7 @@
     ]
   },
   {
-    "uniqueID": 232,
+    "uniqueID": 68,
     "components": [
       {
         "type": "RingCellMesh",
@@ -32487,7 +32487,7 @@
     ]
   },
   {
-    "uniqueID": 233,
+    "uniqueID": 69,
     "components": [
       {
         "type": "RingCellMesh",
@@ -32978,7 +32978,7 @@
     ]
   },
   {
-    "uniqueID": 234,
+    "uniqueID": 70,
     "components": [
       {
         "type": "RingCellMesh",
@@ -33469,7 +33469,7 @@
     ]
   },
   {
-    "uniqueID": 235,
+    "uniqueID": 71,
     "components": [
       {
         "type": "RingCellMesh",
@@ -33960,7 +33960,7 @@
     ]
   },
   {
-    "uniqueID": 236,
+    "uniqueID": 72,
     "components": [
       {
         "type": "RingCellMesh",
@@ -34451,7 +34451,7 @@
     ]
   },
   {
-    "uniqueID": 237,
+    "uniqueID": 73,
     "components": [
       {
         "type": "RingCellMesh",
@@ -34942,7 +34942,7 @@
     ]
   },
   {
-    "uniqueID": 238,
+    "uniqueID": 74,
     "components": [
       {
         "type": "RingCellMesh",
@@ -35433,7 +35433,7 @@
     ]
   },
   {
-    "uniqueID": 239,
+    "uniqueID": 75,
     "components": [
       {
         "type": "RingCellMesh",
@@ -35924,7 +35924,7 @@
     ]
   },
   {
-    "uniqueID": 240,
+    "uniqueID": 76,
     "components": [
       {
         "type": "RingCellMesh",
@@ -36415,7 +36415,7 @@
     ]
   },
   {
-    "uniqueID": 241,
+    "uniqueID": 77,
     "components": [
       {
         "type": "RingCellMesh",
@@ -36906,7 +36906,7 @@
     ]
   },
   {
-    "uniqueID": 242,
+    "uniqueID": 78,
     "components": [
       {
         "type": "RingCellMesh",
@@ -37397,7 +37397,7 @@
     ]
   },
   {
-    "uniqueID": 243,
+    "uniqueID": 79,
     "components": [
       {
         "type": "RingCellMesh",
@@ -37888,7 +37888,7 @@
     ]
   },
   {
-    "uniqueID": 244,
+    "uniqueID": 80,
     "components": [
       {
         "type": "RingCellMesh",
@@ -40360,7 +40360,7 @@
       "x": 800,
       "y": 800
     },
-    "uniqueID": 245,
+    "uniqueID": 81,
     "components": [
       {
         "type": "RingMesh",
@@ -40376,7 +40376,7 @@
             {
               "position": {
                 "x": 400.0,
-                "y": 699.99963
+                "y": 699.9996
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -40384,8 +40384,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.610113,
-                  "y": -0.18113285
+                  "x": -5.6547885,
+                  "y": -0.22217849
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40394,13 +40394,13 @@
               },
               "resultantForceVector": {
                 "x": 0.0,
-                "y": -3.6226572E-7
+                "y": -4.4435703E-7
               }
             },
             {
               "position": {
-                "x": 423.5375,
-                "y": 699.0748
+                "x": 423.53745,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -40408,8 +40408,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 4.392744,
-                  "y": -0.51991093
+                  "x": 5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40417,14 +40417,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": -2.1736909E-7,
-                "y": -3.387781E-7
+                "x": -2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
               "position": {
-                "x": 446.9298,
-                "y": 696.3063
+                "x": 446.92966,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -40432,8 +40432,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.8302398,
-                  "y": -0.76189107
+                  "x": 4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40441,13 +40441,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": -6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
               "position": {
-                "x": 470.03287,
+                "x": 470.0327,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -40456,8 +40456,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.0739126,
-                  "y": -0.86692816
+                  "x": 3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40465,13 +40465,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.563272E-7,
-                "y": -1.050371E-7
+                "x": -9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
               "position": {
-                "x": 492.70435,
+                "x": 492.70416,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -40480,8 +40480,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 2.2976022,
-                  "y": -0.847634
+                  "x": 2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40489,13 +40489,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": -9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
               "position": {
-                "x": 514.8044,
+                "x": 514.80426,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -40504,8 +40504,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.6336708,
-                  "y": -0.7531271
+                  "x": 2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40513,13 +40513,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -6.639315E-7,
-                "y": 9.450693E-8
+                "x": -8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
               "position": {
-                "x": 536.19666,
+                "x": 536.19653,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -40528,8 +40528,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.1424534,
-                  "y": -0.6398066
+                  "x": 1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40537,13 +40537,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": -6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
               "position": {
-                "x": 556.74927,
+                "x": 556.7492,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -40552,8 +40552,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.8197357,
-                  "y": -0.54773116
+                  "x": 1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40561,13 +40561,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": -3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": -3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
               "position": {
-                "x": 576.3354,
+                "x": 576.3353,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -40576,8 +40576,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": -0.49305138
+                  "x": 0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40585,14 +40585,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": -2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
               "position": {
-                "x": 594.81915,
-                "y": 628.10516
+                "x": 594.81903,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -40604,8 +40604,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": 0.49305138
+                  "x": -0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -40613,8 +40613,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.5238023E-5,
-                "y": -1.661607E-5
+                "x": -1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -42083,8 +42083,8 @@
             },
             {
               "position": {
-                "x": 205.18085,
-                "y": 628.10516
+                "x": 205.18098,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -42096,8 +42096,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": 0.49305138
+                  "x": 0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42105,13 +42105,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.5238023E-5,
-                "y": -1.661607E-5
+                "x": 1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
               "position": {
-                "x": 223.66463,
+                "x": 223.66467,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -42120,8 +42120,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": -0.49305138
+                  "x": -0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42129,13 +42129,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": 2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
               "position": {
-                "x": 243.25075,
+                "x": 243.25082,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -42144,8 +42144,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.8197357,
-                  "y": -0.54773116
+                  "x": -1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42153,13 +42153,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": 3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
               "position": {
-                "x": 263.80334,
+                "x": 263.80347,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -42168,8 +42168,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.1424534,
-                  "y": -0.6398066
+                  "x": -1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42177,13 +42177,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": 6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
               "position": {
-                "x": 285.19562,
+                "x": 285.19577,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -42192,8 +42192,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.6336708,
-                  "y": -0.7531271
+                  "x": -2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42201,13 +42201,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 6.639315E-7,
-                "y": 9.450693E-8
+                "x": 8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
               "position": {
-                "x": 307.29565,
+                "x": 307.29584,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -42216,8 +42216,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -2.2976022,
-                  "y": -0.847634
+                  "x": -2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42225,13 +42225,13 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": 9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
               "position": {
-                "x": 329.96713,
+                "x": 329.9673,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -42240,8 +42240,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.0739126,
-                  "y": -0.86692816
+                  "x": -3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42249,14 +42249,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.563272E-7,
-                "y": -1.050371E-7
+                "x": 9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
               "position": {
-                "x": 353.0702,
-                "y": 696.3063
+                "x": 353.07034,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -42264,8 +42264,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.8302398,
-                  "y": -0.76189107
+                  "x": -4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42273,14 +42273,14 @@
                 }
               },
               "resultantForceVector": {
-                "x": 5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": 6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
               "position": {
-                "x": 376.4625,
-                "y": 699.0748
+                "x": 376.46255,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -42288,8 +42288,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.392744,
-                  "y": -0.51991093
+                  "x": -5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -42297,8 +42297,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 2.1736909E-7,
-                "y": -3.387781E-7
+                "x": 2.6662687E-7,
+                "y": -4.1554685E-7
               }
             }
           ],
@@ -44158,7 +44158,7 @@
           ],
           "cellList": [
             {
-              "uniqueID": 164,
+              "uniqueID": 0,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -44247,7 +44247,7 @@
                       {
                         "position": {
                           "x": 400.0,
-                          "y": 699.99963
+                          "y": 699.9996
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -44255,8 +44255,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -4.610113,
-                            "y": -0.18113285
+                            "x": -5.6547885,
+                            "y": -0.22217849
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -44265,13 +44265,13 @@
                         },
                         "resultantForceVector": {
                           "x": 0.0,
-                          "y": -3.6226572E-7
+                          "y": -4.4435703E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 423.5375,
-                          "y": 699.0748
+                          "x": 423.53745,
+                          "y": 699.07477
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -44279,8 +44279,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 4.392744,
-                            "y": -0.51991093
+                            "x": 5.3881617,
+                            "y": -0.6377253
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -44288,8 +44288,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -2.1736909E-7,
-                          "y": -3.387781E-7
+                          "x": -2.6662687E-7,
+                          "y": -4.1554685E-7
                         }
                       },
                       {
@@ -44569,7 +44569,7 @@
               ]
             },
             {
-              "uniqueID": 166,
+              "uniqueID": 2,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -44657,8 +44657,8 @@
                       },
                       {
                         "position": {
-                          "x": 423.5375,
-                          "y": 699.0748
+                          "x": 423.53745,
+                          "y": 699.07477
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -44666,8 +44666,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 4.392744,
-                            "y": -0.51991093
+                            "x": 5.3881617,
+                            "y": -0.6377253
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -44675,14 +44675,14 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -2.1736909E-7,
-                          "y": -3.387781E-7
+                          "x": -2.6662687E-7,
+                          "y": -4.1554685E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 446.9298,
-                          "y": 696.3063
+                          "x": 446.92966,
+                          "y": 696.3062
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -44690,8 +44690,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 3.8302398,
-                            "y": -0.76189107
+                            "x": 4.6981916,
+                            "y": -0.9345395
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -44699,8 +44699,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -5.6250434E-7,
-                          "y": -2.4198016E-7
+                          "x": -6.899701E-7,
+                          "y": -2.9681425E-7
                         }
                       },
                       {
@@ -44856,7 +44856,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4844,
+                    "area": 1961.4688,
                     "restingArea": 1961.5
                   }
                 },
@@ -44980,7 +44980,7 @@
               ]
             },
             {
-              "uniqueID": 168,
+              "uniqueID": 4,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -45068,8 +45068,8 @@
                       },
                       {
                         "position": {
-                          "x": 446.9298,
-                          "y": 696.3063
+                          "x": 446.92966,
+                          "y": 696.3062
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -45077,8 +45077,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 3.8302398,
-                            "y": -0.76189107
+                            "x": 4.6981916,
+                            "y": -0.9345395
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45086,13 +45086,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -5.6250434E-7,
-                          "y": -2.4198016E-7
+                          "x": -6.899701E-7,
+                          "y": -2.9681425E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 470.03287,
+                          "x": 470.0327,
                           "y": 691.7108
                         },
                         "forceVectors": {
@@ -45101,8 +45101,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 3.0739126,
-                            "y": -0.86692816
+                            "x": 3.7704768,
+                            "y": -1.0633785
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45110,8 +45110,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -7.563272E-7,
-                          "y": -1.050371E-7
+                          "x": -9.277149E-7,
+                          "y": -1.2883896E-7
                         }
                       },
                       {
@@ -45391,7 +45391,7 @@
               ]
             },
             {
-              "uniqueID": 170,
+              "uniqueID": 6,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -45479,7 +45479,7 @@
                       },
                       {
                         "position": {
-                          "x": 470.03287,
+                          "x": 470.0327,
                           "y": 691.7108
                         },
                         "forceVectors": {
@@ -45488,8 +45488,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 3.0739126,
-                            "y": -0.86692816
+                            "x": 3.7704768,
+                            "y": -1.0633785
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45497,13 +45497,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -7.563272E-7,
-                          "y": -1.050371E-7
+                          "x": -9.277149E-7,
+                          "y": -1.2883896E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 492.70435,
+                          "x": 492.70416,
                           "y": 685.31696
                         },
                         "forceVectors": {
@@ -45512,8 +45512,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 2.2976022,
-                            "y": -0.847634
+                            "x": 2.8182507,
+                            "y": -1.0397123
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45521,8 +45521,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -7.7631057E-7,
-                          "y": 1.9294145E-8
+                          "x": -9.522263E-7,
+                          "y": 2.3666146E-8
                         }
                       },
                       {
@@ -45678,7 +45678,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4531,
+                    "area": 1961.4688,
                     "restingArea": 1961.4375
                   }
                 },
@@ -45802,7 +45802,7 @@
               ]
             },
             {
-              "uniqueID": 172,
+              "uniqueID": 8,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -45890,7 +45890,7 @@
                       },
                       {
                         "position": {
-                          "x": 492.70435,
+                          "x": 492.70416,
                           "y": 685.31696
                         },
                         "forceVectors": {
@@ -45899,8 +45899,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 2.2976022,
-                            "y": -0.847634
+                            "x": 2.8182507,
+                            "y": -1.0397123
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45908,13 +45908,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -7.7631057E-7,
-                          "y": 1.9294145E-8
+                          "x": -9.522263E-7,
+                          "y": 2.3666146E-8
                         }
                       },
                       {
                         "position": {
-                          "x": 514.8044,
+                          "x": 514.80426,
                           "y": 677.16394
                         },
                         "forceVectors": {
@@ -45923,8 +45923,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 1.6336708,
-                            "y": -0.7531271
+                            "x": 2.0038688,
+                            "y": -0.9237895
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -45932,8 +45932,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -6.639315E-7,
-                          "y": 9.450693E-8
+                          "x": -8.143819E-7,
+                          "y": 1.15922816E-7
                         }
                       },
                       {
@@ -46000,417 +46000,6 @@
                         "position": {
                           "x": 476.53668,
                           "y": 584.7759
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      }
-                    ],
-                    "edges": [
-                      {
-                        "nodesReference": [
-                          0,
-                          1
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          1,
-                          2
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          2,
-                          3
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          3,
-                          4
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          4,
-                          5
-                        ],
-                        "elasticConstant": 5.55
-                      },
-                      {
-                        "nodesReference": [
-                          5,
-                          6
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          6,
-                          7
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          7,
-                          8
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          8,
-                          9
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          9,
-                          0
-                        ],
-                        "elasticConstant": 2.775
-                      }
-                    ],
-                    "area": 1961.4844,
-                    "restingArea": 1961.4844
-                  }
-                },
-                {
-                  "type": "CellRenderer",
-                  "properties": {
-                    "color": {
-                      "value": -65281,
-                      "falpha": 0.0
-                    }
-                  }
-                },
-                {
-                  "type": "Lattice",
-                  "properties": {
-                    "edgeList": []
-                  }
-                },
-                {
-                  "type": "ElasticForce",
-                  "properties": {
-                    "constant": 0.0,
-                    "targetLengthRatio": 1.0,
-                    "edges": [
-                      {
-                        "nodesReference": [
-                          0,
-                          1
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          1,
-                          2
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          2,
-                          3
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          3,
-                          4
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          4,
-                          5
-                        ],
-                        "elasticConstant": 5.55
-                      },
-                      {
-                        "nodesReference": [
-                          5,
-                          6
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          6,
-                          7
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          7,
-                          8
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          8,
-                          9
-                        ],
-                        "elasticConstant": 10.95
-                      },
-                      {
-                        "nodesReference": [
-                          9,
-                          0
-                        ],
-                        "elasticConstant": 2.775
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "ApicalConstrictingSpringForce",
-                  "properties": {
-                    "rampTime": 5.0,
-                    "constant": 40.02283,
-                    "targetLengthRatio": 0.01,
-                    "edges": [
-                      {
-                        "nodesReference": [
-                          4,
-                          5
-                        ],
-                        "elasticConstant": 5.55
-                      }
-                    ]
-                  }
-                },
-                {
-                  "type": "OsmosisForce",
-                  "properties": {
-                    "osmosisConstant": 0.012
-                  }
-                }
-              ]
-            },
-            {
-              "uniqueID": 174,
-              "components": [
-                {
-                  "type": "RingCellMesh",
-                  "properties": {
-                    "nodes": [
-                      {
-                        "position": {
-                          "x": 476.53668,
-                          "y": 584.7759
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 486.10376,
-                          "y": 607.8729
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 495.67087,
-                          "y": 630.96985
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 505.23795,
-                          "y": 654.0669
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 514.8044,
-                          "y": 677.16394
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "ApicalConstrictingSpringForce": {
-                            "x": 1.6336708,
-                            "y": -0.7531271
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": -6.639315E-7,
-                          "y": 9.450693E-8
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 536.19666,
-                          "y": 667.3021
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "ApicalConstrictingSpringForce": {
-                            "x": 1.1424534,
-                            "y": -0.6398066
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": -4.9121746E-7,
-                          "y": 1.1332048E-7
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 524.8474,
-                          "y": 645.0268
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 513.4976,
-                          "y": 622.75165
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 502.1479,
-                          "y": 600.47644
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 490.7981,
-                          "y": 578.2013
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -46602,7 +46191,7 @@
                   "type": "ApicalConstrictingSpringForce",
                   "properties": {
                     "rampTime": 5.0,
-                    "constant": 29.399197,
+                    "constant": 40.02283,
                     "targetLengthRatio": 0.01,
                     "edges": [
                       {
@@ -46624,7 +46213,7 @@
               ]
             },
             {
-              "uniqueID": 176,
+              "uniqueID": 10,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -46632,8 +46221,8 @@
                     "nodes": [
                       {
                         "position": {
-                          "x": 490.7981,
-                          "y": 578.2013
+                          "x": 476.53668,
+                          "y": 584.7759
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -46652,8 +46241,116 @@
                       },
                       {
                         "position": {
-                          "x": 502.1479,
-                          "y": 600.47644
+                          "x": 486.10376,
+                          "y": 607.8729
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 495.67087,
+                          "y": 630.96985
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 505.23795,
+                          "y": 654.0669
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 514.80426,
+                          "y": 677.16394
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "ApicalConstrictingSpringForce": {
+                            "x": 2.0038688,
+                            "y": -0.9237895
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": -8.143819E-7,
+                          "y": 1.15922816E-7
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 536.19653,
+                          "y": 667.3021
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "ApicalConstrictingSpringForce": {
+                            "x": 1.4013392,
+                            "y": -0.78479004
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": -6.025297E-7,
+                          "y": 1.3899948E-7
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 524.8474,
+                          "y": 645.0268
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -46692,8 +46389,8 @@
                       },
                       {
                         "position": {
-                          "x": 524.8474,
-                          "y": 645.0268
+                          "x": 502.1479,
+                          "y": 600.47644
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -46712,116 +46409,8 @@
                       },
                       {
                         "position": {
-                          "x": 536.19666,
-                          "y": 667.3021
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "ApicalConstrictingSpringForce": {
-                            "x": 1.1424534,
-                            "y": -0.6398066
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": -4.9121746E-7,
-                          "y": 1.1332048E-7
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 556.74927,
-                          "y": 655.7922
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          },
-                          "ApicalConstrictingSpringForce": {
-                            "x": 0.8197357,
-                            "y": -0.54773116
-                          },
-                          "OsmosisForce": {
-                            "x": -0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": -3.2271774E-7,
-                          "y": 9.2075474E-8
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 543.68713,
-                          "y": 634.4761
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 530.62463,
-                          "y": 613.16003
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 517.5622,
-                          "y": 591.84406
-                        },
-                        "forceVectors": {
-                          "ElasticForce": {
-                            "x": 0.0,
-                            "y": 0.0
-                          },
-                          "OsmosisForce": {
-                            "x": 0.0,
-                            "y": -0.0
-                          }
-                        },
-                        "resultantForceVector": {
-                          "x": 0.0,
-                          "y": 0.0
-                        }
-                      },
-                      {
-                        "position": {
-                          "x": 504.4997,
-                          "y": 570.528
+                          "x": 490.7981,
+                          "y": 578.2013
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -47013,6 +46602,417 @@
                   "type": "ApicalConstrictingSpringForce",
                   "properties": {
                     "rampTime": 5.0,
+                    "constant": 29.399197,
+                    "targetLengthRatio": 0.01,
+                    "edges": [
+                      {
+                        "nodesReference": [
+                          4,
+                          5
+                        ],
+                        "elasticConstant": 5.55
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "OsmosisForce",
+                  "properties": {
+                    "osmosisConstant": 0.012
+                  }
+                }
+              ]
+            },
+            {
+              "uniqueID": 12,
+              "components": [
+                {
+                  "type": "RingCellMesh",
+                  "properties": {
+                    "nodes": [
+                      {
+                        "position": {
+                          "x": 490.7981,
+                          "y": 578.2013
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 502.1479,
+                          "y": 600.47644
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 513.4976,
+                          "y": 622.75165
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 524.8474,
+                          "y": 645.0268
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 536.19653,
+                          "y": 667.3021
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "ApicalConstrictingSpringForce": {
+                            "x": 1.4013392,
+                            "y": -0.78479004
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": -6.025297E-7,
+                          "y": 1.3899948E-7
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 556.7492,
+                          "y": 655.7922
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "ApicalConstrictingSpringForce": {
+                            "x": 1.005492,
+                            "y": -0.6718498
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": -3.9584725E-7,
+                          "y": 1.1294026E-7
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 543.68713,
+                          "y": 634.4761
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 530.62463,
+                          "y": 613.16003
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 517.5622,
+                          "y": 591.84406
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "OsmosisForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      },
+                      {
+                        "position": {
+                          "x": 504.4997,
+                          "y": 570.528
+                        },
+                        "forceVectors": {
+                          "ElasticForce": {
+                            "x": 0.0,
+                            "y": -0.0
+                          },
+                          "OsmosisForce": {
+                            "x": -0.0,
+                            "y": -0.0
+                          }
+                        },
+                        "resultantForceVector": {
+                          "x": 0.0,
+                          "y": 0.0
+                        }
+                      }
+                    ],
+                    "edges": [
+                      {
+                        "nodesReference": [
+                          0,
+                          1
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          1,
+                          2
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          2,
+                          3
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          3,
+                          4
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          4,
+                          5
+                        ],
+                        "elasticConstant": 5.55
+                      },
+                      {
+                        "nodesReference": [
+                          5,
+                          6
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          6,
+                          7
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          7,
+                          8
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          8,
+                          9
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          9,
+                          0
+                        ],
+                        "elasticConstant": 2.775
+                      }
+                    ],
+                    "area": 1961.4844,
+                    "restingArea": 1961.4844
+                  }
+                },
+                {
+                  "type": "CellRenderer",
+                  "properties": {
+                    "color": {
+                      "value": -65281,
+                      "falpha": 0.0
+                    }
+                  }
+                },
+                {
+                  "type": "Lattice",
+                  "properties": {
+                    "edgeList": []
+                  }
+                },
+                {
+                  "type": "ElasticForce",
+                  "properties": {
+                    "constant": 0.0,
+                    "targetLengthRatio": 1.0,
+                    "edges": [
+                      {
+                        "nodesReference": [
+                          0,
+                          1
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          1,
+                          2
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          2,
+                          3
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          3,
+                          4
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          4,
+                          5
+                        ],
+                        "elasticConstant": 5.55
+                      },
+                      {
+                        "nodesReference": [
+                          5,
+                          6
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          6,
+                          7
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          7,
+                          8
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          8,
+                          9
+                        ],
+                        "elasticConstant": 10.95
+                      },
+                      {
+                        "nodesReference": [
+                          9,
+                          0
+                        ],
+                        "elasticConstant": 2.775
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "ApicalConstrictingSpringForce",
+                  "properties": {
+                    "rampTime": 5.0,
                     "constant": 21.399298,
                     "targetLengthRatio": 0.01,
                     "edges": [
@@ -47035,7 +47035,7 @@
               ]
             },
             {
-              "uniqueID": 178,
+              "uniqueID": 14,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -47123,7 +47123,7 @@
                       },
                       {
                         "position": {
-                          "x": 556.74927,
+                          "x": 556.7492,
                           "y": 655.7922
                         },
                         "forceVectors": {
@@ -47132,8 +47132,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 0.8197357,
-                            "y": -0.54773116
+                            "x": 1.005492,
+                            "y": -0.6718498
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -47141,13 +47141,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -3.2271774E-7,
-                          "y": 9.2075474E-8
+                          "x": -3.9584725E-7,
+                          "y": 1.1294026E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 576.3354,
+                          "x": 576.3353,
                           "y": 642.70514
                         },
                         "forceVectors": {
@@ -47156,8 +47156,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 0.62543255,
-                            "y": -0.49305138
+                            "x": 0.76715887,
+                            "y": -0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -47165,8 +47165,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -1.9430318E-7,
-                          "y": 5.4679788E-8
+                          "x": -2.3833313E-7,
+                          "y": 6.707037E-8
                         }
                       },
                       {
@@ -47446,7 +47446,7 @@
               ]
             },
             {
-              "uniqueID": 180,
+              "uniqueID": 16,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -47534,7 +47534,7 @@
                       },
                       {
                         "position": {
-                          "x": 576.3354,
+                          "x": 576.3353,
                           "y": 642.70514
                         },
                         "forceVectors": {
@@ -47543,8 +47543,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 0.62543255,
-                            "y": -0.49305138
+                            "x": 0.76715887,
+                            "y": -0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -47552,14 +47552,14 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -1.9430318E-7,
-                          "y": 5.4679788E-8
+                          "x": -2.3833313E-7,
+                          "y": 6.707037E-8
                         }
                       },
                       {
                         "position": {
-                          "x": 594.81915,
-                          "y": 628.10516
+                          "x": 594.81903,
+                          "y": 628.1053
                         },
                         "forceVectors": {
                           "LateralShorteningSpringForce": {
@@ -47571,8 +47571,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.62543255,
-                            "y": 0.49305138
+                            "x": -0.76715887,
+                            "y": 0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -47580,8 +47580,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -1.5238023E-5,
-                          "y": -1.661607E-5
+                          "x": -1.5379748E-5,
+                          "y": -1.650434E-5
                         }
                       },
                       {
@@ -47753,7 +47753,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.0469,
+                    "area": 1961.0625,
                     "restingArea": 1961.4844
                   }
                 },
@@ -47877,7 +47877,7 @@
               ]
             },
             {
-              "uniqueID": 182,
+              "uniqueID": 18,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -47981,8 +47981,8 @@
                       },
                       {
                         "position": {
-                          "x": 594.81915,
-                          "y": 628.10516
+                          "x": 594.81903,
+                          "y": 628.1053
                         },
                         "forceVectors": {
                           "LateralShorteningSpringForce": {
@@ -47994,8 +47994,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.62543255,
-                            "y": 0.49305138
+                            "x": -0.76715887,
+                            "y": 0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -48003,8 +48003,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": -1.5238023E-5,
-                          "y": -1.661607E-5
+                          "x": -1.5379748E-5,
+                          "y": -1.650434E-5
                         }
                       },
                       {
@@ -48200,7 +48200,7 @@
                         "elasticConstant": 5.55
                       }
                     ],
-                    "area": 1960.1562,
+                    "area": 1960.1406,
                     "restingArea": 1961.4688
                   }
                 },
@@ -48372,7 +48372,7 @@
               ]
             },
             {
-              "uniqueID": 184,
+              "uniqueID": 20,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -48863,7 +48863,7 @@
               ]
             },
             {
-              "uniqueID": 186,
+              "uniqueID": 22,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -49354,7 +49354,7 @@
               ]
             },
             {
-              "uniqueID": 188,
+              "uniqueID": 24,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -49845,7 +49845,7 @@
               ]
             },
             {
-              "uniqueID": 190,
+              "uniqueID": 26,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -50336,7 +50336,7 @@
               ]
             },
             {
-              "uniqueID": 192,
+              "uniqueID": 28,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -50827,7 +50827,7 @@
               ]
             },
             {
-              "uniqueID": 194,
+              "uniqueID": 30,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -51318,7 +51318,7 @@
               ]
             },
             {
-              "uniqueID": 196,
+              "uniqueID": 32,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -51809,7 +51809,7 @@
               ]
             },
             {
-              "uniqueID": 198,
+              "uniqueID": 34,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -52300,7 +52300,7 @@
               ]
             },
             {
-              "uniqueID": 200,
+              "uniqueID": 36,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -52791,7 +52791,7 @@
               ]
             },
             {
-              "uniqueID": 202,
+              "uniqueID": 38,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -53282,7 +53282,7 @@
               ]
             },
             {
-              "uniqueID": 204,
+              "uniqueID": 40,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -53773,7 +53773,7 @@
               ]
             },
             {
-              "uniqueID": 206,
+              "uniqueID": 42,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -54264,7 +54264,7 @@
               ]
             },
             {
-              "uniqueID": 208,
+              "uniqueID": 44,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -54755,7 +54755,7 @@
               ]
             },
             {
-              "uniqueID": 210,
+              "uniqueID": 46,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -55246,7 +55246,7 @@
               ]
             },
             {
-              "uniqueID": 212,
+              "uniqueID": 48,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -55737,7 +55737,7 @@
               ]
             },
             {
-              "uniqueID": 214,
+              "uniqueID": 50,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -56228,7 +56228,7 @@
               ]
             },
             {
-              "uniqueID": 216,
+              "uniqueID": 52,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -56719,7 +56719,7 @@
               ]
             },
             {
-              "uniqueID": 218,
+              "uniqueID": 54,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -57210,7 +57210,7 @@
               ]
             },
             {
-              "uniqueID": 220,
+              "uniqueID": 56,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -57701,7 +57701,7 @@
               ]
             },
             {
-              "uniqueID": 222,
+              "uniqueID": 58,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -58192,7 +58192,7 @@
               ]
             },
             {
-              "uniqueID": 224,
+              "uniqueID": 60,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -58683,7 +58683,7 @@
               ]
             },
             {
-              "uniqueID": 226,
+              "uniqueID": 62,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -59174,7 +59174,7 @@
               ]
             },
             {
-              "uniqueID": 228,
+              "uniqueID": 64,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -59665,7 +59665,7 @@
               ]
             },
             {
-              "uniqueID": 230,
+              "uniqueID": 66,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -60156,7 +60156,7 @@
               ]
             },
             {
-              "uniqueID": 232,
+              "uniqueID": 68,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -60647,7 +60647,7 @@
               ]
             },
             {
-              "uniqueID": 234,
+              "uniqueID": 70,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -61138,7 +61138,7 @@
               ]
             },
             {
-              "uniqueID": 236,
+              "uniqueID": 72,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -61629,7 +61629,7 @@
               ]
             },
             {
-              "uniqueID": 238,
+              "uniqueID": 74,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -62120,7 +62120,7 @@
               ]
             },
             {
-              "uniqueID": 240,
+              "uniqueID": 76,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -62611,7 +62611,7 @@
               ]
             },
             {
-              "uniqueID": 242,
+              "uniqueID": 78,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -63102,7 +63102,7 @@
               ]
             },
             {
-              "uniqueID": 243,
+              "uniqueID": 79,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -63593,7 +63593,7 @@
               ]
             },
             {
-              "uniqueID": 241,
+              "uniqueID": 77,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -64084,7 +64084,7 @@
               ]
             },
             {
-              "uniqueID": 239,
+              "uniqueID": 75,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -64575,7 +64575,7 @@
               ]
             },
             {
-              "uniqueID": 237,
+              "uniqueID": 73,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -65066,7 +65066,7 @@
               ]
             },
             {
-              "uniqueID": 235,
+              "uniqueID": 71,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -65557,7 +65557,7 @@
               ]
             },
             {
-              "uniqueID": 233,
+              "uniqueID": 69,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -66048,7 +66048,7 @@
               ]
             },
             {
-              "uniqueID": 231,
+              "uniqueID": 67,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -66539,7 +66539,7 @@
               ]
             },
             {
-              "uniqueID": 229,
+              "uniqueID": 65,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -67030,7 +67030,7 @@
               ]
             },
             {
-              "uniqueID": 227,
+              "uniqueID": 63,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -67521,7 +67521,7 @@
               ]
             },
             {
-              "uniqueID": 225,
+              "uniqueID": 61,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -68012,7 +68012,7 @@
               ]
             },
             {
-              "uniqueID": 223,
+              "uniqueID": 59,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -68503,7 +68503,7 @@
               ]
             },
             {
-              "uniqueID": 221,
+              "uniqueID": 57,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -68994,7 +68994,7 @@
               ]
             },
             {
-              "uniqueID": 219,
+              "uniqueID": 55,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -69485,7 +69485,7 @@
               ]
             },
             {
-              "uniqueID": 217,
+              "uniqueID": 53,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -69976,7 +69976,7 @@
               ]
             },
             {
-              "uniqueID": 215,
+              "uniqueID": 51,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -70467,7 +70467,7 @@
               ]
             },
             {
-              "uniqueID": 213,
+              "uniqueID": 49,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -70958,7 +70958,7 @@
               ]
             },
             {
-              "uniqueID": 211,
+              "uniqueID": 47,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -71449,7 +71449,7 @@
               ]
             },
             {
-              "uniqueID": 209,
+              "uniqueID": 45,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -71940,7 +71940,7 @@
               ]
             },
             {
-              "uniqueID": 207,
+              "uniqueID": 43,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -72431,7 +72431,7 @@
               ]
             },
             {
-              "uniqueID": 205,
+              "uniqueID": 41,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -72922,7 +72922,7 @@
               ]
             },
             {
-              "uniqueID": 203,
+              "uniqueID": 39,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -73413,7 +73413,7 @@
               ]
             },
             {
-              "uniqueID": 201,
+              "uniqueID": 37,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -73904,7 +73904,7 @@
               ]
             },
             {
-              "uniqueID": 199,
+              "uniqueID": 35,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -74395,7 +74395,7 @@
               ]
             },
             {
-              "uniqueID": 197,
+              "uniqueID": 33,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -74886,7 +74886,7 @@
               ]
             },
             {
-              "uniqueID": 195,
+              "uniqueID": 31,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -75377,7 +75377,7 @@
               ]
             },
             {
-              "uniqueID": 193,
+              "uniqueID": 29,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -75868,7 +75868,7 @@
               ]
             },
             {
-              "uniqueID": 191,
+              "uniqueID": 27,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -76359,7 +76359,7 @@
               ]
             },
             {
-              "uniqueID": 189,
+              "uniqueID": 25,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -76850,7 +76850,7 @@
               ]
             },
             {
-              "uniqueID": 187,
+              "uniqueID": 23,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -77341,7 +77341,7 @@
               ]
             },
             {
-              "uniqueID": 185,
+              "uniqueID": 21,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -77832,7 +77832,7 @@
               ]
             },
             {
-              "uniqueID": 183,
+              "uniqueID": 19,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -77960,8 +77960,8 @@
                       },
                       {
                         "position": {
-                          "x": 205.18085,
-                          "y": 628.10516
+                          "x": 205.18098,
+                          "y": 628.1053
                         },
                         "forceVectors": {
                           "LateralShorteningSpringForce": {
@@ -77973,8 +77973,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 0.62543255,
-                            "y": 0.49305138
+                            "x": 0.76715887,
+                            "y": 0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -77982,8 +77982,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 1.5238023E-5,
-                          "y": -1.661607E-5
+                          "x": 1.5379748E-5,
+                          "y": -1.650434E-5
                         }
                       },
                       {
@@ -78327,7 +78327,7 @@
               ]
             },
             {
-              "uniqueID": 181,
+              "uniqueID": 17,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -78431,8 +78431,8 @@
                       },
                       {
                         "position": {
-                          "x": 205.18085,
-                          "y": 628.10516
+                          "x": 205.18098,
+                          "y": 628.1053
                         },
                         "forceVectors": {
                           "LateralShorteningSpringForce": {
@@ -78444,8 +78444,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": 0.62543255,
-                            "y": 0.49305138
+                            "x": 0.76715887,
+                            "y": 0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -78453,13 +78453,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 1.5238023E-5,
-                          "y": -1.661607E-5
+                          "x": 1.5379748E-5,
+                          "y": -1.650434E-5
                         }
                       },
                       {
                         "position": {
-                          "x": 223.66463,
+                          "x": 223.66467,
                           "y": 642.70514
                         },
                         "forceVectors": {
@@ -78468,8 +78468,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.62543255,
-                            "y": -0.49305138
+                            "x": -0.76715887,
+                            "y": -0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -78477,8 +78477,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 1.9430318E-7,
-                          "y": 5.4679788E-8
+                          "x": 2.3833313E-7,
+                          "y": 6.707037E-8
                         }
                       },
                       {
@@ -78758,7 +78758,7 @@
               ]
             },
             {
-              "uniqueID": 179,
+              "uniqueID": 15,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -78846,7 +78846,7 @@
                       },
                       {
                         "position": {
-                          "x": 223.66463,
+                          "x": 223.66467,
                           "y": 642.70514
                         },
                         "forceVectors": {
@@ -78855,8 +78855,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.62543255,
-                            "y": -0.49305138
+                            "x": -0.76715887,
+                            "y": -0.6047794
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -78864,13 +78864,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 1.9430318E-7,
-                          "y": 5.4679788E-8
+                          "x": 2.3833313E-7,
+                          "y": 6.707037E-8
                         }
                       },
                       {
                         "position": {
-                          "x": 243.25075,
+                          "x": 243.25082,
                           "y": 655.7922
                         },
                         "forceVectors": {
@@ -78879,8 +78879,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.8197357,
-                            "y": -0.54773116
+                            "x": -1.005492,
+                            "y": -0.6718498
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -78888,8 +78888,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 3.2271774E-7,
-                          "y": 9.2075474E-8
+                          "x": 3.9584725E-7,
+                          "y": 1.1294026E-7
                         }
                       },
                       {
@@ -79169,7 +79169,7 @@
               ]
             },
             {
-              "uniqueID": 177,
+              "uniqueID": 13,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -79257,7 +79257,7 @@
                       },
                       {
                         "position": {
-                          "x": 243.25075,
+                          "x": 243.25082,
                           "y": 655.7922
                         },
                         "forceVectors": {
@@ -79266,8 +79266,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -0.8197357,
-                            "y": -0.54773116
+                            "x": -1.005492,
+                            "y": -0.6718498
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -79275,13 +79275,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 3.2271774E-7,
-                          "y": 9.2075474E-8
+                          "x": 3.9584725E-7,
+                          "y": 1.1294026E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 263.80334,
+                          "x": 263.80347,
                           "y": 667.3021
                         },
                         "forceVectors": {
@@ -79290,8 +79290,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -1.1424534,
-                            "y": -0.6398066
+                            "x": -1.4013392,
+                            "y": -0.78479004
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -79299,8 +79299,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 4.9121746E-7,
-                          "y": 1.1332048E-7
+                          "x": 6.025297E-7,
+                          "y": 1.3899948E-7
                         }
                       },
                       {
@@ -79456,7 +79456,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.5,
+                    "area": 1961.4922,
                     "restingArea": 1961.4922
                   }
                 },
@@ -79580,7 +79580,7 @@
               ]
             },
             {
-              "uniqueID": 175,
+              "uniqueID": 11,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -79668,7 +79668,7 @@
                       },
                       {
                         "position": {
-                          "x": 263.80334,
+                          "x": 263.80347,
                           "y": 667.3021
                         },
                         "forceVectors": {
@@ -79677,8 +79677,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -1.1424534,
-                            "y": -0.6398066
+                            "x": -1.4013392,
+                            "y": -0.78479004
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -79686,13 +79686,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 4.9121746E-7,
-                          "y": 1.1332048E-7
+                          "x": 6.025297E-7,
+                          "y": 1.3899948E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 285.19562,
+                          "x": 285.19577,
                           "y": 677.16394
                         },
                         "forceVectors": {
@@ -79701,8 +79701,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -1.6336708,
-                            "y": -0.7531271
+                            "x": -2.0038688,
+                            "y": -0.9237895
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -79710,8 +79710,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 6.639315E-7,
-                          "y": 9.450693E-8
+                          "x": 8.143819E-7,
+                          "y": 1.15922816E-7
                         }
                       },
                       {
@@ -79867,7 +79867,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4688,
+                    "area": 1961.4766,
                     "restingArea": 1961.4688
                   }
                 },
@@ -79991,7 +79991,7 @@
               ]
             },
             {
-              "uniqueID": 173,
+              "uniqueID": 9,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -80079,7 +80079,7 @@
                       },
                       {
                         "position": {
-                          "x": 285.19562,
+                          "x": 285.19577,
                           "y": 677.16394
                         },
                         "forceVectors": {
@@ -80088,8 +80088,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -1.6336708,
-                            "y": -0.7531271
+                            "x": -2.0038688,
+                            "y": -0.9237895
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80097,13 +80097,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 6.639315E-7,
-                          "y": 9.450693E-8
+                          "x": 8.143819E-7,
+                          "y": 1.15922816E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 307.29565,
+                          "x": 307.29584,
                           "y": 685.31696
                         },
                         "forceVectors": {
@@ -80112,8 +80112,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -2.2976022,
-                            "y": -0.847634
+                            "x": -2.8182507,
+                            "y": -1.0397123
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80121,8 +80121,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 7.7631057E-7,
-                          "y": 1.9294145E-8
+                          "x": 9.522263E-7,
+                          "y": 2.3666146E-8
                         }
                       },
                       {
@@ -80278,7 +80278,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4844,
+                    "area": 1961.4766,
                     "restingArea": 1961.4844
                   }
                 },
@@ -80402,7 +80402,7 @@
               ]
             },
             {
-              "uniqueID": 171,
+              "uniqueID": 7,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -80490,7 +80490,7 @@
                       },
                       {
                         "position": {
-                          "x": 307.29565,
+                          "x": 307.29584,
                           "y": 685.31696
                         },
                         "forceVectors": {
@@ -80499,8 +80499,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -2.2976022,
-                            "y": -0.847634
+                            "x": -2.8182507,
+                            "y": -1.0397123
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80508,13 +80508,13 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 7.7631057E-7,
-                          "y": 1.9294145E-8
+                          "x": 9.522263E-7,
+                          "y": 2.3666146E-8
                         }
                       },
                       {
                         "position": {
-                          "x": 329.96713,
+                          "x": 329.9673,
                           "y": 691.7108
                         },
                         "forceVectors": {
@@ -80523,8 +80523,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -3.0739126,
-                            "y": -0.86692816
+                            "x": -3.7704768,
+                            "y": -1.0633785
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80532,8 +80532,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 7.563272E-7,
-                          "y": -1.050371E-7
+                          "x": 9.277149E-7,
+                          "y": -1.2883896E-7
                         }
                       },
                       {
@@ -80813,7 +80813,7 @@
               ]
             },
             {
-              "uniqueID": 169,
+              "uniqueID": 5,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -80901,7 +80901,7 @@
                       },
                       {
                         "position": {
-                          "x": 329.96713,
+                          "x": 329.9673,
                           "y": 691.7108
                         },
                         "forceVectors": {
@@ -80910,8 +80910,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -3.0739126,
-                            "y": -0.86692816
+                            "x": -3.7704768,
+                            "y": -1.0633785
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80919,14 +80919,14 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 7.563272E-7,
-                          "y": -1.050371E-7
+                          "x": 9.277149E-7,
+                          "y": -1.2883896E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 353.0702,
-                          "y": 696.3063
+                          "x": 353.07034,
+                          "y": 696.3062
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -80934,8 +80934,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -3.8302398,
-                            "y": -0.76189107
+                            "x": -4.6981916,
+                            "y": -0.9345395
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -80943,8 +80943,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 5.6250434E-7,
-                          "y": -2.4198016E-7
+                          "x": 6.899701E-7,
+                          "y": -2.9681425E-7
                         }
                       },
                       {
@@ -81224,7 +81224,7 @@
               ]
             },
             {
-              "uniqueID": 167,
+              "uniqueID": 3,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -81312,8 +81312,8 @@
                       },
                       {
                         "position": {
-                          "x": 353.0702,
-                          "y": 696.3063
+                          "x": 353.07034,
+                          "y": 696.3062
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -81321,8 +81321,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -3.8302398,
-                            "y": -0.76189107
+                            "x": -4.6981916,
+                            "y": -0.9345395
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -81330,14 +81330,14 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 5.6250434E-7,
-                          "y": -2.4198016E-7
+                          "x": 6.899701E-7,
+                          "y": -2.9681425E-7
                         }
                       },
                       {
                         "position": {
-                          "x": 376.4625,
-                          "y": 699.0748
+                          "x": 376.46255,
+                          "y": 699.07477
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -81345,8 +81345,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -4.392744,
-                            "y": -0.51991093
+                            "x": -5.3881617,
+                            "y": -0.6377253
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -81354,8 +81354,8 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 2.1736909E-7,
-                          "y": -3.387781E-7
+                          "x": 2.6662687E-7,
+                          "y": -4.1554685E-7
                         }
                       },
                       {
@@ -81511,7 +81511,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4609,
+                    "area": 1961.4766,
                     "restingArea": 1961.4844
                   }
                 },
@@ -81635,7 +81635,7 @@
               ]
             },
             {
-              "uniqueID": 165,
+              "uniqueID": 1,
               "components": [
                 {
                   "type": "RingCellMesh",
@@ -81723,8 +81723,8 @@
                       },
                       {
                         "position": {
-                          "x": 376.4625,
-                          "y": 699.0748
+                          "x": 376.46255,
+                          "y": 699.07477
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -81732,8 +81732,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -4.392744,
-                            "y": -0.51991093
+                            "x": -5.3881617,
+                            "y": -0.6377253
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -81741,14 +81741,14 @@
                           }
                         },
                         "resultantForceVector": {
-                          "x": 2.1736909E-7,
-                          "y": -3.387781E-7
+                          "x": 2.6662687E-7,
+                          "y": -4.1554685E-7
                         }
                       },
                       {
                         "position": {
                           "x": 400.0,
-                          "y": 699.99963
+                          "y": 699.9996
                         },
                         "forceVectors": {
                           "ElasticForce": {
@@ -81756,8 +81756,8 @@
                             "y": -0.0
                           },
                           "ApicalConstrictingSpringForce": {
-                            "x": -4.610113,
-                            "y": -0.18113285
+                            "x": -5.6547885,
+                            "y": -0.22217849
                           },
                           "OsmosisForce": {
                             "x": -0.0,
@@ -81766,7 +81766,7 @@
                         },
                         "resultantForceVector": {
                           "x": 0.0,
-                          "y": -3.6226572E-7
+                          "y": -4.4435703E-7
                         }
                       },
                       {
@@ -81922,7 +81922,7 @@
                         "elasticConstant": 2.775
                       }
                     ],
-                    "area": 1961.4766,
+                    "area": 1961.4609,
                     "restingArea": 1961.4609
                   }
                 },
@@ -82130,7 +82130,7 @@
             {
               "position": {
                 "x": 400.0,
-                "y": 699.99963
+                "y": 699.9996
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -82138,8 +82138,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.610113,
-                  "y": -0.18113285
+                  "x": -5.6547885,
+                  "y": -0.22217849
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82148,13 +82148,13 @@
               },
               "resultantForceVector": {
                 "x": 0.0,
-                "y": -3.6226572E-7
+                "y": -4.4435703E-7
               }
             },
             {
               "position": {
-                "x": 423.5375,
-                "y": 699.0748
+                "x": 423.53745,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -82162,8 +82162,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 4.392744,
-                  "y": -0.51991093
+                  "x": 5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82171,8 +82171,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -2.1736909E-7,
-                "y": -3.387781E-7
+                "x": -2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {
@@ -82257,8 +82257,8 @@
             },
             {
               "position": {
-                "x": 446.9298,
-                "y": 696.3063
+                "x": 446.92966,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -82266,8 +82266,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.8302398,
-                  "y": -0.76189107
+                  "x": 4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82275,8 +82275,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": -6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
@@ -82361,7 +82361,7 @@
             },
             {
               "position": {
-                "x": 470.03287,
+                "x": 470.0327,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -82370,8 +82370,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 3.0739126,
-                  "y": -0.86692816
+                  "x": 3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82379,8 +82379,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.563272E-7,
-                "y": -1.050371E-7
+                "x": -9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
@@ -82465,7 +82465,7 @@
             },
             {
               "position": {
-                "x": 492.70435,
+                "x": 492.70416,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -82474,8 +82474,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 2.2976022,
-                  "y": -0.847634
+                  "x": 2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82483,8 +82483,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": -9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
@@ -82569,7 +82569,7 @@
             },
             {
               "position": {
-                "x": 514.8044,
+                "x": 514.80426,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -82578,8 +82578,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.6336708,
-                  "y": -0.7531271
+                  "x": 2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82587,8 +82587,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -6.639315E-7,
-                "y": 9.450693E-8
+                "x": -8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
@@ -82673,7 +82673,7 @@
             },
             {
               "position": {
-                "x": 536.19666,
+                "x": 536.19653,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -82682,8 +82682,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 1.1424534,
-                  "y": -0.6398066
+                  "x": 1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82691,8 +82691,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": -6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
@@ -82777,7 +82777,7 @@
             },
             {
               "position": {
-                "x": 556.74927,
+                "x": 556.7492,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -82786,8 +82786,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.8197357,
-                  "y": -0.54773116
+                  "x": 1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82795,8 +82795,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": -3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
@@ -82881,7 +82881,7 @@
             },
             {
               "position": {
-                "x": 576.3354,
+                "x": 576.3353,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -82890,8 +82890,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": -0.49305138
+                  "x": 0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -82899,8 +82899,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": -2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
@@ -82985,8 +82985,8 @@
             },
             {
               "position": {
-                "x": 594.81915,
-                "y": 628.10516
+                "x": 594.81903,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -82998,8 +82998,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": 0.49305138
+                  "x": -0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -83007,8 +83007,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": -1.5238023E-5,
-                "y": -1.661607E-5
+                "x": -1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -90429,8 +90429,8 @@
             },
             {
               "position": {
-                "x": 205.18085,
-                "y": 628.10516
+                "x": 205.18098,
+                "y": 628.1053
               },
               "forceVectors": {
                 "LateralShorteningSpringForce": {
@@ -90442,8 +90442,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": 0.62543255,
-                  "y": 0.49305138
+                  "x": 0.76715887,
+                  "y": 0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90451,8 +90451,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.5238023E-5,
-                "y": -1.661607E-5
+                "x": 1.5379748E-5,
+                "y": -1.650434E-5
               }
             },
             {
@@ -90553,7 +90553,7 @@
             },
             {
               "position": {
-                "x": 223.66463,
+                "x": 223.66467,
                 "y": 642.70514
               },
               "forceVectors": {
@@ -90562,8 +90562,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.62543255,
-                  "y": -0.49305138
+                  "x": -0.76715887,
+                  "y": -0.6047794
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90571,8 +90571,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 1.9430318E-7,
-                "y": 5.4679788E-8
+                "x": 2.3833313E-7,
+                "y": 6.707037E-8
               }
             },
             {
@@ -90657,7 +90657,7 @@
             },
             {
               "position": {
-                "x": 243.25075,
+                "x": 243.25082,
                 "y": 655.7922
               },
               "forceVectors": {
@@ -90666,8 +90666,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -0.8197357,
-                  "y": -0.54773116
+                  "x": -1.005492,
+                  "y": -0.6718498
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90675,8 +90675,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 3.2271774E-7,
-                "y": 9.2075474E-8
+                "x": 3.9584725E-7,
+                "y": 1.1294026E-7
               }
             },
             {
@@ -90761,7 +90761,7 @@
             },
             {
               "position": {
-                "x": 263.80334,
+                "x": 263.80347,
                 "y": 667.3021
               },
               "forceVectors": {
@@ -90770,8 +90770,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.1424534,
-                  "y": -0.6398066
+                  "x": -1.4013392,
+                  "y": -0.78479004
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90779,8 +90779,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 4.9121746E-7,
-                "y": 1.1332048E-7
+                "x": 6.025297E-7,
+                "y": 1.3899948E-7
               }
             },
             {
@@ -90865,7 +90865,7 @@
             },
             {
               "position": {
-                "x": 285.19562,
+                "x": 285.19577,
                 "y": 677.16394
               },
               "forceVectors": {
@@ -90874,8 +90874,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -1.6336708,
-                  "y": -0.7531271
+                  "x": -2.0038688,
+                  "y": -0.9237895
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90883,8 +90883,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 6.639315E-7,
-                "y": 9.450693E-8
+                "x": 8.143819E-7,
+                "y": 1.15922816E-7
               }
             },
             {
@@ -90969,7 +90969,7 @@
             },
             {
               "position": {
-                "x": 307.29565,
+                "x": 307.29584,
                 "y": 685.31696
               },
               "forceVectors": {
@@ -90978,8 +90978,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -2.2976022,
-                  "y": -0.847634
+                  "x": -2.8182507,
+                  "y": -1.0397123
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -90987,8 +90987,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.7631057E-7,
-                "y": 1.9294145E-8
+                "x": 9.522263E-7,
+                "y": 2.3666146E-8
               }
             },
             {
@@ -91073,7 +91073,7 @@
             },
             {
               "position": {
-                "x": 329.96713,
+                "x": 329.9673,
                 "y": 691.7108
               },
               "forceVectors": {
@@ -91082,8 +91082,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.0739126,
-                  "y": -0.86692816
+                  "x": -3.7704768,
+                  "y": -1.0633785
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -91091,8 +91091,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 7.563272E-7,
-                "y": -1.050371E-7
+                "x": 9.277149E-7,
+                "y": -1.2883896E-7
               }
             },
             {
@@ -91177,8 +91177,8 @@
             },
             {
               "position": {
-                "x": 353.0702,
-                "y": 696.3063
+                "x": 353.07034,
+                "y": 696.3062
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -91186,8 +91186,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -3.8302398,
-                  "y": -0.76189107
+                  "x": -4.6981916,
+                  "y": -0.9345395
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -91195,8 +91195,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 5.6250434E-7,
-                "y": -2.4198016E-7
+                "x": 6.899701E-7,
+                "y": -2.9681425E-7
               }
             },
             {
@@ -91281,8 +91281,8 @@
             },
             {
               "position": {
-                "x": 376.4625,
-                "y": 699.0748
+                "x": 376.46255,
+                "y": 699.07477
               },
               "forceVectors": {
                 "ElasticForce": {
@@ -91290,8 +91290,8 @@
                   "y": -0.0
                 },
                 "ApicalConstrictingSpringForce": {
-                  "x": -4.392744,
-                  "y": -0.51991093
+                  "x": -5.3881617,
+                  "y": -0.6377253
                 },
                 "OsmosisForce": {
                   "x": -0.0,
@@ -91299,8 +91299,8 @@
                 }
               },
               "resultantForceVector": {
-                "x": 2.1736909E-7,
-                "y": -3.387781E-7
+                "x": 2.6662687E-7,
+                "y": -4.1554685E-7
               }
             },
             {

@@ -5,7 +5,7 @@ import java.awt.*;
 
 public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
-    protected static Graphics g;
+    public static Graphics g;
 
     //Default color by which to paint objects in a scene
     public static final Color DEFAULT = Color.white;

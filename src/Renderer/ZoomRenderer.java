@@ -82,6 +82,7 @@ public class ZoomRenderer extends Renderer
         }
 
         bufferStrategy.show();
+        displayWindow.GetCanvas().prepareImageForExport();
         g.dispose();
 
 

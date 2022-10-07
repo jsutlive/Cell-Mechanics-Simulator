@@ -9,11 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class DisplayWindow
 {
     private JFrame frame;
-    private Canvas canvas;
+    private SimulationCanvas canvas;
+    private JMenuBar menuBar;
     private String title;
     private int width, height;
 
@@ -24,7 +26,10 @@ public class DisplayWindow
         this.height = _height;
         CreateDisplay();
         CreateCanvas();
+        createJMenuBar();
+
         frame.add(canvas);
+        frame.setJMenuBar(menuBar);
 
         InputPanel inputPanel = new InputPanel();
         frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
@@ -37,6 +42,15 @@ public class DisplayWindow
         frame.pack();
     }
 
+    private void createJMenuBar(){
+        menuBar = new JMenuBar();
+        JMenu menu = new JMenu("File");
+        JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
+        exportItem.addActionListener(e-> canvas.exportImage("TEST"));
+        menu.add(exportItem);
+        menuBar.add(menu);
+    }
+
     private void CreateDisplay()
     {
         frame = new JFrame(title);
@@ -46,16 +60,15 @@ public class DisplayWindow
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.getContentPane().setBackground( Color.black );
-
     }
 
     private void CreateCanvas() {
-        canvas = new Canvas();
+        canvas = new SimulationCanvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
     }
 
-    public Canvas GetCanvas()
+    public SimulationCanvas GetCanvas()
     {
         return canvas;
     }
