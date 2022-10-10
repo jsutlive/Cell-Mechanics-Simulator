@@ -73,7 +73,7 @@ public class Vector2f extends Vector
     }
 
     @Override
-    public Vector unit() {
+    public Vector2f unit() {
         return unit(new Vector2f(0), this);
     }
 

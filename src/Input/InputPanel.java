@@ -27,7 +27,7 @@ public class InputPanel {
     }
 
     public void initialize() {
-        panel = new JPanel(new GridLayout(25, 1, 10, 10));
+        panel = new JPanel(new GridLayout(10, 1, 10, 10));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         createPlayButton();
         createStopButton();
