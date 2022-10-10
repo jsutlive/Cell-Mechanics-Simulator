@@ -1,13 +1,14 @@
 package Utilities.Physics;
 
 import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Math.CustomMath;
 
 
 public class Collision2D {
 
     /**
-     * Find unit vector describing the angle of a given point from center given which segment it is and the distance
-     * from the center
+     * Find point that exists on a Vector2f[] (two point) segment that describes the closest distance from the point to
+     * the center
      * @param segment current segment
      * @param point total segments in the circle
      * @return an x,y vector2 (floating point) describing the unit vector.
@@ -19,22 +20,23 @@ public class Collision2D {
         // calculate vector distance between point to first point on edge segment
         Vector2f pointToEdgeP0 = point.copy().sub(segment[0]);
 
-        System.out.println(pointToEdgeP0.print());
-
         float p0Dot = pointToEdgeP0.dot(edgeVector);
         float magnitudeSquared = edgeVector.dot(edgeVector);
 
         // If the magnitude is either less than zero or greater than the square of the magnitude, set it equal to
         // either one of the points in the segment
-        if (p0Dot <= 0) return segment[0].copy().unit();
+        /*if (p0Dot <= 0) return segment[0].copy().unit();
         if (p0Dot > magnitudeSquared) return segment[1].copy().unit();
-
-        System.out.println(segment[0].print());
-
+        */
+        float t = Math.max(0, Math.min(1, p0Dot/magnitudeSquared));
+        Vector2f edgeVectorTFactor = (edgeVector).mul(-t);  // Projection falls on the segment
+        Vector2f projection = edgeVectorTFactor.add(point);
+        /*
         Vector2f closestPoint = segment[0].copy();
+        System.out.println(edgeVector.mul(p0Dot/magnitudeSquared).print());
         closestPoint.add(edgeVector.mul(p0Dot/magnitudeSquared));
-
-        return closestPoint;
+        */
+        return projection;
     }
 
 

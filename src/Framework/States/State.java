@@ -174,7 +174,7 @@ public abstract class State
     {
         if(count > 10) return;
         try {
-            FileWriter filewriter = new FileWriter("embryo_" + count + "_.txt");
+            FileWriter filewriter = new FileWriter("save_data/embryo_" + count + "_.txt");
             filewriter.write(Engine.gson.toJson(allObjects));
             filewriter.close();
         }catch(IOException e)

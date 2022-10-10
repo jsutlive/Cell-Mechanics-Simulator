@@ -72,14 +72,14 @@ public class CellRingCollider extends Force {
 
     private void setNodePositionToClosestEdge(Node2D node, Vector2f nodePosition, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-        Vector v = CustomMath.normal(e).mul(dist * 5f);
-        if(!v.isNull()) {
-            Node[] nodes = e.getNodes();
-            nodes[0].moveTo(nodes[0].getPosition().add(v));
-            nodes[1].moveTo(nodes[1].getPosition().add(v));
-            node.moveTo(node.getPosition().add(v.mul(-1)));
-        }
+        //float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
+        //Vector v = CustomMath.normal(e).mul(dist * 5f);
+        //if(!v.isNull()) {
+            //Node[] nodes = e.getNodes();
+            //nodes[0].moveTo(nodes[0].getPosition().add(v));
+            //nodes[1].moveTo(nodes[1].getPosition().add(v));
+            node.moveTo(closePoint);
+        //}
     }
 
 
