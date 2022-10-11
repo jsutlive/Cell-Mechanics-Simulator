@@ -27,7 +27,7 @@ public class Boundary {
         float yUnit = (v.y - center.y)/dist;
         Vector2f pos = new Vector2f(xUnit, yUnit);
         pos.mul(radius);
-        pos.add(new Vector2f(400f));
+        pos = pos.add(new Vector2f(400f));
         return pos;
     }
 }

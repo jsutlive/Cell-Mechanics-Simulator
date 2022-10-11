@@ -111,13 +111,12 @@ public class Geometry {
         Vector2f unit = Vector2f.unit(p1, p2);
         float magnitude = Vector2f.dist(p1,p2);
 
-        Vector2f v = n.copy();
-        v.sub(p1);
-        float d = v.dot(unit);
+        n = n.sub(p1);
+        float d = n.dot(unit);
         d = CustomMath.clamp(d, 0, magnitude);
 
         unit.mul(d);
-        p1.add(unit);
+        p1 = p1.add(unit);
 
         return p1;
     }

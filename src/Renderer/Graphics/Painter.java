@@ -33,7 +33,7 @@ public class Painter {
     public static void drawForce(Node2D node, Vector2f forceVector){
         Vector2f nodePosition = node.getPosition();
         forceVector.mul(50);
-        forceVector.add(nodePosition);
+        forceVector = forceVector.add(nodePosition);
 
         drawLine(nodePosition.asInt(), forceVector.asInt(), Color.GREEN);
     }
@@ -42,7 +42,7 @@ public class Painter {
         Vector2f center = edge.getCenter();
         Vector2f normal = (Vector2f)CustomMath.normal(edge);
         normal.mul(7);
-        normal.add(center);
+        normal = normal.add(center);
 
         drawLine(center.asInt(), normal.asInt());
     }

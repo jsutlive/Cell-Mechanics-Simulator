@@ -4,26 +4,32 @@ import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
 import Renderer.ComponentPanel;
+import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class InputPanel {
 
     private JPanel panel;
     private JButton playButton;
     private JButton stopButton;
+    private JLabel mouseLabel;
+    private Canvas tempCanvasReference; //FIX
 
-    public InputPanel(){
+    public InputPanel(Canvas canvas){
         initialize();
 
         IEvent<Boolean> playEventSink = this::disablePlayButton;
         IEvent<Boolean> stopEventSink = this::enablePlayButton;
+        IEvent<MouseEvent> mouseMoveEventSink = this::findHoverCoordinates;
 
         InputEvents.onPlay.subscribe(playEventSink);
         InputEvents.onStop.subscribe(stopEventSink);
-
+        InputEvents.onMove.subscribe(mouseMoveEventSink);
+        tempCanvasReference = canvas;
     }
 
     public void initialize() {
@@ -35,14 +41,23 @@ public class InputPanel {
         ComponentPanel componentPanel = new ComponentPanel();
 
         panel.add(componentPanel.getPanel());
+        mouseLabel = new JLabel("TEST");
+        panel.add(mouseLabel);
 
     }
 
+    public void findHoverCoordinates(MouseEvent e){
+        int mouse_x=MouseInfo.getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
+        int mouse_y=MouseInfo.getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
+        mouseLabel.setText("Position: " + new Vector2i(mouse_x, mouse_y).print());
+    }
+
+
     private void createTimestepSlider() {
         JLabel timestepLabel = new JLabel("timestep");
-        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 10);
+        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, 0, 60, 10);
         timestepSlider.setFocusable(false);
-        timestepSlider.setMajorTickSpacing(10);
+        timestepSlider.setMajorTickSpacing(5);
         timestepSlider.setPaintTicks(true);
         timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 10000f));
 

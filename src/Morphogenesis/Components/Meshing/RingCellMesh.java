@@ -52,8 +52,36 @@ public class RingCellMesh extends Mesh{
         return collidesWithPoint(nodePos);
     }
 
-
     public boolean collidesWithPoint(Vector2f vec){
+        boolean collision = false;
+
+        // go through each of the vertices, plus
+        // the next vertex in the list
+        int next = 0;
+        for (int current=0; current<nodes.size(); current++) {
+
+            // get next vertex in list
+            // if we've hit the end, wrap around to 0
+            next = current+1;
+            if (next == nodes.size()) next = 0;
+
+            // get the PVectors at our current position
+            // this makes our if statement a little cleaner
+            Vector2f vc = nodes.get(current).getPosition();    // c for "current"
+            Vector2f vn = nodes.get(next).getPosition();       // n for "next"
+
+            // compare position, flip 'collision' variable
+            // back and forth
+            if (((vc.y >= vec.y && vn.y < vec.y) || (vc.y < vec.y && vn.y >= vec.y)) &&
+                    (vec.x < (vn.x-vc.x)*(vec.y-vc.y) / (vn.y-vc.y)+vc.x)) {
+                collision = !collision;
+            }
+        }
+        return collision;
+    }
+
+
+   /* public boolean collidesWithPoint(Vector2f vec){
         //checks whether point is inside polygon by drawing a horizontal ray from the point
         //if the num of intersections is even, then it is outside, else it is inside
         //because if a point crosses the shape a total of a even amount of times, then it
@@ -75,7 +103,7 @@ public class RingCellMesh extends Mesh{
             intersections++;
         }
         return intersections%2 != 0;
-    }
+    }*/
 
     public RingCellMesh build(List<Node2D> builderNodes){
         return build(builderNodes, apicalResolution, lateralResolution);

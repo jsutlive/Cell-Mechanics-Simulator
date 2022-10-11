@@ -4,6 +4,7 @@ import Framework.Engine;
 import Framework.States.State;
 import Input.InputEvents;
 import Input.InputPanel;
+import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,12 +32,13 @@ public class DisplayWindow
         frame.add(canvas);
         frame.setJMenuBar(menuBar);
 
-        InputPanel inputPanel = new InputPanel();
+        InputPanel inputPanel = new InputPanel(canvas);
         frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
         InputEvents input = new InputEvents();
-        frame.addKeyListener(input);
+        canvas.addKeyListener(input);
         canvas.addMouseListener(input);
+        canvas.addMouseMotionListener(input);
         frame.setFocusable(true);
         frame.requestFocus();
         frame.pack();
@@ -50,6 +52,8 @@ public class DisplayWindow
         menu.add(exportItem);
         menuBar.add(menu);
     }
+
+
 
     private void CreateDisplay()
     {

@@ -38,4 +38,9 @@ public class Vector2i {
 
         return new Vector2f(fx, fy);
     }
+
+    public String print(){
+        return x + ", " + y;
+    }
+
 }

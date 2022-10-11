@@ -13,7 +13,8 @@ public class SimpleCellMesh extends Mesh{
         for(int i =0; i < nodeCount; i++){
             Vector2f unit = CustomMath.GetUnitVectorOnCircle(i, nodeCount);
             Vector2f positionFromCenter = unit.mul(radius);
-            nodes.add(new Node2D(positionFromCenter.add(center)));
+            Vector2f nodePosition = positionFromCenter.add(center);
+            nodes.add(new Node2D(nodePosition));
         }
         for(int i = 0; i < nodes.size(); i++){
             if(i != (nodes.size()-1)){

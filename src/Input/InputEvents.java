@@ -3,12 +3,10 @@ package Input;
 import Framework.Events.EventHandler;
 import Utilities.Geometry.Vector.Vector2i;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.event.MouseInputAdapter;
+import java.awt.event.*;
 
-public class InputEvents implements KeyListener, MouseListener {
+public class InputEvents implements KeyListener, MouseListener, MouseMotionListener {
 
     private boolean spaceToggle = false;
 
@@ -82,9 +80,14 @@ public class InputEvents implements KeyListener, MouseListener {
     public static EventHandler<Boolean> onPlay = new EventHandler<>();
     public static EventHandler<Boolean> onStop = new EventHandler<>();
     public static EventHandler<MouseEvent> onClick = new EventHandler<>();
+    public static EventHandler<MouseEvent> onMove = new EventHandler<>();
 
     public void click(MouseEvent event){
         onClick.invoke(event);
+    }
+
+    public void moveMouse(MouseEvent event){
+        onMove.invoke(event);
     }
 
     public static void play(){
@@ -101,5 +104,15 @@ public class InputEvents implements KeyListener, MouseListener {
 
     public void shift(Vector2i i){
         onShift.invoke( i);
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        moveMouse(e);
     }
 }

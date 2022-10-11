@@ -96,6 +96,30 @@ public class MeshTests {
     }
 
     @Test
+    void check_if_node_collision_algorithm_detects_point_within_mesh(){
+        Vector2f testPoint = new Vector2f();
+        assertTrue(testMesh.collidesWithPoint(testPoint));
+    }
+
+    @Test
+    void check_if_node_collision_algorithm_detects_point_outside_mesh(){
+        Vector2f testPoint = new Vector2f(-3,-3);
+        assertFalse(testMesh.collidesWithPoint(testPoint));
+    }
+
+    @Test
+    void check_if_node_collision_algorithm_detects_point_outside_mesh_coinciding_on_line(){
+        Vector2f testPoint = new Vector2f(-1,-3);
+        assertFalse(testMesh.collidesWithPoint(testPoint));
+    }
+
+   @Test
+    void check_if_node_collision_algorithm_detects_coinciding_on_mesh(){
+        Vector2f testPoint = new Vector2f(-1,-3);
+        assertTrue(testMesh.collidesWithPoint(testPoint));
+    }
+
+    @Test
     void check_if_node_area_calculates_correctly_for_basic_square(){
         assertEquals(4.0f, testMesh.getArea());
     }

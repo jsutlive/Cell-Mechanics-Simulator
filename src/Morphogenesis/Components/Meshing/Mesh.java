@@ -4,6 +4,7 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Nodes.Node;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
@@ -21,8 +22,12 @@ public abstract class Mesh extends Component {
     private Vector2f centroid;
     public float restingArea;
 
-    public boolean contains(Node2D n){
-        return nodes.contains(n);
+    public boolean contains(Node n){
+        for(Node2D node : nodes){
+            if(node.getPosition().equals(n.getPosition()))
+                return true;
+        }
+        return false;
     }
     public boolean contains(Edge e){
         return edges.contains(e);

@@ -37,49 +37,30 @@ public class CellRingCollider extends Force {
     }
 
     @Override
-    public void earlyUpdate() {
+    public void lateUpdate() {
         checkCollision();
     }
+
     private void checkCollision() {
         for(Cell cell: cells){
             RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
-            for(Node2D node: innerNodes){
-                Vector2f nodePosition = node.getPosition();
-                if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
+            for(Node2D node: nodes){
+                if(mesh.contains(node)) continue;
+                else if(mesh.collidesWithNode(node)) {
                     for (Edge e : mesh.edges) {
-                        if (!(e instanceof BasalEdge)) {
-                            continue;
-                        }
-                        setNodePositionToClosestEdge(node, nodePosition, e);
-                    }
-                }
-            }
-            for(Node2D node: outerNodes){
-                Vector2f nodePosition = node.getPosition();
-                if(mesh.collidesWithNode(node) && !mesh.contains(node)) {
-                    for (Edge e : mesh.edges) {
-                        if (!(e instanceof ApicalEdge)) {
-                            continue;
-                        }
-                        setNodePositionToClosestEdge(node, nodePosition, e);
+                        setNodePositionToClosestEdge(node, e);
                     }
                 }
             }
         }
-
-
     }
 
-    private void setNodePositionToClosestEdge(Node2D node, Vector2f nodePosition, Edge e) {
+    private void setNodePositionToClosestEdge(Node2D node, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        //float dist = CustomMath.sq(nodePosition.x - closePoint.x) + CustomMath.sq(nodePosition.y - closePoint.y);
-        //Vector v = CustomMath.normal(e).mul(dist * 5f);
-        //if(!v.isNull()) {
-            //Node[] nodes = e.getNodes();
-            //nodes[0].moveTo(nodes[0].getPosition().add(v));
-            //nodes[1].moveTo(nodes[1].getPosition().add(v));
-            node.moveTo(closePoint);
-        //}
+        if(node.getPosition().distanceTo(closePoint) > 5){
+            return;
+        }
+        node.moveTo(closePoint);
     }
 
 

@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Physics.Spring;
 
 import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Components.Physics.Force;
 import Utilities.Geometry.Vector.Vector;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 

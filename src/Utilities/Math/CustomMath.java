@@ -10,8 +10,8 @@ import Utilities.Geometry.Vector.Vector2f;
 public class CustomMath {
 
     public static Vector2f ClosestPointToSegmentFromPoint(Vector2f point, Vector2f[] segment){
-        Vector2f edgeVector = segment[1].copy().sub(segment[0]);
-        Vector2f pointToEdgeP0 = point.copy().sub(segment[0]);
+        Vector2f edgeVector = segment[1].sub(segment[0]);
+        Vector2f pointToEdgeP0 = point.sub(segment[0]);
 
         float p0Dot = pointToEdgeP0.dot(edgeVector);
         float magnitudeSquared = edgeVector.dot(edgeVector);
@@ -19,7 +19,7 @@ public class CustomMath {
         if (p0Dot > magnitudeSquared){return segment[1].copy();}
 
         Vector2f closestPoint = segment[0].copy();
-        closestPoint.add(edgeVector.mul(p0Dot/magnitudeSquared));
+        closestPoint = closestPoint.add(edgeVector.mul(p0Dot/magnitudeSquared));
 
         return closestPoint;
     }
@@ -55,7 +55,7 @@ public class CustomMath {
     {
         Vector2f worldScale = new Vector2f(unitVector.x * radius, unitVector.y * radius);
         Vector2f axisWorld = new Vector2f(axis.greater()/2);
-        worldScale.add(axisWorld);
+        worldScale = worldScale.add(axisWorld);
         return worldScale;
     }
 

@@ -30,7 +30,7 @@ public abstract class State
         state = _state;
     }
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
-    public static void addToResultantForce(Vector2f v){RESULTANT_FORCE.add(v);}
+    public static void addToResultantForce(Vector2f v){RESULTANT_FORCE = RESULTANT_FORCE.add(v);}
 
     protected List<Entity> allObjects = new ArrayList<>();
     protected List<IRender> renderBatch = new ArrayList<>();

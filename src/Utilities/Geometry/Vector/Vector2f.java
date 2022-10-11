@@ -30,9 +30,10 @@ public class Vector2f extends Vector
     public Vector2f add(Vector vec)
     {
         Vector2f vec2f = (Vector2f) vec;
-        x += vec2f.x;
-        y += vec2f.y;
-        return this;
+        Vector2f addVector = this.copy();
+        addVector.x += vec2f.x;
+        addVector.y += vec2f.y;
+        return addVector;
     }
 
     public Vector2f mul(int i)
@@ -45,9 +46,10 @@ public class Vector2f extends Vector
     @Override
     public Vector2f sub(Vector vec) {
         Vector2f vec2f = (Vector2f) vec;
-        x -= vec2f.x;
-        y -= vec2f.y;
-        return this;
+        Vector2f subVector = this.copy();
+        subVector.x -= vec2f.x;
+        subVector.y -= vec2f.y;
+        return subVector;
     }
 
     public Vector2f mul(float f)
@@ -175,5 +177,21 @@ public class Vector2f extends Vector
         if(index == 0) return x;
         if(index == 1) return y;
         else throw new IllegalArgumentException("Out of range argument");
+    }
+
+    public static float pDistance(Vector2f p, Vector2f a, Vector2f b) {
+        float A = p.x - a.x; // position of point rel one end of line
+        float B = p.y - a.y;
+        float C = b.x - a.x; // vector along line
+        float D = b.y - a.y;
+        float E = -D; // orthogonal vector
+        float F = C;
+
+        float dot = A * E + B * F;
+        float len_sq = (E*E) + (F*F);
+        if(len_sq == 0){
+            throw new IllegalArgumentException("DIVIDE BY ZERO ERROR");
+        }
+        return Math.abs(dot / len_sq);
     }
 }

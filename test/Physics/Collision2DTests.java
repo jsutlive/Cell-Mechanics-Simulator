@@ -24,7 +24,7 @@ public class Collision2DTests {
     @Test
     void check_point_on_edge_closest_to_point_on_east_edge(){
         Vector2f checkPoint = new Vector2f(0.8f, 0.5f);
-        Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[2], point2Dmesh[3]};
+        Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[1], point2Dmesh[2]};
         Vector2f pointOnEdge = Collision2D.closestPointToSegmentFromPoint(checkPoint, eastSegment);
         System.out.println(pointOnEdge.print());
         assertEquals(1.0f, pointOnEdge.x);
@@ -33,11 +33,11 @@ public class Collision2DTests {
 
     @Test
     void check_point_on_edge_closest_to_point_on_west_edge(){
-        Vector2f checkPoint = new Vector2f(0.8f, 0.5f);
-        Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[2], point2Dmesh[3]};
+        Vector2f checkPoint = new Vector2f(0.2f, 0.5f);
+        Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[3], point2Dmesh[0]};
         Vector2f pointOnEdge = Collision2D.closestPointToSegmentFromPoint(checkPoint, eastSegment);
         System.out.println(pointOnEdge.print());
-        assertEquals(1.0f, pointOnEdge.x);
+        assertEquals(0.0f, pointOnEdge.x);
         assertEquals(0.5f, pointOnEdge.y);
     }
 

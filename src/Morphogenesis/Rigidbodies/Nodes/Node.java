@@ -37,11 +37,11 @@ public abstract class Node implements IRigidbody {
     @Override
     public void addForceVector(Vector forceVector) {
         forceVectors.put("", forceVector);
-        resultantForceVector.add(forceVector);
+        resultantForceVector = resultantForceVector.add(forceVector);
     }
 
     public void addForceVector(String type, Vector forceVector){
-        resultantForceVector.add(forceVector);
+        resultantForceVector = resultantForceVector.add(forceVector);
         forceVectors.put(type, forceVector);
     }
 
@@ -58,8 +58,7 @@ public abstract class Node implements IRigidbody {
      */
     @Override
     public void move() {
-        //resultantForceVector = Force.limitForce(resultantForceVector, 5f);
-        position.add(resultantForceVector.mul(Engine.TIMESTEP));
+        position = position.add(resultantForceVector.mul(Engine.TIMESTEP));
     }
 
     /**
