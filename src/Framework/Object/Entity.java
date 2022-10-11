@@ -44,6 +44,9 @@ public abstract class Entity implements IBehavior
     * @return uniqueID of a given Entity
     */
    public int getStateID() {return uniqueID;}
+   public static void resetGlobalID(){
+      _ID_COUNTER = 0;
+   }
    public static void setGlobalID(Entity entity)
    {
       entity.uniqueID = _ID_COUNTER;

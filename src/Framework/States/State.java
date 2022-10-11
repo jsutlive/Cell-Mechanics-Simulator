@@ -1,6 +1,7 @@
 package Framework.States;
 
 import Framework.Engine;
+import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
@@ -36,6 +37,11 @@ public abstract class State
     protected List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
+    public static EventHandler<Float> setNewElasticConstants = new EventHandler<>();
+    public static void setNewElasticConstants(float f){
+        setNewElasticConstants.invoke(f);
+    }
+
     /**
      * Change state between running simulation and an editor state
      * editor state not implemented
@@ -64,6 +70,7 @@ public abstract class State
             state.allObjects = currentObjects;
             state.renderBatch = renderBatch;
         }
+        Entity.resetGlobalID();
         Time.reset();
         GetState().Init();
     }

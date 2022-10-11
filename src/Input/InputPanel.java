@@ -9,6 +9,8 @@ import Utilities.Geometry.Vector.Vector2i;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 public class InputPanel {
@@ -18,6 +20,7 @@ public class InputPanel {
     private JButton stopButton;
     private JLabel mouseLabel;
     private Canvas tempCanvasReference; //FIX
+    private JTextField elasticConstantsModifier;
 
     public InputPanel(Canvas canvas){
         initialize();
@@ -40,9 +43,34 @@ public class InputPanel {
         createTimestepSlider();
         ComponentPanel componentPanel = new ComponentPanel();
 
+        elasticConstantsModifier = new JTextField();
+        elasticConstantsModifier.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                String s = elasticConstantsModifier.getText();
+                if(!s.isEmpty()){
+                    float f = Float.parseFloat(elasticConstantsModifier.getText());
+                    State.setNewElasticConstants(f);
+                }
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        panel.add(elasticConstantsModifier);
+        panel.add(new JLabel("Elastic Constant"), BorderLayout.NORTH);
+
         panel.add(componentPanel.getPanel());
         mouseLabel = new JLabel("TEST");
         panel.add(mouseLabel);
+
 
     }
 
@@ -61,7 +89,7 @@ public class InputPanel {
         timestepSlider.setPaintTicks(true);
         timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 10000f));
 
-        panel.add(timestepLabel);
+        panel.add(timestepLabel, BorderLayout.NORTH);
         panel.add(timestepSlider);
 
     }
@@ -99,6 +127,7 @@ public class InputPanel {
 
     void disablePlayButton(boolean bool){
         playButton.setEnabled(false);
+        elasticConstantsModifier.setEnabled(false);
         stopButton.setEnabled(true);
         try {
             State.ChangeState();
@@ -109,6 +138,7 @@ public class InputPanel {
 
     void enablePlayButton(boolean bool){
         playButton.setEnabled(true);
+        elasticConstantsModifier.setEnabled(true);
         stopButton.setEnabled(false);
         try {
             State.ChangeState();

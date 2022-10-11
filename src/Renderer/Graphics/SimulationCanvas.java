@@ -23,7 +23,7 @@ public class SimulationCanvas extends Canvas {
     public void exportImage(String imageName) {
         try {
             System.out.println("Exporting image: " + imageName);
-            FileOutputStream out = new FileOutputStream(new File(".").getAbsolutePath() + imageName + ".png");
+            FileOutputStream out = new FileOutputStream("Assets/" + imageName + ".png");
             ImageIO.write(image, "png", out);
             out.close();
         } catch (FileNotFoundException e) {

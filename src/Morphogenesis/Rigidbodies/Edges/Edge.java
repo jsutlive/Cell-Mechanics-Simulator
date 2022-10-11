@@ -1,5 +1,6 @@
 package Morphogenesis.Rigidbodies.Edges;
 
+import Framework.States.State;
 import Renderer.Graphics.IColor;
 import Morphogenesis.Rigidbodies.IRigidbody;
 import Morphogenesis.Rigidbodies.Nodes.Node;
@@ -67,6 +68,7 @@ public abstract class Edge implements IRigidbody, IColor
         nodes[0] = a;
         nodes[1] = b;
         initialLength = getLength();
+        State.setNewElasticConstants.subscribe(this::setElasticConstant);
     }
 
     public void flip()

@@ -1,15 +1,9 @@
 package Renderer.Graphics;
 
-import Framework.Engine;
-import Framework.States.State;
 import Input.InputEvents;
 import Input.InputPanel;
-import Utilities.Geometry.Vector.Vector2i;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class DisplayWindow
@@ -17,8 +11,8 @@ public class DisplayWindow
     private JFrame frame;
     private SimulationCanvas canvas;
     private JMenuBar menuBar;
-    private String title;
-    private int width, height;
+    private final String title;
+    private final int width, height;
 
     public DisplayWindow(String _title, int _width, int _height)
     {
@@ -70,6 +64,8 @@ public class DisplayWindow
         canvas = new SimulationCanvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
+        canvas.setMaximumSize(new Dimension(width, height));
+
     }
 
     public SimulationCanvas GetCanvas()

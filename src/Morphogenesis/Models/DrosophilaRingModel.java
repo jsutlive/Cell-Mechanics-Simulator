@@ -3,12 +3,11 @@ package Morphogenesis.Models;
 import Framework.States.State;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.MouseSelector;
+import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Morphogenesis.Entities.*;
 import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Components.Physics.Forces.GaussianGradient;
-import Morphogenesis.Components.Physics.Forces.Gradient;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -38,7 +37,6 @@ public class DrosophilaRingModel extends Model {
     public float innerRadius = 200;
 
     public transient RingMesh ringMesh;
-    public Gradient apicalGradient;
     public transient List<Edge> basalEdges = new ArrayList<>();
     public transient List<Edge> apicalEdges = new ArrayList<>();
     public final Vector2i boundingBox = new Vector2i(800);
@@ -47,10 +45,6 @@ public class DrosophilaRingModel extends Model {
     @Override
     public void awake() throws InstantiationException {
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
-        apicalGradient = new GaussianGradient(0f, 1.2f);
-        apicalGradient.calculate(numberOfConstrictingSegmentsInCircle,
-                75.4f, .01f,
-                5f, .05f);
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
         List<Node2D> yolkNodes = new ArrayList<>();
@@ -70,6 +64,7 @@ public class DrosophilaRingModel extends Model {
     @Override
     public void start() {
         addComponent(new MouseSelector());
+        addComponent(new ApicalGradient());
         addComponent(new CellRingCollider());
     }
 
