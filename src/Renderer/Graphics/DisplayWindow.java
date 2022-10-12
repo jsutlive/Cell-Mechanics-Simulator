@@ -2,9 +2,14 @@ package Renderer.Graphics;
 
 import Input.InputEvents;
 import Input.InputPanel;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class DisplayWindow
 {
@@ -42,9 +47,24 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
-        exportItem.addActionListener(e-> canvas.exportImage("TEST"));
+        exportItem.addActionListener(e-> exportImage("TEST"));
         menu.add(exportItem);
         menuBar.add(menu);
+    }
+
+    public void exportImage(String filename){
+        try {
+            Robot robot = new Robot();
+            int x = frame.getX() + canvas.getX();
+            int y = frame.getY() +canvas.getY();
+            Rectangle rect = new Rectangle(x, y, width, height);
+            BufferedImage screenshot = robot.createScreenCapture(rect);
+
+            ImageIO.write(screenshot, "JPG",
+                    new File("Assets/" + filename + ".jpg"));
+        } catch (AWTException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

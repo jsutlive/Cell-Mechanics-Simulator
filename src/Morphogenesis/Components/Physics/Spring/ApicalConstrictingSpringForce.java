@@ -9,6 +9,7 @@ import Morphogenesis.Rigidbodies.Edges.Edge;
 
 public class ApicalConstrictingSpringForce extends SpringForce {
     float rampTime = 5f;
+
     @Override
     public void awake() {
         Mesh mesh = parent.getComponent(Mesh.class);
