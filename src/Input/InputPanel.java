@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.Flow;
 
 public class InputPanel {
 
@@ -36,10 +37,13 @@ public class InputPanel {
     }
 
     public void initialize() {
-        panel = new JPanel(new GridLayout(10, 1, 10, 10));
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        createPlayButton();
-        createStopButton();
+        JPanel buttonGroup = new JPanel(new FlowLayout());
+        buttonGroup.add(createPlayButton());
+        buttonGroup.add(createStopButton());
+        panel.add(buttonGroup);
         createTimestepSlider();
         ComponentPanel componentPanel = new ComponentPanel();
 
@@ -94,7 +98,7 @@ public class InputPanel {
 
     }
 
-    private void createPlayButton() {
+    private JButton createPlayButton() {
         playButton = new JButton("Play");
         ImageIcon playIcon = new ImageIcon("assets/play.png");
         Image play = playIcon.getImage();
@@ -102,10 +106,10 @@ public class InputPanel {
         playButton.setIcon(new ImageIcon(play));
         playButton.addActionListener(e -> InputEvents.play());
         playButton.setBackground(Color.GREEN);
-        panel.add(playButton);
+        return playButton;
     }
 
-    private void createStopButton() {
+    private JButton createStopButton() {
         stopButton = new JButton("Stop");
         ImageIcon stopIcon = new ImageIcon("assets/stop.png");
         Image stop = stopIcon.getImage();
@@ -114,7 +118,7 @@ public class InputPanel {
         stopButton.addActionListener(e -> InputEvents.stop());
         stopButton.setBackground(Color.RED);
         stopButton.setEnabled(false);
-        panel.add(stopButton);
+        return stopButton;
     }
 
     public JPanel getPanel(){
