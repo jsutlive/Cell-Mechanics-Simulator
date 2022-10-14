@@ -3,7 +3,7 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
-import Renderer.ComponentPanel;
+import Renderer.EntityPanel;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
@@ -12,7 +12,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.concurrent.Flow;
 
 public class InputPanel {
 
@@ -45,7 +44,7 @@ public class InputPanel {
         buttonGroup.add(createStopButton());
         panel.add(buttonGroup);
         createTimestepSlider();
-        ComponentPanel componentPanel = new ComponentPanel();
+        EntityPanel componentPanel = new EntityPanel();
 
         elasticConstantsModifier = new JTextField();
         elasticConstantsModifier.addKeyListener(new KeyListener() {
@@ -69,7 +68,7 @@ public class InputPanel {
             }
         });
         panel.add(elasticConstantsModifier);
-        panel.add(new JLabel("Elastic Constant"), BorderLayout.NORTH);
+        panel.add(new JLabel("Global Elastic Constant"), BorderLayout.NORTH);
 
         panel.add(componentPanel.getPanel());
         mouseLabel = new JLabel("TEST");

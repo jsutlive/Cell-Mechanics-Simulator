@@ -18,7 +18,7 @@ public abstract class Mesh extends Component {
     public List<Node2D> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 
-    protected float area;
+    public float area;
     private Vector2f centroid;
     public float restingArea;
 

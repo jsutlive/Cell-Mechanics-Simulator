@@ -1,5 +1,5 @@
 package Framework.Object;
 
 public interface IExposeToGUI {
-    void gui();
+    void changeFieldOnGui(String name, Object value);
 }

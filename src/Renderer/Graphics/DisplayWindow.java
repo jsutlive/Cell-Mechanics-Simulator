@@ -19,6 +19,9 @@ public class DisplayWindow
     private final String title;
     private final int width, height;
 
+    JMenuItem playItem;
+    JMenuItem stopItem;
+
     public DisplayWindow(String _title, int _width, int _height)
     {
         this.title = _title;
@@ -41,6 +44,9 @@ public class DisplayWindow
         frame.setFocusable(true);
         frame.requestFocus();
         frame.pack();
+
+        InputEvents.onPlay.subscribe(this::enableMenuBarOptionsOnPlay);
+        InputEvents.onStop.subscribe(this::enableMenuBarOptionsOnStop);
     }
 
     private void createJMenuBar(){
@@ -50,6 +56,26 @@ public class DisplayWindow
         exportItem.addActionListener(e-> exportImage("TEST"));
         menu.add(exportItem);
         menuBar.add(menu);
+
+        JMenu menu2 = new JMenu("Test");
+        playItem = new JMenuItem("Run", KeyEvent.VK_R);
+        playItem.addActionListener(e-> InputEvents.play());
+
+        stopItem = new JMenuItem("Stop", KeyEvent.VK_ESCAPE);
+        stopItem.addActionListener(e-> InputEvents.stop());
+        menu2.add(playItem);
+        menu2.add(stopItem);
+        menuBar.add(menu2);
+    }
+
+    private void enableMenuBarOptionsOnPlay(boolean b){
+        stopItem.setEnabled(true);
+        playItem.setEnabled(false);
+    }
+
+    private void enableMenuBarOptionsOnStop(boolean b){
+        stopItem.setEnabled(false);
+        playItem.setEnabled(true);
     }
 
     public void exportImage(String filename){

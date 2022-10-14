@@ -45,18 +45,16 @@ public abstract class Component implements IBehavior, IExposeToGUI {
     public void onValidate(){}
 
     @Override
-    public void gui() {
-        try {
-            Field[] fields = this.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                Class type = field.getType();
-                Object value = field.get(this);
-                String name = field.getName();
-
-
+    public void changeFieldOnGui(String name, Object value){
+        for(Field f: getClass().getDeclaredFields()){
+            if(f.getName() == name){
+                try {
+                    f.set(this, value);
+                }
+                catch (IllegalAccessException e){
+                    e.printStackTrace();
+                }
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         }
     }
 }

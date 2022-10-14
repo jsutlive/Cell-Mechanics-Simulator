@@ -1,59 +1,48 @@
 package Renderer;
 
 import Framework.Object.Component;
-import Framework.Object.Entity;
-import Morphogenesis.Components.Meshing.Mesh;
-import Morphogenesis.Components.MouseSelector;
-import Morphogenesis.Components.Physics.Force;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 
 public class ComponentPanel {
 
     JPanel panel;
-    JLabel nameLabel;
-    JLabel restingAreaLabel;
-    JLabel areaLabel;
+    ArrayList<String> componentNames = new ArrayList<>();
 
     public JPanel getPanel() {
         return panel;
     }
 
-    public ComponentPanel(){
-        panel = new JPanel(new GridLayout(7,0));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        panel.setBackground(Color.gray);
-        createBaseLabels();
-
-        MouseSelector.onEntitySelected.subscribe(this::setPanelName);
-    }
-
-    private void createBaseLabels() {
-        nameLabel = new JLabel("TEST LABEL");
-        restingAreaLabel = new JLabel("RESTING AREA");
-        areaLabel = new JLabel("CURRENT AREA");
-        panel.add(nameLabel);
-        panel.add(restingAreaLabel);
-        panel.add(areaLabel);
-    }
-
-    public void setPanelName(Entity e){
-        panel.removeAll();
-        createBaseLabels();
-        nameLabel.setText("ENTITY " + e.getStateID());
-        Mesh mesh = e.getComponent(Mesh.class);
-        if(mesh!=null){
-            restingAreaLabel.setText("Resting area: " + mesh.restingArea);
-            areaLabel.setText("Current area: " + mesh.getArea());
+    public ComponentPanel(Component c) {
+        panel = new JPanel(new GridLayout(0, 1, 5, 5 ));
+        Class type = null;
+        Object value = null;
+        String name = null;
+        Class componentClass = c.getClass();
+        panel.add(new JLabel(componentClass.getSimpleName()));
+        for(Field f : componentClass.getFields()){
+            if(Modifier.isTransient(f.getModifiers())){
+                f.setAccessible(true);
+            }else if (Modifier.isProtected(f.getModifiers())){
+                f.setAccessible(true);
+            }
+            try {
+                type = f.getType();
+                value = f.get(c);
+                name = f.getName();
+            }
+            catch (IllegalAccessException e){
+                e.printStackTrace();
+            }
+            FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
+            if(fieldPanel.isSerializable)
+                panel.add(fieldPanel.getPanel());
         }
-        panel.add(new JLabel(""));
-        for(Component c: e.getComponents()){
-            if(Force.class.isAssignableFrom(c.getClass()))
-                panel.add(new JLabel(c.getClass().getSimpleName()));
-        }
-    }
 
+    }
 
 }

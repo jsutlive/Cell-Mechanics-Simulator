@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class SpringForce extends Force {
-    protected float constant;
+    public float constant;
     public void setConstant(float f){
         constant = f;
     }
 
     // The resting length may not be the initial length of the spring. What percentage
     // of the initial length is the target?
-    protected float targetLengthRatio;
+    public float targetLengthRatio;
     public List<Edge> edges = new ArrayList<>();
 
     public void setTargetLengthRatio(float ratio){
