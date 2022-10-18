@@ -3,6 +3,7 @@ package Renderer;
 import Framework.Object.Component;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class FieldPanel {
@@ -13,7 +14,8 @@ public class FieldPanel {
 
     public FieldPanel(Component c, Class type, Object value, String name ){
         panel = new JPanel(new GridLayout(0, 2));
-        panel.setBackground(Color.gray);
+        panel.setBorder(new EmptyBorder(2,5,2,5));
+        panel.setBackground(Color.lightGray);
         this.name = name;
         if(type == int.class){
             int val = (int) value;

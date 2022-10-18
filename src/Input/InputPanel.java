@@ -8,6 +8,7 @@ import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -38,7 +39,7 @@ public class InputPanel {
     public void initialize() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         JPanel buttonGroup = new JPanel(new FlowLayout());
         buttonGroup.add(createPlayButton());
         buttonGroup.add(createStopButton());
@@ -85,23 +86,26 @@ public class InputPanel {
 
 
     private void createTimestepSlider() {
+        JPanel timestepPanel = new JPanel();
         JLabel timestepLabel = new JLabel("timestep");
+        timestepLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, 0, 60, 10);
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(5);
         timestepSlider.setPaintTicks(true);
         timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 10000f));
 
-        panel.add(timestepLabel, BorderLayout.NORTH);
-        panel.add(timestepSlider);
-
+        timestepPanel.add(timestepLabel);
+        timestepPanel.add(timestepSlider);
+        panel.add(timestepPanel);
     }
 
     private JButton createPlayButton() {
         playButton = new JButton("Play");
+        playButton.setPreferredSize(new Dimension(150,30));
         ImageIcon playIcon = new ImageIcon("assets/play.png");
         Image play = playIcon.getImage();
-        play = play.getScaledInstance(120,120, Image.SCALE_SMOOTH);
+        play = play.getScaledInstance(15,15, Image.SCALE_SMOOTH);
         playButton.setIcon(new ImageIcon(play));
         playButton.addActionListener(e -> InputEvents.play());
         playButton.setBackground(Color.GREEN);
@@ -110,9 +114,10 @@ public class InputPanel {
 
     private JButton createStopButton() {
         stopButton = new JButton("Stop");
+        stopButton.setPreferredSize(new Dimension(150,30));
         ImageIcon stopIcon = new ImageIcon("assets/stop.png");
         Image stop = stopIcon.getImage();
-        stop = stop.getScaledInstance(120,120, Image.SCALE_SMOOTH);
+        stop = stop.getScaledInstance(15,15, Image.SCALE_SMOOTH);
         stopButton.setIcon(new ImageIcon(stop));
         stopButton.addActionListener(e -> InputEvents.stop());
         stopButton.setBackground(Color.RED);

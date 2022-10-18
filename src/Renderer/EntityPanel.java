@@ -6,6 +6,7 @@ import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class EntityPanel {
@@ -18,9 +19,10 @@ public class EntityPanel {
     }
 
     public EntityPanel(){
-        panel = new JPanel(new GridLayout(7,0));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        panel.setBackground(Color.gray);
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(new EmptyBorder(2,2,2,2));
+
         createBaseLabels();
 
         MouseSelector.onEntitySelected.subscribe(this::setPanelName);

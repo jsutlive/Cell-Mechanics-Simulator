@@ -3,6 +3,7 @@ package Renderer;
 import Framework.Object.Component;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -18,7 +19,7 @@ public class ComponentPanel {
     }
 
     public ComponentPanel(Component c) {
-        panel = new JPanel(new GridLayout(0, 1, 5, 5 ));
+        panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         Class type = null;
         Object value = null;
         String name = null;
@@ -41,6 +42,7 @@ public class ComponentPanel {
             FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
             if(fieldPanel.isSerializable)
                 panel.add(fieldPanel.getPanel());
+
         }
 
     }
