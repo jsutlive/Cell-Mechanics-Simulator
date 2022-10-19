@@ -21,9 +21,6 @@ public class RunState extends State
         if(model == null) {
             model = State.create(DrosophilaRingModel.class);
         }
-        for(Entity obj: allObjects){
-            obj.start();
-        }
         //saveInitial();
     }
 

@@ -18,6 +18,7 @@ public class DisplayWindow
     private JMenuBar menuBar;
     private final String title;
     private final int width, height;
+    static InputEvents input;
 
     JMenuItem playItem;
     JMenuItem stopItem;
@@ -37,7 +38,7 @@ public class DisplayWindow
         InputPanel inputPanel = new InputPanel(canvas);
         frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
-        InputEvents input = new InputEvents();
+        input = new InputEvents();
         canvas.addKeyListener(input);
         canvas.addMouseListener(input);
         canvas.addMouseMotionListener(input);
@@ -53,7 +54,7 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
-        exportItem.addActionListener(e-> exportImage("TEST"));
+        exportItem.addActionListener(e-> exportImage("TEST3"));
         menu.add(exportItem);
         menuBar.add(menu);
 

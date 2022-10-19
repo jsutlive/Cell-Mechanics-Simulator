@@ -30,8 +30,8 @@ public class DrosophilaRingModel extends Model {
     public int numberOfSegmentsInTotalCircle = 80;
     public int numberOfConstrictingSegmentsInCircle = 18;
 
-    public int shorteningCellBegin = 10;
-    public int shorteningCellEnd = 40;
+    public int shorteningCellBegin = 15;
+    public int shorteningCellEnd = 30;
 
     public float outerRadius = 300;
     public float innerRadius = 200;
@@ -56,7 +56,8 @@ public class DrosophilaRingModel extends Model {
         }
 
 
-        Yolk.build(yolkNodes, basalEdges);
+        Cell yolk = Yolk.build(yolkNodes, basalEdges);
+        ringMesh.cellList.add(yolk);
         ringMesh.innerNodes.addAll(yolkNodes);
 
     }

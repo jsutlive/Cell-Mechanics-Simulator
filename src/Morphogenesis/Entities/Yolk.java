@@ -15,6 +15,7 @@ public class Yolk extends Cell {
         Cell yolk = State.create(Yolk.class);
         yolk.getComponent(Mesh.class).nodes = yolkNodes;
         yolk.getComponent(Mesh.class).edges = yolkEdges;
+        yolk.setRingLocation(Integer.MAX_VALUE);
         return yolk;
     }
 

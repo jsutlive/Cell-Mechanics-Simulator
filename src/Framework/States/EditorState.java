@@ -17,6 +17,9 @@ public class EditorState extends State
         model = State.create(DrosophilaRingModel.class);
         assert model != null;
         model.addTag(Tag.MODEL);
+        for(Entity obj: allObjects){
+            obj.start();
+        }
     }
 
     @Override

@@ -4,6 +4,7 @@ import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.Physics.OsmosisForce;
+import Morphogenesis.Components.Physics.Spring.InternalElasticForce;
 import Morphogenesis.Components.Render.CellRenderer;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -31,7 +32,7 @@ public class ApicalConstrictingCell extends Cell
         addComponent(new ElasticForce());
         addComponent(new ApicalConstrictingSpringForce());
         addComponent(new OsmosisForce());
-//        addComponent(new InternalElasticForce());
+        addComponent(new InternalElasticForce());
     }
 
     @Override
