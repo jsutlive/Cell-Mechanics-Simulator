@@ -14,13 +14,18 @@ public class ApicalGradient extends Component {
 
     List<Cell> cellGroup = new ArrayList<>();
     int numberOfConstrictingCells = 18;
-    Gradient gradient = new GaussianGradient(0, 0.8f);
+    public float mu = 0f;
+    public float sigma = 0.8f;
+    public float constantCeiling = 75.4f;
+    public float constantFloor = 5f;
+    public float ratioCeiling = 0.01f;
+    public float ratioFloor = .05f;
+    Gradient gradient = new GaussianGradient(mu, sigma);
 
     @Override
     public void awake() {
         gradient.calculate(numberOfConstrictingCells,
-                75.4f, .01f,
-                5f, .05f);
+                constantCeiling, ratioCeiling, constantFloor, ratioFloor);
         RingMesh mesh = getComponent(RingMesh.class);
         for(Cell cell: mesh.cellList){
             if(cell.getRingLocation() < numberOfConstrictingCells/2){
