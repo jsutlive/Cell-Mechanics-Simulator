@@ -18,10 +18,6 @@ public class RunState extends State
     @Override
     public void Init() {
         model = findObjectWithTag(Tag.MODEL);
-        if(model == null) {
-            model = State.create(DrosophilaRingModel.class);
-        }
-        //saveInitial();
     }
 
     /**

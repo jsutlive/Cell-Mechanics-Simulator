@@ -4,6 +4,7 @@
     <root id="archive" name="MorphogenesisSimulationV2.jar">
       <element id="module-output" name="MorphogenesisSimulationV2" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.9.1/gson-2.9.1.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/assets" />
     </root>
   </artifact>
 </component>

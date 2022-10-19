@@ -54,7 +54,7 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
-        exportItem.addActionListener(e-> exportImage("TEST3"));
+        exportItem.addActionListener(e-> exportImage());
         menu.add(exportItem);
         menuBar.add(menu);
 
@@ -79,7 +79,7 @@ public class DisplayWindow
         playItem.setEnabled(true);
     }
 
-    public void exportImage(String filename){
+    public void exportImage(){
         try {
             Robot robot = new Robot();
             int x = frame.getX() + canvas.getX();
@@ -87,8 +87,14 @@ public class DisplayWindow
             Rectangle rect = new Rectangle(x, y, width, height);
             BufferedImage screenshot = robot.createScreenCapture(rect);
 
-            ImageIO.write(screenshot, "JPG",
-                    new File("Assets/" + filename + ".jpg"));
+            JFileChooser chooser = new JFileChooser();
+            int choice = chooser.showSaveDialog(null);
+           if(choice == JFileChooser.APPROVE_OPTION){
+               ImageIO.write(screenshot, "JPG",
+                       new File(chooser.getSelectedFile() + ".jpg"));
+           }
+
+
         } catch (AWTException | IOException e) {
             e.printStackTrace();
         }

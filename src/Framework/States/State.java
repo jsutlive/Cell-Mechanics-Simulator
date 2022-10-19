@@ -33,7 +33,7 @@ public abstract class State
     public static Vector2f RESULTANT_FORCE = new Vector2f(0);
     public static void addToResultantForce(Vector2f v){RESULTANT_FORCE = RESULTANT_FORCE.add(v);}
 
-    protected List<Entity> allObjects = new ArrayList<>();
+    protected static List<Entity> allObjects = new ArrayList<>();
     protected List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public abstract class State
         {
             if(state!= null) {
                 state.OnChangeState();
-                state.allObjects = currentObjects;
+                allObjects = currentObjects;
                 state.renderBatch = renderBatch;
             }
             SetState(new EditorState());
@@ -67,7 +67,7 @@ public abstract class State
         else
         {
             SetState(new RunState());
-            state.allObjects = currentObjects;
+            allObjects = currentObjects;
             state.renderBatch = renderBatch;
         }
         Entity.resetGlobalID();
@@ -77,7 +77,7 @@ public abstract class State
 
     protected static void reset() {
         state.renderBatch.clear();
-        state.allObjects.clear();
+        allObjects.clear();
         physicsThreads.clear();
     }
 
@@ -117,7 +117,7 @@ public abstract class State
         //Create entity and have it perform its awake functions, encapsulated in null check
         if(obj!= null) {
             Entity.setGlobalID(obj);
-            state.allObjects.add(obj);
+            allObjects.add(obj);
             return type.cast(obj);
         }
         return null;

@@ -1,6 +1,7 @@
 package Framework.Object;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 
 public abstract class Component implements IBehavior, IExposeToGUI {
     protected transient Entity parent;
@@ -44,12 +45,26 @@ public abstract class Component implements IBehavior, IExposeToGUI {
     public void onDestroy(){}
     public void onValidate(){}
 
+    private <T extends Object> T reflect(Class<T> componentClass){
+        return(T)this;
+    }
+
     @Override
-    public void changeFieldOnGui(String name, Object value){
-        for(Field f: getClass().getDeclaredFields()){
-            if(f.getName() == name){
+    public void changeFieldOnGUI(String name, Object value){
+        Component c = this;
+        for(Field f: getClass().getFields()){
+            if(f.getName().equals(name)){
                 try {
-                    f.set(this, value);
+                    boolean accessible = f.isAccessible();
+                    f.setAccessible(true);
+                    if(f.getDeclaringClass() == this.getClass().getSuperclass()) {
+                        f.set(c.reflect(getClass().getSuperclass()), value);
+                        System.out.println("TEST");
+                    }
+                    else {
+                        f.set(this, value);
+                    }
+                    f.setAccessible(accessible);
                 }
                 catch (IllegalAccessException e){
                     e.printStackTrace();
@@ -57,4 +72,5 @@ public abstract class Component implements IBehavior, IExposeToGUI {
             }
         }
     }
+
 }
