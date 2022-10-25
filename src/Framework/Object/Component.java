@@ -1,5 +1,7 @@
 package Framework.Object;
 
+import Morphogenesis.Components.ReloadComponentOnChange;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
@@ -68,6 +70,9 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                 }
                 catch (IllegalAccessException e){
                     e.printStackTrace();
+                }
+                if(f.getDeclaredAnnotation(ReloadComponentOnChange.class)!=null){
+                    c.awake();
                 }
             }
         }
