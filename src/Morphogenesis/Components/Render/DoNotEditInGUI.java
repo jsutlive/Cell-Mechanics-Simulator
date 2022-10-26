@@ -1,4 +1,4 @@
-package Morphogenesis.Components;
+package Morphogenesis.Components.Render;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface ReloadComponentOnChange {
+public @interface DoNotEditInGUI {
 }
-

@@ -7,7 +7,6 @@ import Renderer.EntityPanel;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;

@@ -1,7 +1,9 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Component;
+import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
+import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node;
@@ -18,8 +20,10 @@ public abstract class Mesh extends Component {
     public List<Node2D> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
 
+    @DoNotEditInGUI
     public float area;
     private Vector2f centroid;
+    @DoNotEditInGUI
     public float restingArea;
 
     public boolean contains(Node n){

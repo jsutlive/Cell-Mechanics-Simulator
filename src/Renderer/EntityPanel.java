@@ -1,6 +1,7 @@
 package Renderer;
 
 import Framework.Object.Component;
+import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
@@ -50,6 +51,7 @@ public class EntityPanel {
 
     private void setComponents(Entity e) {
         for(Component c: e.getComponents()){
+            if(c.getClass().getAnnotation(DoNotExposeInGUI.class) != null) continue;
             ComponentPanel componentPanel = new ComponentPanel(c);
             panel.add(componentPanel.getPanel());
             /*if(Force.class.isAssignableFrom(c.getClass()))
