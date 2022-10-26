@@ -104,7 +104,7 @@ public class InputPanel {
 
     private JButton createPlayButton() {
         playButton = new JButton("Play");
-        playButton.setPreferredSize(new Dimension(150,30));
+        playButton.setPreferredSize(new Dimension(100,30));
         ImageIcon playIcon = new ImageIcon("assets/play.png");
         Image play = playIcon.getImage();
         play = play.getScaledInstance(15,15, Image.SCALE_SMOOTH);
@@ -116,7 +116,7 @@ public class InputPanel {
 
     private JButton createStopButton() {
         stopButton = new JButton("Stop");
-        stopButton.setPreferredSize(new Dimension(150,30));
+        stopButton.setPreferredSize(new Dimension(100,30));
         ImageIcon stopIcon = new ImageIcon("assets/stop.png");
         Image stop = stopIcon.getImage();
         stop = stop.getScaledInstance(15,15, Image.SCALE_SMOOTH);
