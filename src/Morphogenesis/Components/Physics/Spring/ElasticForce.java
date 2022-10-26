@@ -11,6 +11,7 @@ public class ElasticForce extends SpringForce {
     public void awake() {
         edges = getComponent(Mesh.class).edges;
         targetLengthRatio = 1;
+        constant = edges.get(0).getElasticConstant();
     }
 
     @Override

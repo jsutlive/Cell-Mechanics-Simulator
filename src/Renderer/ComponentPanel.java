@@ -1,6 +1,7 @@
 package Renderer;
 
 import Framework.Object.Component;
+import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,9 +48,16 @@ public class ComponentPanel {
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
-            FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
-            if(fieldPanel.isSerializable)
-                panel.add(fieldPanel.getPanel());
+            if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null){
+                StaticFieldPanel staticFieldPanel = new StaticFieldPanel(c, type, value, name);
+                if(staticFieldPanel.isSerializable)
+                    panel.add(staticFieldPanel.getPanel());
+            }
+            else {
+                FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
+                if (fieldPanel.isSerializable)
+                    panel.add(fieldPanel.getPanel());
+            }
 
         }
     }

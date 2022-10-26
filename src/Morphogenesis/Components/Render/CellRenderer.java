@@ -1,5 +1,6 @@
 package Morphogenesis.Components.Render;
 
+import Framework.Object.DoNotExposeInGUI;
 import Framework.States.State;
 import Morphogenesis.Components.Lattice.Lattice;
 import Renderer.Graphics.IColor;
@@ -13,6 +14,7 @@ import java.awt.*;
 /**
  * Cell Renderer class handles all drawing functions for the cells.
  */
+@DoNotExposeInGUI
 public class CellRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
