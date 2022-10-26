@@ -2,6 +2,7 @@ package Renderer;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class EntityPanel {
     }
 
     public void setPanelName(Entity e){
+        SelectionEvents.selectedEntity = e;
         panel.removeAll();
         createBaseLabels();
         nameLabel.setText("ENTITY " + e.getStateID());

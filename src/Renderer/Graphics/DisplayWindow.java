@@ -2,6 +2,8 @@ package Renderer.Graphics;
 
 import Input.InputEvents;
 import Input.InputPanel;
+import Input.SelectionEvents;
+import Morphogenesis.Components.Physics.Spring.ElasticForce;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -67,6 +69,16 @@ public class DisplayWindow
         menu2.add(playItem);
         menu2.add(stopItem);
         menuBar.add(menu2);
+
+        JMenu menu3 = new JMenu("Selection");
+        JMenu addComponentSubMenu = new JMenu("Add Component");
+
+        JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
+        elasticForceOption.addActionListener(e-> SelectionEvents.addComponentToSelected(new ElasticForce()));
+        addComponentSubMenu.add(elasticForceOption);
+
+        menu3.add(addComponentSubMenu);
+        menuBar.add(menu3);
     }
 
     private void enableMenuBarOptionsOnPlay(boolean b){

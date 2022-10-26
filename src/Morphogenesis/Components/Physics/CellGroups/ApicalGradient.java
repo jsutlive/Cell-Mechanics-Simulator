@@ -5,6 +5,7 @@ import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Forces.GaussianGradient;
 import Morphogenesis.Components.Physics.Forces.Gradient;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
+import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Entities.Cell;
 
@@ -48,6 +49,13 @@ public class ApicalGradient extends Component {
                         setTargetLengthRatio(gradient.getRatios()[cell.getRingLocation() - 1]);
 
             }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        for(Cell cell: cellGroup){
+            cell.removeComponent(ApicalConstrictingSpringForce.class);
         }
     }
 }

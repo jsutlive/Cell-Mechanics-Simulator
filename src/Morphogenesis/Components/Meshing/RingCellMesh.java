@@ -2,7 +2,6 @@ package Morphogenesis.Components.Meshing;
 
 import Framework.Data.*;
 import Framework.Object.Entity;
-import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -57,12 +56,12 @@ public class RingCellMesh extends Mesh{
 
         // go through each of the vertices, plus
         // the next vertex in the list
-        int next = 0;
+        int next;
         for (int current=0; current<nodes.size(); current++) {
 
             // get next vertex in list
             // if we've hit the end, wrap around to 0
-            next = current+1;
+            next = current + 1;
             if (next == nodes.size()) next = 0;
 
             // get the PVectors at our current position
