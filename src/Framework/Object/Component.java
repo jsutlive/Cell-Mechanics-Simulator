@@ -51,6 +51,11 @@ public abstract class Component implements IBehavior, IExposeToGUI {
         return(T)this;
     }
 
+    public void removeSelf(){
+        onDestroy();
+        parent.removeComponent(this.getClass());
+    }
+
     @Override
     public void changeFieldOnGUI(String name, Object value){
         Component c = this;

@@ -14,7 +14,7 @@ public class FieldPanel {
     public String name;
 
     public FieldPanel(Component c, Class<?> type, Object value, String name ){
-        panel = new JPanel(new GridLayout(0, 2));
+        panel = new JPanel(new GridLayout(0, 3));
         panel.setBorder(new EmptyBorder(2,5,2,5));
         panel.setBackground(Color.lightGray);
         this.name = name;
@@ -40,6 +40,8 @@ public class FieldPanel {
             isSerializable = false;
         }
     }
+
+
 
     public void changeGUI(Component c, JTextField field, Class<?> type){
         if(type == int.class){

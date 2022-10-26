@@ -117,4 +117,5 @@ public abstract class Entity implements IBehavior
    public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
+
 }

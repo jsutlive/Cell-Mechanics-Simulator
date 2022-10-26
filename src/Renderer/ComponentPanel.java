@@ -40,7 +40,15 @@ public class ComponentPanel {
                 panel.add(fieldPanel.getPanel());
 
         }
+        addDeleteButton(c);
 
+    }
+    public void addDeleteButton(Component component){
+        JButton deleteButton = new JButton("X");
+        deleteButton.setPreferredSize(new Dimension(20, 20));
+        deleteButton.setBackground(Color.red);
+        deleteButton.addActionListener(e -> component.removeSelf());
+        panel.add(deleteButton);
     }
 
 }

@@ -40,4 +40,5 @@ public interface IBehavior
      * Checks/ methods to be run prior to awake, typically via annotations
      */
     void onValidate();
+
 }
