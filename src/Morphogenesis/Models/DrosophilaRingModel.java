@@ -28,7 +28,7 @@ public class DrosophilaRingModel extends Model {
 
 
     public int numberOfSegmentsInTotalCircle = 80;
-    public int numberOfConstrictingSegmentsInCircle = 18;
+    public int numberOfConstrictingSegmentsInCircle = 12;
 
     public int shorteningCellBegin = 15;
     public int shorteningCellEnd = 30;

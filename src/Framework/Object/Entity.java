@@ -1,9 +1,6 @@
 package Framework.Object;
 
-import Framework.Events.EventHandler;
-import Framework.Events.IEvent;
 import Framework.States.State;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +8,13 @@ public abstract class Entity implements IBehavior
 {
    private static int _ID_COUNTER = 0;
    private int uniqueID;
-   private List<Component> components = new ArrayList<>();
+   private List<Component> components;
    private Tag tag;
 
    public static <T extends Entity> T createObject(Class<T> monoClass){
       try {
          Entity e = monoClass.newInstance();
+         e.components = new ArrayList<>();
          e.awake();
          return monoClass.cast(e);
       }
@@ -29,6 +27,7 @@ public abstract class Entity implements IBehavior
    public static <T extends Entity> T createObject(Class<T> monoClass, Component component){
       try {
          Entity e = monoClass.newInstance();
+         e.components = new ArrayList<>();
          e.components.add(component);
          e.awake();
          return monoClass.cast(e);
@@ -66,8 +65,8 @@ public abstract class Entity implements IBehavior
    /**
     * Removes the object and its references from the current state
     */
-   public void destroy()
-   {
+   public void destroy() {
+      onDestroy();
       State.destroy(this);
    }
 
@@ -82,13 +81,25 @@ public abstract class Entity implements IBehavior
       c.setParent(this);
       c.onValidate();
       c.awake();
-      return (T) c;
+      T component = null;
+      try{
+         component = (T) c;
+      }catch (ClassCastException e){
+         e.printStackTrace();
+      }
+      return component;
    }
 
    public List<Component> getComponents(){
       return components;
    }
 
+   /**
+    * Returns a component of a given subclass of component
+    * @param componentClass an instance of this class is added as a component
+    * @param <T> sybtype of component
+    * @return the component that was added to this entity
+    */
    public <T extends Component> T getComponent(Class<T> componentClass) {
       for (Component c : components) {
          if (componentClass.isAssignableFrom(c.getClass())) {
@@ -106,10 +117,4 @@ public abstract class Entity implements IBehavior
    public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
-
-   public <T extends Entity> T withComponent(Component component){
-      components.add(component);
-      return (T) this;
-   }
-
 }

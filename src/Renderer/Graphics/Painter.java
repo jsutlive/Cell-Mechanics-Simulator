@@ -1,5 +1,6 @@
 package Renderer.Graphics;
 
+import Morphogenesis.Components.Lattice.Lattice;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Renderer.Renderer;
@@ -28,6 +29,13 @@ public class Painter {
             drawLine(positions[0].asInt(), positions[1].asInt(), color);
             drawEdgeNormal(edge);
         }
+        /*Lattice lattice = cell.getComponent(Lattice.class);
+        if(lattice!=null){
+            for(Edge edge: lattice.edgeList){
+                Vector2f[] positions = edge.getPositions();
+                drawLine(positions[0].asInt(), positions[1].asInt(), color);
+            }
+        }*/
     }
 
     public static void drawForce(Node2D node, Vector2f forceVector){

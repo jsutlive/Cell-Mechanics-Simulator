@@ -3,7 +3,7 @@ package Framework.Timer;
 public class Time {
     // Set frame rate and physics update rate
     public static final int fps = 60;
-    public static final int fixedPhysicsSteps = 60;
+    public static final int fixedPhysicsSteps = 120;
 
     // system time and delta time variables
     public static long initialTime = System.nanoTime();

@@ -10,13 +10,14 @@ public class InternalElasticForce extends SpringForce {
     public void awake() {
         edges = getComponent(Lattice.class).edgeList;
         targetLengthRatio = 1;
+        constant = 0.5f;
     }
 
     @Override
     public void update() {
         Vector force;
         for(Edge edge: edges){
-            force = calculateSpringForce(edge, edge.getElasticConstant());
+            force = calculateSpringForce(edge, constant);
             edge.addConstrictionForceVector(getClass().getSimpleName(), force);
         }
     }

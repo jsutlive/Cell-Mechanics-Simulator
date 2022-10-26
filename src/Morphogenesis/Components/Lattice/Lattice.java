@@ -18,14 +18,16 @@ public class Lattice extends Component {
     /**
      * Assumes apical resolution of 1. Constructs lattice based on the cell mesh     *
      */
+    @Builder
     public void buildLattice(){
         List<Node2D> nodes = getComponent(RingCellMesh.class).nodes;
         if(nodes.size() != 0){
             int nodeSize = nodes.size();
-            int count = (nodeSize/2);
+            int count = (nodeSize/2) - 1;
             for(int i = 0; i <count; i++){
                 edgeList.add(new BasicEdge(nodes.get(i), nodes.get(nodeSize - i - 2)));
                 edgeList.add(new BasicEdge(nodes.get(i+1), nodes.get(nodeSize - i - 1) ));
+                System.out.println("here");
             }
         }
 
