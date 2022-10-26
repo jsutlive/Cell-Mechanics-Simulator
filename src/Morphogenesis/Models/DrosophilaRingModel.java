@@ -4,6 +4,7 @@ import Framework.States.State;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.MouseSelector;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
+import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Morphogenesis.Entities.*;
@@ -66,6 +67,7 @@ public class DrosophilaRingModel extends Model {
     public void start() {
         addComponent(new MouseSelector());
         addComponent(new ApicalGradient());
+        addComponent(new LateralGradient());
         addComponent(new CellRingCollider());
     }
 
