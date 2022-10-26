@@ -20,7 +20,19 @@ public class ComponentPanel {
         Object value = null;
         String name = null;
         Class componentClass = c.getClass();
-        panel.add(new JLabel(componentClass.getSimpleName()));
+
+
+        JPanel namePanel = new JPanel();
+        namePanel.add(new JLabel(componentClass.getSimpleName()));
+        JButton deleteButton = new JButton("X");
+        deleteButton.setPreferredSize(new Dimension(20, 20));
+        deleteButton.setBackground(Color.red);
+        deleteButton.addActionListener(e -> c.removeSelf());
+        namePanel.add(deleteButton);
+        panel.add(namePanel);
+
+
+
         for(Field f : componentClass.getFields()){
             if(Modifier.isTransient(f.getModifiers())){
                 f.setAccessible(true);
@@ -40,15 +52,6 @@ public class ComponentPanel {
                 panel.add(fieldPanel.getPanel());
 
         }
-        addDeleteButton(c);
-
-    }
-    public void addDeleteButton(Component component){
-        JButton deleteButton = new JButton("X");
-        deleteButton.setPreferredSize(new Dimension(20, 20));
-        deleteButton.setBackground(Color.red);
-        deleteButton.addActionListener(e -> component.removeSelf());
-        panel.add(deleteButton);
     }
 
 }

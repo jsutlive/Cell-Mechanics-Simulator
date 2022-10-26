@@ -39,6 +39,7 @@ public class InputPanel {
     public void initialize() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setPreferredSize(new Dimension(300,100));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         JPanel buttonGroup = new JPanel(new FlowLayout());
         buttonGroup.add(createPlayButton());
@@ -71,7 +72,9 @@ public class InputPanel {
         panel.add(elasticConstantsModifier);
         panel.add(new JLabel("Global Elastic Constant"), BorderLayout.NORTH);
 
-        panel.add(componentPanel.getPanel());
+        JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());
+        componentScroll.setHorizontalScrollBar(null);
+        panel.add(componentScroll);
         mouseLabel = new JLabel("TEST");
         panel.add(mouseLabel);
 
