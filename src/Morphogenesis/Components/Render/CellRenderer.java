@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Render;
 
 import Framework.States.State;
+import Morphogenesis.Components.Lattice.Lattice;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.Painter;
 import Morphogenesis.Entities.Cell;
@@ -39,7 +40,13 @@ public class CellRenderer extends ObjectRenderer
                 ((IColor) edge).setColor(color);
             }
         }
-
+        if(getComponent(Lattice.class).edgeList!=null) {
+            for (Edge edge : getComponent(Lattice.class).edgeList){
+                if(edge != null){
+                    ((IColor) edge).setColor(Color.gray);
+                }
+            }
+        }
     }
 
     /**

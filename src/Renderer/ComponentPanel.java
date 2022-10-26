@@ -3,17 +3,13 @@ package Renderer;
 import Framework.Object.Component;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 
 public class ComponentPanel {
 
     JPanel panel;
-    ArrayList<String> componentNames = new ArrayList<>();
-
     public JPanel getPanel() {
         return panel;
     }
