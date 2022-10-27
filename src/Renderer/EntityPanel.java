@@ -24,7 +24,7 @@ public class EntityPanel {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(2,2,2,2));
-
+        panel.setAutoscrolls(true);
         createBaseLabels();
 
         MouseSelector.onEntitySelected.subscribe(this::setPanelName);

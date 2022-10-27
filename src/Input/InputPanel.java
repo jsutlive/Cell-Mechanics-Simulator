@@ -38,6 +38,7 @@ public class InputPanel {
     public void initialize() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setPreferredSize(new Dimension(300,100));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         JPanel buttonGroup = new JPanel(new FlowLayout());
         buttonGroup.add(createPlayButton());
@@ -70,7 +71,9 @@ public class InputPanel {
         panel.add(elasticConstantsModifier);
         panel.add(new JLabel("Global Elastic Constant"), BorderLayout.NORTH);
 
-        panel.add(componentPanel.getPanel());
+        JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());
+        componentScroll.setHorizontalScrollBar(null);
+        panel.add(componentScroll);
         mouseLabel = new JLabel("TEST");
         panel.add(mouseLabel);
 
@@ -101,7 +104,7 @@ public class InputPanel {
 
     private JButton createPlayButton() {
         playButton = new JButton("Play");
-        playButton.setPreferredSize(new Dimension(150,30));
+        playButton.setPreferredSize(new Dimension(100,30));
         ImageIcon playIcon = new ImageIcon("assets/play.png");
         Image play = playIcon.getImage();
         play = play.getScaledInstance(15,15, Image.SCALE_SMOOTH);
@@ -113,7 +116,7 @@ public class InputPanel {
 
     private JButton createStopButton() {
         stopButton = new JButton("Stop");
-        stopButton.setPreferredSize(new Dimension(150,30));
+        stopButton.setPreferredSize(new Dimension(100,30));
         ImageIcon stopIcon = new ImageIcon("assets/stop.png");
         Image stop = stopIcon.getImage();
         stop = stop.getScaledInstance(15,15, Image.SCALE_SMOOTH);
