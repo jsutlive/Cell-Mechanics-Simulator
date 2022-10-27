@@ -4,6 +4,7 @@ import Morphogenesis.Rigidbodies.Edges.BasicEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
@@ -182,6 +183,36 @@ public class GeometryTests {
         System.out.println(testEdges.get(3));
 
         assertEquals(e, testEdges.get(1) );
+    }
+
+    @Test
+    void check_angel_between_two_points_straight_line(){
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(0, 1);
+        Vector2f c = new Vector2f(0, 2);
+
+        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
+        assertEquals(180.0f, theta);
+    }
+
+    @Test
+    void check_angel_between_two_points_ninety_degrees(){
+        Vector2f a = new Vector2f(0,0);
+        Vector2f b = new Vector2f(0, 1);
+        Vector2f c = new Vector2f(1, 1);
+
+        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
+        assertEquals(90.0f, theta);
+    }
+
+    @Test
+    void check_angel_between_two_points_twoseventy_degrees(){
+        Vector2f a = new Vector2f(1,1);
+        Vector2f b = new Vector2f(0, 1);
+        Vector2f c = new Vector2f(0, 0);
+
+        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
+        assertEquals(270.0f, theta);
     }
 
     @Test

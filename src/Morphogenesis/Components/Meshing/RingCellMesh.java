@@ -2,6 +2,7 @@ package Morphogenesis.Components.Meshing;
 
 import Framework.Data.*;
 import Framework.Object.Entity;
+import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -18,8 +19,10 @@ import java.util.List;
 @LogData
 public class RingCellMesh extends Mesh{
 
-    transient int lateralResolution = 4;
-    transient int apicalResolution = 1;
+    @DoNotEditInGUI
+    public int lateralResolution = 4;
+    @DoNotEditInGUI
+    public int apicalResolution = 1;
 
 
     @Override

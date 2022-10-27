@@ -1,5 +1,6 @@
 package Morphogenesis.Entities;
 
+import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.Physics.Spring.InternalElasticForce;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
@@ -15,7 +16,8 @@ public class ShorteningCell extends Cell{
         addComponent(new ElasticForce());
         addComponent(new LateralShorteningSpringForce());
         addComponent(new OsmosisForce());
-        addComponent(new InternalElasticForce());
+        //addComponent(new InternalElasticForce());
+        addComponent(new EdgeStiffness2D());
     }
 
     @Override

@@ -17,6 +17,22 @@ public class Geometry {
     public static Vector2f APPROX_INF = new Vector2f(1e15f);
     public static float ninetyDegreesAsRadians = (float)Math.PI/2;
 
+    public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
+        Vector2f a = new Vector2f(p1.x - p2.x, p2.y - p2.y);
+        Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
+
+        double angleP1P2 = Math.atan2(a.y, a.x);
+        double angleP3P2 = Math.atan2(b.y, b.x);
+
+        return normalizeToInteriorAngle(angleP3P2 - angleP1P2);
+    }
+
+    private static float normalizeToInteriorAngle(double angle){
+        if(angle <0) angle+= (2*Math.PI);
+        //else if (angle > Math.PI) angle = (2 * Math.PI - angle);
+        return (float)Math.toDegrees(angle);
+    }
+
     public static boolean polygonContainsPoint(Cell cell, Node2D point){
         int count = 0;
 
@@ -82,28 +98,6 @@ public class Geometry {
         return getMinMaxBoundary(mesh.nodes);
     }
 
-    public static Vector2f intersectingPointOfTwoLines(Vector2f p1, Vector2f p2, Vector2f p3, Vector2f p4)
-    {
-        // Line AB represented as a1x + b1y = c1
-        float a1 = p2.y - p1.y;
-        float b1 = p1.x - p2.x;
-        float c1 = a1*(p1.x) + b1*(p1.y);
-
-        // Line CD represented as a2x + b2y = c2
-        float a2 = p4.y - p3.y;
-        float b2 = p3.x - p4.x;
-        float c2 = a2*(p3.x)+ b2*(p3.y);
-
-        float determinant = a1*b2 - a2*b1;
-
-        if(determinant > 0){
-            float x = (b2*c1 - b1*c2)/determinant;
-            float y = (a1*c2 - a2*c1)/determinant;
-            return new Vector2f(x, y);
-        }
-        else return APPROX_INF;
-    }
-
     public static Vector2f getNearestPointOnLine(Edge e, Vector2f n){
         Vector2f p1 = e.getPositions()[0].copy();
         Vector2f p2 = e.getPositions()[1].copy();
@@ -139,23 +133,6 @@ public class Geometry {
         return currentEdge;
     }
 
-    public static float calculateAngleBetweenEdges(Edge a, Edge b){
-        Node[] edgeANodes = a.getNodes();
-        Node[] edgeBNodes = b.getNodes();
-        List<Node> cornerNodes = Node.getAllUnique(edgeANodes, edgeBNodes);
-        if(cornerNodes.size()!=3){
-            throw new IllegalArgumentException("Corners should only consist of three nodes");
-        }
-
-        Vector p1 = cornerNodes.get(0).getPosition();
-        Vector p2 = cornerNodes.get(1).getPosition();
-        Vector p3 = cornerNodes.get(2).getPosition();
-        return  calculateAngleBetweenPoints(p1, p2, p3);
-    }
-
-    public static float calculateAngleBetweenPoints(Corner corner){
-        return calculateAngleBetweenPoints(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
-    }
     public static float calculateAngleBetweenPoints(Vector p1, Vector p2, Vector p3){
         Vector2f a = new Vector2f(p2.get(0) - p1.get(0), p2.get(1) - p1.get(1));
         Vector2f b = new Vector2f(p3.get(0) - p2.get(0), p3.get(1) - p2.get(1));
@@ -179,42 +156,6 @@ public class Geometry {
         Vector2f force = Vector2f.unit(pointToMove, target);
         if(force.isNull()) return Vector2f.zero;
         return CustomMath.round(force, 3);
-    }
-
-    public static Vector2f getHalfAngleForceFromCorner(Corner corner){
-        return getHalfAngleForceFromCorner(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
-    }
-
-    public static Vector2f getHalfAngleForceFromCorner(Vector2f a, Vector2f b, Vector2f c){
-        float theta;
-        Vector2f forceVector;
-
-        float length = Vector2f.dist(a, c);
-        float cosTheta = ((a.x-b.x)*(c.x-b.x)+(a.y-b.y)*(c.y-b.y))/Vector2f.dist(b, a)/Vector2f.dist(b, c);
-        boolean isClockwise = isClockwise(a,b,c);
-        if(isClockwise) {
-            theta = (3 * ninetyDegreesAsRadians) - (float) Math.acos(cosTheta);
-            forceVector = new Vector2f(theta * (a.y-c.y)/length,
-                                       theta * (c.x - a.x/length));
-            if(cornerForceDirectionIsInverted(a,b,c)) forceVector.mul(-1);
-        }
-        else {
-            theta = (float)Math.acos(cosTheta) - ninetyDegreesAsRadians;
-            forceVector = new Vector2f(theta * (a.y-c.y)/length,
-                                       theta * (c.x - a.x/length));
-            if(!cornerForceDirectionIsInverted(a,b,c))forceVector.mul(-1);
-        }
-        if(forceVector.isNull()) return Vector2f.zero;
-        return forceVector;
-    }
-
-    private static boolean cornerForceDirectionIsInverted(Vector2f a, Vector2f b, Vector2f c){
-        float value = (a.x-b.x) * (a.y - c.y) + (b.y - a.y) + (c.x - a.x);
-        return value < 0;
-    }
-
-    public static boolean isClockwise(Corner corner){
-        return isClockwise(corner._a.getPosition(), corner._b.getPosition(), corner._c.getPosition());
     }
 
     public static boolean isClockwise(Vector a, Vector b, Vector c){
