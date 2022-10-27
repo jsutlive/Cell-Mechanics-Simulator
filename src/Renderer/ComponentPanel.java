@@ -1,6 +1,7 @@
 package Renderer;
 
 import Framework.Object.Component;
+import Framework.Object.DoNotDestroyInGUI;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
@@ -25,11 +26,15 @@ public class ComponentPanel {
 
         JPanel namePanel = new JPanel();
         namePanel.add(new JLabel(componentClass.getSimpleName()));
-        JButton deleteButton = new JButton("X");
-        deleteButton.setPreferredSize(new Dimension(20, 20));
-        deleteButton.setBackground(Color.red);
-        deleteButton.addActionListener(e -> c.removeSelf());
-        namePanel.add(deleteButton);
+
+        if(c.getClass().getAnnotation(DoNotDestroyInGUI.class)==null) {
+            JButton deleteButton = new JButton("X");
+            deleteButton.setPreferredSize(new Dimension(20, 20));
+            deleteButton.setBackground(Color.red);
+            deleteButton.addActionListener(e -> c.removeSelf());
+            namePanel.add(deleteButton);
+        }
+
         panel.add(namePanel);
 
 

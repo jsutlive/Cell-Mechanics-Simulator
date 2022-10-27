@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Data.*;
+import Framework.Object.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
@@ -17,6 +18,7 @@ import java.util.List;
  * Can be used to determine collision boundaries, etc.
  */
 @LogData
+@DoNotDestroyInGUI
 public class RingCellMesh extends Mesh{
 
     @DoNotEditInGUI

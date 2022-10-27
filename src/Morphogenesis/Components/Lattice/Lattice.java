@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Lattice;
 
 import Framework.Object.Component;
+import Framework.Object.DoNotExposeInGUI;
 import Morphogenesis.Components.Meshing.Builder;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Rigidbodies.Edges.BasicEdge;
@@ -12,6 +13,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+@DoNotExposeInGUI
 public class Lattice extends Component {
     public List<Edge> edgeList = new ArrayList<>();
 

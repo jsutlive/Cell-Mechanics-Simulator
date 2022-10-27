@@ -1,5 +1,7 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Object.DoNotDestroyInGUI;
+import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
 import Morphogenesis.Entities.ApicalConstrictingCell;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@DoNotExposeInGUI
 public class RingMesh extends Mesh{
 
     int lateralResolution = 4;
