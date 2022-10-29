@@ -5,6 +5,7 @@ import Framework.Object.DoNotDestroyInGUI;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -18,6 +19,7 @@ public class ComponentPanel {
 
     public ComponentPanel(Component c) {
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
+        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         Class type = null;
         Object value = null;
         String name = null;
@@ -29,7 +31,10 @@ public class ComponentPanel {
 
         if(c.getClass().getAnnotation(DoNotDestroyInGUI.class)==null) {
             JButton deleteButton = new JButton("X");
-            deleteButton.setPreferredSize(new Dimension(20, 20));
+            deleteButton.setMargin(new Insets(0,0,0,0));
+            deleteButton.setFont(new Font("Serif", Font.BOLD, 10));
+            deleteButton.setPreferredSize(new Dimension(15, 15));
+            deleteButton.setToolTipText("Delete " + c.getClass().getSimpleName());
             deleteButton.setBackground(Color.red);
             deleteButton.addActionListener(e -> c.removeSelf());
             namePanel.add(deleteButton);

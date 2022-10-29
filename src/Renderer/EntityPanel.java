@@ -31,7 +31,7 @@ public class EntityPanel {
     }
 
     private void createBaseLabels() {
-        nameLabel = new JLabel("TEST LABEL");
+        nameLabel = new JLabel("TEST LABEL", SwingConstants.CENTER);
         panel.add(nameLabel);
     }
 
