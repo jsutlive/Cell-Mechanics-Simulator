@@ -18,8 +18,8 @@ public class Geometry {
     public static float ninetyDegreesAsRadians = (float)Math.PI/2;
 
     public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
-        Vector2f a = new Vector2f(p1.x - p2.x, p2.y - p2.y);
-        Vector2f b = new Vector2f(p3.x - p2.x, p3.y - p2.y);
+        Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
+        Vector2f b = new Vector2f(p2.x - p3.x, p2.y - p3.y);
 
         double angleP1P2 = Math.atan2(a.y, a.x);
         double angleP3P2 = Math.atan2(b.y, b.x);

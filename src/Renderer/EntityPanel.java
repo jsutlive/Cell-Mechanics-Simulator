@@ -40,11 +40,7 @@ public class EntityPanel {
         panel.removeAll();
         createBaseLabels();
         nameLabel.setText("ENTITY " + e.getStateID());
-        /*Mesh mesh = e.getComponent(Mesh.class);
-        if(mesh!=null){
-            restingAreaLabel.setText("Resting area: " + mesh.restingArea);
-            areaLabel.setText("Current area: " + mesh.getArea());
-        }*/
+
         panel.add(new JLabel(""));
         setComponents(e);
     }
@@ -54,8 +50,6 @@ public class EntityPanel {
             if(c.getClass().getAnnotation(DoNotExposeInGUI.class) != null) continue;
             ComponentPanel componentPanel = new ComponentPanel(c);
             panel.add(componentPanel.getPanel());
-            /*if(Force.class.isAssignableFrom(c.getClass()))
-                panel.add(new JLabel(c.getClass().getSimpleName()));*/
         }
     }
 

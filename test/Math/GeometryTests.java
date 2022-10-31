@@ -71,42 +71,6 @@ public class GeometryTests {
     }
 
     @Test
-    void check_min_max_coordinates_of_cell()
-    {
-        Vector2f[] minMax = Geometry.getMinMaxBoundary(cell);
-
-        Vector2f min = minMax[0];
-        Vector2f max = minMax[1];
-        min.print();
-        max.print();
-        assertEquals(min.x, 0);
-        assertEquals(max.x, 2);
-        assertEquals(min.y, 0);
-        assertEquals(max.y, 2);
-    }
-
-    @Test
-    void check_if_point_x1_y1_within_cell()
-    {
-        Node2D point = new Node2D(1,1.5f);
-        assertTrue(Geometry.polygonContainsPoint(cell, point));
-    }
-
-    @Test
-    void check_if_point_node_position_on_cell_not_counting_as_within_cell()
-    {
-        Node2D point = new Node2D(0,0);
-        assertFalse(Geometry.polygonContainsPoint(cell, point));
-    }
-
-    @Test
-    void check_if_point_outside_cell()
-    {
-        Node2D point = new Node2D(-0.5f,0);
-        assertFalse(Geometry.polygonContainsPoint(cell, point));
-    }
-
-    @Test
     void check_if_two_lines_between_1_0_and_1_2_and_perpendicular_values_intersect(){
         Vector2f p1 = new Vector2f(1,0);
         Vector2f p2 = new Vector2f(1, 2);
@@ -174,48 +138,6 @@ public class GeometryTests {
     }
 
     @Test
-    void check_if_edge_closest_to_point_1_1o5_is_e2(){
-        Node2D test = new Node2D(new Vector2f(1, 1.5f));
-        Edge e = Geometry.getClosestEdgeToPoint(cell, test);
-        System.out.println(testEdges.get(0));
-        System.out.println(testEdges.get(1)); // TOP EDGE
-        System.out.println(testEdges.get(2));
-        System.out.println(testEdges.get(3));
-
-        assertEquals(e, testEdges.get(1) );
-    }
-
-    @Test
-    void check_angel_between_two_points_straight_line(){
-        Vector2f a = new Vector2f(0,0);
-        Vector2f b = new Vector2f(0, 1);
-        Vector2f c = new Vector2f(0, 2);
-
-        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
-        assertEquals(180.0f, theta);
-    }
-
-    @Test
-    void check_angel_between_two_points_ninety_degrees(){
-        Vector2f a = new Vector2f(0,0);
-        Vector2f b = new Vector2f(0, 1);
-        Vector2f c = new Vector2f(1, 1);
-
-        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
-        assertEquals(90.0f, theta);
-    }
-
-    @Test
-    void check_angel_between_two_points_twoseventy_degrees(){
-        Vector2f a = new Vector2f(1,1);
-        Vector2f b = new Vector2f(0, 1);
-        Vector2f c = new Vector2f(0, 0);
-
-        float theta = Geometry.calculateAngleBetweenPoints(a, b, c);
-        assertEquals(270.0f, theta);
-    }
-
-    @Test
     void check_if_point_is_on_line()
     {
         Vector2f a = new Vector2f(0,0);
@@ -245,7 +167,7 @@ public class GeometryTests {
 
         float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
 
-        assertEquals(CustomMath.round(ninetyDegreesAsRadians,5), ans);
+        assertEquals(270, ans);
      }
 
     @Test
@@ -256,7 +178,7 @@ public class GeometryTests {
 
         float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)), 5);
 
-        assertEquals(CustomMath.round(fortyFiveDegreesAsRadians,5), ans);
+        assertEquals(315, ans);
     }
 
     @Test
@@ -265,19 +187,19 @@ public class GeometryTests {
         Vector2f p2 = new Vector2f(0,0);
         Vector2f p3 = new Vector2f(1,0);
         float ans = CustomMath.round((Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3))),5);
-        assertEquals(CustomMath.round(2*oneHundredEightyDegreesAsRadians, 5), ans);
+        assertEquals(180, ans);
     }
 
     @Test
     // we show previously as a standard right angle, the correct angle is returned.
     // Does it still work when the angle is flipped?
-    void check_if_90_degree_angle_formed_by_alternate_point_placement(){
-        Vector2f p1 = new Vector2f(0,-1);
+    void check_if_270_degree_angle_formed(){
+        Vector2f p1 = new Vector2f(-1,0);
         Vector2f p2 = new Vector2f(0,0);
-        Vector2f p3 = new Vector2f(1,0);
+        Vector2f p3 = new Vector2f(0,-1);
 
         float ans = CustomMath.round(Math.abs(Geometry.calculateAngleBetweenPoints(p1,p2,p3)),5);
-        assertEquals(CustomMath.round(3 * ninetyDegreesAsRadians, 5), ans);
+        assertEquals(90, ans);
     }
 
     @Test

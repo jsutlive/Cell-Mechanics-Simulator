@@ -1,6 +1,7 @@
 package Morphogenesis.Entities;
 
 import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
@@ -35,6 +36,8 @@ public class ApicalConstrictingCell extends Cell
         addComponent(new OsmosisForce());
         //addComponent(new InternalElasticForce());
         addComponent(new EdgeStiffness2D());
+        addComponent(new CornerStiffness2D());
+
     }
 
     @Override

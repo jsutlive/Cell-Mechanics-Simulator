@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Physics.Collision;
 
 import Framework.Data.LogOnce;
+import Framework.Object.DoNotExposeInGUI;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @LogOnce
+@DoNotExposeInGUI
 public class CellRingCollider extends Force {
     transient List<Cell> cells;
     transient List<Node2D> nodes;
@@ -57,7 +59,7 @@ public class CellRingCollider extends Force {
 
     private void setNodePositionToClosestEdge(Node2D node, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        if(node.getPosition().distanceTo(closePoint) > 5){
+        if(node.getPosition().distanceTo(closePoint) > 0.5f){
             return;
         }
         node.moveTo(closePoint);
