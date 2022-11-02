@@ -27,8 +27,7 @@ public class CellRenderer extends ObjectRenderer
     public void awake() {
         State.setFlagToRender(parent);
         cellMesh = parent.getComponent(Mesh.class);
-        defaultColor = Painter.DEFAULT_COLOR;
-        color = defaultColor;
+        defaultColor = color;
         MouseSelector.onEntitySelected.subscribe(this::highlightColor);
     }
 

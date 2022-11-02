@@ -13,6 +13,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
+import static Framework.Data.ImageHandler.loadImage;
+
+
 public class InputPanel {
 
     private JPanel panel;
@@ -105,7 +108,7 @@ public class InputPanel {
     private JButton createPlayButton() {
         playButton = new JButton("Play");
         playButton.setPreferredSize(new Dimension(100,30));
-        ImageIcon playIcon = new ImageIcon("assets/play.png");
+        ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
         Image play = playIcon.getImage();
         play = play.getScaledInstance(15,15, Image.SCALE_SMOOTH);
         playButton.setIcon(new ImageIcon(play));
@@ -117,7 +120,7 @@ public class InputPanel {
     private JButton createStopButton() {
         stopButton = new JButton("Stop");
         stopButton.setPreferredSize(new Dimension(100,30));
-        ImageIcon stopIcon = new ImageIcon("assets/stop.png");
+        ImageIcon stopIcon = new ImageIcon(loadImage("stop.png"));
         Image stop = stopIcon.getImage();
         stop = stop.getScaledInstance(15,15, Image.SCALE_SMOOTH);
         stopButton.setIcon(new ImageIcon(stop));

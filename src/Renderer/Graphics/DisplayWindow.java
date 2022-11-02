@@ -1,6 +1,6 @@
 package Renderer.Graphics;
 
-import Framework.Data.ImageWriter;
+import Framework.Data.ImageHandler;
 import Input.InputEvents;
 import Input.InputPanel;
 import Input.SelectionEvents;
@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+
+import static Framework.Data.ImageHandler.loadImage;
 
 public class DisplayWindow
 {
@@ -38,7 +40,8 @@ public class DisplayWindow
         frame.setJMenuBar(menuBar);
 
         InputPanel inputPanel = new InputPanel(canvas);
-        frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
+
+        frame.setIconImage(loadImage("cell.png"));
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
 
         HierarchyPanel hierarchyPanel = new HierarchyPanel();
@@ -100,7 +103,7 @@ public class DisplayWindow
 
     public void exportImage(){
         BufferedImage screenshot = captureImage();
-        ImageWriter writer = new ImageWriter(screenshot,
+        ImageHandler writer = new ImageHandler(screenshot,
                 new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets/no_cornerv2_"+count*500 + ".jpg"));
         writer.write();
         count++;
@@ -112,7 +115,7 @@ public class DisplayWindow
         JFileChooser chooser = new JFileChooser();
         int choice = chooser.showSaveDialog(null);
         if (choice == JFileChooser.APPROVE_OPTION) {
-            ImageWriter writer = new ImageWriter(screenshot, chooser.getSelectedFile());
+            ImageHandler writer = new ImageHandler(screenshot, chooser.getSelectedFile());
             writer.write();
         }
     }

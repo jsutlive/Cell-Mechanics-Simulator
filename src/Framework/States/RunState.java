@@ -41,11 +41,11 @@ public class RunState extends State
             obj.lateUpdate();
         }
 
-        if(count%500 == 0) {
+        /*if(count%500 == 0) {
 
             ZoomRenderer instance = (ZoomRenderer) Renderer.getInstance();
             instance.GetDisplayWindow().exportImage();
-        }
+        }*/
         count++;
     }
 
