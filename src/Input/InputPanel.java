@@ -28,8 +28,8 @@ public class InputPanel {
     public InputPanel(Canvas canvas){
         initialize();
 
-        IEvent<Boolean> playEventSink = this::disablePlayButton;
-        IEvent<Boolean> stopEventSink = this::enablePlayButton;
+        IEvent<Boolean> playEventSink = this::playButton;
+        IEvent<Boolean> stopEventSink = this::stopButton;
         IEvent<MouseEvent> mouseMoveEventSink = this::findHoverCoordinates;
 
         InputEvents.onPlay.subscribe(playEventSink);
@@ -43,10 +43,7 @@ public class InputPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setPreferredSize(new Dimension(300,100));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        JPanel buttonGroup = new JPanel(new FlowLayout());
-        buttonGroup.add(createPlayButton());
-        buttonGroup.add(createStopButton());
-        panel.add(buttonGroup);
+        createPlayButton();
         createTimestepSlider();
         EntityPanel componentPanel = new EntityPanel();
 
@@ -105,29 +102,19 @@ public class InputPanel {
         panel.add(timestepPanel);
     }
 
-    private JButton createPlayButton() {
+    void createPlayButton() {
         playButton = new JButton("Play");
-        playButton.setPreferredSize(new Dimension(100,30));
+        playButton.setSize(new Dimension(200,80));
         ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
         Image play = playIcon.getImage();
-        play = play.getScaledInstance(15,15, Image.SCALE_SMOOTH);
+        play = play.getScaledInstance(30,30, Image.SCALE_SMOOTH);
         playButton.setIcon(new ImageIcon(play));
         playButton.addActionListener(e -> InputEvents.play());
         playButton.setBackground(Color.GREEN);
-        return playButton;
-    }
-
-    private JButton createStopButton() {
-        stopButton = new JButton("Stop");
-        stopButton.setPreferredSize(new Dimension(100,30));
-        ImageIcon stopIcon = new ImageIcon(loadImage("stop.png"));
-        Image stop = stopIcon.getImage();
-        stop = stop.getScaledInstance(15,15, Image.SCALE_SMOOTH);
-        stopButton.setIcon(new ImageIcon(stop));
-        stopButton.addActionListener(e -> InputEvents.stop());
-        stopButton.setBackground(Color.RED);
-        stopButton.setEnabled(false);
-        return stopButton;
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(playButton);
+        buttonPanel.setLayout(new FlowLayout());
+        panel.add(buttonPanel);
     }
 
     public JPanel getPanel(){
@@ -138,10 +125,15 @@ public class InputPanel {
         return playButton;
     }
 
-    void disablePlayButton(boolean bool){
-        playButton.setEnabled(false);
+    void stopButton(boolean bool){
         elasticConstantsModifier.setEnabled(false);
-        stopButton.setEnabled(true);
+        playButton.setText("Play");
+        ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
+        Image play = playIcon.getImage();
+        play = play.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        playButton.setIcon(new ImageIcon(play));
+        playButton.removeActionListener(playButton.getActionListeners()[0]);
+        playButton.addActionListener(e -> InputEvents.play());
         try {
             State.ChangeState();
         } catch (InstantiationException | IllegalAccessException e) {
@@ -149,10 +141,16 @@ public class InputPanel {
         }
     }
 
-    void enablePlayButton(boolean bool){
-        playButton.setEnabled(true);
+    void playButton(boolean bool){
         elasticConstantsModifier.setEnabled(true);
-        stopButton.setEnabled(false);
+        playButton.setText("Stop");
+        ImageIcon stopIcon = new ImageIcon(loadImage("stop.png"));
+        Image stop = stopIcon.getImage();
+        stop = stop.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        playButton.setIcon(new ImageIcon(stop));
+        playButton.removeActionListener(playButton.getActionListeners()[0]);
+        playButton.addActionListener(e -> InputEvents.stop());
+
         try {
             State.ChangeState();
         } catch (InstantiationException | IllegalAccessException e) {
