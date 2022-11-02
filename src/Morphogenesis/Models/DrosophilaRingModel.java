@@ -6,19 +6,17 @@ import Morphogenesis.Components.MouseSelector;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
 import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
-import Renderer.Graphics.Vector.CircleGraphic;
+import Morphogenesis.Components.Physics.Collision.RigidBoundary;
 import Morphogenesis.Entities.*;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
-import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.CustomMath;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +45,6 @@ public class DrosophilaRingModel extends Model {
     @Override
     public void awake() throws InstantiationException {
         this.name = "Physics System";
-        State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
         List<Node2D> yolkNodes = new ArrayList<>();
@@ -68,6 +65,7 @@ public class DrosophilaRingModel extends Model {
 
     @Override
     public void start() {
+        addComponent(new RigidBoundary());
         addComponent(new MouseSelector());
         addComponent(new ApicalGradient());
         addComponent(new LateralGradient());
@@ -247,19 +245,5 @@ public class DrosophilaRingModel extends Model {
         return outerRadius +  radiusStep * j;
     }
 
-    @Override
-    public void earlyUpdate() {
-       checkNodesWithinBoundary(getComponent(RingMesh.class).nodes);
-    }
 
-    private void checkNodesWithinBoundary(List<Node2D> allNodes) {
-        for(Node2D node: allNodes)
-        {
-            if(!Boundary.ContainsNode(node, new Vector2f(400), outerRadius))
-            {
-                Boundary.clampNodeToBoundary(node, new Vector2f(400), outerRadius);
-            }
-
-        }
-    }
 }

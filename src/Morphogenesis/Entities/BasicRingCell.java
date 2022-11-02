@@ -13,8 +13,8 @@ public class BasicRingCell extends Cell{
     public void start() {
         addComponent(new ElasticForce());
         addComponent(new OsmosisForce());
-        //addComponent(new InternalElasticForce());
+        addComponent(new InternalElasticForce());
         addComponent(new EdgeStiffness2D());
-        //addComponent(new CornerStiffness2D());
+        addComponent(new CornerStiffness2D());
     }
 }

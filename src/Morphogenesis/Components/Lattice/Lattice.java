@@ -29,7 +29,6 @@ public class Lattice extends Component {
             for(int i = 0; i <count; i++){
                 edgeList.add(new BasicEdge(nodes.get(i), nodes.get(nodeSize - i - 2)));
                 edgeList.add(new BasicEdge(nodes.get(i+1), nodes.get(nodeSize - i - 1) ));
-                System.out.println("here");
             }
         }
 

@@ -32,6 +32,10 @@ public class MouseSelector extends Component {
         }
     }
 
+    public void onMouseDragged(MouseEvent e){
+
+    }
+
     private  void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
         selectEntity(selected);

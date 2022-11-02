@@ -37,12 +37,16 @@ public class ApicalGradient extends Component {
     @Override
     public void awake() {
         calculateGradient();
+        RingMesh mesh = getComponent(RingMesh.class);
+        addCellsToGroup(mesh);
     }
     public void calculateGradient(){
         cellGroup.clear();
         gradient.calculate(numberOfConstrictingCells,
                 constantCeiling, ratioCeiling, constantFloor, ratioFloor);
-        RingMesh mesh = getComponent(RingMesh.class);
+    }
+
+    private void addCellsToGroup(RingMesh mesh) {
         for(Cell cell: mesh.cellList){
             if(cell.getRingLocation() <= numberOfConstrictingCells / 2){
                 if(cell.getComponent(ApicalConstrictingSpringForce.class)== null){
@@ -60,15 +64,6 @@ public class ApicalGradient extends Component {
                     cell.getComponent(CellRenderer.class).setColor(Painter.DEFAULT_COLOR);
                 }
             }
-            /*if(){
-                cellGroup.add(cell);
-                //ApicalConstrictingSpringForce apicalConstriction = new ApicalConstrictingSpringForce();
-                cell.getComponent(ApicalConstrictingSpringForce.class).setConstant
-                        (gradient.getConstants()[cell.getRingLocation() - 1]);
-                cell.getComponent(ApicalConstrictingSpringForce.class).
-                        setTargetLengthRatio(gradient.getRatios()[cell.getRingLocation() - 1]);
-
-            }*/
         }
     }
 

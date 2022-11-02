@@ -1,17 +1,28 @@
 package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
+import Framework.Object.Tooltip;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
+import Morphogenesis.Components.Render.CellRenderer;
 import Morphogenesis.Entities.Cell;
+import Renderer.Graphics.Painter;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class LateralGradient extends Component {
 
     List<Cell> cellGroup = new ArrayList<>();
+
+    @ReloadComponentOnChange
+    public int numberOfConstrictingCells = 20;
+
+    @ReloadComponentOnChange
+    //@Tooltip(text = "number of cells away from center")
+    public int constrictingCellsStartLocation = 10;
 
     @ReloadComponentOnChange
     public float constantCeiling = 10f;
@@ -26,11 +37,25 @@ public class LateralGradient extends Component {
 
     private void calculateParameters() {
         RingMesh mesh = getComponent(RingMesh.class);
+        if(getComponent(ApicalGradient.class)!= null){
+            constrictingCellsStartLocation = Math.max(constrictingCellsStartLocation,
+                    getComponent(ApicalGradient.class).numberOfConstrictingCells/2);
+        }
         for(Cell cell: mesh.cellList) {
-            if(cell.getComponent(LateralShorteningSpringForce.class) != null){
+            if (cell.getRingLocation() >= constrictingCellsStartLocation
+                    && cell.getRingLocation() < constrictingCellsStartLocation + numberOfConstrictingCells) {
+                if (cell.getComponent(LateralShorteningSpringForce.class) == null) {
+                    cell.addComponent(new LateralShorteningSpringForce());
+                }
                 cellGroup.add(cell);
-                cell.getComponent(LateralShorteningSpringForce.class).constant = constantCeiling;
-                cell.getComponent(LateralShorteningSpringForce.class).targetLengthRatio = ratioCeiling;
+                LateralShorteningSpringForce shorteningSpringForce = cell.getComponent(LateralShorteningSpringForce.class);
+                shorteningSpringForce.constant = constantCeiling;
+                shorteningSpringForce.targetLengthRatio = ratioCeiling;
+                cell.getComponent(CellRenderer.class).setColor(Color.BLUE);
+            }
+            else if(cell.getComponent(LateralShorteningSpringForce.class)!= null){
+                cell.removeComponent(LateralShorteningSpringForce.class);
+                cell.getComponent(CellRenderer.class).setColor(Painter.DEFAULT_COLOR);
             }
         }
     }

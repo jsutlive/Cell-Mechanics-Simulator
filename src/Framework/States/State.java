@@ -2,16 +2,13 @@ package Framework.States;
 
 import Framework.Engine;
 import Framework.Events.EventHandler;
-import Framework.Events.IEvent;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.Timer.Time;
-import Input.InputEvents;
 import Renderer.Graphics.IRender;
 import Framework.Object.Component;
 import Morphogenesis.Components.Render.ObjectRenderer;
 import Utilities.Geometry.Vector.Vector2f;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -207,6 +204,26 @@ public abstract class State
         }catch(IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    public static void addComponentToAll(Class<?> componentClass){
+        if(Component.class.isAssignableFrom(componentClass)){
+            for(Entity entity: allObjects){
+                try {
+                    entity.addComponent((Component) componentClass.newInstance());
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public <T extends Component> void removeComponentFromAll(Class<T> componentClass){
+        if(Component.class.isAssignableFrom(componentClass)){
+            for(Entity entity: allObjects){
+                    entity.removeComponent(componentClass);
+            }
         }
     }
 

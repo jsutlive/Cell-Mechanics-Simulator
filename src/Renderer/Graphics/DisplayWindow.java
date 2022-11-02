@@ -1,9 +1,12 @@
 package Renderer.Graphics;
 
 import Framework.Data.ImageHandler;
+import Framework.States.State;
 import Input.InputEvents;
 import Input.InputPanel;
 import Input.SelectionEvents;
+import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
+import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 
 import javax.swing.*;
@@ -89,6 +92,32 @@ public class DisplayWindow
 
         menu3.add(addComponentSubMenu);
         menuBar.add(menu3);
+
+        JMenu menu4 = new JMenu("All Objects");
+        JMenu removeComponentFromAllSubMenu = new JMenu("Remove Component");
+
+        JMenuItem cornerStiffness2DOption = new JMenuItem("CornerStiffness2D");
+        cornerStiffness2DOption.addActionListener(e-> {
+            try {
+                State.GetState().removeComponentFromAll(CornerStiffness2D.class);
+            } catch (InstantiationException | IllegalAccessException instantiationException) {
+                instantiationException.printStackTrace();
+            }
+        });
+        removeComponentFromAllSubMenu.add(cornerStiffness2DOption);
+
+        JMenuItem edgeStiffness2DOption = new JMenuItem("EdgeStiffness2D");
+        edgeStiffness2DOption.addActionListener(e-> {
+            try {
+                State.GetState().removeComponentFromAll(EdgeStiffness2D.class);
+            } catch (InstantiationException | IllegalAccessException instantiationException) {
+                instantiationException.printStackTrace();
+            }
+        });
+        removeComponentFromAllSubMenu.add(edgeStiffness2DOption);
+
+        menu4.add(removeComponentFromAllSubMenu);
+        menuBar.add(menu4);
     }
 
     private void enableMenuBarOptionsOnPlay(boolean b){
