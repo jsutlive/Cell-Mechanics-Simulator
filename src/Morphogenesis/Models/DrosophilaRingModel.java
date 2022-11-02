@@ -36,6 +36,7 @@ public class DrosophilaRingModel extends Model {
 
     public float outerRadius = 300;
     public float innerRadius = 200;
+    int cellCount = 1;
 
     public transient RingMesh ringMesh;
     public transient List<Edge> basalEdges = new ArrayList<>();
@@ -45,6 +46,7 @@ public class DrosophilaRingModel extends Model {
 
     @Override
     public void awake() throws InstantiationException {
+        this.name = "Physics System";
         State.addGraphicToScene(new CircleGraphic(new Vector2i(400), 602, Color.gray));
         ringMesh = addComponent(new RingMesh());
         generateOrganism();
@@ -58,6 +60,7 @@ public class DrosophilaRingModel extends Model {
 
 
         Cell yolk = Yolk.build(yolkNodes, basalEdges);
+        yolk.name = "Yolk";
         ringMesh.cellList.add(yolk);
         ringMesh.innerNodes.addAll(yolkNodes);
 
@@ -226,6 +229,8 @@ public class DrosophilaRingModel extends Model {
 
     public void addCellToList(List<Cell> cellList, Cell cell, int ringLocation) {
         if(cell !=null) {
+            cell.name = "Cell " + cellCount;
+            cellCount++;
             cell.setRingLocation(ringLocation);
             cellList.add(cell);
         }else

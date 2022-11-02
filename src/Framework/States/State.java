@@ -37,6 +37,13 @@ public abstract class State
     protected List<IRender> renderBatch = new ArrayList<>();
     protected static List<Thread> physicsThreads = new ArrayList<>();
 
+    public static List<Entity> getAllObjects(){
+        return allObjects;
+    }
+
+    public static EventHandler<Entity> onAddEntity = new EventHandler<>();
+    public static void addEntity(Entity e ) {onAddEntity.invoke(e);}
+
     public static EventHandler<Float> setNewElasticConstants = new EventHandler<>();
     public static void setNewElasticConstants(float f){
         setNewElasticConstants.invoke(f);
@@ -117,6 +124,7 @@ public abstract class State
         //Create entity and have it perform its awake functions, encapsulated in null check
         if(obj!= null) {
             Entity.setGlobalID(obj);
+            addEntity(obj);
             allObjects.add(obj);
             return type.cast(obj);
         }

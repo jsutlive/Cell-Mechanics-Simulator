@@ -15,6 +15,6 @@ public class BasicRingCell extends Cell{
         addComponent(new OsmosisForce());
         //addComponent(new InternalElasticForce());
         addComponent(new EdgeStiffness2D());
-        addComponent(new CornerStiffness2D());
+        //addComponent(new CornerStiffness2D());
     }
 }

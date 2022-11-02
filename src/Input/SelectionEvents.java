@@ -1,5 +1,6 @@
 package Input;
 
+import Framework.Events.IEvent;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 
@@ -10,4 +11,7 @@ public class SelectionEvents {
         if(selectedEntity == null)return;
         selectedEntity.addComponent(c);
     }
+
+
+
 }

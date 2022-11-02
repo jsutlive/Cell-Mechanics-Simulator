@@ -4,7 +4,9 @@ import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Renderer.Graphics.IRender;
 import Morphogenesis.Models.DrosophilaRingModel;
+import Renderer.*;
 
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 
 public class RunState extends State
@@ -18,6 +20,7 @@ public class RunState extends State
     @Override
     public void Init() {
         model = findObjectWithTag(Tag.MODEL);
+        Collections.shuffle(allObjects);
     }
 
     /**
@@ -38,8 +41,10 @@ public class RunState extends State
             obj.lateUpdate();
         }
 
-        if(count%100 == 0) {
-            //save();
+        if(count%500 == 0) {
+
+            ZoomRenderer instance = (ZoomRenderer) Renderer.getInstance();
+            instance.GetDisplayWindow().exportImage();
         }
         count++;
     }

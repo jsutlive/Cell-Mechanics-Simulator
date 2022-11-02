@@ -1,17 +1,16 @@
 package Renderer.Graphics;
 
+import Framework.Data.ImageWriter;
 import Input.InputEvents;
 import Input.InputPanel;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 public class DisplayWindow
 {
@@ -25,6 +24,7 @@ public class DisplayWindow
     JMenuItem playItem;
     JMenuItem stopItem;
 
+    int count  = 0;
     public DisplayWindow(String _title, int _width, int _height)
     {
         this.title = _title;
@@ -40,6 +40,13 @@ public class DisplayWindow
         InputPanel inputPanel = new InputPanel(canvas);
         frame.setIconImage(new ImageIcon("assets/cell.png").getImage());
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
+
+        HierarchyPanel hierarchyPanel = new HierarchyPanel();
+        JScrollPane hierarchyScrollPlane= new JScrollPane(hierarchyPanel.getPanel());
+        hierarchyPanel.getPanel().setAutoscrolls(true);
+        //frame.add(hierarchyScrollPlane);
+        //frame.add(hierarchyPanel.getPanel(), BorderLayout.EAST);
+
         input = new InputEvents();
         canvas.addKeyListener(input);
         canvas.addMouseListener(input);
@@ -56,7 +63,7 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
-        exportItem.addActionListener(e-> exportImage());
+        exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
         menuBar.add(menu);
 
@@ -92,26 +99,36 @@ public class DisplayWindow
     }
 
     public void exportImage(){
-        try {
-            Robot robot = new Robot();
-            int x = frame.getX() + canvas.getX();
-            int y = frame.getY() +canvas.getY();
-            Rectangle rect = new Rectangle(x, y, width, height);
-            BufferedImage screenshot = robot.createScreenCapture(rect);
+        BufferedImage screenshot = captureImage();
+        ImageWriter writer = new ImageWriter(screenshot,
+                new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets/no_cornerv2_"+count*500 + ".jpg"));
+        writer.write();
+        count++;
 
-            JFileChooser chooser = new JFileChooser();
-            int choice = chooser.showSaveDialog(null);
-           if(choice == JFileChooser.APPROVE_OPTION){
-               ImageIO.write(screenshot, "JPG",
-                       new File(chooser.getSelectedFile() + ".jpg"));
-           }
+    }
 
-
-        } catch (AWTException | IOException e) {
-            e.printStackTrace();
+    private void captureImageFromMenu(){
+        BufferedImage screenshot = captureImage();
+        JFileChooser chooser = new JFileChooser();
+        int choice = chooser.showSaveDialog(null);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            ImageWriter writer = new ImageWriter(screenshot, chooser.getSelectedFile());
+            writer.write();
         }
     }
 
+    public BufferedImage captureImage(){
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        int x = frame.getX() + canvas.getX();
+        int y = frame.getY() +canvas.getY();
+        Rectangle rect = new Rectangle(x, y, width, height);
+        return robot.createScreenCapture(rect);
+    }
 
 
     private void CreateDisplay()

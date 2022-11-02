@@ -39,7 +39,7 @@ public class EntityPanel {
         SelectionEvents.selectedEntity = e;
         panel.removeAll();
         createBaseLabels();
-        nameLabel.setText("ENTITY " + e.getStateID());
+        nameLabel.setText(e.name);
 
         panel.add(new JLabel(""));
         setComponents(e);

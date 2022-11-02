@@ -10,6 +10,7 @@ public abstract class Entity implements IBehavior
    private int uniqueID;
    private List<Component> components;
    private Tag tag;
+   public String name;
 
    public static <T extends Entity> T createObject(Class<T> monoClass){
       try {
