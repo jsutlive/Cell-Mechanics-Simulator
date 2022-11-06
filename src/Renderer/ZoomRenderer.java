@@ -16,7 +16,7 @@ public class ZoomRenderer extends Renderer
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
     String title;
-    int width, height;
+    public int width, height;
     public Vector2i shift;
     public float scale;
 
@@ -118,6 +118,10 @@ public class ZoomRenderer extends Renderer
     private Vector2i transform(Vector2i point)
     {
         return new Vector2i(Math.round((point.x + shift.x - width/2f) * scale + width/2f),Math.round((point.y + shift.y - height/2f) * scale + height/2f));
+    }
+
+    public Vector2i correctMousePosition(Vector2i pos){
+        return new Vector2i(Math.round(((pos.x-width/2f)/scale)+width/2f-shift.x),Math.round(((pos.y-height/2f)/scale)+height/2f-shift.y));
     }
 
 }

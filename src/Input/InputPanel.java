@@ -4,6 +4,7 @@ import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
 import Renderer.EntityPanel;
+import Renderer.ZoomRenderer;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
@@ -83,7 +84,8 @@ public class InputPanel {
     public void findHoverCoordinates(MouseEvent e){
         int mouse_x=MouseInfo.getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
         int mouse_y=MouseInfo.getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
-        mouseLabel.setText("Position: " + new Vector2i(mouse_x, mouse_y).print());
+        Vector2i mousePos = ((ZoomRenderer) ZoomRenderer.getInstance()).correctMousePosition(new Vector2i(mouse_x, mouse_y));
+        mouseLabel.setText("Position: " + mousePos.print());
     }
 
 

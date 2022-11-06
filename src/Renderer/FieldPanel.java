@@ -1,9 +1,6 @@
 package Renderer;
 
 import Framework.Object.Component;
-import Framework.Object.Tooltip;
-import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
-import com.sun.xml.internal.ws.resources.DispatchMessages;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

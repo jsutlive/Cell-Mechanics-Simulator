@@ -26,7 +26,7 @@ public class Painter {
         for(Edge edge: mesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].asInt(), positions[1].asInt(), color);
+            drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(), positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
             drawEdgeNormal(edge);
         }
         /*Lattice lattice = cell.getComponent(Lattice.class);

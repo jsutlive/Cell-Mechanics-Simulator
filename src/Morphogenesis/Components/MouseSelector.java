@@ -7,6 +7,7 @@ import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.InputEvents;
 import Morphogenesis.Components.Meshing.Mesh;
+import Renderer.ZoomRenderer;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.event.MouseEvent;
@@ -27,7 +28,7 @@ public class MouseSelector extends Component {
 
     public void onMouseClicked(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON1) {
-            Vector2i mousePosition = new Vector2i(e.getX(), e.getY());
+            Vector2i mousePosition = ((ZoomRenderer) ZoomRenderer.getInstance()).correctMousePosition(new Vector2i(e.getX(), e.getY()));
             selectEntity(mousePosition);
         }
     }
