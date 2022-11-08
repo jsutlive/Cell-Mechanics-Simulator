@@ -1,10 +1,7 @@
 package Morphogenesis.Components.Meshing;
 
-import Framework.Object.DoNotDestroyInGUI;
 import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
-import Framework.States.State;
-import Morphogenesis.Entities.ApicalConstrictingCell;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
@@ -123,7 +120,6 @@ public class RingMesh extends Mesh{
                     // copy list to prevent assignment issues between collections
                     List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
-                    newCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
                     ArrayList<Node2D> constructionNodes = new ArrayList<>(mirroredNodes);
                     if (i == 1) {
@@ -132,7 +128,6 @@ public class RingMesh extends Mesh{
                     } else {
                         constructionNodes.addAll(oldMirroredNodes);
                     }
-                    mirroredCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(constructionNodes));
                     Collections.reverse(mirroredNodes);
                 }
             }

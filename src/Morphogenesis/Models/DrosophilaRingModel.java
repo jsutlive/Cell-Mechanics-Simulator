@@ -25,12 +25,7 @@ public class DrosophilaRingModel extends Model {
 
     int lateralResolution = 4;
 
-
     public int numberOfSegmentsInTotalCircle = 80;
-    public int numberOfConstrictingSegmentsInCircle = 12;
-
-    public int shorteningCellBegin = 15;
-    public int shorteningCellEnd = 30;
 
     public float outerRadius = 300;
     public float innerRadius = 200;
@@ -93,8 +88,6 @@ public class DrosophilaRingModel extends Model {
             throw new InstantiationException("Should be only 400 nodes");
         }
         System.out.println("ALLNODES:" + ringMesh.nodes.size());
-
-
     }
 
     private void generateTissueRing() {
@@ -139,73 +132,40 @@ public class DrosophilaRingModel extends Model {
                 Cell newCell;
                 Cell mirroredCell;
                 // Build the first set of cells in the cell ring
-                if(i<=numberOfConstrictingSegmentsInCircle/2)
-                {
+
+                if(i == 1){
                     // copy list to prevent assignment issues between collections
                     List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
                     oldNodes.addAll(nodes);
-                    newCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(oldNodes));
+                    newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
                     Collections.reverse(mirroredNodes);
                     constructionNodes.addAll(mirroredNodes);
-                    if(i == 1)
-                    {
-                        Collections.reverse(oldNodesZ);
-                        constructionNodes.addAll(oldNodesZ);
-                    }
-                    else
-                    {
-                        constructionNodes.addAll(oldMirroredNodes);
-                    }
-                    mirroredCell = State.create(ApicalConstrictingCell.class, new RingCellMesh().build(constructionNodes));
+                    Collections.reverse(oldNodesZ);
+                    constructionNodes.addAll(oldNodesZ);
+                    mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
                     Collections.reverse(mirroredNodes);
                 }
                 else
                 {
-                    if(i>= shorteningCellBegin && i <= shorteningCellEnd)
+                    if( i != (numberOfSegmentsInTotalCircle/2)) {
+                        oldNodes.addAll(nodes);
+                        Collections.reverse(mirroredNodes);
+                        constructionNodes.addAll(mirroredNodes);
+                        constructionNodes.addAll(oldMirroredNodes);
+                        newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
+                        mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
+                        Collections.reverse(mirroredNodes);
+                    }
+                    else
                     {
-                        if( i != (numberOfSegmentsInTotalCircle/2)) {
-                            oldNodes.addAll(nodes);
-                            Collections.reverse(mirroredNodes);
-                            constructionNodes.addAll(mirroredNodes);
-                            constructionNodes.addAll(oldMirroredNodes);
-                            newCell = State.create(ShorteningCell.class, new RingCellMesh().build(oldNodes));
-                            mirroredCell = State.create(ShorteningCell.class, new RingCellMesh().build(constructionNodes));
-                            Collections.reverse(mirroredNodes);
-                        }else
-                        {
-                            oldNodes.addAll(zeroEdgeNodes);
-                            newCell = State.create(ShorteningCell.class, new RingCellMesh().build(oldNodes));
-
-                            Collections.reverse(zeroEdgeNodes);
-                            constructionNodes.addAll(zeroEdgeNodes);
-                            constructionNodes.addAll(oldMirroredNodes);
-                            Collections.reverse(zeroEdgeNodes);
-                            mirroredCell = State.create(ShorteningCell.class, new RingCellMesh().build(constructionNodes));
-
-                        }
+                        oldNodes.addAll(zeroEdgeNodes);
+                        Collections.reverse(zeroEdgeNodes);
+                        constructionNodes.addAll(zeroEdgeNodes);
+                        constructionNodes.addAll(oldMirroredNodes);
+                        Collections.reverse(zeroEdgeNodes);
+                        newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
+                        mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
                     }
-                    else{
-                        if( i != (numberOfSegmentsInTotalCircle/2)) {
-                            oldNodes.addAll(nodes);
-                            Collections.reverse(mirroredNodes);
-                            constructionNodes.addAll(mirroredNodes);
-                            constructionNodes.addAll(oldMirroredNodes);
-                            newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
-                            mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
-                            Collections.reverse(mirroredNodes);
-                        }else
-                        {
-                            oldNodes.addAll(zeroEdgeNodes);
-                            Collections.reverse(zeroEdgeNodes);
-                            constructionNodes.addAll(zeroEdgeNodes);
-                            constructionNodes.addAll(oldMirroredNodes);
-                            Collections.reverse(zeroEdgeNodes);
-                            newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
-                            mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
-
-                        }
-                    }
-
                 }
                 assert newCell != null;
                 newCell.setId(i-1);
