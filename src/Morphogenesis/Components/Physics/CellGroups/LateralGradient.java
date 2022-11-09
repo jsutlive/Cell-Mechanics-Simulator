@@ -1,10 +1,10 @@
 package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
-import Framework.Object.Tooltip;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
+import Morphogenesis.Components.ReloadEntityOnChange;
 import Morphogenesis.Components.Render.CellRenderer;
 import Morphogenesis.Entities.Cell;
 import Renderer.Graphics.Painter;

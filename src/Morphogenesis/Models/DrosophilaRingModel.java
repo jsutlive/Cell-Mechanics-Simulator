@@ -1,55 +1,21 @@
 package Morphogenesis.Models;
 
-import Framework.States.State;
-import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.MouseSelector;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
 import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Morphogenesis.Components.Physics.Collision.RigidBoundary;
-import Morphogenesis.Entities.*;
 import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
-import Morphogenesis.Rigidbodies.Edges.BasalEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
-import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Geometry.Vector.Vector2i;
-import Utilities.Math.CustomMath;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class DrosophilaRingModel extends Model {
 
-    int lateralResolution = 4;
-
-    public transient RingMesh ringMesh;
-    public transient List<Edge> basalEdges = new ArrayList<>();
-    public transient List<Edge> apicalEdges = new ArrayList<>();
-    public final Vector2i boundingBox = new Vector2i(800);
-
-
     @Override
-    public void awake() throws InstantiationException {
+    public void awake() {
         this.name = "Physics System";
-        ringMesh = addComponent(new RingMesh());
-        generateOrganism();
-        List<Node2D> yolkNodes = new ArrayList<>();
-        for(Edge edge: basalEdges){
-            yolkNodes.add((Node2D) edge.getNodes()[0]);
+        if(getComponent(RingMesh.class)==null) {
+            addComponent(new RingMesh());
         }
-        for(Edge edge: apicalEdges){
-            ringMesh.outerNodes.add((Node2D) edge.getNodes()[0]);
-        }
-
-
-        Cell yolk = Yolk.build(yolkNodes, basalEdges);
-        yolk.name = "Yolk";
-        ringMesh.cellList.add(yolk);
-        ringMesh.innerNodes.addAll(yolkNodes);
-
     }
 
     @Override
@@ -60,121 +26,4 @@ public class DrosophilaRingModel extends Model {
         addComponent(new LateralGradient());
         addComponent(new CellRingCollider());
     }
-
-    public void generateOrganism() throws InstantiationException {
-        generateTissueRing();
-        ringMesh.nodes.clear();
-        for(Cell cell: ringMesh.cellList)
-        {
-            for(Node2D node: cell.getComponent(RingCellMesh.class).nodes){
-                if(!node.getPosition().isNull()) {
-                    if (!ringMesh.contains(node)) ringMesh.nodes.add(node);
-                }
-            }
-            for(Edge edge: cell.getComponent(RingCellMesh.class).edges){
-                if(edge instanceof ApicalEdge) apicalEdges.add(edge);
-                if(edge instanceof BasalEdge) basalEdges.add(edge);
-            }
-
-        }
-        if(ringMesh.nodes.size() > 400){
-            System.out.println(ringMesh.nodes.size());
-            throw new InstantiationException("Should be only 400 nodes");
-        }
-        System.out.println("ALLNODES:" + ringMesh.nodes.size());
-    }
-
-    private void generateTissueRing() {
-        Vector2f position, unitVector;
-        ArrayList<Cell> mirroredCells = new ArrayList<>();
-
-        ArrayList<Node2D> oldNodes = new ArrayList<>();
-        ArrayList<Node2D> oldMirroredNodes = new ArrayList<>();
-
-        ArrayList<Node2D> zeroEdgeNodes = new ArrayList<>();
-
-        //make lateral edges
-        for (int i = 0; i < (ringMesh.segments/2)+1; i++) {
-
-            ArrayList<Node2D> nodes= new ArrayList<>();
-            ArrayList<Node2D> mirroredNodes = new ArrayList<>();
-            ArrayList<Node2D> constructionNodes = new ArrayList<>();
-
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, ringMesh.segments);
-
-            for (int j = 0; j <= lateralResolution; j++) {
-                float radiusToNode = ringMesh.getRadiusToNode(j);
-                // Transform polar to world coordinates
-                position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
-                Node2D currentNode = new Node2D(position);
-                Node2D mirroredNode = currentNode.clone();
-                mirroredNode.mirrorAcrossYAxis();
-                if(i == ringMesh.segments/2)
-                {
-                    unitVector = CustomMath.GetUnitVectorOnCircle(0, ringMesh.segments);
-                    unitVector.y = - unitVector.y;
-                    position = CustomMath.TransformToWorldSpace(unitVector,radiusToNode, boundingBox.asFloat());
-                    zeroEdgeNodes.add(new Node2D(position));
-                }
-                nodes.add(currentNode);
-                mirroredNodes.add(mirroredNode);
-                ringMesh.nodes.add(currentNode);
-                ringMesh.nodes.add(mirroredNode);
-            }
-
-            if (i > 0) {
-                Cell newCell;
-                Cell mirroredCell;
-                // Build the first set of cells in the cell ring
-
-                if(i == 1){
-                    // copy list to prevent assignment issues between collections
-                    List<Node2D> oldNodesZ = new ArrayList<>(oldNodes);
-                    oldNodes.addAll(nodes);
-                    newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
-                    Collections.reverse(mirroredNodes);
-                    constructionNodes.addAll(mirroredNodes);
-                    Collections.reverse(oldNodesZ);
-                    constructionNodes.addAll(oldNodesZ);
-                    mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
-                    Collections.reverse(mirroredNodes);
-                }
-                else
-                {
-                    if( i != (ringMesh.segments/2)) {
-                        oldNodes.addAll(nodes);
-                        Collections.reverse(mirroredNodes);
-                        constructionNodes.addAll(mirroredNodes);
-                        constructionNodes.addAll(oldMirroredNodes);
-                        newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
-                        mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
-                        Collections.reverse(mirroredNodes);
-                    }
-                    else
-                    {
-                        oldNodes.addAll(zeroEdgeNodes);
-                        Collections.reverse(zeroEdgeNodes);
-                        constructionNodes.addAll(zeroEdgeNodes);
-                        constructionNodes.addAll(oldMirroredNodes);
-                        Collections.reverse(zeroEdgeNodes);
-                        newCell = State.create(BasicRingCell.class, new RingCellMesh().build(oldNodes));
-                        mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
-                    }
-                }
-                assert (newCell != null && mirroredCell != null);
-                newCell.setId(i-1);
-                mirroredCell.setId(ringMesh.segments-i);
-                ringMesh.addCellToList(mirroredCells, mirroredCell, i);
-                ringMesh.addCellToList(ringMesh.cellList, newCell, i);
-            }
-            Collections.reverse(nodes);
-            oldMirroredNodes = mirroredNodes;
-            oldNodes = nodes;
-        }
-        Collections.reverse(mirroredCells);
-        ringMesh.cellList.addAll(mirroredCells);
-
-    }
-
-
 }

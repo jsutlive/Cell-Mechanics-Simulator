@@ -1,9 +1,9 @@
 package Framework.Object;
 
 import Morphogenesis.Components.ReloadComponentOnChange;
+import Morphogenesis.Components.ReloadEntityOnChange;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Type;
 
 public abstract class Component implements IBehavior, IExposeToGUI {
     protected transient Entity parent;
@@ -78,6 +78,13 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                 }
                 if(f.getDeclaredAnnotation(ReloadComponentOnChange.class)!=null){
                     c.awake();
+                }
+                if(f.getDeclaredAnnotation(ReloadEntityOnChange.class)!=null){
+                    try {
+                        c.parent.awake();
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

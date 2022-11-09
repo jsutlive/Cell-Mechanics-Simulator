@@ -15,6 +15,7 @@ import static Utilities.Geometry.Geometry.calculateAngleBetweenPoints;
 public class EdgeStiffness2D extends Force {
 
     List<Node> sideA;
+
     public float constant = 15.0f;
 
     @Override

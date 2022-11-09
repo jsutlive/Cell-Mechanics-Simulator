@@ -21,7 +21,6 @@ public class InputPanel {
 
     private JPanel panel;
     private JButton playButton;
-    private JButton stopButton;
     private JLabel mouseLabel;
     private Canvas tempCanvasReference; //FIX
     private JTextField elasticConstantsModifier;

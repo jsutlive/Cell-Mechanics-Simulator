@@ -11,14 +11,14 @@ public class ElasticForce extends SpringForce {
     public void awake() {
         edges = getComponent(Mesh.class).edges;
         targetLengthRatio = 1;
-        constant = edges.get(0).getElasticConstant();
+        constant = 15f;
     }
 
     @Override
     public void update() {
         Vector force;
         for(Edge edge: edges){
-            force = calculateSpringForce(edge, edge.getElasticConstant());
+            force = calculateSpringForce(edge, constant);
             edge.addConstrictionForceVector(getClass().getSimpleName(), force);
         }
     }

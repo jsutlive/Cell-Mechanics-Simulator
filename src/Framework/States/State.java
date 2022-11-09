@@ -178,7 +178,8 @@ public abstract class State
     public static void destroy(Entity obj)
     {
         state.allObjects.remove(obj);
-        obj.removeComponent(ObjectRenderer.class);
+        if(obj.getComponent(ObjectRenderer.class)!=null)
+        state.renderBatch.remove(obj.getComponent(ObjectRenderer.class));
 
     }
 
