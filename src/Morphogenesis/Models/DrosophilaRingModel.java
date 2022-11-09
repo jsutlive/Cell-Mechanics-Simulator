@@ -25,12 +25,6 @@ public class DrosophilaRingModel extends Model {
 
     int lateralResolution = 4;
 
-    public int numberOfSegmentsInTotalCircle = 80;
-
-    public float outerRadius = 300;
-    public float innerRadius = 200;
-    int cellCount = 1;
-
     public transient RingMesh ringMesh;
     public transient List<Edge> basalEdges = new ArrayList<>();
     public transient List<Edge> apicalEdges = new ArrayList<>();
@@ -100,24 +94,24 @@ public class DrosophilaRingModel extends Model {
         ArrayList<Node2D> zeroEdgeNodes = new ArrayList<>();
 
         //make lateral edges
-        for (int i = 0; i < (numberOfSegmentsInTotalCircle/2)+1; i++) {
+        for (int i = 0; i < (ringMesh.segments/2)+1; i++) {
 
             ArrayList<Node2D> nodes= new ArrayList<>();
             ArrayList<Node2D> mirroredNodes = new ArrayList<>();
             ArrayList<Node2D> constructionNodes = new ArrayList<>();
 
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, numberOfSegmentsInTotalCircle);
+            unitVector = CustomMath.GetUnitVectorOnCircle(i, ringMesh.segments);
 
             for (int j = 0; j <= lateralResolution; j++) {
-                float radiusToNode = getRadiusToNode(j);
+                float radiusToNode = ringMesh.getRadiusToNode(j);
                 // Transform polar to world coordinates
                 position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
                 Node2D currentNode = new Node2D(position);
                 Node2D mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();
-                if(i == numberOfSegmentsInTotalCircle/2)
+                if(i == ringMesh.segments/2)
                 {
-                    unitVector = CustomMath.GetUnitVectorOnCircle(0, numberOfSegmentsInTotalCircle);
+                    unitVector = CustomMath.GetUnitVectorOnCircle(0, ringMesh.segments);
                     unitVector.y = - unitVector.y;
                     position = CustomMath.TransformToWorldSpace(unitVector,radiusToNode, boundingBox.asFloat());
                     zeroEdgeNodes.add(new Node2D(position));
@@ -147,7 +141,7 @@ public class DrosophilaRingModel extends Model {
                 }
                 else
                 {
-                    if( i != (numberOfSegmentsInTotalCircle/2)) {
+                    if( i != (ringMesh.segments/2)) {
                         oldNodes.addAll(nodes);
                         Collections.reverse(mirroredNodes);
                         constructionNodes.addAll(mirroredNodes);
@@ -167,13 +161,11 @@ public class DrosophilaRingModel extends Model {
                         mirroredCell = State.create(BasicRingCell.class, new RingCellMesh().build(constructionNodes));
                     }
                 }
-                assert newCell != null;
+                assert (newCell != null && mirroredCell != null);
                 newCell.setId(i-1);
-                assert mirroredCell != null;
-                mirroredCell.setId(numberOfSegmentsInTotalCircle-i);
-                addCellToList(mirroredCells, mirroredCell, i);
-                addCellToList(ringMesh.cellList, newCell, i);
-
+                mirroredCell.setId(ringMesh.segments-i);
+                ringMesh.addCellToList(mirroredCells, mirroredCell, i);
+                ringMesh.addCellToList(ringMesh.cellList, newCell, i);
             }
             Collections.reverse(nodes);
             oldMirroredNodes = mirroredNodes;
@@ -182,27 +174,6 @@ public class DrosophilaRingModel extends Model {
         Collections.reverse(mirroredCells);
         ringMesh.cellList.addAll(mirroredCells);
 
-    }
-
-
-    public void addCellToList(List<Cell> cellList, Cell cell, int ringLocation) {
-        if(cell !=null) {
-            cell.name = "Cell " + cellCount;
-            cellCount++;
-            cell.setRingLocation(ringLocation);
-            cellList.add(cell);
-        }else
-        {
-            throw new NullPointerException("New cell object not instantiated successfully");
-        }
-        if(cell.getComponent(RingCellMesh.class).nodes.size() == 0){
-            throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
-        }
-    }
-
-    private float getRadiusToNode(int j) {
-        float radiusStep = (innerRadius - outerRadius) / lateralResolution;
-        return outerRadius +  radiusStep * j;
     }
 
 
