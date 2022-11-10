@@ -8,6 +8,7 @@ import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
+import Renderer.UIElements.Panels.HierarchyPanel;
 
 import javax.swing.*;
 import java.awt.*;

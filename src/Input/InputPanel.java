@@ -3,7 +3,7 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
-import Renderer.EntityPanel;
+import Renderer.UIElements.Panels.EntityPanel;
 import Renderer.ZoomRenderer;
 import Utilities.Geometry.Vector.Vector2i;
 

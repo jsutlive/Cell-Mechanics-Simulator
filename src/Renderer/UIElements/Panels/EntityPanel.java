@@ -1,4 +1,4 @@
-package Renderer;
+package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
 import Framework.Object.DoNotExposeInGUI;
@@ -7,9 +7,7 @@ import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class EntityPanel {
 

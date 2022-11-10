@@ -28,17 +28,22 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
-        for(Entity obj : allObjects){
-            if(isChangingState) return;
-            obj.earlyUpdate();
+        try {
+            for (Entity obj : allObjects) {
+                if (isChangingState) return;
+                obj.earlyUpdate();
+            }
+            for (Entity obj : allObjects) {
+                if (isChangingState) return;
+                obj.update();
+            }
+            for (Entity obj : allObjects) {
+                if (isChangingState) return;
+                obj.lateUpdate();
+            }
         }
-        for(Entity obj : allObjects){
-            if(isChangingState) return;
-            obj.update();
-        }
-        for(Entity obj : allObjects){
-            if(isChangingState) return;
-            obj.lateUpdate();
+        catch (ConcurrentModificationException e){
+            return;
         }
 
         /*if(count%500 == 0) {
@@ -63,7 +68,7 @@ public class RunState extends State
                 rend.render();
             }
         } catch (ConcurrentModificationException e){
-            e.printStackTrace();
+            return;
         }
     }
 

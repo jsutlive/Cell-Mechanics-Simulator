@@ -1,4 +1,4 @@
-package Renderer;
+package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
 import Framework.Object.DoNotDestroyInGUI;

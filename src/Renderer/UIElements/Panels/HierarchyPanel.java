@@ -1,8 +1,7 @@
-package Renderer.Graphics;
+package Renderer.UIElements.Panels;
 
 import Framework.Object.Entity;
 import Framework.States.State;
-import Input.InputEvents;
 import Input.SelectionEvents;
 
 import javax.swing.*;

@@ -1,7 +1,9 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.States.State;
+import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.ReloadEntityOnChange;
 import Morphogenesis.Entities.BasicRingCell;
 import Morphogenesis.Entities.Cell;
@@ -21,16 +23,16 @@ import java.util.List;
 
 public class RingMesh extends Mesh {
 
-    @ReloadEntityOnChange
+    @ReloadComponentOnChange
     public int lateralResolution = 4;
 
-    @ReloadEntityOnChange
+    @ReloadComponentOnChange
     public int segments = 80;
 
-    @ReloadEntityOnChange
+    @ReloadComponentOnChange
     public float outerRadius = 300;
 
-    @ReloadEntityOnChange
+    @ReloadComponentOnChange
     public float innerRadius = 200;
 
     public List<Node2D> outerNodes = new ArrayList<>();
@@ -58,6 +60,9 @@ public class RingMesh extends Mesh {
         innerNodes.clear();
         basalEdges.clear();
         apicalEdges.clear();
+        for(Component c: parent.getComponents()){
+            if(c!= this) c.awake();
+        }
     }
 
     private void setApicalAndBasalEdges() {

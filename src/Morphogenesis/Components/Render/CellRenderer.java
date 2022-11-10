@@ -56,7 +56,7 @@ public class CellRenderer extends ObjectRenderer
                 ((IColor) edge).setColor(color);
             }
         }
-        if (getComponent(Lattice.class).edgeList != null) {
+        if (getComponent(Lattice.class) != null) {
             for (Edge edge : getComponent(Lattice.class).edgeList) {
                 if (edge != null) {
                     ((IColor) edge).setColor(Color.gray);

@@ -1,6 +1,7 @@
-package Renderer;
+package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
+import Renderer.Renderer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
