@@ -158,6 +158,13 @@ public abstract class Edge implements IRigidbody, IColor
 
     public abstract Edge clone();
 
+    public Edge(Node a, Node b){
+        setNodes(a, b);
+        initialLength = getLength();
+    }
+
+    public Edge(){}
+
     public void setNodes(Node[] nodes){
         this.nodes = nodes;
     }
@@ -166,17 +173,6 @@ public abstract class Edge implements IRigidbody, IColor
     {
         nodes[0] = a;
         nodes[1] = b;
-    }
-
-    public void mirrorAcrossXAxis(){
-        for(Node n: getNodes()){
-            n.mirrorAcrossXAxis();
-        }
-    }
-    public void mirrorAcrossYAxis(){
-        for(Node n: getNodes()){
-            n.mirrorAcrossYAxis();
-        }
     }
 
     @Override

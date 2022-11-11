@@ -30,16 +30,16 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         }
 
         if(keyCode == KeyEvent.VK_LEFT) {
-            shift(new Vector2i(25, 0));
-        }
-        if(keyCode == KeyEvent.VK_RIGHT) {
             shift(new Vector2i(-25, 0));
         }
+        if(keyCode == KeyEvent.VK_RIGHT) {
+            shift(new Vector2i(25, 0));
+        }
         if(keyCode == KeyEvent.VK_UP) {
-            shift(new Vector2i(0, 25));
+            shift(new Vector2i(0, -25));
         }
         if(keyCode == KeyEvent.VK_DOWN) {
-            shift(new Vector2i(0, -25));
+            shift(new Vector2i(0, 25));
         }
     }
 

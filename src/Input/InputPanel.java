@@ -4,7 +4,6 @@ import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
 import Renderer.UIElements.Panels.EntityPanel;
-import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
@@ -13,6 +12,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 import static Framework.Data.ImageHandler.loadImage;
+import static java.awt.MouseInfo.getPointerInfo;
+import static Renderer.Renderer.getCamera;
 
 public class InputPanel {
 
@@ -53,9 +54,10 @@ public class InputPanel {
     }
 
     public void findHoverCoordinates(MouseEvent e){
-        int mouse_x=MouseInfo.getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
-        int mouse_y=MouseInfo.getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
-        Vector2i mousePos = Renderer.getInstance().adjustMousePositionToCameraView(new Vector2i(mouse_x, mouse_y));
+
+        int mouse_x= getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
+        int mouse_y= getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
+        Vector2i mousePos = getCamera().getScreenPoint(new Vector2i(mouse_x, mouse_y));
         mouseLabel.setText("Position: " + mousePos.print());
     }
 

@@ -1,6 +1,5 @@
 package Renderer;
 
-import Framework.Engine;
 import Framework.States.State;
 import Renderer.Graphics.DisplayWindow;
 import Utilities.Geometry.Vector.Vector2i;
@@ -8,24 +7,23 @@ import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class SimpleRenderer extends Renderer
+import static Framework.Engine.bounds;
+
+public class Renderer2D extends Renderer
 {
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
     String title;
-    int width, height;
 
-    public SimpleRenderer()
+    public Renderer2D()
     {
-        width = Engine.bounds.x;
-        height = Engine.bounds.y;
-        title = Engine.title;
-        displayWindow = new DisplayWindow(title, width, height);
+        displayWindow = new DisplayWindow(title, bounds.x, bounds.y);
+        camera = new Camera(bounds.x, bounds.y);
     }
-
     /**
      * Renders graphics to the screen. Should only be accessed from the Engine object.
      */
+
     @Override
     public void run()
     {
@@ -37,7 +35,7 @@ public class SimpleRenderer extends Renderer
         }
         g = bufferStrategy.getDrawGraphics();
 
-        g.clearRect(0,0,width,height);
+        g.clearRect(0,0, camera.width, camera.height);
 
         try {
             if(State.GetState() != null)
@@ -50,9 +48,13 @@ public class SimpleRenderer extends Renderer
         }
 
         bufferStrategy.show();
+        displayWindow.GetCanvas().prepareImageForExport();
         g.dispose();
+    }
 
-
+    @Override
+    public void clearAllEvents(){
+        camera.clearAllEvents();
     }
 
     public DisplayWindow GetDisplayWindow()
@@ -66,11 +68,16 @@ public class SimpleRenderer extends Renderer
     }
 
     public void drawCircle(Vector2i center, int diameter){
-        g.drawOval(center.x - diameter/2, center.y - diameter/2, diameter, diameter);
+        Vector2i transformedCenter = camera.transformToView(center);
+        int transformedDiameter = Math.round(diameter* camera.getScale());
+        g.drawOval(transformedCenter.x - transformedDiameter/2, transformedCenter.y - transformedDiameter/2, transformedDiameter, transformedDiameter);
     }
 
     public void drawLine(Vector2i pointA, Vector2i pointB){
-        g.drawLine(pointA.x, pointA.y, pointB.x, pointB.y);
+        Vector2i transformedPointA = camera.transformToView(pointA);
+        Vector2i transformedPointB = camera.transformToView(pointB);
+        g.drawLine(transformedPointA.x, transformedPointA.y, transformedPointB.x,transformedPointB.y);
     }
+
 
 }

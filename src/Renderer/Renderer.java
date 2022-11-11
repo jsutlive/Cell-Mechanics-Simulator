@@ -10,6 +10,8 @@ public abstract class Renderer implements Runnable {
     //Renderer object singleton instance.
     private static Renderer instance;
 
+    protected Camera camera;
+
     /**
      * Used to generate a singleton instance of our Renderer.
      * @return the current Renderer, or create and return a new renderer if it is currently null.
@@ -17,12 +19,15 @@ public abstract class Renderer implements Runnable {
     public static Renderer getInstance() {
         if(instance == null)
         {
-            instance = build(ZoomRenderer.class);
+            instance = build(Renderer2D.class);
         }
         return instance;
     }
 
-    public Vector2i adjustMousePositionToCameraView(Vector2i vector2i){return null;}
+    public static Camera getCamera(){
+        if(instance == null) return null;
+        else return instance.camera;
+    }
 
      static <T extends Renderer> T build(Class<T> type) {
         try {
