@@ -76,7 +76,7 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                 catch (IllegalAccessException e){
                     e.printStackTrace();
                 }
-                if(f.getDeclaredAnnotation(ReloadComponentOnChange.class)!=null){
+                if(c.getClass().getDeclaredAnnotation(ReloadComponentOnChange.class)!=null){
                     c.awake();
                 }
                 if(f.getDeclaredAnnotation(ReloadEntityOnChange.class)!=null){

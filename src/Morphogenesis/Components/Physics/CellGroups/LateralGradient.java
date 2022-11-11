@@ -4,7 +4,6 @@ import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Components.ReloadEntityOnChange;
 import Morphogenesis.Components.Render.CellRenderer;
 import Morphogenesis.Entities.Cell;
 import Renderer.Graphics.Painter;
@@ -13,23 +12,17 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ReloadComponentOnChange
 public class LateralGradient extends Component {
 
     List<Cell> cellGroup = new ArrayList<>();
 
-    @ReloadComponentOnChange
     public int numberOfConstrictingCells = 20;
 
-    @ReloadComponentOnChange
     //@Tooltip(text = "number of cells away from center")
     public int constrictingCellsStartLocation = 10;
-
-    @ReloadComponentOnChange
     public float constantCeiling = 10f;
-    @ReloadComponentOnChange
     public float ratioCeiling = 0.9f;
-
-    @ReloadComponentOnChange
     public Color groupColor = Color.BLUE;
 
 

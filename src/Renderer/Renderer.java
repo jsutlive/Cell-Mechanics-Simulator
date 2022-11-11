@@ -7,9 +7,6 @@ public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
     public static Graphics g;
 
-    //Default color by which to paint objects in a scene
-    public static final Color DEFAULT = Color.white;
-
     //Renderer object singleton instance.
     private static Renderer instance;
 
@@ -24,6 +21,8 @@ public abstract class Renderer implements Runnable {
         }
         return instance;
     }
+
+    public Vector2i adjustMousePositionToCameraView(Vector2i vector2i){return null;}
 
      static <T extends Renderer> T build(Class<T> type) {
         try {

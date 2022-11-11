@@ -120,7 +120,8 @@ public class ZoomRenderer extends Renderer
         return new Vector2i(Math.round((point.x + shift.x - width/2f) * scale + width/2f),Math.round((point.y + shift.y - height/2f) * scale + height/2f));
     }
 
-    public Vector2i correctMousePosition(Vector2i pos){
+    @Override
+    public Vector2i adjustMousePositionToCameraView(Vector2i pos){
         return new Vector2i(Math.round(((pos.x-width/2f)/scale)+width/2f-shift.x),Math.round(((pos.y-height/2f)/scale)+height/2f-shift.y));
     }
 

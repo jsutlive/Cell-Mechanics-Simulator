@@ -1,10 +1,8 @@
 package Morphogenesis.Components.Meshing;
 
-import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.States.State;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Components.ReloadEntityOnChange;
 import Morphogenesis.Entities.BasicRingCell;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Entities.Yolk;
@@ -14,25 +12,21 @@ import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
-import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static Utilities.Math.CustomMath.TransformToWorldSpace;
+import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
+
+@ReloadComponentOnChange
 public class RingMesh extends Mesh {
 
-    @ReloadComponentOnChange
     public int lateralResolution = 4;
-
-    @ReloadComponentOnChange
     public int segments = 80;
-
-    @ReloadComponentOnChange
     public float outerRadius = 300;
-
-    @ReloadComponentOnChange
     public float innerRadius = 200;
 
     public List<Node2D> outerNodes = new ArrayList<>();
@@ -60,9 +54,6 @@ public class RingMesh extends Mesh {
         innerNodes.clear();
         basalEdges.clear();
         apicalEdges.clear();
-        for(Component c: parent.getComponents()){
-            if(c!= this) c.awake();
-        }
     }
 
     private void setApicalAndBasalEdges() {
@@ -132,11 +123,8 @@ public class RingMesh extends Mesh {
     public void generateTissueRing() {
         Vector2f position, unitVector;
         ArrayList<Cell> mirroredCells = new ArrayList<>();
-
         ArrayList<Node2D> oldNodes = new ArrayList<>();
         ArrayList<Node2D> oldMirroredNodes = new ArrayList<>();
-
-        ArrayList<Node2D> zeroEdgeNodes = new ArrayList<>();
 
         //make lateral edges
         for (int i = 0; i < (segments / 2) + 1; i++) {
@@ -144,21 +132,16 @@ public class RingMesh extends Mesh {
             ArrayList<Node2D> nodes = new ArrayList<>();
             ArrayList<Node2D> mirroredNodes = new ArrayList<>();
 
-            unitVector = CustomMath.GetUnitVectorOnCircle(i, segments);
+            unitVector = GetUnitVectorOnCircle(i, segments);
 
             for (int j = 0; j <= lateralResolution; j++) {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
-                position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
+                position = TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
                 Node2D currentNode = new Node2D(position);
                 Node2D mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();
-                if (i == segments / 2) {
-                    unitVector = CustomMath.GetUnitVectorOnCircle(0, segments);
-                    unitVector.y = -unitVector.y;
-                    position = CustomMath.TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
-                    zeroEdgeNodes.add(new Node2D(position));
-                }
+
                 nodes.add(currentNode);
                 mirroredNodes.add(mirroredNode);
             }

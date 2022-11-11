@@ -4,18 +4,15 @@ import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.States.State;
 import Renderer.UIElements.Panels.EntityPanel;
-import Renderer.ZoomRenderer;
+import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
 import static Framework.Data.ImageHandler.loadImage;
-
 
 public class InputPanel {
 
@@ -23,7 +20,6 @@ public class InputPanel {
     private JButton playButton;
     private JLabel mouseLabel;
     private Canvas tempCanvasReference; //FIX
-    private JTextField elasticConstantsModifier;
 
     public InputPanel(Canvas canvas){
         initialize();
@@ -47,30 +43,6 @@ public class InputPanel {
         createTimestepSlider();
         EntityPanel componentPanel = new EntityPanel();
 
-        elasticConstantsModifier = new JTextField();
-        elasticConstantsModifier.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                String s = elasticConstantsModifier.getText();
-                if(!s.isEmpty()){
-                    float f = Float.parseFloat(elasticConstantsModifier.getText());
-                    State.setNewElasticConstants(f);
-                }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-        panel.add(elasticConstantsModifier);
-        panel.add(new JLabel("Global Elastic Constant"), BorderLayout.NORTH);
-
         JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());
         componentScroll.setHorizontalScrollBar(null);
         panel.add(componentScroll);
@@ -83,7 +55,7 @@ public class InputPanel {
     public void findHoverCoordinates(MouseEvent e){
         int mouse_x=MouseInfo.getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
         int mouse_y=MouseInfo.getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
-        Vector2i mousePos = ((ZoomRenderer) ZoomRenderer.getInstance()).correctMousePosition(new Vector2i(mouse_x, mouse_y));
+        Vector2i mousePos = Renderer.getInstance().adjustMousePositionToCameraView(new Vector2i(mouse_x, mouse_y));
         mouseLabel.setText("Position: " + mousePos.print());
     }
 
@@ -127,7 +99,6 @@ public class InputPanel {
     }
 
     void stopButton(boolean bool){
-        elasticConstantsModifier.setEnabled(false);
         playButton.setText("Play");
         ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
         Image play = playIcon.getImage();
@@ -143,7 +114,6 @@ public class InputPanel {
     }
 
     void playButton(boolean bool){
-        elasticConstantsModifier.setEnabled(true);
         playButton.setText("Stop");
         ImageIcon stopIcon = new ImageIcon(loadImage("stop.png"));
         Image stop = stopIcon.getImage();

@@ -8,7 +8,6 @@ import Framework.Timer.Time;
 import Renderer.Graphics.IRender;
 import Framework.Object.Component;
 import Morphogenesis.Components.Render.ObjectRenderer;
-import Utilities.Geometry.Vector.Vector2f;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,8 +26,6 @@ public abstract class State
     {
         state = _state;
     }
-    public static Vector2f RESULTANT_FORCE = new Vector2f(0);
-    public static void addToResultantForce(Vector2f v){RESULTANT_FORCE = RESULTANT_FORCE.add(v);}
 
     protected static List<Entity> allObjects = new ArrayList<>();
     protected List<IRender> renderBatch = new ArrayList<>();
@@ -40,11 +37,6 @@ public abstract class State
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
     public static void addEntity(Entity e ) {onAddEntity.invoke(e);}
-
-    public static EventHandler<Float> setNewElasticConstants = new EventHandler<>();
-    public static void setNewElasticConstants(float f){
-        setNewElasticConstants.invoke(f);
-    }
 
     /**
      * Change state between running simulation and an editor state
@@ -227,7 +219,6 @@ public abstract class State
             }
         }
     }
-
 
     public void load()
     {

@@ -22,16 +22,7 @@ public abstract class Edge implements IRigidbody, IColor
     //order of nodes in cell list
     protected int[] nodesReference = new int[2];
     protected transient float initialLength;
-    protected float elasticConstant;
-    protected Vector2f normal;
     public transient boolean isNull = true;
-
-    public float getElasticConstant()
-    {
-        return elasticConstant;
-    }
-    public void setElasticConstant(float constant){ elasticConstant = constant;}
-
     /**
      * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
      * @param forceVector vector containing force information
@@ -69,7 +60,6 @@ public abstract class Edge implements IRigidbody, IColor
         nodes[0] = a;
         nodes[1] = b;
         initialLength = getLength();
-        State.setNewElasticConstants.subscribe(this::setElasticConstant);
     }
 
     public void flip()

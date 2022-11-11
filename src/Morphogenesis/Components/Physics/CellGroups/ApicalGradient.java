@@ -8,36 +8,31 @@ import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.CellRenderer;
 import Morphogenesis.Entities.Cell;
-import Renderer.Graphics.Painter;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Renderer.Graphics.Painter.DEFAULT_COLOR;
+
+@ReloadComponentOnChange
 public class ApicalGradient extends Component {
 
     List<Cell> cellGroup = new ArrayList<>();
-    @ReloadComponentOnChange
     public int numberOfConstrictingCells = 12;
-    @ReloadComponentOnChange
     public float mu = 0f;
-    @ReloadComponentOnChange
     public float sigma = 0.8f;
-    @ReloadComponentOnChange
     public float constantCeiling = 125.4f;
-    @ReloadComponentOnChange
     public float constantFloor = 55f;
-    @ReloadComponentOnChange
     public float ratioCeiling = 0.01f;
-    @ReloadComponentOnChange
     public float ratioFloor = .05f;
-    @ReloadComponentOnChange
     public Color groupColor = Color.MAGENTA;
 
     Gradient gradient = new GaussianGradient(mu, sigma);
 
     @Override
     public void awake() {
+        if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
         RingMesh mesh = getComponent(RingMesh.class);
         addCellsToGroup(mesh);
@@ -63,7 +58,7 @@ public class ApicalGradient extends Component {
             else{
                 if(cell.getComponent(ApicalConstrictingSpringForce.class)!=null){
                     cell.removeComponent(ApicalConstrictingSpringForce.class);
-                    cell.getComponent(CellRenderer.class).setColor(Painter.DEFAULT_COLOR);
+                    cell.getComponent(CellRenderer.class).setColor(DEFAULT_COLOR);
                 }
             }
         }

@@ -5,7 +5,6 @@ import Morphogenesis.Rigidbodies.Nodes.Node;
 public class BasicEdge extends Edge{
     public BasicEdge(Node a, Node b)
     {
-        elasticConstant = 3.55f;
         MakeNewEdge(a, b);
         isNull = false;
     }
