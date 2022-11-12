@@ -22,13 +22,6 @@ public abstract class Component implements IBehavior, IExposeToGUI {
         return type.isInstance(parent) ? type.cast(parent) : null;
     }
 
-    public <T extends Entity> T parent(){
-        if(parent.getClass().isAssignableFrom(Entity.class)){
-            return (T) parent.getClass().cast(parent);
-        }
-        return null;
-    }
-
     /**
      * Same as entity "getComponent", used here to make calls more concise in code
      * @param componentClass component class to be return
@@ -47,7 +40,13 @@ public abstract class Component implements IBehavior, IExposeToGUI {
     public void onDestroy(){}
     public void onValidate(){}
 
-    private <T extends Object> T reflect(Class<T> componentClass){
+    /**
+     * Super hacky method to get instance of a subclass as its superclass, use wisely
+     * @param superClass desired class of an object
+     * @param <T> generic class type (needs to be of type component in this case)
+     * @return component as type superClass (T)
+     */
+    private <T> T reflect(Class<T> superClass){
         return(T)this;
     }
 
@@ -66,7 +65,6 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                     f.setAccessible(true);
                     if(f.getDeclaringClass() == this.getClass().getSuperclass()) {
                         f.set(c.reflect(getClass().getSuperclass()), value);
-                        System.out.println("TEST");
                     }
                     else {
                         f.set(this, value);
@@ -80,11 +78,7 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                     c.awake();
                 }
                 if(f.getDeclaredAnnotation(ReloadEntityOnChange.class)!=null){
-                    try {
-                        c.parent.awake();
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    }
+                    c.parent.awake();
                 }
             }
         }

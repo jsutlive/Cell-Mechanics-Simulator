@@ -2,9 +2,7 @@ package Utilities.Geometry;
 
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Components.Meshing.Mesh;
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
@@ -15,7 +13,6 @@ import java.util.List;
 public class Geometry {
 
     public static Vector2f APPROX_INF = new Vector2f(1e15f);
-    public static float ninetyDegreesAsRadians = (float)Math.PI/2;
 
     public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
         Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
@@ -31,24 +28,6 @@ public class Geometry {
         if(angle <0) angle+= (2*Math.PI);
         //else if (angle > Math.PI) angle = (2 * Math.PI - angle);
         return (float)Math.toDegrees(angle);
-    }
-
-    public static boolean polygonContainsPoint(Cell cell, Node2D point){
-        int count = 0;
-
-        Vector2f p3 = point.getPosition();
-        Vector2f p4 = APPROX_INF;
-        Mesh mesh = cell.getComponent(Mesh.class);
-        for (Edge edge: mesh.edges) {
-            Vector2f p1 = edge.getPositions()[0];
-            Vector2f p2 = edge.getPositions()[1];
-            if(doEdgesIntersect(p1, p2, p3, p4)){
-                count++;
-            }
-        }
-        return count % 2 != 0;
-
-
     }
 
     public static boolean lineSegmentContainsPoint(Vector2f point, Vector2f[] linePositions)
@@ -113,24 +92,6 @@ public class Geometry {
         p1 = p1.add(unit);
 
         return p1;
-    }
-
-    public static Edge getClosestEdgeToPoint(Cell cell, Node2D n)
-    {
-        float shortestDistance = Float.POSITIVE_INFINITY;
-        Edge currentEdge = new BasicEdge();
-        Mesh mesh = cell.getComponent(Mesh.class);
-
-        for(Edge edge: mesh.edges){
-            Vector2f start = n.getPosition();
-            Vector2f end = getNearestPointOnLine(edge, start);
-            float currentDistance = Vector2f.dist(start, end);
-            if(currentDistance < shortestDistance){
-                shortestDistance = currentDistance;
-                currentEdge = edge;
-            }
-        }
-        return currentEdge;
     }
 
     public static float calculateAngleBetweenPoints(Vector p1, Vector p2, Vector p3){
