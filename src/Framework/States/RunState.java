@@ -1,25 +1,19 @@
 package Framework.States;
 
 import Framework.Object.Entity;
-import Framework.Object.Tag;
 import Renderer.Graphics.IRender;
-import Morphogenesis.Models.DrosophilaRingModel;
-import Renderer.*;
 
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 
 public class RunState extends State
 {
-    boolean isChangingState = false;
-    Entity model;
     int count = 0;
     /**
      * Instantiation of entities occurs here. Each behavior will have its awake and start methods called.
      */
     @Override
     public void Init() {
-        model = findObjectWithTag(Tag.MODEL);
         Collections.shuffle(allObjects);
     }
 
@@ -30,15 +24,12 @@ public class RunState extends State
     public void Tick() {
         try {
             for (Entity obj : allObjects) {
-                if (isChangingState) return;
                 obj.earlyUpdate();
             }
             for (Entity obj : allObjects) {
-                if (isChangingState) return;
                 obj.update();
             }
             for (Entity obj : allObjects) {
-                if (isChangingState) return;
                 obj.lateUpdate();
             }
         }
@@ -64,7 +55,6 @@ public class RunState extends State
         try {
             for(IRender rend: renderBatch)
             {
-                if(isChangingState) return;
                 rend.render();
             }
         } catch (ConcurrentModificationException e){
@@ -74,6 +64,6 @@ public class RunState extends State
 
     void OnChangeState()
     {
-        isChangingState = true;
+        SetState(new EditorState());
     }
 }

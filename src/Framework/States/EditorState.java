@@ -1,9 +1,8 @@
 package Framework.States;
 
 import Framework.Object.Entity;
-import Morphogenesis.Models.BasicCellsModel;
 import Renderer.Graphics.IRender;
-import Morphogenesis.Models.DrosophilaRingModel;
+import Morphogenesis.Models.*;
 
 import java.util.ConcurrentModificationException;
 import static Framework.Object.Tag.MODEL;
@@ -17,7 +16,6 @@ public class EditorState extends State
         if(State.findObjectWithTag(MODEL) == null) {
             model = State.create(DrosophilaRingModel.class);
         }
-        assert model != null;
         model.addTag(MODEL);
         for(Entity obj: allObjects){
             obj.start();
@@ -42,6 +40,7 @@ public class EditorState extends State
 
     @Override
     void OnChangeState() {
-
+        saveInitial();
+        SetState(new RunState());
     }
 }

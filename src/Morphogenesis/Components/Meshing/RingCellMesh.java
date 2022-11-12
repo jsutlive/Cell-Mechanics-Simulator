@@ -1,6 +1,6 @@
 package Morphogenesis.Components.Meshing;
 
-import Framework.Data.*;
+import Framework.Data.Json.Exclusion.LogData;
 import Framework.Object.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;

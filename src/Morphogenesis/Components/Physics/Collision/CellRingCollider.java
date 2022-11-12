@@ -1,19 +1,14 @@
 package Morphogenesis.Components.Physics.Collision;
 
-import Framework.Data.LogOnce;
+import Framework.Data.Json.Exclusion.LogOnce;
 import Framework.Object.DoNotExposeInGUI;
 import Morphogenesis.Entities.Cell;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Force;
-import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
-import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
-import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Math.CustomMath;
 import Utilities.Physics.Collision2D;
 
 import java.util.ArrayList;
@@ -47,8 +42,7 @@ public class CellRingCollider extends Force {
         for(Cell cell: cells){
             RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
             for(Node2D node: nodes){
-                if(mesh.contains(node)) continue;
-                else if(mesh.collidesWithNode(node)) {
+                if(!mesh.contains(node) && mesh.collidesWithNode(node)) {
                     for (Edge e : mesh.edges) {
                         setNodePositionToClosestEdge(node, e);
                     }

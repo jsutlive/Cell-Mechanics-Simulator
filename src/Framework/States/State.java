@@ -14,9 +14,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static Framework.Data.File.save;
+import static Framework.Data.File.load;
+
 public abstract class State
 {
     int count = 0;
+    private static int _ID_COUNTER = 0;
     public static State state = null;
     public static State GetState() throws InstantiationException, IllegalAccessException {
         if(state == null) ChangeState();
@@ -36,7 +40,12 @@ public abstract class State
     }
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
-    public static void addEntity(Entity e ) {onAddEntity.invoke(e);}
+
+    public static void addEntity(Entity e ) {
+        allObjects.add(e);
+        e.awake();
+        onAddEntity.invoke(e);
+    }
 
     /**
      * Change state between running simulation and an editor state
@@ -48,28 +57,28 @@ public abstract class State
         List<Entity> currentObjects = new ArrayList<>();
         List<IRender> renderBatch = new ArrayList<>();
         if(state!= null) {
-            currentObjects = state.allObjects;
+            currentObjects = allObjects;
             renderBatch = state.renderBatch;
         }
-        if(state == null || state instanceof RunState)
+        if(state == null)
         {
-            if(state!= null) {
-                state.OnChangeState();
-                allObjects = currentObjects;
-                state.renderBatch = renderBatch;
-            }
             SetState(new EditorState());
         }
         else
         {
-            SetState(new RunState());
+            state.OnChangeState();
             allObjects = currentObjects;
             state.renderBatch = renderBatch;
         }
-        Entity.resetGlobalID();
+        resetGlobalID();
         Time.reset();
         GetState().Init();
     }
+
+    private static void resetGlobalID(){
+        _ID_COUNTER = 0;
+    }
+
 
     protected static void reset() {
         state.renderBatch.clear();
@@ -112,9 +121,9 @@ public abstract class State
         }
         //Create entity and have it perform its awake functions, encapsulated in null check
         if(obj!= null) {
-            Entity.setGlobalID(obj);
+            obj.setGlobalID(_ID_COUNTER);
+            _ID_COUNTER++;
             addEntity(obj);
-            allObjects.add(obj);
             return type.cast(obj);
         }
         return null;
@@ -127,7 +136,7 @@ public abstract class State
      */
     public static Entity findObjectWithTag(Tag tag)
     {
-        for (Entity mono: state.allObjects) {
+        for (Entity mono: allObjects) {
             if(mono.getTag() == tag) return mono;
         }
         return null;
@@ -140,7 +149,7 @@ public abstract class State
      * @return an object as its specific subclass
      */
     public static <T extends Entity>T findObjectOfType(Class<T> type){
-        for(Entity obj: state.allObjects){
+        for(Entity obj: allObjects){
             if(type.isAssignableFrom(obj.getClass())){
                 try {
                     return type.cast(obj);
@@ -169,13 +178,13 @@ public abstract class State
 
     public static void destroy(Entity obj)
     {
-        state.allObjects.remove(obj);
+        allObjects.remove(obj);
         if(obj.getComponent(ObjectRenderer.class)!=null)
         state.renderBatch.remove(obj.getComponent(ObjectRenderer.class));
 
     }
 
-    public void save()
+    protected void saveRecurring()
     {
         if(count > 10) return;
         try {
@@ -189,15 +198,8 @@ public abstract class State
         count++;
     }
 
-    public void saveInitial(){
-        try {
-            FileWriter filewriter = new FileWriter("settings.txt");
-            filewriter.write(Engine.gsonOnce.toJson(findObjectWithTag(Tag.MODEL)));
-            filewriter.close();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+    protected void saveInitial(){
+       save(allObjects);
     }
 
     public static void addComponentToAll(Class<?> componentClass){
@@ -220,9 +222,12 @@ public abstract class State
         }
     }
 
-    public void load()
+    protected void loadModel()
     {
-
+        Entity[] entities = load();
+        if(entities!= null) {
+            for (Entity e : entities) addEntity(e);
+        }
     }
 
     abstract void OnChangeState();

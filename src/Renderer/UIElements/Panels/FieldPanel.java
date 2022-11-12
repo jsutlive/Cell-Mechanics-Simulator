@@ -40,7 +40,6 @@ public class FieldPanel {
         else if(type == Color.class){
             Color val = (Color) value;
             panel.add(new JLabel(name));
-            panel.setLayout(new GridLayout(0, 4));
             ColorDropDownMenu colorDropDownMenu = new ColorDropDownMenu(val);
             colorDropDownMenu.getMenu().addActionListener(e-> changeGUI(c, (String) colorDropDownMenu.getMenu().getSelectedItem(), type));
             panel.add(colorDropDownMenu.getMenu());
@@ -58,8 +57,7 @@ public class FieldPanel {
             float value = Float.parseFloat(field);
             c.changeFieldOnGUI(name, value);
         }else if(type == String.class){
-            String value = field;
-            c.changeFieldOnGUI(name, value);
+            c.changeFieldOnGUI(name, field);
         }else if(type == Color.class){
             Color value = ColorDropDownMenu.colorDictionary.get(field);
             c.changeFieldOnGUI(name, value);

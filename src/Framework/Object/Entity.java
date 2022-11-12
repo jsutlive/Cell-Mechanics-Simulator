@@ -4,19 +4,24 @@ import Framework.States.State;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Entity implements IBehavior
+public class Entity implements IBehavior
 {
-   private static int _ID_COUNTER = 0;
+   public String name;
    private int uniqueID;
    private List<Component> components;
    private Tag tag;
-   public String name;
+
+   public Entity(){}
+   public Entity(String name, int uniqueID, Tag tag){
+      this.name = name;
+      this.uniqueID = uniqueID;
+      this.tag = tag;
+   }
 
    public static <T extends Entity> T createObject(Class<T> monoClass){
       try {
          Entity e = monoClass.newInstance();
          e.components = new ArrayList<>();
-         e.awake();
          return monoClass.cast(e);
       }
       catch (IllegalAccessException | InstantiationException exception) {
@@ -30,7 +35,6 @@ public abstract class Entity implements IBehavior
          Entity e = monoClass.newInstance();
          e.components = new ArrayList<>();
          e.components.add(component);
-         e.awake();
          return monoClass.cast(e);
       }
       catch (IllegalAccessException | InstantiationException exception) {
@@ -44,18 +48,14 @@ public abstract class Entity implements IBehavior
     * @return uniqueID of a given Entity
     */
    public int getStateID() {return uniqueID;}
-   public static void resetGlobalID(){
-      _ID_COUNTER = 0;
-   }
-   public static void setGlobalID(Entity entity)
+   public void setGlobalID(int ID)
    {
-      entity.uniqueID = _ID_COUNTER;
-      _ID_COUNTER++;
+      uniqueID = ID;
    }
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){this.tag = tag;}
 
-   public void awake() throws InstantiationException {}
+   public void awake() {}
    public void start() {for (Component c: components) c.start();}
    public void update() {for (Component c: components) c.update();}
    public void lateUpdate(){for(Component c: components)c.lateUpdate();}
@@ -82,13 +82,7 @@ public abstract class Entity implements IBehavior
       c.setParent(this);
       c.onValidate();
       c.awake();
-      T component = null;
-      try{
-         component = (T) c;
-      }catch (ClassCastException e){
-         e.printStackTrace();
-      }
-      return component;
+      return (T) c;
    }
 
    public List<Component> getComponents(){

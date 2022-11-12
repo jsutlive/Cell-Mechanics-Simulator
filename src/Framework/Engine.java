@@ -1,12 +1,11 @@
 package Framework;
 
-import Framework.Data.ComponentSerializer;
-import Framework.Data.LogDataExclusionStrategy;
+import Framework.Data.Json.ComponentSerializer;
+import Framework.Data.Json.Exclusion.LogDataExclusionStrategy;
 import Framework.Events.IEvent;
 import Framework.States.State;
 import Framework.Timer.Time;
 import Framework.Object.Component;
-import Input.InputEvents;
 import Input.InputPanel;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
