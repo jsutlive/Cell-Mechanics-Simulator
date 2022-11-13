@@ -54,7 +54,7 @@ public class InputPanel {
     }
 
     public void findHoverCoordinates(MouseEvent e){
-
+        if(getCamera() == null) return;
         int mouse_x= getPointerInfo().getLocation().x-tempCanvasReference.getLocationOnScreen().x;
         int mouse_y= getPointerInfo().getLocation().y-tempCanvasReference.getLocationOnScreen().y;
         Vector2i mousePos = getCamera().getScreenPoint(new Vector2i(mouse_x, mouse_y));

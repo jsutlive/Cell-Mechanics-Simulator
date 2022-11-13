@@ -43,7 +43,6 @@ public abstract class State
 
     public static void addEntity(Entity e ) {
         allObjects.add(e);
-        e.awake();
         onAddEntity.invoke(e);
     }
 
@@ -124,6 +123,7 @@ public abstract class State
             obj.setGlobalID(_ID_COUNTER);
             _ID_COUNTER++;
             addEntity(obj);
+            obj.awake();
             return type.cast(obj);
         }
         return null;

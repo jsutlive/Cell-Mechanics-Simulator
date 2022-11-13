@@ -13,10 +13,12 @@ public class EditorState extends State
     @Override
     public void Init() {
         State.reset();
-        if(State.findObjectWithTag(MODEL) == null) {
+
+        if(State.findObjectWithTag(MODEL) == null){
             model = State.create(DrosophilaRingModel.class);
         }
         model.addTag(MODEL);
+        //loadModel();
         for(Entity obj: allObjects){
             obj.start();
         }

@@ -29,9 +29,9 @@ public class RingMesh extends Mesh {
     public float outerRadius = 300;
     public float innerRadius = 200;
 
-    public List<Node2D> outerNodes = new ArrayList<>();
-    public List<Node2D> innerNodes = new ArrayList<>();
-    public List<Cell> cellList = new ArrayList<>();
+    public transient List<Node2D> outerNodes = new ArrayList<>();
+    public transient List<Node2D> innerNodes = new ArrayList<>();
+    public transient List<Cell> cellList = new ArrayList<>();
     public transient List<Edge> basalEdges = new ArrayList<>();
     public transient List<Edge> apicalEdges = new ArrayList<>();
     public final Vector2i boundingBox = new Vector2i(800);
