@@ -4,7 +4,7 @@ import Framework.States.State;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Entity implements IBehavior
+public final class Entity implements IBehavior
 {
    public String name;
    private int uniqueID;
