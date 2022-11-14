@@ -6,7 +6,7 @@ import Morphogenesis.Components.Physics.Forces.GaussianGradient;
 import Morphogenesis.Components.Physics.Forces.Gradient;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Components.Render.CellRenderer;
+import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Entities.Cell;
 
 import java.awt.*;
@@ -52,13 +52,13 @@ public class ApicalGradient extends Component {
                 ApicalConstrictingSpringForce apicalConstriction = cell.getComponent(ApicalConstrictingSpringForce.class);
                 apicalConstriction.setConstant(gradient.getConstants()[cell.getRingLocation() - 1]);
                 apicalConstriction.setTargetLengthRatio(gradient.getRatios()[cell.getRingLocation() - 1]);
-                cell.getComponent(CellRenderer.class).setColor(groupColor);
+                cell.getComponent(MeshRenderer.class).setColor(groupColor);
                 cellGroup.add(cell);
             }
             else{
                 if(cell.getComponent(ApicalConstrictingSpringForce.class)!=null){
                     cell.removeComponent(ApicalConstrictingSpringForce.class);
-                    cell.getComponent(CellRenderer.class).setColor(DEFAULT_COLOR);
+                    cell.getComponent(MeshRenderer.class).setColor(DEFAULT_COLOR);
                 }
             }
         }

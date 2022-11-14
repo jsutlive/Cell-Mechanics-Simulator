@@ -1,13 +1,13 @@
 package Morphogenesis.Entities;
 
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
-import Morphogenesis.Components.Render.CellRenderer;
+import Morphogenesis.Components.Render.MeshRenderer;
 
 public class SimpleCell extends Cell{
 
     @Override
     public void awake() {
-        addComponent(new CellRenderer());
+        addComponent(new MeshRenderer());
     }
 
     @Override

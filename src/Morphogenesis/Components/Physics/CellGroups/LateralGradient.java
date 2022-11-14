@@ -4,7 +4,7 @@ import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Components.Render.CellRenderer;
+import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Entities.Cell;
 import Renderer.Graphics.Painter;
 
@@ -47,11 +47,11 @@ public class LateralGradient extends Component {
                 LateralShorteningSpringForce shorteningSpringForce = cell.getComponent(LateralShorteningSpringForce.class);
                 shorteningSpringForce.constant = constantCeiling;
                 shorteningSpringForce.targetLengthRatio = ratioCeiling;
-                cell.getComponent(CellRenderer.class).setColor(groupColor);
+                cell.getComponent(MeshRenderer.class).setColor(groupColor);
             }
             else if(cell.getComponent(LateralShorteningSpringForce.class)!= null){
                 cell.removeComponent(LateralShorteningSpringForce.class);
-                cell.getComponent(CellRenderer.class).setColor(Painter.DEFAULT_COLOR);
+                cell.getComponent(MeshRenderer.class).setColor(Painter.DEFAULT_COLOR);
             }
         }
     }

@@ -23,8 +23,8 @@ public class Yolk extends Cell {
     @Override
     public void awake() {
         addComponent(new RingCellMesh());
-        //addComponent(new CellRenderer());
-        //getComponent(CellRenderer.class).setColor(Color.GREEN);
+        //addComponent(new MeshRenderer());
+        //getComponent(MeshRenderer.class).setColor(Color.GREEN);
     }
 
     @Override

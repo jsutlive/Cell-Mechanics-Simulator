@@ -14,9 +14,7 @@ import java.awt.*;
 public class Painter {
     public static Color DEFAULT_COLOR = Color.white;
 
-    public static void drawCell(Cell cell, Color color)
-    {
-        Mesh mesh = cell.getComponent(Mesh.class);
+    public static void drawMesh(Mesh mesh, Color color) {
         for(Edge edge: mesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
@@ -78,5 +76,6 @@ public class Painter {
     {
         Renderer.getInstance().setColor(color);
     }
+
 
 }

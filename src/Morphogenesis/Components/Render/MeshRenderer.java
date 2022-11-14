@@ -18,7 +18,7 @@ import java.util.Collections;
  * Cell Renderer class handles all drawing functions for the cells.
  */
 @DoNotExposeInGUI
-public class CellRenderer extends ObjectRenderer
+public class MeshRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
     private Color highlightColor = Color.yellow;
@@ -56,13 +56,6 @@ public class CellRenderer extends ObjectRenderer
                 ((IColor) edge).setColor(color);
             }
         }
-        if (getComponent(Lattice.class) != null) {
-            for (Edge edge : getComponent(Lattice.class).edgeList) {
-                if (edge != null) {
-                    ((IColor) edge).setColor(Color.gray);
-                }
-            }
-        }
     }
 
     @Override
@@ -84,6 +77,6 @@ public class CellRenderer extends ObjectRenderer
     @Override
     public void render()
     {
-        Painter.drawCell(getParentAs(Cell.class), color);
+        Painter.drawMesh(cellMesh, color);
     }
 }

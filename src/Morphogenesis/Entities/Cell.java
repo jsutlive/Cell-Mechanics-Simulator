@@ -1,14 +1,10 @@
 package Morphogenesis.Entities;
 
 import Framework.Object.Entity;
-import Morphogenesis.Components.Lattice.Lattice;
-import Morphogenesis.Components.Render.CellRenderer;
+import Morphogenesis.Components.Render.MeshRenderer;
 
 public class Cell extends Entity {
     public transient int ringLocation;
-    public transient int id;
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
 
     public void setRingLocation(int i){ringLocation = i;}
 
@@ -23,7 +19,7 @@ public class Cell extends Entity {
      */
     @Override
     public void awake(){
-        addComponent(new CellRenderer());
+        addComponent(new MeshRenderer());
     }
 }
 
