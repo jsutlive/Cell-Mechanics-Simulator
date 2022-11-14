@@ -15,7 +15,7 @@ public class EditorState extends State
         State.reset();
 
         if(State.findObjectWithTag(MODEL) == null){
-            model = State.create(DrosophilaRingModel.class);
+            model = State.create(new DrosophilaRingModel());
         }
         model.addTag(MODEL);
         //loadModel();

@@ -1,6 +1,6 @@
 package Utilities.Math;
 
-import Morphogenesis.Entities.Cell;
+import Framework.Object.Entity;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
@@ -198,15 +198,15 @@ public class CustomMath {
         return pDistanceSq(n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
-    public static float pDistanceSq(Cell c, Node2D n, Edge e){
+    public static float pDistanceSq(Entity c, Node2D n, Edge e){
         Vector2f[] edgePositions = e.getPositions();
         return pDistanceSq(c, n.getPosition(), edgePositions[0], edgePositions[1]);
     }
 
-    public static float pDistanceSq(Cell c, Vector2f p, Vector2f a, Vector2f b) {
+    public static float pDistanceSq(Entity c, Vector2f p, Vector2f a, Vector2f b) {
 
         if(a.isNull()){
-            throw new NullPointerException("Null value for vector a at cell " + c.getId());
+            throw new NullPointerException("Null value for vector a at cell " + c.getStateID());
         }
         if(b.isNull()){
             throw new NullPointerException("Null value for vector b");

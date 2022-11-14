@@ -2,7 +2,6 @@ package Renderer.Graphics;
 
 import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
-import Morphogenesis.Entities.Cell;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;

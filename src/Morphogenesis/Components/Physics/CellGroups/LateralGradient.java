@@ -1,12 +1,14 @@
 package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
+import Framework.Object.Entity;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.MeshRenderer;
-import Morphogenesis.Entities.Cell;
 import Renderer.Graphics.Painter;
+
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 @ReloadComponentOnChange
 public class LateralGradient extends Component {
 
-    List<Cell> cellGroup = new ArrayList<>();
+    List<Entity> cellGroup = new ArrayList<>();
 
     public int numberOfConstrictingCells = 20;
 
@@ -37,9 +39,10 @@ public class LateralGradient extends Component {
             constrictingCellsStartLocation = Math.max(constrictingCellsStartLocation,
                     getComponent(ApicalGradient.class).numberOfConstrictingCells/2);
         }
-        for(Cell cell: mesh.cellList) {
-            if (cell.getRingLocation() >= constrictingCellsStartLocation
-                    && cell.getRingLocation() < constrictingCellsStartLocation + numberOfConstrictingCells) {
+        for(Entity cell: mesh.cellList) {
+            int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
+            if (ringLocation >= constrictingCellsStartLocation
+                    && ringLocation < constrictingCellsStartLocation + numberOfConstrictingCells) {
                 if (cell.getComponent(LateralShorteningSpringForce.class) == null) {
                     cell.addComponent(new LateralShorteningSpringForce());
                 }
@@ -58,7 +61,7 @@ public class LateralGradient extends Component {
 
     @Override
     public void onDestroy() {
-        for(Cell cell: cellGroup){
+        for(Entity cell: cellGroup){
             cell.removeComponent(LateralShorteningSpringForce.class);
         }
     }

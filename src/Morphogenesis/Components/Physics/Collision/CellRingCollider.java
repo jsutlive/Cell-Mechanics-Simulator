@@ -1,9 +1,9 @@
 package Morphogenesis.Components.Physics.Collision;
 
 import Framework.Data.Json.Exclusion.LogOnce;
-import Framework.Object.DoNotExposeInGUI;
-import Morphogenesis.Entities.Cell;
-import Morphogenesis.Components.Meshing.RingCellMesh;
+import Framework.Object.Annotations.DoNotExposeInGUI;
+import Framework.Object.Entity;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Force;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -17,7 +17,7 @@ import java.util.List;
 @LogOnce
 @DoNotExposeInGUI
 public class CellRingCollider extends Force {
-    transient List<Cell> cells;
+    transient List<Entity> cells;
     transient List<Node2D> nodes;
     transient List<Node2D> bothRings;
     transient List<Node2D> innerNodes;
@@ -39,8 +39,8 @@ public class CellRingCollider extends Force {
     }
 
     private void checkCollision() {
-        for(Cell cell: cells){
-            RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
+        for(Entity cell: cells){
+            Mesh mesh = cell.getComponent(Mesh.class);
             for(Node2D node: nodes){
                 if(!mesh.contains(node) && mesh.collidesWithNode(node)) {
                     for (Edge e : mesh.edges) {

@@ -1,18 +1,15 @@
 package Morphogenesis.Components.Render;
 
-import Framework.Object.DoNotExposeInGUI;
+import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
-import Morphogenesis.Components.Lattice.Lattice;
 import Morphogenesis.Components.MouseSelector;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.Painter;
-import Morphogenesis.Entities.Cell;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 
 import java.awt.*;
-import java.util.Collections;
 
 /**
  * Cell Renderer class handles all drawing functions for the cells.
@@ -22,6 +19,7 @@ public class MeshRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
     private Color highlightColor = Color.yellow;
+    public boolean enabled = true;
 
     @Override
     public void awake() {
@@ -77,6 +75,7 @@ public class MeshRenderer extends ObjectRenderer
     @Override
     public void render()
     {
-        Painter.drawMesh(cellMesh, color);
+        if(enabled)
+            Painter.drawMesh(cellMesh, color);
     }
 }

@@ -8,39 +8,17 @@ public class Entity implements IBehavior
 {
    public String name;
    private int uniqueID;
-   private List<Component> components;
+   private List<Component> components = new ArrayList<>();
    private Tag tag;
 
    public Entity(){}
+   public Entity(String name){
+      this.name = name;
+   }
    public Entity(String name, int uniqueID, Tag tag){
       this.name = name;
       this.uniqueID = uniqueID;
       this.tag = tag;
-   }
-
-   public static <T extends Entity> T createObject(Class<T> monoClass){
-      try {
-         Entity e = monoClass.newInstance();
-         e.components = new ArrayList<>();
-         return monoClass.cast(e);
-      }
-      catch (IllegalAccessException | InstantiationException exception) {
-         exception.printStackTrace();
-      }
-      return null;
-   }
-
-   public static <T extends Entity> T createObject(Class<T> monoClass, Component component){
-      try {
-         Entity e = monoClass.newInstance();
-         e.components = new ArrayList<>();
-         e.components.add(component);
-         return monoClass.cast(e);
-      }
-      catch (IllegalAccessException | InstantiationException exception) {
-         exception.printStackTrace();
-      }
-      return null;
    }
 
    /**
@@ -111,6 +89,11 @@ public class Entity implements IBehavior
 
    public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
+   }
+
+   public Entity with(Component c){
+      this.addComponent(c);
+      return this;
    }
 
 }

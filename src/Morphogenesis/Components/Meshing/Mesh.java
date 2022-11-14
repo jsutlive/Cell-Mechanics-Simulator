@@ -1,10 +1,9 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Component;
-import Framework.Object.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
-import Morphogenesis.Entities.Cell;
+import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
@@ -37,9 +36,6 @@ public abstract class Mesh extends Component {
         return edges.contains(e);
     }
 
-    public Entity returnCellContainingPoint(Vector2f vec){
-        return null;
-    }
 
     public float getArea(){
         calculateArea();
@@ -66,6 +62,8 @@ public abstract class Mesh extends Component {
     @Override
     public void onValidate()
     {
+        if(getComponent(Mesh.class)!= this) removeSelf();
+        parent.removeComponent(MeshRenderer.class);
         for(Method method: getClass().getDeclaredMethods()){
             if(method.isAnnotationPresent(Builder.class))
             {
@@ -76,6 +74,45 @@ public abstract class Mesh extends Component {
                 }
             }
         }
+        parent.addComponent(new MeshRenderer());
+    }
+
+    public Entity returnCellContainingPoint(Vector2f vector2f){
+        if(collidesWithPoint(vector2f)) return parent;
+        return null;
+    }
+
+    public boolean collidesWithNode(Node2D n) {
+        Vector2f nodePos = n.getPosition().copy();
+        return collidesWithPoint(nodePos);
+    }
+
+    public boolean collidesWithPoint(Vector2f vec){
+        boolean collision = false;
+
+        // go through each of the vertices, plus
+        // the next vertex in the list
+        int next;
+        for (int current=0; current<nodes.size(); current++) {
+
+            // get next vertex in list
+            // if we've hit the end, wrap around to 0
+            next = current + 1;
+            if (next == nodes.size()) next = 0;
+
+            // get the PVectors at our current position
+            // this makes our if statement a little cleaner
+            Vector2f vc = nodes.get(current).getPosition();    // c for "current"
+            Vector2f vn = nodes.get(next).getPosition();       // n for "next"
+
+            // compare position, flip 'collision' variable
+            // back and forth
+            if (((vc.y >= vec.y && vn.y < vec.y) || (vc.y < vec.y && vn.y >= vec.y)) &&
+                    (vec.x < (vn.x-vc.x)*(vec.y-vc.y) / (vn.y-vc.y)+vc.x)) {
+                collision = !collision;
+            }
+        }
+        return collision;
     }
 
 }

@@ -1,10 +1,9 @@
 package Math;
-import Morphogenesis.Entities.Cell;
+import Framework.Object.Entity;
 import Morphogenesis.Rigidbodies.Edges.BasicEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Geometry;
-import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ public class GeometryTests {
 
     static List<Node2D> testNodes;
     static List<Edge> testEdges;
-    static Cell cell;
+    static Entity cell;
 
     @BeforeAll
     static void set_test_variables()
@@ -43,7 +42,7 @@ public class GeometryTests {
         Edge e3 = new BasicEdge(c, d);
         Edge e4 = new BasicEdge(d, a);
         testEdges.add(e1); testEdges.add(e2); testEdges.add(e3); testEdges.add(e4);
-        cell = new Cell();
+        cell = new Entity();
         //cell.setNodes(testNodes);
         //cell.setEdges(testEdges);
     }

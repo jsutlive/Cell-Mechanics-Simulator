@@ -3,7 +3,7 @@ package Morphogenesis.Components;
 import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
 import Framework.Object.Component;
-import Framework.Object.DoNotExposeInGUI;
+import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.InputEvents;
 import Morphogenesis.Components.Meshing.Mesh;

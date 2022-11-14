@@ -1,4 +1,4 @@
-package Framework.Object;
+package Framework.Object.Annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface Tooltip {
-    public String text() default "Tooltip";
+@Target(ElementType.TYPE)
+public @interface DoNotExposeInGUI {
 }

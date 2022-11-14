@@ -1,6 +1,6 @@
 package Utilities.Geometry;
 
-import Morphogenesis.Entities.Cell;
+import Framework.Object.Entity;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
@@ -72,7 +72,7 @@ public class Geometry {
         return new Vector2f[]{min, max};
     }
 
-    public static Vector2f[] getMinMaxBoundary(Cell cell){
+    public static Vector2f[] getMinMaxBoundary(Entity cell){
         Mesh mesh = cell.getComponent(Mesh.class);
         return getMinMaxBoundary(mesh.nodes);
     }

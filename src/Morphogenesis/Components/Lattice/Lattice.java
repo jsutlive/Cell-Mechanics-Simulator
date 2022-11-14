@@ -1,7 +1,7 @@
 package Morphogenesis.Components.Lattice;
 
 import Framework.Object.Component;
-import Framework.Object.DoNotExposeInGUI;
+import Framework.Object.Annotations.DoNotExposeInGUI;
 import Morphogenesis.Components.Meshing.Builder;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Rigidbodies.Edges.BasicEdge;

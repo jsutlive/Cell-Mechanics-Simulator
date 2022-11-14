@@ -1,4 +1,4 @@
-package Framework.Object;
+package Framework.Object.Annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface DoNotExposeInGUI {
+public @interface DoNotDestroyInGUI {
 }

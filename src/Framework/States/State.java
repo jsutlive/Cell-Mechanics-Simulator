@@ -98,33 +98,17 @@ public abstract class State
     public abstract void Tick() throws InstantiationException, IllegalAccessException;
 
     /**
-     * Base method to create an object and assign it to the given state
-     * @param type a Entity class to create an instance of
-     * @param <T> type of Entity class
+     * Base method to create an object and assign it to the given state     *
+     * @param obj Entity to be added to scene
      * @return an Entity as its subclass
      */
-    public static <T extends Entity> T create(Class<T> type) {
-        return create(type, null);
-    }
-
-    public static <T extends Entity> T create(Class<T> type, Component component) {
-        Entity obj;
-        if(!Entity.class.isAssignableFrom(type)) {
-            throw new IllegalArgumentException("Class not assignable from Entity");
-        }
-        if(component == null) {
-            obj = Entity.createObject(type);
-        }
-        else{
-            obj = Entity.createObject(type, component);
-        }
-        //Create entity and have it perform its awake functions, encapsulated in null check
+    public static Entity create(Entity obj) {
         if(obj!= null) {
             obj.setGlobalID(_ID_COUNTER);
             _ID_COUNTER++;
             addEntity(obj);
             obj.awake();
-            return type.cast(obj);
+            return obj;
         }
         return null;
     }
@@ -138,26 +122,6 @@ public abstract class State
     {
         for (Entity mono: allObjects) {
             if(mono.getTag() == tag) return mono;
-        }
-        return null;
-    }
-
-    /**
-     * Returns the first object of a given class type found
-     * @param type a class which inherits from the entity base class
-     * @param <T> subtype of entity
-     * @return an object as its specific subclass
-     */
-    public static <T extends Entity>T findObjectOfType(Class<T> type){
-        for(Entity obj: allObjects){
-            if(type.isAssignableFrom(obj.getClass())){
-                try {
-                    return type.cast(obj);
-                } catch (ClassCastException e) {
-                    e.printStackTrace();
-                    assert false : "Error: Casting component.";
-                }
-            }
         }
         return null;
     }

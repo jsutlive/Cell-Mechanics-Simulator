@@ -1,13 +1,14 @@
 package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
+import Framework.Object.Entity;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Forces.GaussianGradient;
 import Morphogenesis.Components.Physics.Forces.Gradient;
 import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.MeshRenderer;
-import Morphogenesis.Entities.Cell;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import static Renderer.Graphics.Painter.DEFAULT_COLOR;
 @ReloadComponentOnChange
 public class ApicalGradient extends Component {
 
-    List<Cell> cellGroup = new ArrayList<>();
+    List<Entity> cellGroup = new ArrayList<>();
     public int numberOfConstrictingCells = 12;
     public float mu = 0f;
     public float sigma = 0.8f;
@@ -44,14 +45,15 @@ public class ApicalGradient extends Component {
     }
 
     private void addCellsToGroup(RingMesh mesh) {
-        for(Cell cell: mesh.cellList){
-            if(cell.getRingLocation() <= numberOfConstrictingCells / 2){
+        for(Entity cell: mesh.cellList){
+            int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
+            if( ringLocation <= numberOfConstrictingCells / 2){
                 if(cell.getComponent(ApicalConstrictingSpringForce.class)== null){
                     cell.addComponent(new ApicalConstrictingSpringForce());
                 }
                 ApicalConstrictingSpringForce apicalConstriction = cell.getComponent(ApicalConstrictingSpringForce.class);
-                apicalConstriction.setConstant(gradient.getConstants()[cell.getRingLocation() - 1]);
-                apicalConstriction.setTargetLengthRatio(gradient.getRatios()[cell.getRingLocation() - 1]);
+                apicalConstriction.setConstant(gradient.getConstants()[ringLocation- 1]);
+                apicalConstriction.setTargetLengthRatio(gradient.getRatios()[ringLocation - 1]);
                 cell.getComponent(MeshRenderer.class).setColor(groupColor);
                 cellGroup.add(cell);
             }
@@ -66,7 +68,7 @@ public class ApicalGradient extends Component {
 
     @Override
     public void onDestroy() {
-        for(Cell cell: cellGroup){
+        for(Entity cell: cellGroup){
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }
     }

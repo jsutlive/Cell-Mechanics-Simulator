@@ -1,7 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
-import Framework.Object.DoNotExposeInGUI;
+import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;

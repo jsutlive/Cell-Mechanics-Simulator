@@ -7,9 +7,9 @@ import java.util.List;
 
 public class CircleMesh extends Mesh{
 
-    public CircleMesh build(List<Node2D> nodes, List<Edge> edges){
-        this.nodes = nodes;
-        this.edges = edges;
+    public CircleMesh build(List<Node2D> circleNodes, List<Edge> circleEdges) {
+        nodes = circleNodes;
+        edges = circleEdges;
         return this;
     }
 }

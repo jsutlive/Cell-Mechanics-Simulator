@@ -2,10 +2,12 @@ package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Entity;
 import Framework.States.State;
+import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
+import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
+import Morphogenesis.Components.Physics.OsmosisForce;
+import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Entities.BasicRingCell;
-import Morphogenesis.Entities.Cell;
-import Morphogenesis.Entities.Yolk;
+import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -31,7 +33,7 @@ public class RingMesh extends Mesh {
 
     public transient List<Node2D> outerNodes = new ArrayList<>();
     public transient List<Node2D> innerNodes = new ArrayList<>();
-    public transient List<Cell> cellList = new ArrayList<>();
+    public transient List<Entity> cellList = new ArrayList<>();
     public transient List<Edge> basalEdges = new ArrayList<>();
     public transient List<Edge> apicalEdges = new ArrayList<>();
     public final Vector2i boundingBox = new Vector2i(800);
@@ -46,7 +48,7 @@ public class RingMesh extends Mesh {
     }
 
     private void resetCells() {
-        for(Cell cell: cellList){
+        for(Entity cell: cellList){
             cell.destroy();
         }
         cellList.clear();
@@ -57,7 +59,7 @@ public class RingMesh extends Mesh {
     }
 
     private void setApicalAndBasalEdges() {
-        for(Cell cell: cellList)
+        for(Entity cell: cellList)
         {
             for(Node2D node: cell.getComponent(RingCellMesh.class).nodes){
                 if(!node.getPosition().isNull()) {
@@ -81,9 +83,11 @@ public class RingMesh extends Mesh {
             outerNodes.add((Node2D) edge.getNodes()[0]);
         }
 
-        Cell yolk = Yolk.build(yolkNodes, basalEdges);
-        yolk.name = "Yolk";
-        cellList.add(yolk);
+        Entity yolk = State.create(new Entity("Yolk").
+                with(new CircleMesh().build(yolkNodes, basalEdges)).
+                with(new OsmosisForce()));
+        yolk.getComponent(MeshRenderer.class).enabled = false;
+        yolk.getComponent(OsmosisForce.class).osmosisConstant = -0.0005f;
         innerNodes.addAll(yolkNodes);
     }
 
@@ -94,7 +98,7 @@ public class RingMesh extends Mesh {
 
     @Override
     public Entity returnCellContainingPoint(Vector2f vector2f) {
-        for (Cell cell : cellList) {
+        for (Entity cell : cellList) {
             if (cell.getComponent(RingCellMesh.class).collidesWithPoint(vector2f)) {
                 return cell;
             }
@@ -102,11 +106,10 @@ public class RingMesh extends Mesh {
         return parent;
     }
 
-    public void addCellToList(List<Cell> cellList, Cell cell, int ringLocation) {
-        if (cell != null) {
-            cell.setRingLocation(ringLocation);
+    public void addCellToList(List<Entity> cellList, Entity cell, int ringLocation) {
+        if (cell.getComponent(RingCellMesh.class) != null) {
+            cell.getComponent(RingCellMesh.class).ringLocation = ringLocation;
             cellList.add(cell);
-            cell.name = "Cell " + cellList.size();
         } else {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
@@ -122,7 +125,7 @@ public class RingMesh extends Mesh {
 
     public void generateTissueRing() {
         Vector2f position, unitVector;
-        ArrayList<Cell> mirroredCells = new ArrayList<>();
+        ArrayList<Entity> mirroredCells = new ArrayList<>();
         ArrayList<Node2D> oldNodes = new ArrayList<>();
         ArrayList<Node2D> oldMirroredNodes = new ArrayList<>();
 
@@ -149,12 +152,12 @@ public class RingMesh extends Mesh {
             Collections.reverse(oldNodes);
 
             // Build the first set of cells in the cell ring
-            Cell newCell;
+            Entity newCell;
             if (i >= 1) {
 
                 List<Node2D> cellNodes = new ArrayList<>(mirroredNodes);
                 cellNodes.addAll(oldMirroredNodes);
-                newCell = State.create(BasicRingCell.class, new RingCellMesh().build(cellNodes));
+                newCell = getNewCell(cellNodes);
                 addCellToList(mirroredCells, newCell, i);
                 if(i != 1) {
                     cellNodes = new ArrayList<>(oldNodes);
@@ -168,7 +171,7 @@ public class RingMesh extends Mesh {
                 }else{
                     cellNodes.addAll(nodes);
                 }
-                newCell = State.create(BasicRingCell.class, new RingCellMesh().build(cellNodes));
+                newCell = getNewCell(cellNodes);
                 addCellToList(cellList, newCell, i);
             }
             Collections.reverse(mirroredNodes);
@@ -180,5 +183,15 @@ public class RingMesh extends Mesh {
         }
         Collections.reverse(mirroredCells);
         cellList.addAll(mirroredCells);
+    }
+
+    private Entity getNewCell(List<Node2D> cellNodes) {
+        return State.create(new Entity("Cell " + cellList.size()).
+                with(new RingCellMesh().
+                        build(cellNodes)).
+                with(new EdgeStiffness2D()).
+                with(new ElasticForce()).
+                with(new CornerStiffness2D()).
+                with(new OsmosisForce()));
     }
 }

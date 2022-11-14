@@ -1,7 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
-import Framework.Object.DoNotDestroyInGUI;
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
