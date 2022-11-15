@@ -16,7 +16,7 @@ public class EdgeStiffness2D extends Force {
 
     List<Node> sideA;
 
-    public float constant = 15.0f;
+    public float constant = 25.0f;
 
     @Override
     public void awake() {

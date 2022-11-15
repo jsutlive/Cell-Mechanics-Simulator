@@ -1,34 +1,15 @@
 package Framework;
 
-import Framework.Data.Json.ComponentSerializer;
-import Framework.Data.Json.Exclusion.LogDataExclusionStrategy;
-import Framework.Events.IEvent;
 import Framework.States.State;
 import Framework.Timer.Time;
-import Framework.Object.Component;
-import Input.InputPanel;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-public class Engine implements Runnable
+public final class Engine implements Runnable
 {
-
-    public static Gson gson = new GsonBuilder().setPrettyPrinting().
-            registerTypeAdapter(Component.class, new ComponentSerializer()).
-            setExclusionStrategies(new LogDataExclusionStrategy()).
-            create();
-    public static Gson gsonOnce = new GsonBuilder().setPrettyPrinting().
-            registerTypeAdapter(Component.class, new ComponentSerializer()).
-            create();
-
-    public static float TIMESTEP = 1e-3f;
     // rendering system reference
     Renderer renderer;
     // Collecting user input
-    // window boundary, in px
-    public static Vector2i bounds;
     // window title
     public static String title;
 
@@ -40,29 +21,11 @@ public class Engine implements Runnable
     private boolean applicationIsRunning = false;
 
     /**
-     * Engine object, with window parameters to send to rendering system
-     * @param _title title of window
-     * @param _width width of window
-     * @param _height height of window
-     */
-    public Engine(String _title, int _width, int _height)
-    {
-        bounds.x = _width;
-        bounds.y  = _height;
-        title = _title;
-    }
-
-    private void setTimeStep(float f){
-        TIMESTEP = f;
-    }
-
-    /**
      * Simplified simulation constructor where the window is automatically set to be 800x800 px
      * @param _title Window title for the simulation
      */
     public Engine(String _title)
     {
-        bounds = new Vector2i(800);
         title = _title;
     }
 
@@ -77,10 +40,6 @@ public class Engine implements Runnable
         // Separate render thread and set as a background process
         render = new Thread(renderer);
         render.setDaemon(true);
-
-        // subscribe to necessary input events. Please refactor this.
-        IEvent<Float> timeStepSink = this::setTimeStep;
-        InputPanel.onTimestepSliderChanged.subscribe(timeStepSink);
 
         // Prepare state loading and timer system
         Time.getInstance();

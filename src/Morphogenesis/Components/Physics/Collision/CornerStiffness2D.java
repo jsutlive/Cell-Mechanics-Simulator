@@ -70,6 +70,7 @@ public class CornerStiffness2D extends Force {
 
         Vector normal = CustomMath.normal(p1,p3);
         float theta = calculateAngleBetweenPoints(p1, p2, p3);
+        if(theta >= 180f) theta -= 180f;
 
         if(theta > 90) return(normal.mul(constant));
         else if(theta < 90) return(normal.mul(-constant));

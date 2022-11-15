@@ -1,8 +1,10 @@
 package Morphogenesis.Rigidbodies.Nodes;
 
-import Framework.Engine;
+
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
+
+import static Renderer.Renderer.windowSize;
 
 /**
  * Node: A vertex-like object which can implement physics for simulations.
@@ -15,7 +17,6 @@ public class Node2D extends Node {
     }
     protected void setPosition(Vector pos){
         position = pos;
-        initialPosition = position;
     }
 
     public Node2D()
@@ -50,9 +51,10 @@ public class Node2D extends Node {
      * axis as determined by the boundaries of the simulation window
      */
     public void mirrorAcrossYAxis(){
-        int xOffset = Engine.bounds.x;
+        int xOffset = windowSize().x;
         Vector2f pos = getPosition();
         setPosition(new Vector2f(-pos.x + xOffset, pos.y));
+        initialPosition = getPosition();
     }
 
 }

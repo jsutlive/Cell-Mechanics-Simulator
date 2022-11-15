@@ -36,7 +36,9 @@ public class EditorState extends State
         }
         else {
             //ensure mesh object is not null, then reset
-            Objects.requireNonNull(model.getComponent(Mesh.class)).reset();
+            for(Entity obj: allObjects) {
+                Objects.requireNonNull(obj.getComponent(Mesh.class)).reset();
+            }
         }
         //loadModel();
     }
@@ -54,7 +56,7 @@ public class EditorState extends State
     }
 
     @Override
-    void OnChangeState() {
+    void onChangeState() {
         saveInitial();
         SetState(new RunState());
     }

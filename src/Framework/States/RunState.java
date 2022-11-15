@@ -1,5 +1,6 @@
 package Framework.States;
 
+import Framework.Engine;
 import Framework.Object.Entity;
 import Renderer.Graphics.IRender;
 
@@ -21,6 +22,7 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
+        deltaTime = dt;
         for (Entity obj : allObjects) {
             obj.earlyUpdate();
         }
@@ -51,7 +53,7 @@ public class RunState extends State
         }
     }
 
-    void OnChangeState()
+    void onChangeState()
     {
         SetState(new EditorState());
     }

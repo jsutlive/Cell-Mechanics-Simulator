@@ -1,5 +1,6 @@
 package Renderer;
 
+import Framework.Engine;
 import Framework.States.State;
 import Renderer.Graphics.DisplayWindow;
 import Utilities.Geometry.Vector.Vector2i;
@@ -7,7 +8,6 @@ import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-import static Framework.Engine.bounds;
 
 public class Renderer2D extends Renderer
 {
@@ -17,8 +17,10 @@ public class Renderer2D extends Renderer
 
     public Renderer2D()
     {
-        displayWindow = new DisplayWindow(title, bounds.x, bounds.y);
-        camera = new Camera(bounds.x, bounds.y);
+        title = Engine.title;
+        bounds = new Dimension(800,800);
+        displayWindow = new DisplayWindow(title, bounds.width, bounds.height);
+        camera = new Camera(bounds.width, bounds.height);
     }
     /**
      * Renders graphics to the screen. Should only be accessed from the Engine object.

@@ -13,10 +13,14 @@ import java.util.List;
 
 import static Framework.Data.File.save;
 import static Framework.Data.File.load;
+import static Input.InputPanel.onTimestepSliderChanged;
 
 public abstract class State
 {
     private static int _ID_COUNTER = 0;
+    protected static float dt  = 1e-3f;
+    public static float deltaTime;
+
     public static State state = null;
     public static State GetState() throws InstantiationException, IllegalAccessException {
         if(state == null) ChangeState();
@@ -24,11 +28,20 @@ public abstract class State
     }
     public static void SetState(State _state)
     {
+        if(state!= null) onTimestepSliderChanged.unSubscribe(state::setTimeStep);
         state = _state;
+        deltaTime = dt;
+        onTimestepSliderChanged.subscribe(state::setTimeStep);
     }
 
     protected static List<Entity> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
+
+
+    private void setTimeStep(float f){
+        dt = f;
+    }
+
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
 
@@ -48,16 +61,14 @@ public abstract class State
      * @throws IllegalAccessException problem created due to changing states during the creation/ destruction of objects
      */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
-        if(state == null)
-        {
+        if(state == null) {
             SetState(new EditorState());
         }
-        else
-        {
-            state.OnChangeState();
+        else {
+            state.onChangeState();
         }
         Time.reset();
-        GetState().Init();
+        state.Init();
     }
 
     /**
@@ -122,12 +133,9 @@ public abstract class State
      * Remove object and its associated render component from the scene
      * @param obj object to be destroyed
      */
-    public static void destroy(Entity obj)
-    {
+    public static void destroy(Entity obj) {
         allObjects.remove(obj);
-        if(obj.getComponent(ObjectRenderer.class)!=null)
-        renderBatch.remove(obj.getComponent(ObjectRenderer.class));
-
+        renderBatch.removeIf(r -> obj.getComponent(ObjectRenderer.class)!=null);
     }
 
     /**
@@ -158,5 +166,9 @@ public abstract class State
         }
     }
 
-    abstract void OnChangeState();
+    /**
+     * Actions performed by state prior to creation of new state
+     * Culminates in setting of new state
+     */
+    abstract void onChangeState();
 }

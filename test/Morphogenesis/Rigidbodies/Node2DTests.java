@@ -1,10 +1,10 @@
 package Morphogenesis.Rigidbodies;
 
-import Framework.Engine;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static Framework.States.State.deltaTime;
 
 public class Node2DTests {
     @Test
@@ -16,8 +16,8 @@ public class Node2DTests {
         n.move();
         //Check to make sure reset occurs
         n.move();
-        assertEquals(1 * Engine.TIMESTEP, n.getPosition().x);
-        assertEquals(1 * Engine.TIMESTEP, n.getPosition().y);
+        assertEquals(1 * deltaTime, n.getPosition().x);
+        assertEquals(1 * deltaTime, n.getPosition().y);
     }
 
     @Test

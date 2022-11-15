@@ -1,5 +1,6 @@
 package Renderer;
 
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
 
@@ -9,6 +10,8 @@ public abstract class Renderer implements Runnable {
 
     //Renderer object singleton instance.
     private static Renderer instance;
+
+    protected static Dimension bounds;
 
     protected Camera camera;
 
@@ -22,6 +25,9 @@ public abstract class Renderer implements Runnable {
             instance = build(Renderer2D.class);
         }
         return instance;
+    }
+    public static Vector2i windowSize(){
+        return new Vector2i(bounds.width, bounds.height);
     }
 
     public static Camera getCamera(){

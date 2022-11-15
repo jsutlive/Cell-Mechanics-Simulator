@@ -1,8 +1,9 @@
 package Morphogenesis.Rigidbodies.Nodes;
 
-import Framework.Engine;
 import Morphogenesis.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
+
+import static Framework.States.State.deltaTime;
 
 import java.util.*;
 
@@ -51,7 +52,7 @@ public abstract class Node implements IRigidbody {
      */
     @Override
     public void move() {
-        position = position.add(resultantForceVector.mul(Engine.TIMESTEP));
+        position = position.add(resultantForceVector.mul(deltaTime));
     }
 
     /**

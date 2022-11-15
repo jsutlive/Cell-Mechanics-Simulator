@@ -1,6 +1,6 @@
 package Morphogenesis.Rigidbodies;
 
-import Framework.Engine;
+
 import Morphogenesis.Rigidbodies.Nodes.Node;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static Framework.States.State.deltaTime;
 
 public class NodeTests {
 
@@ -31,8 +32,8 @@ public class NodeTests {
         nodeA.addForceVector(v);
         nodeA.move();
         Vector2f newPosition = (Vector2f) nodeA.getPosition();
-        assertEquals(1f * Engine.TIMESTEP, newPosition.x);
-        assertEquals(1f * Engine.TIMESTEP, newPosition.y);
+        assertEquals(deltaTime, newPosition.x);
+        assertEquals(deltaTime, newPosition.y);
     }
 
     @Test
@@ -46,10 +47,10 @@ public class NodeTests {
         Vector2f newPositionA = (Vector2f) nodeA.getPosition();
         Vector2f newPositionB = (Vector2f) nodeB.getPosition();
 
-        assertEquals(1f * Engine.TIMESTEP, newPositionA.x);
-        assertEquals(1f * Engine.TIMESTEP, newPositionA.y);
+        assertEquals( deltaTime, newPositionA.x);
+        assertEquals(deltaTime, newPositionA.y);
 
-        assertEquals(0f * Engine.TIMESTEP, newPositionB.x);
-        assertEquals(0f * Engine.TIMESTEP, newPositionB.y);
+        assertEquals(0f * deltaTime, newPositionB.x);
+        assertEquals(0f * deltaTime, newPositionB.y);
     }
 }
