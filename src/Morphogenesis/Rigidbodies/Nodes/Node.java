@@ -1,7 +1,6 @@
 package Morphogenesis.Rigidbodies.Nodes;
 
 import Framework.Engine;
-import Morphogenesis.Components.Physics.Force;
 import Morphogenesis.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
 
@@ -9,29 +8,23 @@ import java.util.*;
 
 public abstract class Node implements IRigidbody {
     protected Vector position;
-    protected HashMap<String, Vector> forceVectors = new HashMap<>();
-    protected Vector resultantForceVector;
+    protected transient Vector initialPosition;
+    protected transient HashMap<String, Vector> forceVectors = new HashMap<>();
+    protected transient Vector resultantForceVector;
+
     public abstract Vector getPosition();
     protected  abstract void setPosition(Vector vector);
-    public Vector getResultantForce(){
-        return resultantForceVector;
-    }
 
-    public static void addIfAvailable(List<Node> nodes, Node n){
-        if(!nodes.contains(n)) nodes.add(n);
-    }
-
-    public static List<Node> getAllUnique(Node[] a, Node[] b){
-        List<Node> uniqueNodes = new ArrayList<>(Arrays.asList(a));
-        for(Node n_b: b){
-            addIfAvailable(uniqueNodes, n_b);
+    public void reset(){
+        try {
+            position = initialPosition;
+        }catch(NullPointerException e){
+            throw new NullPointerException("Node position or node initial position is null");
         }
-        return uniqueNodes;
     }
 
     public abstract Node clone();
 
-    public abstract void mirrorAcrossXAxis();
     public abstract void mirrorAcrossYAxis();
 
     @Override

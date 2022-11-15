@@ -4,7 +4,6 @@ import Framework.Object.Entity;
 import Renderer.Graphics.IRender;
 
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
 
 public class RunState extends State
 {
@@ -22,21 +21,15 @@ public class RunState extends State
      */
     @Override
     public void Tick() {
-        try {
-            for (Entity obj : allObjects) {
-                obj.earlyUpdate();
-            }
-            for (Entity obj : allObjects) {
-                obj.update();
-            }
-            for (Entity obj : allObjects) {
-                obj.lateUpdate();
-            }
+        for (Entity obj : allObjects) {
+            obj.earlyUpdate();
         }
-        catch (ConcurrentModificationException e){
-            return;
+        for (Entity obj : allObjects) {
+            obj.update();
         }
-
+        for (Entity obj : allObjects) {
+            obj.lateUpdate();
+        }
         /*if(count%500 == 0) {
 
             ZoomRenderer instance = (ZoomRenderer) Renderer.getInstance();
@@ -52,13 +45,9 @@ public class RunState extends State
     @Override
     public void Render()
     {
-        try {
-            for(IRender rend: renderBatch)
-            {
-                rend.render();
-            }
-        } catch (ConcurrentModificationException e){
-            return;
+        for(IRender rend: renderBatch)
+        {
+            rend.render();
         }
     }
 

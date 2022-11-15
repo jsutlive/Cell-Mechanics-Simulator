@@ -1,5 +1,6 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
@@ -24,6 +25,7 @@ import static Utilities.Math.CustomMath.TransformToWorldSpace;
 import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
 
 @ReloadComponentOnChange
+@DoNotDestroyInGUI
 public class RingMesh extends Mesh {
 
     public int lateralResolution = 4;
@@ -44,7 +46,6 @@ public class RingMesh extends Mesh {
         nodes.clear();
         generateTissueRing();
         setApicalAndBasalEdges();
-        buildYolk();
     }
 
     private void resetCells() {
@@ -67,28 +68,17 @@ public class RingMesh extends Mesh {
                 }
             }
             for(Edge edge: cell.getComponent(RingCellMesh.class).edges){
-                if(edge instanceof ApicalEdge) apicalEdges.add(edge);
-                if(edge instanceof BasalEdge) basalEdges.add(edge);
+                if(edge instanceof ApicalEdge) {
+                    apicalEdges.add(edge);
+                    outerNodes.add((Node2D) edge.getNodes()[0]);
+                }
+                if(edge instanceof BasalEdge){
+                    basalEdges.add(edge);
+                    innerNodes.add((Node2D)edge.getNodes()[0]);
+                }
             }
 
         }
-    }
-
-    private void buildYolk() {
-        List<Node2D> yolkNodes = new ArrayList<>();
-        for(Edge edge: basalEdges){
-            yolkNodes.add((Node2D) edge.getNodes()[0]);
-        }
-        for(Edge edge: apicalEdges){
-            outerNodes.add((Node2D) edge.getNodes()[0]);
-        }
-
-        Entity yolk = State.create(new Entity("Yolk").
-                with(new CircleMesh().build(yolkNodes, basalEdges)).
-                with(new OsmosisForce()));
-        yolk.getComponent(MeshRenderer.class).enabled = false;
-        yolk.getComponent(OsmosisForce.class).osmosisConstant = -0.0005f;
-        innerNodes.addAll(yolkNodes);
     }
 
     @Override

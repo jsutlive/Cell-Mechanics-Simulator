@@ -2,8 +2,10 @@ package Framework.Data;
 
 import Framework.Data.Json.ComponentSerializer;
 import Framework.Data.Json.EntitySerializer;
+import Framework.Data.Json.NodeSerializer;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Morphogenesis.Rigidbodies.Nodes.Node;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,6 +20,7 @@ public class File {
     public static void save(List<Entity> entities){
         Gson gson = new GsonBuilder().setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
+                registerTypeAdapter(Node.class, new NodeSerializer()).
                 create();
         System.out.println("HERE");
         try {
@@ -35,6 +38,7 @@ public class File {
                 setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
                 registerTypeAdapter(Entity.class, new EntitySerializer()).
+                registerTypeAdapter(Node.class, new NodeSerializer()).
                 create();
         String inFile = "";
         try{

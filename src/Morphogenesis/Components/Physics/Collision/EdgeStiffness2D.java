@@ -39,6 +39,7 @@ public class EdgeStiffness2D extends Force {
 
             if(theta > 180) addForceToBody(sideA.get(i), normal.mul(constant));
             else if(theta < 180) addForceToBody(sideA.get(i), normal.mul(-constant));
+            else addForceToBody(sideA.get(i), normal.mul(0));
         }
     }
 

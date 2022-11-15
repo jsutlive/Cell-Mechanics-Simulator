@@ -15,22 +15,26 @@ public class Node2D extends Node {
     }
     protected void setPosition(Vector pos){
         position = pos;
+        initialPosition = position;
     }
 
     public Node2D()
     {
         resultantForceVector = Vector2f.zero;
         position = new Vector2f(0);
+        initialPosition = position;
     }
     public Node2D(Vector2f pos)
     {
         resultantForceVector = Vector2f.zero;
         position = pos;
+        initialPosition = position;
     }
 
     public Node2D(float a, float b){
         resultantForceVector = Vector2f.zero;
         position = new Vector2f(a, b);
+        initialPosition = position;
     }
 
     /**
@@ -50,12 +54,5 @@ public class Node2D extends Node {
         Vector2f pos = getPosition();
         setPosition(new Vector2f(-pos.x + xOffset, pos.y));
     }
-
-    public void mirrorAcrossXAxis(){
-        int yOffset = Engine.bounds.y;
-        Vector2f pos = getPosition();
-        setPosition(new Vector2f(pos.x, -pos.y + yOffset));
-    }
-
 
 }

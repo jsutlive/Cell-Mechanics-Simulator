@@ -32,12 +32,7 @@ public abstract class State
     }
 
     protected static List<Entity> allObjects = new ArrayList<>();
-    protected List<IRender> renderBatch = new ArrayList<>();
-    protected static List<Thread> physicsThreads = new ArrayList<>();
-
-    public static List<Entity> getAllObjects(){
-        return allObjects;
-    }
+    protected static List<IRender> renderBatch = new ArrayList<>();
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
 
@@ -53,12 +48,6 @@ public abstract class State
      * @throws IllegalAccessException problem created due to changing states during the creation/ destruction of objects
      */
     public static void ChangeState() throws InstantiationException, IllegalAccessException {
-        List<Entity> currentObjects = new ArrayList<>();
-        List<IRender> renderBatch = new ArrayList<>();
-        if(state!= null) {
-            currentObjects = allObjects;
-            renderBatch = state.renderBatch;
-        }
         if(state == null)
         {
             SetState(new EditorState());
@@ -66,24 +55,16 @@ public abstract class State
         else
         {
             state.OnChangeState();
-            allObjects = currentObjects;
-            state.renderBatch = renderBatch;
         }
-        resetGlobalID();
+        //resetGlobalID();
         Time.reset();
         GetState().Init();
     }
 
-    private static void resetGlobalID(){
-        _ID_COUNTER = 0;
-    }
-
-
-    protected static void reset() {
-        state.renderBatch.clear();
+    /*protected static void reset() {
+        renderBatch.clear();
         allObjects.clear();
-        physicsThreads.clear();
-    }
+    }*/
 
     /**
      * Initializes entities when the state starts. Only called once.
@@ -129,7 +110,7 @@ public abstract class State
     public static void setFlagToRender(Entity mono)
     {
         IRender rend = mono.getComponent(ObjectRenderer.class);
-        state.renderBatch.add(rend);
+        renderBatch.add(rend);
     }
 
     /**
@@ -137,14 +118,14 @@ public abstract class State
      * @param rend object that implements the IRender interface
      */
     public static void addGraphicToScene(IRender rend){
-        state.renderBatch.add(rend);
+        renderBatch.add(rend);
     }
 
     public static void destroy(Entity obj)
     {
         allObjects.remove(obj);
         if(obj.getComponent(ObjectRenderer.class)!=null)
-        state.renderBatch.remove(obj.getComponent(ObjectRenderer.class));
+        renderBatch.remove(obj.getComponent(ObjectRenderer.class));
 
     }
 
@@ -164,18 +145,6 @@ public abstract class State
 
     protected void saveInitial(){
        save(allObjects);
-    }
-
-    public static void addComponentToAll(Class<?> componentClass){
-        if(Component.class.isAssignableFrom(componentClass)){
-            for(Entity entity: allObjects){
-                try {
-                    entity.addComponent((Component) componentClass.newInstance());
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public <T extends Component> void removeComponentFromAll(Class<T> componentClass){

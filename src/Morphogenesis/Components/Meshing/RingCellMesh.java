@@ -23,7 +23,7 @@ public class RingCellMesh extends Mesh{
     public int lateralResolution = 4;
     @DoNotEditInGUI
     public int apicalResolution = 1;
-
+    @DoNotEditInGUI
     public int ringLocation;
 
     @Override

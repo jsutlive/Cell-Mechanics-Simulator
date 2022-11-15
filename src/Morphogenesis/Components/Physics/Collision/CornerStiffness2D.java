@@ -45,13 +45,25 @@ public class CornerStiffness2D extends Force {
 
     @Override
     public void update() {
-        calculateCornerStiffness(cornerA);
-        calculateCornerStiffness(cornerB);
-        calculateCornerStiffness(cornerC);
-        calculateCornerStiffness(cornerD);
+        addForceToBody(cornerA.get(1), calculateCornerStiffness(cornerA));
+        addForceToBody(cornerB.get(1), calculateCornerStiffness(cornerB));
+        addForceToBody(cornerC.get(1), calculateCornerStiffness(cornerC));
+        addForceToBody(cornerD.get(1), calculateCornerStiffness(cornerD));
     }
 
-    private void calculateCornerStiffness(List<Node> corner){
+    /**
+     * Calculate the force that needs to be added to corner nodes to retain corner stiffness
+     * @param corner list of nodes (a,b,c) in order that make up a corner
+     *                  p3
+     *                 /
+     *       p1----p2/
+     *
+     *   illegal argument exception thrown in the case that less/greater than three nodes are given.
+     */
+    public Vector calculateCornerStiffness(List<Node> corner){
+        if(corner.size() != 3 ){
+            throw new IllegalArgumentException("Corners must consist of three nodes");
+        }
         Vector2f p1 = (Vector2f) corner.get(0).getPosition();
         Vector2f p2 = (Vector2f) corner.get(1).getPosition();
         Vector2f p3 = (Vector2f) corner.get(2).getPosition();
@@ -59,7 +71,8 @@ public class CornerStiffness2D extends Force {
         Vector normal = CustomMath.normal(p1,p3);
         float theta = calculateAngleBetweenPoints(p1, p2, p3);
 
-        if(theta > 90) addForceToBody(corner.get(1), normal.mul(constant));
-        else if(theta < 90) addForceToBody(corner.get(1), normal.mul(-constant));
+        if(theta > 90) return(normal.mul(constant));
+        else if(theta < 90) return(normal.mul(-constant));
+        else return normal.mul(0);
     }
 }

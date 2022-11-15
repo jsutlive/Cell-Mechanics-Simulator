@@ -36,6 +36,11 @@ public abstract class Mesh extends Component {
         return edges.contains(e);
     }
 
+    public void reset(){
+        for(Node n: nodes){
+            n.reset();
+        }
+    }
 
     public float getArea(){
         calculateArea();
@@ -62,7 +67,10 @@ public abstract class Mesh extends Component {
     @Override
     public void onValidate()
     {
-        if(getComponent(Mesh.class)!= this) removeSelf();
+        if(getComponent(Mesh.class)!= this) {
+            removeSelf();
+            return;
+        }
         parent.removeComponent(MeshRenderer.class);
         for(Method method: getClass().getDeclaredMethods()){
             if(method.isAnnotationPresent(Builder.class))

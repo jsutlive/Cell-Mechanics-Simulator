@@ -28,6 +28,7 @@ public class MouseSelector extends Component {
 
     public void onMouseClicked(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON1) {
+            assert Renderer.getCamera() != null;
             Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
             selectEntity(mousePosition);
         }
@@ -39,6 +40,7 @@ public class MouseSelector extends Component {
 
     private  void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
+        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
         selectEntity(selected);
     }
 
