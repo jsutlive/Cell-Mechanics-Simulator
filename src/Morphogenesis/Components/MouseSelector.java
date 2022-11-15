@@ -1,7 +1,6 @@
 package Morphogenesis.Components;
 
 import Framework.Events.EventHandler;
-import Framework.Events.IEvent;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
@@ -15,18 +14,19 @@ import java.awt.event.MouseEvent;
 @DoNotExposeInGUI
 public class MouseSelector extends Component {
 
+    // Event handler for when this object selects an entity
     public static EventHandler<Entity> onEntitySelected = new EventHandler<>();
-    public void selectEntity(Entity e){
-        onEntitySelected.invoke(e);
-    }
 
     @Override
     public void awake() {
-        IEvent<MouseEvent> mouseClickEventSink = this::onMouseClicked;
-        InputEvents.onClick.subscribe(mouseClickEventSink);
+        InputEvents.onClick.subscribe(this::onMouseClicked);
     }
 
-    public void onMouseClicked(MouseEvent e){
+    /**
+     * Left-click: get mouse position based on screenpoint/ camera
+     * @param e mouse event
+     */
+    private void onMouseClicked(MouseEvent e){
         if(e.getButton() == MouseEvent.BUTTON1) {
             assert Renderer.getCamera() != null;
             Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
@@ -34,14 +34,18 @@ public class MouseSelector extends Component {
         }
     }
 
-    public void onMouseDragged(MouseEvent e){
-
-    }
-
-    private  void selectEntity(Vector2i mousePosition) {
+    /**
+     * Select an entity whose mesh contains a given point. Return this object's parent if none exists.
+     * @param mousePosition
+     */
+    private void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
         if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
-        selectEntity(selected);
+        onEntitySelected.invoke(selected);
     }
 
+    @Override
+    public void onDestroy() {
+        InputEvents.onClick.unSubscribe(this::onMouseClicked);
+    }
 }

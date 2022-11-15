@@ -78,4 +78,9 @@ public class MeshRenderer extends ObjectRenderer
         if(enabled)
             Painter.drawMesh(cellMesh, color);
     }
+
+    @Override
+    public void onDestroy() {
+        MouseSelector.onEntitySelected.unSubscribe(this::highlightColor);
+    }
 }
