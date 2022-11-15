@@ -1,6 +1,5 @@
 package Framework.States;
 
-import Framework.Engine;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
@@ -9,8 +8,6 @@ import Renderer.Graphics.IRender;
 import Framework.Object.Component;
 import Morphogenesis.Components.Render.ObjectRenderer;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,6 @@ import static Framework.Data.File.load;
 
 public abstract class State
 {
-    int count = 0;
     private static int _ID_COUNTER = 0;
     public static State state = null;
     public static State GetState() throws InstantiationException, IllegalAccessException {
@@ -36,6 +32,10 @@ public abstract class State
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
 
+    /**
+     * Add entity to state and invoke the on add entity method for GUI
+     * @param e entity added
+     */
     public static void addEntity(Entity e ) {
         allObjects.add(e);
         onAddEntity.invoke(e);
@@ -56,30 +56,27 @@ public abstract class State
         {
             state.OnChangeState();
         }
-        //resetGlobalID();
         Time.reset();
         GetState().Init();
     }
 
-    /*protected static void reset() {
-        renderBatch.clear();
-        allObjects.clear();
-    }*/
-
     /**
      * Initializes entities when the state starts. Only called once.
      */
-    public abstract void Init() throws InstantiationException, IllegalAccessException;
+    public abstract void Init();
 
+    /**
+     * calls render function on all render components/ objects cached in render batch.
+     */
     public abstract void Render();
 
     /**
      * Performs all calculations to be updated once per frame cycle.
      */
-    public abstract void Tick() throws InstantiationException, IllegalAccessException;
+    public abstract void Tick();
 
     /**
-     * Base method to create an object and assign it to the given state     *
+     * Base method to create an object and assign it to the given state
      * @param obj Entity to be added to scene
      * @return an Entity as its subclass
      */
@@ -121,6 +118,10 @@ public abstract class State
         renderBatch.add(rend);
     }
 
+    /**
+     * Remove object and its associated render component from the scene
+     * @param obj object to be destroyed
+     */
     public static void destroy(Entity obj)
     {
         allObjects.remove(obj);
@@ -129,24 +130,18 @@ public abstract class State
 
     }
 
-    protected void saveRecurring()
-    {
-        if(count > 10) return;
-        try {
-            FileWriter filewriter = new FileWriter("save_data/embryo_" + count + "_.txt");
-            filewriter.write(Engine.gson.toJson(allObjects));
-            filewriter.close();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
-        }
-        count++;
-    }
-
+    /**
+     * save a json file with initial position
+     */
     protected void saveInitial(){
        save(allObjects);
     }
 
+    /**
+     * Remove component from all entities
+     * @param componentClass component to be removed
+     * @param <T> component subtype
+     */
     public <T extends Component> void removeComponentFromAll(Class<T> componentClass){
         if(Component.class.isAssignableFrom(componentClass)){
             for(Entity entity: allObjects){

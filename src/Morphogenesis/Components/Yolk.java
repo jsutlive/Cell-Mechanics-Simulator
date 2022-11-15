@@ -8,7 +8,6 @@ import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Render.MeshRenderer;
 import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Geometry.Vector.Vector2i;
 
 public class Yolk extends Component {
 
