@@ -59,10 +59,11 @@ public class ApicalGradient extends Component {
         for(Entity cell: mesh.cellList){
             int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
             if( ringLocation <= numberOfConstrictingCells / 2){
-                if(cell.getComponent(ApicalConstrictingSpringForce.class)== null){
-                    cell.addComponent(new ApicalConstrictingSpringForce());
+                ApicalConstrictingSpringForce apicalConstriction =
+                        cell.getComponent(ApicalConstrictingSpringForce.class);
+                if(apicalConstriction == null){
+                    apicalConstriction = cell.addComponent(new ApicalConstrictingSpringForce());
                 }
-                ApicalConstrictingSpringForce apicalConstriction = cell.getComponent(ApicalConstrictingSpringForce.class);
                 apicalConstriction.setConstant(gradient.getConstants()[ringLocation- 1]);
                 apicalConstriction.setTargetLengthRatio(gradient.getRatios()[ringLocation - 1]);
                 cell.getComponent(MeshRenderer.class).setColor(groupColor);
