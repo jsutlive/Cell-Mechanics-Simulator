@@ -2,6 +2,7 @@ package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
@@ -13,6 +14,8 @@ import Renderer.Graphics.Painter;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
 
 @ReloadComponentOnChange
 public class LateralGradient extends Component {
@@ -30,7 +33,14 @@ public class LateralGradient extends Component {
 
     @Override
     public void awake() {
+        onMeshRebuilt.subscribe(this::recalculate);
         calculateParameters();
+    }
+
+    private void recalculate(Mesh mesh){
+        if(mesh == getComponent(Mesh.class)){
+            calculateParameters();
+        }
     }
 
     private void calculateParameters() {
@@ -61,6 +71,7 @@ public class LateralGradient extends Component {
 
     @Override
     public void onDestroy() {
+        onMeshRebuilt.unSubscribe(this::recalculate);
         for(Entity cell: cellGroup){
             cell.removeComponent(LateralShorteningSpringForce.class);
         }

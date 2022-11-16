@@ -1,6 +1,8 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Events.IEvent;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
+import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Entity;
 import Framework.States.State;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
@@ -8,6 +10,7 @@ import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
+import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
@@ -26,8 +29,10 @@ import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
 
 @ReloadComponentOnChange
 @DoNotDestroyInGUI
+@DoNotEditWhilePlaying
 public class RingMesh extends Mesh {
 
+    @DoNotEditInGUI
     public int lateralResolution = 4;
     public int segments = 80;
     public float outerRadius = 300;
@@ -46,6 +51,7 @@ public class RingMesh extends Mesh {
         nodes.clear();
         generateTissueRing();
         setApicalAndBasalEdges();
+        onMeshRebuilt.invoke(this);
     }
 
     private void resetCells() {

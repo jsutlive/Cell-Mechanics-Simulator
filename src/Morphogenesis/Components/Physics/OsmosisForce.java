@@ -3,9 +3,10 @@ package Morphogenesis.Components.Physics;
 import Morphogenesis.Components.Meshing.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import Morphogenesis.Rigidbodies.Edges.Edge;
-import Utilities.Math.CustomMath;
-
 import java.util.List;
+
+import static Utilities.Math.CustomMath.normal;
+
 
 public class OsmosisForce extends Force {
 
@@ -25,19 +26,17 @@ public class OsmosisForce extends Force {
         //calculate normals
 
         for(Edge edge : edges){
-            force = CustomMath.normal(edge);
+            force = normal(edge);
             force.mul(forceMagnitude);
 
             //multiplies the edgeNormal by the length
             //logically if an edge is larger, there is more force pushing on it
             force.mul(edge.getLength());
-
             addForceToBody(edge, force);
         }
     }
 
-    public float calculateOsmosisForceMagnitude(Mesh mesh)
-    {
+    private float calculateOsmosisForceMagnitude(Mesh mesh) {
         return osmosisConstant * (mesh.getArea() - initialArea);
     }
 

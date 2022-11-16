@@ -2,6 +2,7 @@ package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Forces.GaussianGradient;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Renderer.Graphics.Painter.DEFAULT_COLOR;
+import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
 
 @ReloadComponentOnChange
 public class ApicalGradient extends Component {
@@ -33,11 +35,20 @@ public class ApicalGradient extends Component {
 
     @Override
     public void awake() {
+        onMeshRebuilt.subscribe(this::recalculate);
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
         RingMesh mesh = getComponent(RingMesh.class);
         addCellsToGroup(mesh);
     }
+
+    private void recalculate(Mesh mesh){
+        if(mesh == getComponent(Mesh.class)){
+            calculateGradient();
+            addCellsToGroup(getComponent(RingMesh.class));
+        }
+    }
+
     public void calculateGradient(){
         cellGroup.clear();
         gradient.calculate(numberOfConstrictingCells,
@@ -68,6 +79,7 @@ public class ApicalGradient extends Component {
 
     @Override
     public void onDestroy() {
+        onMeshRebuilt.unSubscribe(this::recalculate);
         for(Entity cell: cellGroup){
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }

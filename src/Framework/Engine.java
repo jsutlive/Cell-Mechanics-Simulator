@@ -3,7 +3,6 @@ package Framework;
 import Framework.States.State;
 import Framework.Timer.Time;
 import Renderer.Renderer;
-import Utilities.Geometry.Vector.Vector2i;
 
 public final class Engine implements Runnable
 {
@@ -17,6 +16,8 @@ public final class Engine implements Runnable
     private Thread thread;
     // render thread
     private Thread render;
+
+    private Time timer;
 
     private boolean applicationIsRunning = false;
 
@@ -42,7 +43,7 @@ public final class Engine implements Runnable
         render.setDaemon(true);
 
         // Prepare state loading and timer system
-        Time.getInstance();
+        timer = Time.getInstance();
         State.ChangeState();
     }
 
@@ -69,10 +70,10 @@ public final class Engine implements Runnable
         }
         while(applicationIsRunning)
         {
-            Time.Advance();
+            timer.advance();
 
             // Physics update
-            if(Time.isReadyToAdvancePhysics()){
+            if(timer.isReadyToAdvancePhysics()){
                 try {
                     Tick();
                 } catch (InstantiationException | IllegalAccessException e) {
@@ -80,12 +81,12 @@ public final class Engine implements Runnable
                 }
             }
             // Render update
-            if(Time.isReadyForNextFrame())
+            if(timer.isReadyForNextFrame())
             {
                 render.run();
             }
             
-            Time.printFrameRate();
+            timer.printFrameRate();
         }
         
         // Halt application

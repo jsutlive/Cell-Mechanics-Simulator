@@ -26,7 +26,7 @@ public final class Entity implements IBehavior
     * @return uniqueID of a given Entity
     */
    public int getStateID() {return uniqueID;}
-   public void setGlobalID(int ID)
+   public void setStateID(int ID)
    {
       uniqueID = ID;
    }

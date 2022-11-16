@@ -93,7 +93,7 @@ public abstract class State
      */
     public static Entity create(Entity obj) {
         if(obj!= null) {
-            obj.setGlobalID(_ID_COUNTER);
+            obj.setStateID(_ID_COUNTER);
             _ID_COUNTER++;
             addEntity(obj);
             obj.awake();
@@ -127,6 +127,10 @@ public abstract class State
      */
     public static void addGraphicToScene(IRender rend){
         renderBatch.add(rend);
+    }
+
+    public static void removeGraphicFromScene(IRender rend){
+        renderBatch.removeIf(r -> renderBatch.contains(rend));
     }
 
     /**

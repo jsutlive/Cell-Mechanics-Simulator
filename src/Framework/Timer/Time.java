@@ -1,14 +1,18 @@
 package Framework.Timer;
 
-public class Time {
+public final class Time {
     // Set frame rate and physics update rate
     public static final int fps = 60;
     public static final int fixedPhysicsSteps = 120;
 
     // system time and delta time variables
+    // time at initialization
     public static long initialTime = System.nanoTime();
+    // time since last state initialization
     public static long elapsedTime = 0;
+    // time since program start
     public static long time;
+    //not to be confused with state dt/ deltaTime, this controls frame rate
     public static long deltaTime;
 
     // time per physics/rendering step
@@ -25,7 +29,7 @@ public class Time {
 
     /**
      * Create or get specific time instance, synchronized across all threads
-     * @return reference to the master timer
+     *
      */
     public static synchronized Time getInstance() {
         if (instance == null) {
@@ -52,13 +56,13 @@ public class Time {
     private Time() {
         timePerTickNanoseconds = 1000000000f / fps;
         timePerPhysicsNanoseconds = 1000000000f/ fixedPhysicsSteps;
-        ResetCounters();
+        resetCounters();
     }
 
     /**
      * Set frame counters to 0
      */
-    private void ResetCounters() {
+    private void resetCounters() {
         countUpToNextFrame = 0;
         countUpToNextPhysics = 0;
     }
@@ -66,7 +70,7 @@ public class Time {
     /**
      * Every loop of the application cycle, timer advances
      */
-    public static void Advance()
+    public void advance()
     {
         // Get current time and find deltaTime
         time = System.nanoTime();
@@ -84,7 +88,7 @@ public class Time {
      * Checks against frame rate to see if rendering system should update
      * @return true if frame should advance
      */
-    public static boolean isReadyForNextFrame()
+    public boolean isReadyForNextFrame()
     {
         if(instance.countUpToNextFrame >= 1)
         {
@@ -100,7 +104,7 @@ public class Time {
      * checks timer against physics update rate to see if physics should update
      * @return true if time is ready to advance physics
      */
-    public static boolean isReadyToAdvancePhysics()
+    public boolean isReadyToAdvancePhysics()
     {
         if(instance.countUpToNextPhysics >= 1)
         {
@@ -114,7 +118,7 @@ public class Time {
     /**
      * prints the current frame rate to console for debugging purposes
      */
-    public static void printFrameRate()
+    public void printFrameRate()
     {
         if(instance.frameTimer >= 1000000000)
         {

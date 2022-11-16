@@ -11,6 +11,7 @@ import Morphogenesis.Components.Physics.Collision.RigidBoundary;
 import Morphogenesis.Components.Yolk;
 import Renderer.Graphics.IRender;
 
+import java.util.ConcurrentModificationException;
 import java.util.Objects;
 
 import static Framework.Object.Tag.MODEL;
@@ -49,10 +50,11 @@ public class EditorState extends State
 
     @Override
     public void Render() {
-            for(IRender rend: renderBatch)
-            {
+        try {
+            for (IRender rend : renderBatch) {
                 rend.render();
             }
+        }catch (ConcurrentModificationException e){}
     }
 
     @Override

@@ -1,5 +1,7 @@
 package Morphogenesis.Components.Meshing;
 
+import Framework.Events.EventHandler;
+import Framework.Events.IEvent;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
@@ -18,6 +20,8 @@ import java.util.List;
 public abstract class Mesh extends Component {
     public List<Node2D> nodes = new ArrayList<>();
     public List<Edge> edges = new ArrayList<>();
+
+    public static EventHandler<Mesh> onMeshRebuilt = new EventHandler<>();
 
     @DoNotEditInGUI
     public float area;

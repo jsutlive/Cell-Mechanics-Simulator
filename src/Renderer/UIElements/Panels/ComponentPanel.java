@@ -1,7 +1,10 @@
 package Renderer.UIElements.Panels;
 
+import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
+import Framework.States.EditorState;
+import Framework.States.State;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
@@ -58,15 +61,21 @@ public class ComponentPanel {
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
-            if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null){
-                StaticFieldPanel staticFieldPanel = new StaticFieldPanel(c, type, value, name);
-                if(staticFieldPanel.isSerializable)
-                    panel.add(staticFieldPanel.getPanel());
-            }
-            else {
-                FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
-                if (fieldPanel.isSerializable)
-                    panel.add(fieldPanel.getPanel());
+            try {
+                if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
+                        (EditorState.class.isAssignableFrom(State.GetState().getClass()) &&
+                                f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
+                    StaticFieldPanel staticFieldPanel = new StaticFieldPanel(c, type, value, name);
+                    if(staticFieldPanel.isSerializable)
+                        panel.add(staticFieldPanel.getPanel());
+                }
+                else {
+                    FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
+                    if (fieldPanel.isSerializable)
+                        panel.add(fieldPanel.getPanel());
+                }
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
             }
 
         }
