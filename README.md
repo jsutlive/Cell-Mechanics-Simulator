@@ -1,7 +1,7 @@
 # MorphogenesisSimulationV2
 Morphogenesis Simulator Updated
 
-![image of morphogenesis simulation GUI]((https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png)?raw=true)
+![image of morphogenesis simulation GUI](https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png)
 
 Note: The readme/ documentation currently describes the Master branch of the project.
 To have the most up-to-date, stable code, please refer to the Master branch.
