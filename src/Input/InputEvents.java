@@ -56,12 +56,12 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        onPress.invoke(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        onRelease.invoke(e);
     }
 
     @Override
@@ -81,6 +81,9 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     public static EventHandler<Boolean> onStop = new EventHandler<>();
     public static EventHandler<MouseEvent> onClick = new EventHandler<>();
     public static EventHandler<MouseEvent> onMove = new EventHandler<>();
+    public static EventHandler<MouseEvent> onDrag = new EventHandler<>();
+    public static EventHandler<MouseEvent> onPress = new EventHandler<>();
+    public static EventHandler<MouseEvent> onRelease = new EventHandler<>();
 
     public void click(MouseEvent event){
         onClick.invoke(event);
@@ -108,7 +111,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        onDrag.invoke(e);
     }
 
     @Override

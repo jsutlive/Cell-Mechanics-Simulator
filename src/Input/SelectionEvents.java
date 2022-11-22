@@ -8,16 +8,22 @@ import java.util.HashSet;
 
 public class SelectionEvents {
     private static HashSet<Entity> selectedEntities = new HashSet<>();
+    private static boolean selectingMultiple;
     // Event handler for when this object selects an entity
     public static EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
 
     public static void selectEntity(Entity e){
-        /******************************************************/
-        //TODO: REMOVE THIS PART TO ALLOW MULTIPLE SELECTIONS
-        if(selectedEntities.size() > 0) selectedEntities.clear();
-        /*******************************************************/
+        if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
         onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void beginSelectingMultiple(){
+        selectingMultiple = true;
+    }
+
+    public static void cancelSelectingMultiple(){
+        selectingMultiple = false;
     }
 
     public static void addComponentToSelected(Component c){

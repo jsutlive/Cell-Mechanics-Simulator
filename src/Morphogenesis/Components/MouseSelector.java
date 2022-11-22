@@ -1,6 +1,5 @@
 package Morphogenesis.Components;
 
-import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
@@ -18,6 +17,9 @@ public class MouseSelector extends Component {
     @Override
     public void awake() {
         InputEvents.onClick.subscribe(this::onMouseClicked);
+        InputEvents.onPress.subscribe(this::onMousePressed);
+        InputEvents.onDrag.subscribe(this::onMouseDragged);
+        InputEvents.onRelease.subscribe(this::onMouseReleased);
     }
 
     /**
@@ -32,9 +34,24 @@ public class MouseSelector extends Component {
         }
     }
 
+    private void onMousePressed(MouseEvent e){
+        onMouseClicked(e);
+        SelectionEvents.beginSelectingMultiple();
+    }
+
+    private void onMouseDragged(MouseEvent e){
+        assert Renderer.getCamera() != null;
+        Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
+        selectEntity(mousePosition);
+    }
+
+    private void onMouseReleased(MouseEvent e){
+        SelectionEvents.cancelSelectingMultiple();
+    }
+
     /**
      * Select an entity whose mesh contains a given point. Return this object's parent if none exists.
-     * @param mousePosition
+     * @param mousePosition derived mouse position from cursor location and camera state
      */
     private void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
