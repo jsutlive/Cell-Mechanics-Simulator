@@ -23,7 +23,7 @@ public class HierarchyPanel {
 
     public void addEntityLabel(Entity entity) {
         JButton button = new JButton(entity.name);
-        button.addActionListener(e -> SelectionEvents.selectedEntity = entity);
+        button.addActionListener(e -> SelectionEvents.selectEntity(entity));
         panel.add(button);
     }
 }

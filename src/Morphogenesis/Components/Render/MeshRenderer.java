@@ -3,6 +3,7 @@ package Morphogenesis.Components.Render;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
+import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.Painter;
@@ -10,6 +11,7 @@ import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 
 import java.awt.*;
+import java.util.HashSet;
 
 /**
  * Cell Renderer class handles all drawing functions for the cells.
@@ -26,7 +28,7 @@ public class MeshRenderer extends ObjectRenderer
         State.setFlagToRender(parent);
         cellMesh = parent.getComponent(Mesh.class);
         defaultColor = color;
-        MouseSelector.onEntitySelected.subscribe(this::highlightColor);
+        SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
     }
 
     private void setDefaultColor(Color color){
@@ -38,8 +40,8 @@ public class MeshRenderer extends ObjectRenderer
         alterColors(color);
     }
 
-    public void highlightColor(Entity e){
-        if(parent!=e){
+    public void highlightColor(HashSet<Entity> entities){
+        if(!entities.contains(parent)){
             resetToDefaultColor();
         }
         else {
@@ -81,6 +83,6 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void onDestroy() {
-        MouseSelector.onEntitySelected.unSubscribe(this::highlightColor);
+        SelectionEvents.onEntitySelected.unSubscribe(this::highlightColor);
     }
 }

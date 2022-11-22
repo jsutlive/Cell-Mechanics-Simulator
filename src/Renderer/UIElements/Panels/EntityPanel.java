@@ -8,6 +8,7 @@ import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.util.HashSet;
 
 public class EntityPanel {
 
@@ -25,7 +26,7 @@ public class EntityPanel {
         panel.setAutoscrolls(true);
         createBaseLabels();
 
-        MouseSelector.onEntitySelected.subscribe(this::setPanelName);
+        SelectionEvents.onEntitySelected.subscribe(this::setPanelName);
     }
 
     private void createBaseLabels() {
@@ -33,8 +34,10 @@ public class EntityPanel {
         panel.add(nameLabel);
     }
 
-    public void setPanelName(Entity e){
-        SelectionEvents.selectedEntity = e;
+    public void setPanelName(HashSet<Entity> entities){
+        //TODO: Allow for multiple entities
+        Entity e = (Entity) entities.toArray()[0];
+
         panel.removeAll();
         createBaseLabels();
         nameLabel.setText(e.name);

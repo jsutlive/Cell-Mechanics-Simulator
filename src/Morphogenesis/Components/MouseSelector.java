@@ -5,6 +5,7 @@ import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.InputEvents;
+import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
@@ -13,9 +14,6 @@ import java.awt.event.MouseEvent;
 
 @DoNotExposeInGUI
 public class MouseSelector extends Component {
-
-    // Event handler for when this object selects an entity
-    public static EventHandler<Entity> onEntitySelected = new EventHandler<>();
 
     @Override
     public void awake() {
@@ -41,7 +39,7 @@ public class MouseSelector extends Component {
     private void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
         if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
-        onEntitySelected.invoke(selected);
+        SelectionEvents.selectEntity(selected);
     }
 
     @Override
