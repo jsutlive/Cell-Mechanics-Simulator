@@ -7,8 +7,8 @@ import java.util.HashMap;
 import static java.awt.Color.*;
 
 public class ColorDropDownMenu {
-    static String[] colorStrings = new String[]{"Blue", "Cyan", "Green", "Magenta", "Orange", "Red", "Pink" };
-    static Color[] colors = new Color[]{BLUE, CYAN, GREEN, MAGENTA, ORANGE, RED, PINK};
+    static String[] colorStrings = new String[]{"--", "Blue", "Cyan", "Green", "Magenta", "Orange", "Red", "Pink" };
+    static Color[] colors = new Color[]{null, BLUE, CYAN, GREEN, MAGENTA, ORANGE, RED, PINK};
 
     public static HashMap<String, Color> colorDictionary = new HashMap<>();
 
@@ -20,6 +20,11 @@ public class ColorDropDownMenu {
             colorDictionary.put(colorStrings[i], colors[i]);
             if(value == colors[i]) menu.setSelectedIndex(i);
         }
+    }
+
+    public ColorDropDownMenu(){
+        setMenu(new JComboBox(colorStrings));
+        menu.setSelectedIndex(0);
     }
 
     public JComboBox getMenu() {

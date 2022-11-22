@@ -33,6 +33,8 @@ public class SelectionEvents {
         }
     }
 
-
-
+    public static void deselectEntity(Entity selected) {
+        if(selectedEntities.contains(selected)) selectedEntities.remove(selected);
+        onEntitySelected.invoke(selectedEntities);
+    }
 }

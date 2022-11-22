@@ -14,12 +14,18 @@ import java.awt.event.MouseEvent;
 @DoNotExposeInGUI
 public class MouseSelector extends Component {
 
+    private static boolean alt = false;
     @Override
     public void awake() {
         InputEvents.onClick.subscribe(this::onMouseClicked);
         InputEvents.onPress.subscribe(this::onMousePressed);
         InputEvents.onDrag.subscribe(this::onMouseDragged);
         InputEvents.onRelease.subscribe(this::onMouseReleased);
+        InputEvents.onAlt.subscribe(this::setAlt);
+    }
+
+    public void setAlt(boolean _alt){
+        alt = _alt;
     }
 
     /**
@@ -27,10 +33,14 @@ public class MouseSelector extends Component {
      * @param e mouse event
      */
     private void onMouseClicked(MouseEvent e){
+        assert Renderer.getCamera() != null;
+        Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
-            assert Renderer.getCamera() != null;
-            Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
-            selectEntity(mousePosition);
+            System.out.println(alt);
+            if(alt) deselectEntity(mousePosition);
+            else selectEntity(mousePosition);
+        }else if(e.getButton() == MouseEvent.BUTTON2){
+            deselectEntity(mousePosition);
         }
     }
 
@@ -42,7 +52,8 @@ public class MouseSelector extends Component {
     private void onMouseDragged(MouseEvent e){
         assert Renderer.getCamera() != null;
         Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
-        selectEntity(mousePosition);
+        if(alt) deselectEntity(mousePosition);
+        else selectEntity(mousePosition);
     }
 
     private void onMouseReleased(MouseEvent e){
@@ -59,8 +70,18 @@ public class MouseSelector extends Component {
         SelectionEvents.selectEntity(selected);
     }
 
+    private void deselectEntity(Vector2i mousePosition){
+        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
+        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        SelectionEvents.deselectEntity(selected);
+    }
+
     @Override
     public void onDestroy() {
         InputEvents.onClick.unSubscribe(this::onMouseClicked);
+        InputEvents.onPress.unSubscribe(this::onMousePressed);
+        InputEvents.onDrag.unSubscribe(this::onMouseDragged);
+        InputEvents.onRelease.unSubscribe(this::onMouseReleased);
+        InputEvents.onAlt.unSubscribe(this::setAlt);
     }
 }

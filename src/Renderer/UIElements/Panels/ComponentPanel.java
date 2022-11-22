@@ -20,6 +20,7 @@ public class ComponentPanel {
         return panel;
     }
 
+    public ComponentPanel(){}
     public ComponentPanel(Component c) {
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -32,6 +33,16 @@ public class ComponentPanel {
         JPanel namePanel = new JPanel();
         namePanel.add(new JLabel(componentClass.getSimpleName()));
 
+        setDeleteButton(c, namePanel);
+
+        panel.add(namePanel);
+
+
+
+        setFields(c, type, value, name, componentClass);
+    }
+
+    private void setDeleteButton(Component c, JPanel namePanel) {
         if(c.getClass().getAnnotation(DoNotDestroyInGUI.class)==null) {
             JButton deleteButton = new JButton("X");
             deleteButton.setMargin(new Insets(0,0,0,0));
@@ -42,11 +53,9 @@ public class ComponentPanel {
             deleteButton.addActionListener(e -> c.removeSelf());
             namePanel.add(deleteButton);
         }
+    }
 
-        panel.add(namePanel);
-
-
-
+    private void setFields(Component c, Class type, Object value, String name, Class componentClass) {
         for(Field f : componentClass.getFields()){
             if(Modifier.isTransient(f.getModifiers())){
                 f.setAccessible(true);
@@ -65,7 +74,7 @@ public class ComponentPanel {
                 if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                         (EditorState.class.isAssignableFrom(State.GetState().getClass()) &&
                                 f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
-                    StaticFieldPanel staticFieldPanel = new StaticFieldPanel(c, type, value, name);
+                    StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
                     if(staticFieldPanel.isSerializable)
                         panel.add(staticFieldPanel.getPanel());
                 }

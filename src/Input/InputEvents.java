@@ -2,6 +2,7 @@ package Input;
 
 import Framework.Events.EventHandler;
 import Utilities.Geometry.Vector.Vector2i;
+import javafx.scene.input.KeyCode;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;
@@ -41,11 +42,18 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         if(keyCode == KeyEvent.VK_DOWN) {
             shift(new Vector2i(0, 25));
         }
+
+        if(keyCode == KeyEvent.VK_ALT){
+            onAlt.invoke(true);
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_ALT){
+            onAlt.invoke(false);
+        }
     }
 
 
@@ -77,6 +85,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     public static EventHandler<Vector2i> onShift = new EventHandler<>();
     public static EventHandler<Float> onScale = new EventHandler<>();
 
+    public static EventHandler<Boolean> onAlt = new EventHandler<>();
     public static EventHandler<Boolean> onPlay = new EventHandler<>();
     public static EventHandler<Boolean> onStop = new EventHandler<>();
     public static EventHandler<MouseEvent> onClick = new EventHandler<>();
