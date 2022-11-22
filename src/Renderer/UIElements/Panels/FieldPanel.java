@@ -72,6 +72,7 @@ public class FieldPanel {
         else if(type == Color.class){
             Color val;
             ColorDropDownMenu colorDropDownMenu;
+            System.out.println(value);
             if(value!=PLACEHOLDER_FIELD) {
                 val = (Color) value;
                 colorDropDownMenu = new ColorDropDownMenu(val);

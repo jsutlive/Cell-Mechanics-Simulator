@@ -9,7 +9,9 @@ import Renderer.Graphics.Painter;
 import java.awt.*;
 
 public abstract class ObjectRenderer extends Component implements IRender, IColor {
+
+    protected Color color = Painter.DEFAULT_COLOR;
     @ReloadEntityOnChange
-    public Color color = Painter.DEFAULT_COLOR;
-    protected Color defaultColor = Painter.DEFAULT_COLOR;
+    public Color defaultColor = Painter.DEFAULT_COLOR;
+
 }

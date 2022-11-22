@@ -1,5 +1,6 @@
 package Morphogenesis.Components.Render;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 /**
  * Cell Renderer class handles all drawing functions for the cells.
  */
-@DoNotExposeInGUI
+@DoNotDestroyInGUI
 public class MeshRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
