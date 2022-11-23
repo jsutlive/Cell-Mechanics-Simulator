@@ -3,15 +3,18 @@ package Morphogenesis.Components;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.States.State;
+import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.CircleMesh;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
+import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Render.MeshRenderer;
 import Utilities.Geometry.Vector.Vector2f;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
-
+import static Input.SelectionEvents.onSelectionButtonPressed;
+@GroupSelector
 public class Yolk extends Component {
 
     RingMesh referenceRing;
@@ -20,12 +23,19 @@ public class Yolk extends Component {
     @Override
     public void awake() {
         onMeshRebuilt.subscribe(this::rebuildYolk);
+        onSelectionButtonPressed.subscribe(this::selectThis);
         referenceRing = getComponent(RingMesh.class);
         yolk = State.create(new Entity("Yolk").
                 with(new CircleMesh().build(referenceRing.innerNodes, referenceRing.basalEdges)).
                 with(new OsmosisForce()));
         yolk.getComponent(MeshRenderer.class).enabled = false;
         yolk.getComponent(OsmosisForce.class).osmosisConstant = -0.0005f;
+    }
+
+    private void selectThis(Component component){
+        if(component == this) {
+            SelectionEvents.selectEntity(yolk);
+        }
     }
 
     private void rebuildYolk(Mesh mesh){
@@ -44,6 +54,7 @@ public class Yolk extends Component {
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::rebuildYolk);
+        onSelectionButtonPressed.unSubscribe(this::selectThis);
         yolk.destroy();
     }
 }

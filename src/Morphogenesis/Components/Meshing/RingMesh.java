@@ -2,8 +2,11 @@ package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
+import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.States.State;
+import Input.SelectionEvents;
+import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.OsmosisForce;
@@ -24,10 +27,12 @@ import java.util.List;
 
 import static Utilities.Math.CustomMath.TransformToWorldSpace;
 import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
+import static Input.SelectionEvents.onSelectionButtonPressed;
 
 @ReloadComponentOnChange
 @DoNotDestroyInGUI
 @DoNotEditWhilePlaying
+@GroupSelector
 public class RingMesh extends Mesh {
 
     @DoNotEditInGUI
@@ -50,6 +55,16 @@ public class RingMesh extends Mesh {
         generateTissueRing();
         setApicalAndBasalEdges();
         onMeshRebuilt.invoke(this);
+        onSelectionButtonPressed.subscribe(this::selectAll);
+    }
+
+    private void selectAll(Component component){
+        if(component ==this){
+            SelectionEvents.selectEntity(cellList.get(0));
+            SelectionEvents.beginSelectingMultiple();
+            for(Entity e: cellList) SelectionEvents.selectEntity(e);
+            SelectionEvents.cancelSelectingMultiple();
+        }
     }
 
     private void resetCells() {
@@ -187,5 +202,10 @@ public class RingMesh extends Mesh {
                 with(new ElasticForce()).
                 with(new CornerStiffness2D()).
                 with(new OsmosisForce()));
+    }
+
+    @Override
+    public void onDestroy() {
+        onSelectionButtonPressed.unSubscribe(this::selectAll);
     }
 }
