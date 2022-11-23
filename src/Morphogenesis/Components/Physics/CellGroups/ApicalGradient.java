@@ -82,6 +82,7 @@ public class ApicalGradient extends Component {
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::recalculate);
         for(Entity cell: cellGroup){
+            cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }
     }

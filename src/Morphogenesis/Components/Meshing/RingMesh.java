@@ -1,6 +1,5 @@
 package Morphogenesis.Components.Meshing;
 
-import Framework.Events.IEvent;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Entity;
@@ -11,7 +10,6 @@ import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
-import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.BasalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
