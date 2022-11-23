@@ -1,5 +1,6 @@
 package Renderer.UIElements.Panels;
 
+import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
@@ -17,18 +18,22 @@ public class EntityPanel {
     JPanel panel;
     JLabel nameLabel;
 
+    public static EventHandler<Boolean> onRefresh = new EventHandler<>();
     public JPanel getPanel() {
         return panel;
     }
 
-    public EntityPanel(){
+    public void refresh(Boolean b){
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(2,2,2,2));
         panel.setAutoscrolls(true);
         createBaseLabels();
+    }
 
+    public EntityPanel(){
         SelectionEvents.onEntitySelected.subscribe(this::setPanelName);
+        refresh(true);
     }
 
     private void createBaseLabels() {
@@ -39,6 +44,7 @@ public class EntityPanel {
     public void setPanelName(HashSet<Entity> entities){
         panel.removeAll();
         createBaseLabels();
+        if(entities.size() == 0) return;
         if(entities.size() == 1) {
             for(Entity e: entities) createSingleEntityPanel(e);
         }else{

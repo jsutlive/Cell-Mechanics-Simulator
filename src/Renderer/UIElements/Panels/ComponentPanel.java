@@ -5,6 +5,7 @@ import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.States.EditorState;
 import Framework.States.State;
+import Input.SelectionEvents;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
@@ -50,7 +51,10 @@ public class ComponentPanel {
             deleteButton.setPreferredSize(new Dimension(15, 15));
             deleteButton.setToolTipText("Delete " + c.getClass().getSimpleName());
             deleteButton.setBackground(Color.red);
-            deleteButton.addActionListener(e -> c.removeSelf());
+            deleteButton.addActionListener(e -> {
+                c.removeSelf();
+                SelectionEvents.refresh();
+            });
             namePanel.add(deleteButton);
         }
     }

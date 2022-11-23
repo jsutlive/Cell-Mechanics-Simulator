@@ -8,6 +8,7 @@ import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2i;
+import javafx.scene.input.MouseButton;
 
 import java.awt.event.MouseEvent;
 
@@ -15,6 +16,7 @@ import java.awt.event.MouseEvent;
 public class MouseSelector extends Component {
 
     private static boolean alt = false;
+    private static boolean shiftKey = false;
     @Override
     public void awake() {
         InputEvents.onClick.subscribe(this::onMouseClicked);
@@ -22,10 +24,22 @@ public class MouseSelector extends Component {
         InputEvents.onDrag.subscribe(this::onMouseDragged);
         InputEvents.onRelease.subscribe(this::onMouseReleased);
         InputEvents.onAlt.subscribe(this::setAlt);
+        InputEvents.onShiftKey.subscribe(this::setShiftModifier);
     }
 
     public void setAlt(boolean _alt){
         alt = _alt;
+    }
+
+    public void setShiftModifier(boolean _shift){
+        if(_shift) {
+            SelectionEvents.beginSelectingMultiple();
+            shiftKey = true;
+        }
+        else {
+            SelectionEvents.cancelSelectingMultiple();
+            shiftKey = false;
+        }
     }
 
     /**
@@ -36,10 +50,10 @@ public class MouseSelector extends Component {
         assert Renderer.getCamera() != null;
         Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
-            System.out.println(alt);
+            if(shiftKey) SelectionEvents.beginSelectingMultiple();
             if(alt) deselectEntity(mousePosition);
             else selectEntity(mousePosition);
-        }else if(e.getButton() == MouseEvent.BUTTON2){
+        }else if(e.getButton() == MouseEvent.BUTTON3){
             deselectEntity(mousePosition);
         }
     }
@@ -52,7 +66,7 @@ public class MouseSelector extends Component {
     private void onMouseDragged(MouseEvent e){
         assert Renderer.getCamera() != null;
         Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
-        if(alt) deselectEntity(mousePosition);
+        if(alt || e.getButton() == MouseEvent.BUTTON3) deselectEntity(mousePosition);
         else selectEntity(mousePosition);
     }
 

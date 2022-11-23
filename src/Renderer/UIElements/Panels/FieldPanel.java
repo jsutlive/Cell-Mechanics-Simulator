@@ -1,6 +1,8 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Object.Component;
+import Framework.Object.Entity;
+import Input.SelectionEvents;
 import Renderer.UIElements.ColorDropDownMenu;
 
 import javax.swing.*;
@@ -72,7 +74,6 @@ public class FieldPanel {
         else if(type == Color.class){
             Color val;
             ColorDropDownMenu colorDropDownMenu;
-            System.out.println(value);
             if(value!=PLACEHOLDER_FIELD) {
                 val = (Color) value;
                 colorDropDownMenu = new ColorDropDownMenu(val);
@@ -104,6 +105,8 @@ public class FieldPanel {
             Color value = ColorDropDownMenu.colorDictionary.get(field);
             c.changeFieldOnGUI(name, value);
         }
+        EntityPanel.onRefresh.invoke(true);
+        SelectionEvents.refresh();
     }
 
     public JPanel getPanel(){

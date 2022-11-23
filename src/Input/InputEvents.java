@@ -42,9 +42,11 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         if(keyCode == KeyEvent.VK_DOWN) {
             shift(new Vector2i(0, 25));
         }
-
         if(keyCode == KeyEvent.VK_ALT){
             onAlt.invoke(true);
+        }
+        if(keyCode == KeyEvent.VK_SHIFT){
+            onShiftKey.invoke(true);
         }
     }
 
@@ -53,6 +55,9 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         int keyCode = e.getKeyCode();
         if(keyCode == KeyEvent.VK_ALT){
             onAlt.invoke(false);
+        }
+        if(keyCode == KeyEvent.VK_SHIFT){
+            onShiftKey.invoke(false);
         }
     }
 
@@ -86,6 +91,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     public static EventHandler<Float> onScale = new EventHandler<>();
 
     public static EventHandler<Boolean> onAlt = new EventHandler<>();
+    public static EventHandler<Boolean> onShiftKey = new EventHandler<>();
     public static EventHandler<Boolean> onPlay = new EventHandler<>();
     public static EventHandler<Boolean> onStop = new EventHandler<>();
     public static EventHandler<MouseEvent> onClick = new EventHandler<>();

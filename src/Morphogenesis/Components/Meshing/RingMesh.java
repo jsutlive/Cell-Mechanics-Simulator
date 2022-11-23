@@ -153,7 +153,7 @@ public class RingMesh extends Mesh {
 
                 List<Node2D> cellNodes = new ArrayList<>(mirroredNodes);
                 cellNodes.addAll(oldMirroredNodes);
-                newCell = getNewCell(cellNodes);
+                newCell = getNewCell(cellNodes, 0);
                 addCellToList(mirroredCells, newCell, i);
                 if(i != 1) {
                     cellNodes = new ArrayList<>(oldNodes);
@@ -167,7 +167,7 @@ public class RingMesh extends Mesh {
                 }else{
                     cellNodes.addAll(nodes);
                 }
-                newCell = getNewCell(cellNodes);
+                newCell = getNewCell(cellNodes, 1);
                 addCellToList(cellList, newCell, i);
             }
             Collections.reverse(mirroredNodes);
@@ -181,8 +181,8 @@ public class RingMesh extends Mesh {
         cellList.addAll(mirroredCells);
     }
 
-    private Entity getNewCell(List<Node2D> cellNodes) {
-        return State.create(new Entity("Cell " + cellList.size()).
+    private Entity getNewCell(List<Node2D> cellNodes, int mod) {
+        return State.create(new Entity("Cell " + (cellList.size() + mod)).
                 with(new RingCellMesh().
                         build(cellNodes)).
                 with(new EdgeStiffness2D()).

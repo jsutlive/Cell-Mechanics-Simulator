@@ -18,6 +18,12 @@ public class SelectionEvents {
         onEntitySelected.invoke(selectedEntities);
     }
 
+    public static void refresh(){
+        HashSet<Entity> temp = new HashSet<>(selectedEntities);
+        selectedEntities.clear();
+        for(Entity e: temp) selectEntity(e);
+    }
+
     public static void beginSelectingMultiple(){
         selectingMultiple = true;
     }
