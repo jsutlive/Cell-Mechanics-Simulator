@@ -13,6 +13,7 @@ import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Renderer.UIElements.Panels.HierarchyPanel;
+import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
 import java.awt.*;
@@ -136,7 +137,7 @@ public class DisplayWindow
         menu3.add(addComponentSubMenu);
         menuBar.add(menu3);
 
-        JMenu menu4 = new JMenu("All Objects");
+        /*JMenu menu4 = new JMenu("All Objects");
         JMenu removeComponentFromAllSubMenu = new JMenu("Remove Component");
 
         JMenuItem cornerStiffness2DOption = new JMenuItem("CornerStiffness2D");
@@ -160,7 +161,14 @@ public class DisplayWindow
         removeComponentFromAllSubMenu.add(edgeStiffness2DOption);
 
         menu4.add(removeComponentFromAllSubMenu);
-        menuBar.add(menu4);
+        menuBar.add(menu4);*/
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem keysHelp = new JMenuItem("Keyboard Shortcuts");
+        keysHelp.addActionListener(e-> {
+            new KeyCommandsHelpPopUp();
+        });
+        helpMenu.add(keysHelp);
+        menuBar.add(helpMenu);
     }
 
     private void enableMenuBarOptionsOnPlay(boolean b){
