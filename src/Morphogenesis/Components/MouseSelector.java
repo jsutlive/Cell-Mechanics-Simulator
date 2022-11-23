@@ -17,6 +17,7 @@ public class MouseSelector extends Component {
 
     private static boolean alt = false;
     private static boolean shiftKey = false;
+    private static boolean selecting = false;
     @Override
     public void awake() {
         InputEvents.onClick.subscribe(this::onMouseClicked);
@@ -47,26 +48,27 @@ public class MouseSelector extends Component {
      * @param e mouse event
      */
     private void onMouseClicked(MouseEvent e){
+
+    }
+
+    private void onMousePressed(MouseEvent e){
         assert Renderer.getCamera() != null;
         Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
             if(shiftKey) SelectionEvents.beginSelectingMultiple();
-            if(alt) deselectEntity(mousePosition);
-            else selectEntity(mousePosition);
+            selecting = !alt;
         }else if(e.getButton() == MouseEvent.BUTTON3){
-            deselectEntity(mousePosition);
+            selecting = false;
         }
-    }
-
-    private void onMousePressed(MouseEvent e){
-        onMouseClicked(e);
+        if(selecting) selectEntity(mousePosition);
+        else deselectEntity(mousePosition);
         SelectionEvents.beginSelectingMultiple();
     }
 
     private void onMouseDragged(MouseEvent e){
         assert Renderer.getCamera() != null;
         Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
-        if(alt || e.getButton() == MouseEvent.BUTTON3) deselectEntity(mousePosition);
+        if(!selecting) deselectEntity(mousePosition);
         else selectEntity(mousePosition);
     }
 
