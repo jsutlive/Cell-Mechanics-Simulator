@@ -1,10 +1,14 @@
 package Renderer.Graphics;
 
 import Framework.Data.ImageHandler;
+import Framework.Object.Entity;
+import Framework.Object.Tag;
 import Framework.States.State;
 import Input.InputEvents;
 import Input.InputPanel;
 import Input.SelectionEvents;
+import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
+import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
@@ -15,6 +19,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.HashSet;
 
 import static Framework.Data.ImageHandler.loadImage;
 
@@ -29,6 +34,8 @@ public class DisplayWindow
 
     JMenuItem playItem;
     JMenuItem stopItem;
+
+    boolean modelSelected = false;
 
     int count  = 0;
     public DisplayWindow(String _title, int _width, int _height)
@@ -64,10 +71,35 @@ public class DisplayWindow
 
         InputEvents.onPlay.subscribe(this::enableMenuBarOptionsOnPlay);
         InputEvents.onStop.subscribe(this::enableMenuBarOptionsOnStop);
+        SelectionEvents.onEntitySelected.subscribe(this::checkForSelectionMenuChange);
+    }
+
+    private void checkForSelectionMenuChange(HashSet<Entity> entities){
+        if(entities.size() > 1 && modelSelected) {
+            modelSelected = false;
+            return;
+        }
+        else if(entities.size() > 1){
+            return;
+        }
+        else if (entities.size() ==1 && modelSelected) {
+            modelSelected = false;
+        }
+        for (Entity e : entities) {
+            System.out.println(e.getTag());
+            if (e.getTag() == Tag.MODEL) {
+                modelSelected = true;
+            }
+        }
+
+        frame.setJMenuBar(null);
+        createJMenuBar();
+        frame.setJMenuBar(menuBar);
     }
 
     private void createJMenuBar(){
         menuBar = new JMenuBar();
+        menuBar.removeAll();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
         exportItem.addActionListener(e-> captureImageFromMenu());
@@ -87,10 +119,20 @@ public class DisplayWindow
         JMenu menu3 = new JMenu("Selection");
         JMenu addComponentSubMenu = new JMenu("Add Component");
 
-        JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
-        elasticForceOption.addActionListener(e-> SelectionEvents.addComponentToSelected(new ElasticForce()));
-        addComponentSubMenu.add(elasticForceOption);
+        System.out.println(modelSelected);
+        if(!modelSelected) {
+            JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
+            elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
+            addComponentSubMenu.add(elasticForceOption);
+        }else{
+            JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
+            apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
+            addComponentSubMenu.add(apicalGradientOption);
 
+            JMenuItem lateralGradientOption = new JMenuItem("Lateral Gradient");
+            lateralGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
+            addComponentSubMenu.add(lateralGradientOption);
+        }
         menu3.add(addComponentSubMenu);
         menuBar.add(menu3);
 

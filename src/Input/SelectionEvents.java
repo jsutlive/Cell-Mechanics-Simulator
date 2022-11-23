@@ -3,6 +3,8 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Renderer.UIElements.Panels.EntityPanel;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.HashSet;
 
@@ -11,6 +13,7 @@ public class SelectionEvents {
     private static boolean selectingMultiple;
     // Event handler for when this object selects an entity
     public static EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
+    public static EventHandler<Component> onSelectionButtonPressed = new EventHandler<>();
 
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();
@@ -37,6 +40,8 @@ public class SelectionEvents {
         for(Entity e: selectedEntities) {
             e.addComponent(c);
         }
+        EntityPanel.onRefresh.invoke(true);
+        onEntitySelected.invoke(selectedEntities);
     }
 
     public static void deselectEntity(Entity selected) {

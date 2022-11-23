@@ -6,6 +6,7 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.States.EditorState;
 import Framework.States.State;
 import Input.SelectionEvents;
+import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ public class ComponentPanel {
         JPanel namePanel = new JPanel();
         namePanel.add(new JLabel(componentClass.getSimpleName()));
 
+        setSelectButton(c, namePanel);
         setDeleteButton(c, namePanel);
 
         panel.add(namePanel);
@@ -41,6 +43,21 @@ public class ComponentPanel {
 
 
         setFields(c, type, value, name, componentClass);
+    }
+
+    private void setSelectButton(Component c, JPanel namePanel){
+        if(c.getClass().getAnnotation(GroupSelector.class)!=null) {
+            JButton deleteButton = new JButton("S");
+            deleteButton.setMargin(new Insets(0,0,0,0));
+            deleteButton.setFont(new Font("Serif", Font.BOLD, 10));
+            deleteButton.setPreferredSize(new Dimension(15, 15));
+            deleteButton.setToolTipText("Select all in group");
+            deleteButton.setBackground(Color.cyan);
+            deleteButton.addActionListener(e -> {
+                SelectionEvents.onSelectionButtonPressed.invoke(c);
+            });
+            namePanel.add(deleteButton);
+        }
     }
 
     private void setDeleteButton(Component c, JPanel namePanel) {

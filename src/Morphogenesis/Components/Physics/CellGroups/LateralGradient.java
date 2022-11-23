@@ -2,6 +2,7 @@ package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
@@ -16,8 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
+import static Input.SelectionEvents.onSelectionButtonPressed;
 
 @ReloadComponentOnChange
+@GroupSelector
 public class LateralGradient extends Component {
 
     List<Entity> cellGroup = new ArrayList<>();
@@ -34,12 +37,22 @@ public class LateralGradient extends Component {
     @Override
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
+        onSelectionButtonPressed.subscribe(this::selectAllInGroup);
         calculateParameters();
     }
 
     private void recalculate(Mesh mesh){
         if(mesh == getComponent(Mesh.class)){
             calculateParameters();
+        }
+    }
+
+    private void selectAllInGroup(Component c){
+        if(c == this) {
+            SelectionEvents.selectEntity(cellGroup.get(0));
+            SelectionEvents.beginSelectingMultiple();
+            for(Entity e: cellGroup) SelectionEvents.selectEntity(e);
+            SelectionEvents.cancelSelectingMultiple();
         }
     }
 
@@ -72,6 +85,7 @@ public class LateralGradient extends Component {
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::recalculate);
+        onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         for(Entity cell: cellGroup){
             cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
             cell.removeComponent(LateralShorteningSpringForce.class);

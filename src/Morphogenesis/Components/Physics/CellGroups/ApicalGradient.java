@@ -2,6 +2,7 @@ package Morphogenesis.Components.Physics.CellGroups;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Meshing.RingMesh;
@@ -17,8 +18,10 @@ import java.util.List;
 
 import static Renderer.Graphics.Painter.DEFAULT_COLOR;
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
+import static Input.SelectionEvents.onSelectionButtonPressed;
 
 @ReloadComponentOnChange
+@GroupSelector
 public class ApicalGradient extends Component {
 
     List<Entity> cellGroup = new ArrayList<>();
@@ -36,6 +39,7 @@ public class ApicalGradient extends Component {
     @Override
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
+        onSelectionButtonPressed.subscribe(this::selectAllInGroup);
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
         RingMesh mesh = getComponent(RingMesh.class);
@@ -46,6 +50,15 @@ public class ApicalGradient extends Component {
         if(mesh == getComponent(Mesh.class)){
             calculateGradient();
             addCellsToGroup(getComponent(RingMesh.class));
+        }
+    }
+
+    private void selectAllInGroup(Component c){
+        if(c == this) {
+            SelectionEvents.selectEntity(cellGroup.get(0));
+            SelectionEvents.beginSelectingMultiple();
+            for(Entity e: cellGroup) SelectionEvents.selectEntity(e);
+            SelectionEvents.cancelSelectingMultiple();
         }
     }
 
@@ -81,6 +94,7 @@ public class ApicalGradient extends Component {
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::recalculate);
+        onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         for(Entity cell: cellGroup){
             cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
             cell.removeComponent(ApicalConstrictingSpringForce.class);
