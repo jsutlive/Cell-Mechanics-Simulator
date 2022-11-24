@@ -3,8 +3,6 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
-import Renderer.UIElements.Panels.EntityPanel;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.HashSet;
 
@@ -40,7 +38,6 @@ public class SelectionEvents {
         for(Entity e: selectedEntities) {
             e.addComponent(c);
         }
-        EntityPanel.onRefresh.invoke(true);
         onEntitySelected.invoke(selectedEntities);
     }
 

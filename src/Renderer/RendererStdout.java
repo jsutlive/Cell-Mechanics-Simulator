@@ -1,12 +1,6 @@
 package Renderer;
 
-import Framework.Engine;
 import Framework.States.State;
-import Renderer.Graphics.DisplayWindow;
-import Utilities.Geometry.Vector.Vector2i;
-
-import java.awt.*;
-import java.awt.image.BufferStrategy;
 
 
 public class RendererStdout extends Renderer

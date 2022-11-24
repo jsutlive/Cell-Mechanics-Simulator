@@ -13,7 +13,6 @@ import java.util.List;
 
 import static Framework.Data.File.save;
 import static Framework.Data.File.load;
-import static Input.InputPanel.onTimestepSliderChanged;
 
 public abstract class State
 {
@@ -28,20 +27,12 @@ public abstract class State
     }
     public static void SetState(State _state)
     {
-        if(state!= null) onTimestepSliderChanged.unSubscribe(state::setTimeStep);
         state = _state;
         deltaTime = dt;
-        onTimestepSliderChanged.subscribe(state::setTimeStep);
     }
 
     protected static List<Entity> allObjects = new ArrayList<>();
     protected static List<IRender> renderBatch = new ArrayList<>();
-
-
-    private void setTimeStep(float f){
-        dt = f;
-    }
-
 
     public static EventHandler<Entity> onAddEntity = new EventHandler<>();
 
