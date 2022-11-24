@@ -5,6 +5,7 @@ import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.States.State;
 import Input.SelectionEvents;
+import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.MouseSelector;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.Painter;
