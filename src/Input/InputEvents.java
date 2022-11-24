@@ -2,7 +2,6 @@ package Input;
 
 import Framework.Events.EventHandler;
 import Utilities.Geometry.Vector.Vector2i;
-import javafx.scene.input.KeyCode;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;

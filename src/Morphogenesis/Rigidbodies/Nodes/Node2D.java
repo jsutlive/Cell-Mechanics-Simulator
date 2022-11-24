@@ -4,8 +4,6 @@ package Morphogenesis.Rigidbodies.Nodes;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
-import static Renderer.Renderer.windowSize;
-
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
