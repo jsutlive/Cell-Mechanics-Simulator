@@ -19,7 +19,7 @@ public class Painter {
         for(Node node: mesh.nodes)
         {
             Vector position = node.getPosition();
-            System.out.print(((Vector2f) position).x + " " + ((Vector2f) position).y);
+            System.out.print(((Vector2f) position).x + " " + ((Vector2f) position).y + " ");
         }
         System.out.print("\n");
     }
