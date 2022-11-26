@@ -40,18 +40,27 @@ public class Camera {
         return shift;
     }
 
+    /**
+     * Returns pixel viewing coordinates of a data (world) position
+     * @param pos
+     * @return
+     */
     public Vector2i transformToView(Vector2i pos){
         return new Vector2i(
                 Math.round((pos.x + shift.x) * scale + width/2f),
                 Math.round((pos.y + shift.y) * scale + height/2f)
         );
-
     }
 
+    /** Returns data (world) coordinates from given pixel location
+     *
+     * @param pos
+     * @return
+     */
     public Vector2i getScreenPoint(Vector2i pos){
         return new Vector2i(
-                Math.round((pos.x/scale)-width/2f-shift.x),
-                Math.round((pos.y/scale)-height/2f-shift.y)
+                Math.round((pos.x-width/2f)/scale - shift.x),
+                Math.round((pos.y-height/2f)/scale - shift.y)
         );
     }
 
