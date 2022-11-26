@@ -17,8 +17,6 @@ import static Framework.Object.Tag.MODEL;
 
 public class EditorState extends State
 {
-    Entity model;
-
     public EditorState(StateMachine stateMachine) {
         super(stateMachine);
     }
@@ -27,10 +25,9 @@ public class EditorState extends State
     public void enter() {
         InputEvents.onPlay.subscribe(this::goToRunState);
         // Find an object to act as base physics/ setup for the simulation
-        model = findObjectWithTag(MODEL);
-        if(model == null){
+        if(findObjectWithTag(MODEL) == null){
             // create a new model with specific components
-            model = new Entity("Physics System", 0, MODEL).
+            new Entity("Physics System", 0, MODEL).
                     with(new RingMesh()).
                     with(new MouseSelector()).
                     with(new ApicalGradient()).
@@ -60,6 +57,7 @@ public class EditorState extends State
 
     @Override
     void exit() {
+        saveInitial();
         InputEvents.onPlay.unSubscribe(this::goToRunState);
     }
 

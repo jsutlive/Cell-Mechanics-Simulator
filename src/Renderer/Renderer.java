@@ -1,7 +1,6 @@
 package Renderer;
 
-import Framework.Object.Entity;
-import Morphogenesis.Components.Render.ObjectRenderer;
+import Framework.Timer.Time;
 import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
@@ -12,6 +11,8 @@ public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
     public static Graphics g;
 
+    protected static String windowTitle;
+
     //Renderer object singleton instance.
     private static Renderer instance;
 
@@ -21,17 +22,27 @@ public abstract class Renderer implements Runnable {
 
     protected Camera camera;
 
+    private boolean applicationIsRunning = false;
+
+    private Time renderClock = Time.getTime(60f);
+
     /**
      * Used to generate a singleton instance of our Renderer.
      * @return the current Renderer, or create and return a new renderer if it is currently null.
      */
-    public static Renderer getInstance() {
+    public static Renderer getInstance(String title) {
         if(instance == null)
         {
+            windowTitle = title;
             instance = build(Renderer2D.class);
             IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
             IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
+            instance.applicationIsRunning = true;
         }
+        return instance;
+    }
+
+    public static Renderer getInstance(){
         return instance;
     }
 
@@ -76,8 +87,17 @@ public abstract class Renderer implements Runnable {
     @Override
     // run the renderer in an update loop
     public void run() {
-
+        while(applicationIsRunning) {
+            renderClock.advance();
+            if (renderClock.isReadyForNextFrame()) {
+                render();
+            }
+            renderClock.printFrameRateAndResetFrameTimer();
+        }
     }
+
+    protected abstract void render();
+
     // Draw any circular objects or points
     public abstract void drawCircle(Vector2i center, int diameter);
 

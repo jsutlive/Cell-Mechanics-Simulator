@@ -1,6 +1,5 @@
 package Framework;
 
-import Framework.States.State;
 import Framework.States.StateMachine;
 import Framework.Timer.Time;
 import Renderer.Renderer;
@@ -9,95 +8,54 @@ public final class Engine implements Runnable
 {
     // rendering system reference
     Renderer renderer;
-    // Collecting user input
-    // window title
-    public static String title;
 
+    // Engine state handler (editor v. simulation)
     private StateMachine stateMachine;
 
     // main application thread
     private Thread thread;
-    // render thread
-    private Thread render;
 
+    // application timer
     private Time timer;
 
     private boolean applicationIsRunning = false;
 
     /**
-     * Simplified simulation constructor where the window is automatically set to be 800x800 px
-     * @param _title Window title for the simulation
+     * Prepare state loading and timer system
      */
-    public Engine(String _title)
-    {
-        title = _title;
+    private void init() {
+        timer = Time.getTime(120f);
+        stateMachine = new StateMachine(timer);
     }
 
     /**
-     * Initialize program
-     * @throws InstantiationException fails to create object
-     * @throws IllegalAccessException illegally accesses memory while attempting to create objects
-     */
-    private void init() throws InstantiationException, IllegalAccessException {
-        // Get current/ create new renderer instance
-        renderer = Renderer.getInstance();
-        // Separate render thread and set as a background process
-        render = new Thread(renderer);
-        render.setDaemon(true);
-
-        // Prepare state loading and timer system
-        timer = Time.getInstance();
-        stateMachine = new StateMachine();
-    }
-
-    /**
-     * Base level simulation object to advance physics
-     */
-    private void Tick() {
-        stateMachine.currentState.tick();
-    }
-
-    /**
-     * Main program loop
+     * Main physics loop
      */
     @Override
     public void run()
     {
-        try {
-            init();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        init();
         while(applicationIsRunning)
         {
             timer.advance();
-
-            // Physics update
-            if(timer.isReadyToAdvancePhysics()){
-               Tick();
+            if(timer.isReadyForNextFrame()){
+                stateMachine.currentState.tick();
             }
-            // Render update
-            if(timer.isReadyForNextFrame())
-            {
-                render.run();
-            }
-            
-            timer.printFrameRate();
+            timer.resetFrameTimer();
         }
-        
-        // Halt application
+        // Application stops
         Stop();
     }
 
     /**
      * Begin application thread
      */
-    public synchronized void Start()
+    public synchronized void Start(Thread[] threads)
     {
         if(applicationIsRunning){return;}
         applicationIsRunning = true;
-        thread = new Thread(this);
-        thread.start();
+        thread = threads[0];
+        for(Thread thread: threads) thread.start();
     }
 
     /**

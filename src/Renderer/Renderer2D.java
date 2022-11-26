@@ -1,9 +1,6 @@
 package Renderer;
 
-import Framework.Engine;
-import Framework.States.State;
 import Renderer.Graphics.DisplayWindow;
-import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -14,21 +11,18 @@ public class Renderer2D extends Renderer
 {
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
-    String title;
 
     public Renderer2D()
     {
-        title = Engine.title;
         bounds = new Dimension(800,800);
-        displayWindow = new DisplayWindow(title, bounds.width, bounds.height);
+        displayWindow = new DisplayWindow(windowTitle, bounds.width, bounds.height);
         camera = new Camera(bounds.width, bounds.height);
     }
     /**
      * Renders graphics to the screen. Should only be accessed from the Engine object.
      */
-
     @Override
-    public void run()
+    public void render()
     {
         bufferStrategy = displayWindow.GetCanvas().getBufferStrategy();
         if(bufferStrategy == null)
@@ -40,8 +34,9 @@ public class Renderer2D extends Renderer
 
         g.clearRect(0,0, camera.width, camera.height);
 
-        for(IRender rend: batch){
-            rend.render();
+
+        for(int i = batch.size() -1; i >= 0; i--){
+            batch.get(i).render();
         }
 
         bufferStrategy.show();

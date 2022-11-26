@@ -1,17 +1,11 @@
 package Framework.States;
 
-import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
-import Framework.Timer.Time;
-import Framework.Object.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static Framework.Data.File.save;
 import static Framework.Data.File.load;
-import static Input.InputPanel.onTimestepSliderChanged;
+import static Framework.Data.File.save;
+
 
 public abstract class State
 {
@@ -23,7 +17,7 @@ public abstract class State
     }
 
     /**
-     * Initializes entities when the state starts. Only called once.
+     * Actions ot be performed when the state starts up
      */
     public abstract void enter();
 
@@ -31,6 +25,12 @@ public abstract class State
      * Performs all calculations to be updated once per frame cycle.
      */
     public abstract void tick();
+
+    /**
+     * Actions to be performed just before state is changed from this to another state
+     */
+    abstract void exit();
+
 
     /**
      * Look for a tagged object and return the first object with that tag
@@ -46,13 +46,6 @@ public abstract class State
     }
 
     /**
-     * Remove object and its associated render component from the scene
-     * @param obj object to be destroyed
-     */
-    public static void destroy(Entity obj) {
-    }
-
-    /**
      * save a json file with initial position
      */
     protected void saveInitial(){
@@ -60,8 +53,9 @@ public abstract class State
     }
 
     /**
-     * Actions performed by state prior to creation of new state
-     * Culminates in setting of new state
+     * load objects from json file
      */
-    abstract void exit();
+    protected void loadModel(){
+        load();
+    }
 }

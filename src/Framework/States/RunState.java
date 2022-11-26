@@ -2,14 +2,12 @@ package Framework.States;
 
 import Framework.Object.Entity;
 import Input.InputEvents;
-
 import java.util.Collections;
 
 import static Input.InputPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
-    int count = 0;
     protected static float dt  = 1e-3f;
     public static float deltaTime;
 
@@ -37,6 +35,7 @@ public class RunState extends State
     @Override
     public void tick() {
         deltaTime = dt;
+
         for (Entity obj :(stateMachine.allObjects)) {
             obj.earlyUpdate();
         }
@@ -46,12 +45,6 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        /*if(count%500 == 0) {
-
-            ZoomRenderer instance = (ZoomRenderer) Renderer.getInstance();
-            instance.GetDisplayWindow().exportImage();
-        }*/
-        count++;
     }
 
     private void goToEditorState(Boolean b){

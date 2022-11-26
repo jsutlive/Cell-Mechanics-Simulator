@@ -70,7 +70,7 @@ public class InputPanel {
         timestepSlider.setFocusable(false);
         timestepSlider.setMajorTickSpacing(5);
         timestepSlider.setPaintTicks(true);
-        timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 10000f));
+        timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 1e5f));
 
         timestepPanel.add(timestepLabel);
         timestepPanel.add(timestepSlider);
