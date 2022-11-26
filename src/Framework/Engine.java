@@ -1,6 +1,7 @@
 package Framework;
 
 import Framework.States.State;
+import Framework.States.StateMachine;
 import Framework.Timer.Time;
 import Renderer.Renderer;
 
@@ -11,6 +12,8 @@ public final class Engine implements Runnable
     // Collecting user input
     // window title
     public static String title;
+
+    private StateMachine stateMachine;
 
     // main application thread
     private Thread thread;
@@ -44,17 +47,14 @@ public final class Engine implements Runnable
 
         // Prepare state loading and timer system
         timer = Time.getInstance();
-        State.ChangeState();
+        stateMachine = new StateMachine();
     }
 
     /**
      * Base level simulation object to advance physics
      */
-    private void Tick() throws InstantiationException, IllegalAccessException {
-        if(State.GetState() != null)
-        {
-            State.GetState().Tick();
-        }
+    private void Tick() {
+        stateMachine.currentState.tick();
     }
 
     /**
@@ -74,11 +74,7 @@ public final class Engine implements Runnable
 
             // Physics update
             if(timer.isReadyToAdvancePhysics()){
-                try {
-                    Tick();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
-                }
+               Tick();
             }
             // Render update
             if(timer.isReadyForNextFrame())

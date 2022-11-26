@@ -3,7 +3,7 @@ package Morphogenesis.Rigidbodies.Nodes;
 import Morphogenesis.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
 
-import static Framework.States.State.deltaTime;
+import static Framework.States.RunState.deltaTime;
 
 import java.util.*;
 

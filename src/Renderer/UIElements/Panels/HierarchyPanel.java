@@ -17,7 +17,7 @@ public class HierarchyPanel {
 
     public HierarchyPanel(){
         panel = new JPanel(new GridLayout(0, 1, 5, 5));
-        State.onAddEntity.subscribe(this::addEntityLabel);
+        Entity.onAddEntity.subscribe(this::addEntityLabel);
 
     }
 

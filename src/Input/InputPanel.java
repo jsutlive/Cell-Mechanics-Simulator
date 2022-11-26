@@ -108,11 +108,6 @@ public class InputPanel {
         playButton.setIcon(new ImageIcon(play));
         playButton.removeActionListener(playButton.getActionListeners()[0]);
         playButton.addActionListener(e -> InputEvents.play());
-        try {
-            State.ChangeState();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     void playButton(boolean bool){
@@ -123,12 +118,6 @@ public class InputPanel {
         playButton.setIcon(new ImageIcon(stop));
         playButton.removeActionListener(playButton.getActionListeners()[0]);
         playButton.addActionListener(e -> InputEvents.stop());
-
-        try {
-            State.ChangeState();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 
     public static EventHandler<Float> onTimestepSliderChanged = new EventHandler<>();

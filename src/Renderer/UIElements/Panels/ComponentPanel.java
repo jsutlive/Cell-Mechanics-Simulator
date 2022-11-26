@@ -5,6 +5,7 @@ import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.States.EditorState;
 import Framework.States.State;
+import Input.InputEvents;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
@@ -21,9 +22,12 @@ public class ComponentPanel {
     public JPanel getPanel() {
         return panel;
     }
+    protected boolean isPlaying;
 
     public ComponentPanel(){}
     public ComponentPanel(Component c) {
+        InputEvents.onPlay.subscribe(this::hasBegunPlaying);
+        InputEvents.onStop.subscribe(this::hasStopped);
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         Class type = null;
@@ -39,10 +43,15 @@ public class ComponentPanel {
         setDeleteButton(c, namePanel);
 
         panel.add(namePanel);
-
-
-
         setFields(c, type, value, name, componentClass);
+    }
+
+    protected void hasBegunPlaying(Boolean b){
+        isPlaying = true;
+    }
+
+    protected void hasStopped(Boolean b){
+        isPlaying = false;
     }
 
     private void setSelectButton(Component c, JPanel namePanel){
@@ -91,22 +100,18 @@ public class ComponentPanel {
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
-            try {
-                if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
-                        (EditorState.class.isAssignableFrom(State.GetState().getClass()) &&
-                                f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
-                    StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
-                    if(staticFieldPanel.isSerializable)
-                        panel.add(staticFieldPanel.getPanel());
-                }
-                else {
-                    FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
-                    if (fieldPanel.isSerializable)
-                        panel.add(fieldPanel.getPanel());
-                }
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+            if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
+                    (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
+                StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
+                if(staticFieldPanel.isSerializable)
+                    panel.add(staticFieldPanel.getPanel());
             }
+            else {
+                FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
+                if (fieldPanel.isSerializable)
+                    panel.add(fieldPanel.getPanel());
+            }
+
 
         }
     }

@@ -1,8 +1,12 @@
 package Renderer;
 
-import Utilities.Geometry.Vector.Vector2f;
+import Framework.Object.Entity;
+import Morphogenesis.Components.Render.ObjectRenderer;
+import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
@@ -10,6 +14,8 @@ public abstract class Renderer implements Runnable {
 
     //Renderer object singleton instance.
     private static Renderer instance;
+
+    protected List<IRender> batch = new ArrayList<>();
 
     protected static Dimension bounds;
 
@@ -23,16 +29,39 @@ public abstract class Renderer implements Runnable {
         if(instance == null)
         {
             instance = build(Renderer2D.class);
+            IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
+            IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
         }
         return instance;
-    }
-    public static Vector2i windowSize(){
-        return new Vector2i(bounds.width, bounds.height);
     }
 
     public static Camera getCamera(){
         if(instance == null) return null;
         else return instance.camera;
+    }
+
+    public static void clearBatch(){
+        instance.batch.clear();
+    }
+
+    protected void addObjectRendererToBatch(IRender rend){
+        instance.batch.add(rend);
+    }
+
+    protected void removeObjectRendererFromBatch(IRender rend){
+        instance.batch.remove(rend);
+    }
+
+    /**
+     * Add graphical representation of object that does not have attached physics
+     * @param rend object that implements the IRender interface
+     */
+    public static void addGraphicToScene(IRender rend){
+        instance.batch.add(rend);
+    }
+
+    public static void removeGraphicFromScene(IRender rend){
+        instance.batch.removeIf(r -> instance.batch.contains(rend));
     }
 
      static <T extends Renderer> T build(Class<T> type) {

@@ -1,5 +1,6 @@
 package Framework.Object;
 
+import Framework.Events.EventHandler;
 import Framework.States.State;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +12,22 @@ public final class Entity implements IBehavior
    private List<Component> components = new ArrayList<>();
    private Tag tag;
 
-   public Entity(){}
+   public static EventHandler<Entity> onAddEntity = new EventHandler<>();
+   public static EventHandler<Entity> onRemoveEntity = new EventHandler<>();
+
+   public Entity(){
+      onAddEntity.invoke(this);
+   }
    public Entity(String name){
       this.name = name;
+      onAddEntity.invoke(this);
    }
+
    public Entity(String name, int uniqueID, Tag tag){
       this.name = name;
       this.uniqueID = uniqueID;
       this.tag = tag;
+      onAddEntity.invoke(this);
    }
 
    /**
@@ -46,7 +55,7 @@ public final class Entity implements IBehavior
     */
    public void destroy() {
       onDestroy();
-      State.destroy(this);
+      onRemoveEntity.invoke(this);
    }
 
    /**

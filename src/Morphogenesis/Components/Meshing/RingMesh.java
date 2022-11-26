@@ -191,13 +191,13 @@ public class RingMesh extends Mesh {
     }
 
     private Entity getNewCell(List<Node2D> cellNodes, int mod) {
-        return State.create(new Entity("Cell " + (cellList.size() + mod)).
+        return new Entity("Cell " + (cellList.size() + mod)).
                 with(new RingCellMesh().
                         build(cellNodes)).
                 with(new EdgeStiffness2D()).
                 with(new ElasticForce()).
                 with(new CornerStiffness2D()).
-                with(new OsmosisForce()));
+                with(new OsmosisForce());
     }
 
     @Override

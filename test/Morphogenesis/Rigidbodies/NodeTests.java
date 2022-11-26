@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static Framework.States.State.deltaTime;
+import static Framework.States.RunState.deltaTime;
 
 public class NodeTests {
 

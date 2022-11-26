@@ -3,6 +3,7 @@ package Renderer;
 import Framework.Engine;
 import Framework.States.State;
 import Renderer.Graphics.DisplayWindow;
+import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -39,14 +40,8 @@ public class Renderer2D extends Renderer
 
         g.clearRect(0,0, camera.width, camera.height);
 
-        try {
-            if(State.GetState() != null)
-            {
-                State.GetState().Render();
-
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        for(IRender rend: batch){
+            rend.render();
         }
 
         bufferStrategy.show();
@@ -57,11 +52,6 @@ public class Renderer2D extends Renderer
     @Override
     public void clearAllEvents(){
         camera.clearAllEvents();
-    }
-
-    public DisplayWindow GetDisplayWindow()
-    {
-        return displayWindow;
     }
 
     public void setColor(Color color){
