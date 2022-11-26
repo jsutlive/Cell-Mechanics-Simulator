@@ -20,6 +20,6 @@ public class Launcher
         render.setDaemon(true);
 
         // Have engine start threads
-        sim.Start(new Thread[]{physics, render});
+        sim.start(new Thread[]{physics, render});
     }
 }

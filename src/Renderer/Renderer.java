@@ -24,7 +24,7 @@ public abstract class Renderer implements Runnable {
 
     private boolean applicationIsRunning = false;
 
-    private Time renderClock = Time.getTime(60f);
+    private final Time renderClock = Time.getTime(60f);
 
     /**
      * Used to generate a singleton instance of our Renderer.
@@ -34,10 +34,12 @@ public abstract class Renderer implements Runnable {
         if(instance == null)
         {
             windowTitle = title;
-            instance = build(Renderer2D.class);
-            IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
-            IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
-            instance.applicationIsRunning = true;
+            instance = build();
+            if(instance!=null) {
+                IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
+                IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
+                instance.applicationIsRunning = true;
+            }
         }
         return instance;
     }
@@ -75,9 +77,9 @@ public abstract class Renderer implements Runnable {
         instance.batch.removeIf(r -> instance.batch.contains(rend));
     }
 
-     static <T extends Renderer> T build(Class<T> type) {
+     static <T extends Renderer> T build() {
         try {
-            return type.newInstance();
+            return ((Class<T>) Renderer2D.class).newInstance();
         } catch (IllegalAccessException | InstantiationException exception) {
             exception.printStackTrace();
         }
@@ -104,8 +106,8 @@ public abstract class Renderer implements Runnable {
     // Draw any lines
     public abstract void drawLine(Vector2i pointA, Vector2i pointB);
 
+    public abstract void clearAllEvents();
+
     // Set the renderer color
     public abstract  void setColor(Color color);
-
-    public void clearAllEvents(){}
 }

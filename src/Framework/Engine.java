@@ -2,13 +2,9 @@ package Framework;
 
 import Framework.States.StateMachine;
 import Framework.Timer.Time;
-import Renderer.Renderer;
 
 public final class Engine implements Runnable
 {
-    // rendering system reference
-    Renderer renderer;
-
     // Engine state handler (editor v. simulation)
     private StateMachine stateMachine;
 
@@ -35,8 +31,8 @@ public final class Engine implements Runnable
     public void run()
     {
         init();
-        while(applicationIsRunning)
-        {
+
+        while(applicationIsRunning) {
             timer.advance();
             if(timer.isReadyForNextFrame()){
                 stateMachine.currentState.tick();
@@ -44,14 +40,13 @@ public final class Engine implements Runnable
             timer.resetFrameTimer();
         }
         // Application stops
-        Stop();
+        stop();
     }
 
     /**
      * Begin application thread
      */
-    public synchronized void Start(Thread[] threads)
-    {
+    public synchronized void start(Thread[] threads) {
         if(applicationIsRunning){return;}
         applicationIsRunning = true;
         thread = threads[0];
@@ -61,15 +56,14 @@ public final class Engine implements Runnable
     /**
      * Halt program/ application thread
      */
-    public synchronized void Stop()
-    {
+    public synchronized void stop() {
+
         if(!applicationIsRunning){return;}
         applicationIsRunning = false;
         try {
             thread.join();
         }
-        catch(InterruptedException e)
-        {
+        catch(InterruptedException e) {
             e.printStackTrace();
         }
     }

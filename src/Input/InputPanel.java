@@ -2,7 +2,6 @@ package Input;
 
 import Framework.Events.EventHandler;
 import Framework.Events.IEvent;
-import Framework.States.State;
 import Renderer.UIElements.Panels.EntityPanel;
 import Utilities.Geometry.Vector.Vector2i;
 
@@ -20,7 +19,7 @@ public class InputPanel {
     private JPanel panel;
     private JButton playButton;
     private JLabel mouseLabel;
-    private Canvas tempCanvasReference; //FIX
+    private final Canvas tempCanvasReference; //FIX
 
     public InputPanel(Canvas canvas){
         initialize();
@@ -94,10 +93,6 @@ public class InputPanel {
 
     public JPanel getPanel(){
         return panel;
-    }
-
-    public JButton getPlayButton(){
-        return playButton;
     }
 
     void stopButton(boolean bool){
