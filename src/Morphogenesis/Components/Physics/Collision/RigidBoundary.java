@@ -7,7 +7,6 @@ import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Geometry.Vector.Vector2i;
 
 import static Framework.States.State.addGraphicToScene;
 import static Framework.States.State.removeGraphicFromScene;
@@ -21,6 +20,7 @@ public class RigidBoundary extends Component {
     float outerRadius;
     RingMesh referenceRing;
     CircleGraphic graphic;
+    Vector2f center = new Vector2f(0);
 
     @Override
     public void awake() {
@@ -31,7 +31,7 @@ public class RigidBoundary extends Component {
 
     private void createGraphic() {
         outerRadius = referenceRing.outerRadius;
-        graphic = new CircleGraphic(new Vector2i(400), (int)((outerRadius * 2) + 2), Color.gray);
+        graphic = new CircleGraphic(center.asInt(), (int)((outerRadius * 2) + 2), Color.gray);
         addGraphicToScene(graphic);
     }
 
@@ -49,8 +49,8 @@ public class RigidBoundary extends Component {
 
     private void checkNodesWithinBoundary(List<Node2D> allNodes) {
         for(Node2D node: allNodes) {
-            if(!Boundary.ContainsNode(node, new Vector2f(400), outerRadius)) {
-                Boundary.clampNodeToBoundary(node, new Vector2f(400), outerRadius);
+            if(!Boundary.ContainsNode(node, center, outerRadius)) {
+                Boundary.clampNodeToBoundary(node, center, outerRadius);
             }
         }
     }

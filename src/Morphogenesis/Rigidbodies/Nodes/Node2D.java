@@ -4,8 +4,6 @@ package Morphogenesis.Rigidbodies.Nodes;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 
-import static Renderer.Renderer.windowSize;
-
 /**
  * Node: A vertex-like object which can implement physics for simulations.
  */
@@ -51,9 +49,8 @@ public class Node2D extends Node {
      * axis as determined by the boundaries of the simulation window
      */
     public void mirrorAcrossYAxis(){
-        int xOffset = windowSize().x;
         Vector2f pos = getPosition();
-        setPosition(new Vector2f(-pos.x + xOffset, pos.y));
+        setPosition(new Vector2f(-pos.x, pos.y));
         initialPosition = getPosition();
     }
 

@@ -123,6 +123,10 @@ public class Vector2f extends Vector
         return (float)Math.hypot(b.x -a.x, b.y - a.y);
     }
 
+    public static float dist(float x1, float y1, float x2, float y2){
+        return dist(new Vector2f(x1, y1), new Vector2f(x2, y2));
+    }
+
     public static float sqDist(Vector2f a, Vector2f b){
         return CustomMath.sq(a.x - b.x) + CustomMath.sq(a.y - b.y);
     }

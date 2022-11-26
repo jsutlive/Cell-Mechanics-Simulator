@@ -54,8 +54,8 @@ public class CustomMath {
     public static Vector2f TransformToWorldSpace(Vector2f unitVector, float radius, Vector2f axis)
     {
         Vector2f worldScale = new Vector2f(unitVector.x * radius, unitVector.y * radius);
-        Vector2f axisWorld = new Vector2f(axis.greater()/2);
-        worldScale = worldScale.add(axisWorld);
+        //Vector2f axisWorld = new Vector2f(axis.greater()/2);
+        //worldScale = worldScale.add(axisWorld);
         return worldScale;
     }
 

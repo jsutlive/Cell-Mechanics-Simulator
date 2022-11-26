@@ -42,18 +42,19 @@ public class Camera {
 
     public Vector2i transformToView(Vector2i pos){
         return new Vector2i(
-                Math.round((pos.x + shift.x - width/2f) * scale + width/2f),
-                Math.round((pos.y + shift.y - height/2f) * scale + height/2f)
+                Math.round((pos.x + shift.x) * scale + width/2f),
+                Math.round((pos.y + shift.y) * scale + height/2f)
         );
 
     }
 
     public Vector2i getScreenPoint(Vector2i pos){
         return new Vector2i(
-                Math.round(((pos.x-width/2f)/scale)+width/2f-shift.x),
-                Math.round(((pos.y-height/2f)/scale)+height/2f-shift.y)
+                Math.round((pos.x/scale)-width/2f-shift.x),
+                Math.round((pos.y/scale)-height/2f-shift.y)
         );
     }
+
 
     public void clearAllEvents(){
         InputEvents.onShift.close();
