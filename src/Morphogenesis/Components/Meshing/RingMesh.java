@@ -13,12 +13,9 @@ import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
-import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
-import Morphogenesis.Rigidbodies.Edges.BasalEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edges.*;
+import Morphogenesis.Rigidbodies.Nodes.*;
 import Utilities.Geometry.Vector.Vector2f;
-import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Math.Gauss;
 
 import java.util.ArrayList;
@@ -46,7 +43,6 @@ public class RingMesh extends Mesh {
     public transient List<Entity> cellList = new ArrayList<>();
     public transient List<Edge> basalEdges = new ArrayList<>();
     public transient List<Edge> apicalEdges = new ArrayList<>();
-    public final Vector2i boundingBox = new Vector2i(800);
 
     @Override
     public void awake() {
@@ -149,7 +145,7 @@ public class RingMesh extends Mesh {
             for (int j = 0; j <= lateralResolution; j++) {
                 float radiusToNode = getRadiusToNode(j);
                 // Transform polar to world coordinates
-                position = TransformToWorldSpace(unitVector, radiusToNode, boundingBox.asFloat());
+                position = TransformToWorldSpace(unitVector, radiusToNode);
                 Node2D currentNode = new Node2D(position);
                 Node2D mirroredNode = currentNode.clone();
                 mirroredNode.mirrorAcrossYAxis();

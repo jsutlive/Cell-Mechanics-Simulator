@@ -48,15 +48,10 @@ public class CustomMath {
      * change a coordinate from polar values to cartesian values.
      * @param unitVector equivalent of "theta" when considering polar coordinates
      * @param radius equivalent of "r" when considering polar coordinates
-     * @param axis offset determined by x/y axis created by the bounding box
      * @return 2D vector indicating a point in world space
      */
-    public static Vector2f TransformToWorldSpace(Vector2f unitVector, float radius, Vector2f axis)
-    {
-        Vector2f worldScale = new Vector2f(unitVector.x * radius, unitVector.y * radius);
-        Vector2f axisWorld = new Vector2f(axis.greater()/2);
-        worldScale = worldScale.add(axisWorld);
-        return worldScale;
+    public static Vector2f TransformToWorldSpace(Vector2f unitVector, float radius) {
+        return new Vector2f(unitVector.x * radius, unitVector.y * radius);
     }
 
     public static float sq(float f)

@@ -1,7 +1,6 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Events.EventHandler;
-import Framework.Events.IEvent;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
