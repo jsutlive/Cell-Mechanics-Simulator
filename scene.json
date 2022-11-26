@@ -36123,10 +36123,6 @@
           "segments": 80,
           "outerRadius": 300.0,
           "innerRadius": 200.0,
-          "boundingBox": {
-            "x": 800,
-            "y": 800
-          },
           "nodes": [
             {
               "position": {
@@ -62311,10 +62307,6 @@
             "segments": 80,
             "outerRadius": 300.0,
             "innerRadius": 200.0,
-            "boundingBox": {
-              "x": 800,
-              "y": 800
-            },
             "nodes": [
               {
                 "position": {
@@ -64746,10 +64738,6 @@
             "segments": 80,
             "outerRadius": 300.0,
             "innerRadius": 200.0,
-            "boundingBox": {
-              "x": 800,
-              "y": 800
-            },
             "nodes": [
               {
                 "position": {
