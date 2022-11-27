@@ -6,8 +6,6 @@ import Morphogenesis.Components.Physics.Force;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Framework.Timer.Time.elapsedTime;
-import static Framework.Timer.Time.asNanoseconds;
 
 public class TimedAblation extends Component {
     public float timeUntilAblation = 5f;
@@ -26,9 +24,7 @@ public class TimedAblation extends Component {
     @Override
     public void update() {
         if(hasActed) return;
-        if(elapsedTime >= asNanoseconds(timeUntilAblation)){
 
 
-        }
     }
 }

@@ -25,9 +25,9 @@ public class Yolk extends Component {
         onMeshRebuilt.subscribe(this::rebuildYolk);
         onSelectionButtonPressed.subscribe(this::selectThis);
         referenceRing = getComponent(RingMesh.class);
-        yolk = State.create(new Entity("Yolk").
+        yolk = new Entity("Yolk").
                 with(new CircleMesh().build(referenceRing.innerNodes, referenceRing.basalEdges)).
-                with(new OsmosisForce()));
+                with(new OsmosisForce());
         yolk.getComponent(MeshRenderer.class).enabled = false;
         yolk.getComponent(OsmosisForce.class).osmosisConstant = -0.0005f;
     }

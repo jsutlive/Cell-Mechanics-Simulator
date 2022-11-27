@@ -8,6 +8,7 @@ import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.MouseSelector;
 import Renderer.Graphics.IColor;
+import Renderer.Graphics.IRender;
 import Renderer.Graphics.Painter;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -27,7 +28,7 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void awake() {
-        State.setFlagToRender(parent);
+        IRender.onRendererAdded.invoke(this);
         cellMesh = parent.getComponent(Mesh.class);
         defaultColor = color;
         SelectionEvents.onEntitySelected.subscribe(this::highlightColor);

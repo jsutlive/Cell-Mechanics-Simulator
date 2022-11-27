@@ -1,27 +1,59 @@
 package Renderer;
 
+import Framework.Timer.Time;
+import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Renderer implements Runnable {
     //Renderer object singleton instance.
     private static Renderer instance;
 
+    protected List<IRender> batch = new ArrayList<>();
+
+    private boolean applicationIsRunning = false;
+
+    private final Time renderClock = Time.getTime(60f);
+
     /**
      * Used to generate a singleton instance of our Renderer.
      * @return the current Renderer, or create and return a new renderer if it is currently null.
      */
-    public static Renderer getInstance() {
+    public static Renderer getInstance(String title) {
         if(instance == null)
         {
-            instance = build(RendererStdout.class);
+            windowTitle = title;
+            instance = build();
+            if(instance!=null) {
+                IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
+                IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
+                instance.applicationIsRunning = true;
+            }
         }
         return instance;
     }
 
-     static <T extends Renderer> T build(Class<T> type) {
+    public static Renderer getInstance(){
+        return instance;
+    }
+
+    public static void clearBatch(){
+        instance.batch.clear();
+    }
+
+    protected void addObjectRendererToBatch(IRender rend){
+        instance.batch.add(rend);
+    }
+
+    protected void removeObjectRendererFromBatch(IRender rend){
+        instance.batch.remove(rend);
+    }
+
+     static <T extends Renderer> T build() {
         try {
-            return type.newInstance();
+            return ((Class<T>) RendererStdout.class).newInstance();
         } catch (IllegalAccessException | InstantiationException exception) {
             exception.printStackTrace();
         }
@@ -31,8 +63,19 @@ public abstract class Renderer implements Runnable {
     @Override
     // run the renderer in an update loop
     public void run() {
-
+        while(applicationIsRunning) {
+            renderClock.advance();
+            if (renderClock.isReadyForNextFrame()) {
+                render();
+            }
+            renderClock.printFrameRateAndResetFrameTimer();
+        }
     }
 
-    public void clearAllEvents(){}
+    protected abstract void render();
+
+    public abstract void clearAllEvents();
+
+    // Set the renderer color
+    public abstract  void setColor(Color color);
 }

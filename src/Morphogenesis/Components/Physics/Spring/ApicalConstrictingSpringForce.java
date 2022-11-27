@@ -6,9 +6,11 @@ import Utilities.Geometry.Vector.Vector;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 
+import static Framework.States.StateMachine.timer;
+
 
 public class ApicalConstrictingSpringForce extends SpringForce {
-    float rampTime = 5f;
+    public float rampTime = 5f;
 
     @Override
     public void awake() {
@@ -20,8 +22,8 @@ public class ApicalConstrictingSpringForce extends SpringForce {
     public void update() {
         Vector force;
         for(Edge edge: edges){
-            if(Time.elapsedTime <  Time.asNanoseconds(rampTime)) {
-                force  = calculateSpringForce(edge, constant * Time.elapsedTime / Time.asNanoseconds(rampTime));
+            if(timer.elapsedTime <  Time.asNanoseconds(rampTime)) {
+                force  = calculateSpringForce(edge, constant * timer.elapsedTime / Time.asNanoseconds(rampTime));
             }
             else {
                 force = calculateSpringForce(edge, constant);
