@@ -66,8 +66,8 @@ public abstract class Renderer implements Runnable {
             renderClock.advance();
             if (renderClock.isReadyForNextFrame()) {
                 System.out.print("clear ");
-                System.out.flush();
                 render();
+                System.out.print("finished ");
             }
             renderClock.printFrameRateAndResetFrameTimer();
         }
