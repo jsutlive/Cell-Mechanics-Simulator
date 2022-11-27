@@ -9,8 +9,6 @@ import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
-import static Renderer.Renderer.addGraphicToScene;
-import static Renderer.Renderer.removeGraphicFromScene;
 
 import java.awt.*;
 import java.util.List;

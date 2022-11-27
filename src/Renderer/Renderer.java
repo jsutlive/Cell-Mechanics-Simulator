@@ -24,7 +24,6 @@ public abstract class Renderer implements Runnable {
     public static Renderer getInstance(String title) {
         if(instance == null)
         {
-            windowTitle = title;
             instance = build();
             if(instance!=null) {
                 IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
@@ -66,6 +65,8 @@ public abstract class Renderer implements Runnable {
         while(applicationIsRunning) {
             renderClock.advance();
             if (renderClock.isReadyForNextFrame()) {
+                System.out.print("clear ");
+                System.out.flush();
                 render();
             }
             renderClock.printFrameRateAndResetFrameTimer();
@@ -73,9 +74,4 @@ public abstract class Renderer implements Runnable {
     }
 
     protected abstract void render();
-
-    public abstract void clearAllEvents();
-
-    // Set the renderer color
-    public abstract  void setColor(Color color);
 }

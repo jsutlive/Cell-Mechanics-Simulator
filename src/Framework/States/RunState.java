@@ -1,10 +1,7 @@
 package Framework.States;
 
 import Framework.Object.Entity;
-import Input.InputEvents;
 import java.util.Collections;
-
-import static Input.InputPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
@@ -21,8 +18,8 @@ public class RunState extends State
     @Override
     public void enter() {
         Collections.shuffle(stateMachine.allObjects);
-        onTimestepSliderChanged.subscribe(this::setTimeStep);
-        InputEvents.onStop.subscribe(this::goToEditorState);
+//        onTimestepSliderChanged.subscribe(this::setTimeStep);
+//        InputEvents.onStop.subscribe(this::goToEditorState);
     }
 
     private void setTimeStep(float f){
@@ -53,7 +50,7 @@ public class RunState extends State
 
     void exit()
     {
-        onTimestepSliderChanged.unSubscribe(this::setTimeStep);
-        InputEvents.onStop.unSubscribe(this::goToEditorState);
+//        onTimestepSliderChanged.unSubscribe(this::setTimeStep);
+//        InputEvents.onStop.unSubscribe(this::goToEditorState);
     }
 }

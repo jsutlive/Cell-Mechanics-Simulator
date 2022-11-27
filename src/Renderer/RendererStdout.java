@@ -14,17 +14,10 @@ public class RendererStdout extends Renderer
      */
 
     @Override
-    public void run()
+    public void render()
     {
-        try {
-            if(State.GetState() != null)
-            {
-                System.out.print("clear ");
-                System.out.flush();
-                State.GetState().Render();
-            }
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        for(int i = batch.size() -1; i >= 0; i--){
+            batch.get(i).render();
         }
     }
 }

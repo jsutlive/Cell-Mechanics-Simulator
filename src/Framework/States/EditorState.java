@@ -1,7 +1,6 @@
 package Framework.States;
 
 import Framework.Object.Entity;
-import Input.InputEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.MouseSelector;
@@ -23,7 +22,7 @@ public class EditorState extends State
 
     @Override
     public void enter() {
-        InputEvents.onPlay.subscribe(this::goToRunState);
+//        InputEvents.onPlay.subscribe(this::goToRunState);
         // Find an object to act as base physics/ setup for the simulation
         if(findObjectWithTag(MODEL) == null){
             // create a new model with specific components
@@ -58,7 +57,7 @@ public class EditorState extends State
     @Override
     void exit() {
         saveInitial();
-        InputEvents.onPlay.unSubscribe(this::goToRunState);
+//        InputEvents.onPlay.unSubscribe(this::goToRunState);
     }
 
 }
