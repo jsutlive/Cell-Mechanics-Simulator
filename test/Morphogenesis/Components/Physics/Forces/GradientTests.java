@@ -18,8 +18,8 @@ public class GradientTests {
         gg.calculate(30,
                 10f, .01f,
                 2f, .0001f);
-        System.out.println(gg.constants[1]);
-        System.out.println(gg.constants[2]);
+        System.err.println(gg.constants[1]);
+        System.err.println(gg.constants[2]);
         for (int i = 1; i < gg.constants.length; i++) {
             assertNotEquals(gg.constants[i - 1], gg.constants[i]);
             assertTrue(gg.constants[i - 1] >= gg.constants[i]);

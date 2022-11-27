@@ -20,7 +20,6 @@ public class EntitySerializer implements JsonSerializer<Entity>, JsonDeserialize
         Entity entity = new Entity(name, uniqueID, tag);
         for(JsonElement e: components){
             Component c = context.deserialize(e, Component.class);
-            System.out.println(c.getClass().getSimpleName());
             entity.addComponent(c);
         }
         return entity;

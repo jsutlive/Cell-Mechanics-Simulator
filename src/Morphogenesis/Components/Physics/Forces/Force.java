@@ -16,7 +16,7 @@ public class Force
         Vector2f forceVector;
         if(Float.isNaN(pointOnEdge.x) || Float.isNaN(pointOnEdge.y))
         {
-            System.out.println("POINT ON EDGE NULL");
+            System.err.println("POINT ON EDGE NULL");
         }
         if(!Geometry.lineSegmentContainsPoint(pointOnEdge, edge.getPositions())) {
             forceVector = Vector2f.unit(pointOnEdge, n.getPosition());
@@ -39,7 +39,7 @@ public class Force
         float forceMagnitude = calculateLJForceMagnitude(temp, ljConstant, type);
         if(Float.isNaN(forceMagnitude))
         {
-            System.out.println("FORCE MAGNITUDE NULL");
+            System.err.println("FORCE MAGNITUDE NULL");
         }
         forceVector.mul(forceMagnitude);
 

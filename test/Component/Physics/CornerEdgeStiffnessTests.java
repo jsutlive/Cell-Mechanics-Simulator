@@ -66,7 +66,6 @@ public class CornerEdgeStiffnessTests {
         Node2D d_ = new Node2D(1, 1);
         List<Node> corner = new ArrayList<>(Arrays.asList(b,c,d_));
         Vector force = cStiff.calculateCornerStiffness(corner);
-        System.out.println(force.print());
         assertEquals(0f, Math.abs(force.get(0)));
         assertEquals(0f, Math.abs(force.get(1)));
     }
@@ -76,7 +75,7 @@ public class CornerEdgeStiffnessTests {
         Node2D d_ = new Node2D(1, 1);
         List<Node> corner = new ArrayList<>(Arrays.asList(d_, c,b));
         Vector force = cStiff.calculateCornerStiffness(corner);
-        System.out.println(force.print());
+        System.err.println(force.print());
         assertEquals(0f, Math.abs(force.get(0)));
         assertEquals(0f, Math.abs(force.get(1)));
     }

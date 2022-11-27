@@ -22,7 +22,6 @@ public class File {
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
                 registerTypeAdapter(Node.class, new NodeSerializer()).
                 create();
-        System.out.println("HERE");
         try {
             FileWriter filewriter = new FileWriter("scene.json");
             filewriter.write(gson.toJson(entities));

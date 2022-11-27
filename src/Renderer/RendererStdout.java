@@ -19,6 +19,8 @@ public class RendererStdout extends Renderer
         try {
             if(State.GetState() != null)
             {
+                System.out.print("clear ");
+                System.out.flush();
                 State.GetState().Render();
             }
         } catch (InstantiationException | IllegalAccessException e) {

@@ -122,7 +122,7 @@ public final class Time {
     {
         if(instance.frameTimer >= 1000000000)
         {
-            System.out.println("Frame Rate: "+Time.ticks);
+            System.err.println("Frame Rate: "+Time.ticks);
             Time.ticks = 0;
             instance.frameTimer = 0;
         }

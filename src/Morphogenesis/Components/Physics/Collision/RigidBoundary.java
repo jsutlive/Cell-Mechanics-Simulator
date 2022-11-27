@@ -4,7 +4,6 @@ import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
-import Renderer.Graphics.Vector.CircleGraphic;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
@@ -20,6 +19,8 @@ public class RigidBoundary extends Component {
 
     float outerRadius;
     RingMesh referenceRing;
+    Vector2f center = new Vector2f(0);
+
 
     @Override
     public void awake() {
