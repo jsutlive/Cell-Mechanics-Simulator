@@ -11,6 +11,8 @@ import Renderer.Graphics.IRender;
 import Renderer.Graphics.Painter;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
+import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Math.CustomMath;
 
 import java.awt.*;
 import java.util.HashSet;
@@ -80,7 +82,13 @@ public class MeshRenderer extends ObjectRenderer
     public void render()
     {
         if(enabled)
-            Painter.drawMesh(cellMesh, color);
+            for(Edge edge: cellMesh.edges)
+            {
+                Vector2f[] positions = edge.getPositions();
+                Painter.drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
+                        positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
+                Painter.drawEdgeNormal(edge);
+            }
     }
 
     @Override
