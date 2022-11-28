@@ -7,6 +7,7 @@ import Input.InputEvents;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
+import Renderer.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 import javafx.scene.input.MouseButton;
 
@@ -52,8 +53,8 @@ public class MouseSelector extends Component {
     }
 
     private void onMousePressed(MouseEvent e){
-        assert Renderer.getCamera() != null;
-        Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
+        assert Camera.main != null;
+        Vector2i mousePosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
             if(shiftKey) SelectionEvents.beginSelectingMultiple();
             selecting = !alt;
@@ -66,8 +67,8 @@ public class MouseSelector extends Component {
     }
 
     private void onMouseDragged(MouseEvent e){
-        assert Renderer.getCamera() != null;
-        Vector2i mousePosition = Renderer.getCamera().getScreenPoint(new Vector2i(e.getX(), e.getY()));
+        assert Camera.main != null;
+        Vector2i mousePosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(!selecting) deselectEntity(mousePosition);
         else selectEntity(mousePosition);
     }

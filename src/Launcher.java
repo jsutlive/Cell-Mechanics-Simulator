@@ -1,18 +1,18 @@
 import Framework.Engine;
-import Renderer.Renderer;
+import Renderer.*;
 
 /**
  * Entry point for the program.
  * Creates a new Engine object and runs the "Start" function for it.
  */
-public class Launcher
+public final class Launcher
 {
     public static void main(String[] args)
     {
         // Build engine
         Engine sim = new Engine();
         // Build renderer
-        Renderer renderer = Renderer.getInstance("Morphogenesis Simulator");
+        Renderer renderer = new Renderer2D("Morphogenesis Simulator");
 
         // Separate render thread and set as a background process
         Thread physics = new Thread(sim);

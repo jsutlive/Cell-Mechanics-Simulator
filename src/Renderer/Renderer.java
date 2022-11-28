@@ -11,10 +11,7 @@ public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
     public static Graphics g;
 
-    protected static String windowTitle;
-
-    //Renderer object singleton instance.
-    private static Renderer instance;
+    public static Renderer instance;
 
     protected List<IRender> batch = new ArrayList<>();
 
@@ -22,68 +19,20 @@ public abstract class Renderer implements Runnable {
 
     protected Camera camera;
 
-    private boolean applicationIsRunning = false;
+    protected boolean applicationIsRunning = false;
 
     private final Time renderClock = Time.getTime(60f);
 
-    /**
-     * Used to generate a singleton instance of our Renderer.
-     * @return the current Renderer, or create and return a new renderer if it is currently null.
-     */
-    public static Renderer getInstance(String title) {
-        if(instance == null)
-        {
-            windowTitle = title;
-            instance = build();
-            if(instance!=null) {
-                IRender.onRendererAdded.subscribe(instance::addObjectRendererToBatch);
-                IRender.onRendererRemoved.subscribe(instance::removeObjectRendererFromBatch);
-                instance.applicationIsRunning = true;
-            }
-        }
-        return instance;
+    public void clearBatch(){
+        batch.clear();
     }
 
-    public static Renderer getInstance(){
-        return instance;
+    protected void addGraphicToBatch(IRender rend){
+        batch.add(rend);
     }
 
-    public static Camera getCamera(){
-        if(instance == null) return null;
-        else return instance.camera;
-    }
-
-    public static void clearBatch(){
-        instance.batch.clear();
-    }
-
-    protected void addObjectRendererToBatch(IRender rend){
-        instance.batch.add(rend);
-    }
-
-    protected void removeObjectRendererFromBatch(IRender rend){
-        instance.batch.remove(rend);
-    }
-
-    /**
-     * Add graphical representation of object that does not have attached physics
-     * @param rend object that implements the IRender interface
-     */
-    public static void addGraphicToScene(IRender rend){
-        instance.batch.add(rend);
-    }
-
-    public static void removeGraphicFromScene(IRender rend){
-        instance.batch.removeIf(r -> instance.batch.contains(rend));
-    }
-
-     static <T extends Renderer> T build() {
-        try {
-            return ((Class<T>) Renderer2D.class).newInstance();
-        } catch (IllegalAccessException | InstantiationException exception) {
-            exception.printStackTrace();
-        }
-        return null;
+    protected void removeGraphicFromBatch(IRender rend){
+        batch.remove(rend);
     }
 
     @Override

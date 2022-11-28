@@ -4,18 +4,19 @@ import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Renderer.Graphics.IRender;
+import Renderer.Graphics.Painter;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
-import static Renderer.Renderer.addGraphicToScene;
-import static Renderer.Renderer.removeGraphicFromScene;
+
 
 import java.awt.*;
 import java.util.List;
 
-public class RigidBoundary extends Component {
+public class RigidBoundary extends Component{
 
     float outerRadius;
     RingMesh referenceRing;
@@ -32,12 +33,12 @@ public class RigidBoundary extends Component {
     private void createGraphic() {
         outerRadius = referenceRing.outerRadius;
         graphic = new CircleGraphic(center.asInt(), (int)((outerRadius * 2) + 2), Color.gray);
-        addGraphicToScene(graphic);
+        graphic.add(graphic);
     }
 
     private void regenerateGraphic(Mesh mesh){
         if(getComponent(Mesh.class) == mesh) {
-            removeGraphicFromScene(graphic);
+            graphic.add(graphic);
             createGraphic();
         }
     }
@@ -58,6 +59,7 @@ public class RigidBoundary extends Component {
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::regenerateGraphic);
-        removeGraphicFromScene(graphic);
+        graphic.remove(graphic);
     }
+
 }

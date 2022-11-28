@@ -3,16 +3,19 @@ package Framework;
 import Framework.States.StateMachine;
 import Framework.Timer.Time;
 
+/**
+ * Engine is the main physics driver which is responsible for
+ */
 public final class Engine implements Runnable
 {
-    // Engine state handler (editor v. simulation)
+    // Engine state handler (i.e., editor v. simulation)
     private StateMachine stateMachine;
 
-    // main application thread
+    // main application (physics) thread
     private Thread thread;
 
-    // application timer
-    private Time timer;
+    // application (physics) timer
+    private Time physicsClock;
 
     private boolean applicationIsRunning = false;
 
@@ -20,8 +23,8 @@ public final class Engine implements Runnable
      * Prepare state loading and timer system
      */
     private void init() {
-        timer = Time.getTime(100f);
-        stateMachine = new StateMachine(timer);
+        physicsClock = Time.getTime(100f);
+        stateMachine = new StateMachine(physicsClock);
     }
 
     /**
@@ -32,14 +35,15 @@ public final class Engine implements Runnable
     {
         init();
 
+        // advance clock and perform physics update
         while(applicationIsRunning) {
-            timer.advance();
-            if(timer.isReadyForNextFrame()){
+            physicsClock.advance();
+            if(physicsClock.isReadyForNextFrame()){
                 stateMachine.currentState.tick();
             }
-            timer.resetFrameTimer();
+            physicsClock.resetFrameTimer();
         }
-        // Application stops
+
         stop();
     }
 
@@ -60,6 +64,7 @@ public final class Engine implements Runnable
 
         if(!applicationIsRunning){return;}
         applicationIsRunning = false;
+        stateMachine.deactivate();
         try {
             thread.join();
         }

@@ -1,5 +1,6 @@
 package Renderer.Graphics;
 
+import Framework.Events.EventHandler;
 import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -41,7 +42,7 @@ public class Painter {
 
     public static void drawLine(Vector2i pointA, Vector2i pointB)
     {
-        Renderer.getInstance().drawLine(pointA, pointB);
+        Renderer.instance.drawLine(pointA, pointB);
     }
 
     public static void drawLine(Vector2i pointA, Vector2i pointB, Color color)
@@ -51,9 +52,8 @@ public class Painter {
 
     }
 
-    public static void drawPoint(Vector2i point)
-    {
-        Renderer.getInstance().drawCircle(point, 2);
+    public static void drawPoint(Vector2i point) {
+        Renderer.instance.drawCircle(point, 2);
     }
 
     public static void drawPoint(Vector2i point, Color color)
@@ -63,7 +63,7 @@ public class Painter {
     }
 
     public static void drawCircle(Vector2i center, int diameter){
-        Renderer.getInstance().drawCircle(center, diameter);
+        Renderer.instance.drawCircle(center, diameter);
     }
 
     public static void drawCircle(Vector2i center, int diameter, Color color){
@@ -71,9 +71,8 @@ public class Painter {
         drawCircle(center, diameter);
     }
 
-    public static void setColor(Color color)
-    {
-        Renderer.getInstance().setColor(color);
+    public static void setColor(Color color) {
+        Renderer.instance.setColor(color);
     }
 
 

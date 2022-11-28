@@ -58,4 +58,13 @@ public final class StateMachine {
         else changeState(new EditorState(this));
     }
 
+    /**
+     *  unsubscribe from events when application is exited.
+     */
+    public void deactivate(){
+        Entity.onAddEntity.unSubscribe(this::addEntityToList);
+        Entity.onRemoveEntity.unSubscribe(this::removeEntityFromList);
+        InputEvents.onToggleSimulation.unSubscribe(this::handleSimulationToggle);
+    }
+
 }

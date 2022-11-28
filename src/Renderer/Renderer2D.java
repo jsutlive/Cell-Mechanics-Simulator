@@ -1,6 +1,7 @@
 package Renderer;
 
 import Renderer.Graphics.DisplayWindow;
+import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -12,11 +13,15 @@ public class Renderer2D extends Renderer
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
 
-    public Renderer2D()
+    public Renderer2D(String windowTitle)
     {
+        if(instance == null) instance = this;
         bounds = new Dimension(800,800);
         displayWindow = new DisplayWindow(windowTitle, bounds.width, bounds.height);
         camera = new Camera(bounds.width, bounds.height);
+        IRender.onRendererAdded.subscribe(this::addGraphicToBatch);
+        IRender.onRendererRemoved.subscribe(this::removeGraphicFromBatch);
+        applicationIsRunning = true;
     }
     /**
      * Renders graphics to the screen. Should only be accessed from the Engine object.

@@ -5,11 +5,13 @@ import Input.InputEvents;
 import Utilities.Geometry.Vector.Vector2i;
 
 public class Camera {
+    public static Camera main;
     public int width, height;
     public Vector2i shift;
     public float scale;
 
     public Camera(int width, int height){
+        if(main == null) main = this;
         this.width = width;
         this.height = height;
         scale = 1f;
