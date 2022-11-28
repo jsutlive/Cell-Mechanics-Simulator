@@ -20,7 +20,7 @@ public final class Engine implements Runnable
      * Prepare state loading and timer system
      */
     private void init() {
-        timer = Time.getTime(120f);
+        timer = Time.getTime(100f);
         stateMachine = new StateMachine(timer);
     }
 

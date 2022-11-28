@@ -17,19 +17,19 @@ import static Renderer.Renderer.getCamera;
 public class InputPanel {
 
     private JPanel panel;
-    private JButton playButton;
+    private JButton toggleSimulationButton;
     private JLabel mouseLabel;
     private final Canvas tempCanvasReference; //FIX
 
     public InputPanel(Canvas canvas){
         initialize();
 
-        IEvent<Boolean> playEventSink = this::playButton;
-        IEvent<Boolean> stopEventSink = this::stopButton;
+        IEvent<Boolean> playEventSink = this::toggleButton;
+        IEvent<Boolean> stopEventSink = this::toggleButton;
         IEvent<MouseEvent> mouseMoveEventSink = this::findHoverCoordinates;
 
-        InputEvents.onPlay.subscribe(playEventSink);
-        InputEvents.onStop.subscribe(stopEventSink);
+        InputEvents.onToggleSimulation.subscribe(playEventSink);
+        InputEvents.onToggleSimulation.subscribe(stopEventSink);
         InputEvents.onMove.subscribe(mouseMoveEventSink);
         tempCanvasReference = canvas;
     }
@@ -77,16 +77,16 @@ public class InputPanel {
     }
 
     void createPlayButton() {
-        playButton = new JButton("Play");
-        playButton.setSize(new Dimension(200,80));
+        toggleSimulationButton = new JButton("Play");
+        toggleSimulationButton.setSize(new Dimension(200,80));
         ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
         Image play = playIcon.getImage();
         play = play.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        playButton.setIcon(new ImageIcon(play));
-        playButton.addActionListener(e -> InputEvents.play());
-        playButton.setBackground(Color.GREEN);
+        toggleSimulationButton.setIcon(new ImageIcon(play));
+        toggleSimulationButton.addActionListener(e -> InputEvents.toggleSimulation(true));
+        toggleSimulationButton.setBackground(Color.GREEN);
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(playButton);
+        buttonPanel.add(toggleSimulationButton);
         buttonPanel.setLayout(new FlowLayout());
         panel.add(buttonPanel);
     }
@@ -95,26 +95,24 @@ public class InputPanel {
         return panel;
     }
 
-    void stopButton(boolean bool){
-        playButton.setText("Play");
-        ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
-        Image play = playIcon.getImage();
-        play = play.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        playButton.setIcon(new ImageIcon(play));
-        playButton.removeActionListener(playButton.getActionListeners()[0]);
-        playButton.addActionListener(e -> InputEvents.play());
-    }
+    void toggleButton(boolean isPlayingSimulation){
+        ImageIcon icon;
+        if(isPlayingSimulation) {
+            toggleSimulationButton.setBackground(Color.RED);
+            toggleSimulationButton.setText("Stop");
+            icon = new ImageIcon(loadImage("stop.png"));
+        }else{
+            toggleSimulationButton.setBackground(Color.GREEN);
+            toggleSimulationButton.setText("Play");
+            icon = new ImageIcon(loadImage("play.png"));
+        }
 
-    void playButton(boolean bool){
-        playButton.setText("Stop");
-        ImageIcon stopIcon = new ImageIcon(loadImage("stop.png"));
-        Image stop = stopIcon.getImage();
-        stop = stop.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        playButton.setIcon(new ImageIcon(stop));
-        playButton.removeActionListener(playButton.getActionListeners()[0]);
-        playButton.addActionListener(e -> InputEvents.stop());
+        Image image = icon.getImage();
+        image = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        toggleSimulationButton.setIcon(new ImageIcon(image));
+        toggleSimulationButton.removeActionListener(toggleSimulationButton.getActionListeners()[0]);
+        toggleSimulationButton.addActionListener(e -> InputEvents.toggleSimulation(!isPlayingSimulation));
     }
-
     public static EventHandler<Float> onTimestepSliderChanged = new EventHandler<>();
 
     public void changeTimestepSlider(float f){

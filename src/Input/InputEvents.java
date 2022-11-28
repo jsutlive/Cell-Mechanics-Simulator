@@ -11,7 +11,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     private boolean spaceToggle = false;
 
-      @Override
+    @Override
     public void keyTyped(KeyEvent e) {
 
     }
@@ -20,8 +20,8 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         if(keyCode == KeyEvent.VK_SPACE){
-            if(spaceToggle) stop();
-            else play();
+            spaceToggle = !spaceToggle;
+            toggleSimulation(spaceToggle);
         }
         if(keyCode == KeyEvent.VK_EQUALS) {
             scale(1.2f);
@@ -92,13 +92,16 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     public static EventHandler<Boolean> onAlt = new EventHandler<>();
     public static EventHandler<Boolean> onShiftKey = new EventHandler<>();
-    public static EventHandler<Boolean> onPlay = new EventHandler<>();
-    public static EventHandler<Boolean> onStop = new EventHandler<>();
+    public static EventHandler<Boolean> onToggleSimulation = new EventHandler<>();
     public static EventHandler<MouseEvent> onClick = new EventHandler<>();
     public static EventHandler<MouseEvent> onMove = new EventHandler<>();
     public static EventHandler<MouseEvent> onDrag = new EventHandler<>();
     public static EventHandler<MouseEvent> onPress = new EventHandler<>();
     public static EventHandler<MouseEvent> onRelease = new EventHandler<>();
+
+    public static void toggleSimulation(boolean b) {
+        onToggleSimulation.invoke(b);
+    }
 
     public void click(MouseEvent event){
         onClick.invoke(event);
@@ -108,15 +111,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         onMove.invoke(event);
     }
 
-    public static void play(){
-        onPlay.invoke(true);
-    }
-
-    public static void stop(){
-        onStop.invoke(true);
-    }
-
-    public void scale(Float f){
+     public void scale(Float f){
         onScale.invoke(f);
     }
 

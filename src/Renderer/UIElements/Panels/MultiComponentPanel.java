@@ -22,8 +22,7 @@ public class MultiComponentPanel extends ComponentPanel{
     public static String PLACEHOLDER_FIELD = "--";
 
     public <T extends Component> MultiComponentPanel(List<Entity> entities, Class<T> componentClass) {
-        InputEvents.onPlay.subscribe(this::hasBegunPlaying);
-        InputEvents.onStop.subscribe(this::hasStopped);
+        InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         Class type = null;

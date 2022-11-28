@@ -26,8 +26,7 @@ public class ComponentPanel {
 
     public ComponentPanel(){}
     public ComponentPanel(Component c) {
-        InputEvents.onPlay.subscribe(this::hasBegunPlaying);
-        InputEvents.onStop.subscribe(this::hasStopped);
+        InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         Class type = null;
@@ -46,12 +45,8 @@ public class ComponentPanel {
         setFields(c, type, value, name, componentClass);
     }
 
-    protected void hasBegunPlaying(Boolean b){
-        isPlaying = true;
-    }
-
-    protected void hasStopped(Boolean b){
-        isPlaying = false;
+    protected void handleSimulationToggle(Boolean b){
+        isPlaying = b;
     }
 
     private void setSelectButton(Component c, JPanel namePanel){

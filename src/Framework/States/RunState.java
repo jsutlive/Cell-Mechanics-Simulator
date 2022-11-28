@@ -22,7 +22,6 @@ public class RunState extends State
     public void enter() {
         Collections.shuffle(stateMachine.allObjects);
         onTimestepSliderChanged.subscribe(this::setTimeStep);
-        InputEvents.onStop.subscribe(this::goToEditorState);
     }
 
     private void setTimeStep(float f){
@@ -54,6 +53,5 @@ public class RunState extends State
     void exit()
     {
         onTimestepSliderChanged.unSubscribe(this::setTimeStep);
-        InputEvents.onStop.unSubscribe(this::goToEditorState);
     }
 }

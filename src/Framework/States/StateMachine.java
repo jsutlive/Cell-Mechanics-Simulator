@@ -2,6 +2,7 @@ package Framework.States;
 
 import Framework.Object.Entity;
 import Framework.Timer.Time;
+import Input.InputEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ public final class StateMachine {
         timer = referenceTime;
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+        InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         changeState(new EditorState(this));
     }
 
@@ -45,6 +47,15 @@ public final class StateMachine {
         currentState = newState;
         timer.reset();
         currentState.enter();
+    }
+
+    /**Manage GUI events for switching between editor and simulator
+     *
+     * @param isPlaying is true if need to go to RunState.
+     */
+    private void handleSimulationToggle(boolean isPlaying){
+        if(isPlaying) changeState(new RunState(this));
+        else changeState(new EditorState(this));
     }
 
 }

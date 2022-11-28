@@ -70,8 +70,7 @@ public class DisplayWindow
         frame.requestFocus();
         frame.pack();
 
-        InputEvents.onPlay.subscribe(this::enableMenuBarOptionsOnPlay);
-        InputEvents.onStop.subscribe(this::enableMenuBarOptionsOnStop);
+        InputEvents.onToggleSimulation.subscribe(this::enableMenuBarOptionsOnToggle);
         SelectionEvents.onEntitySelected.subscribe(this::checkForSelectionMenuChange);
     }
 
@@ -87,7 +86,6 @@ public class DisplayWindow
             modelSelected = false;
         }
         for (Entity e : entities) {
-            System.out.println(e.getTag());
             if (e.getTag() == Tag.MODEL) {
                 modelSelected = true;
             }
@@ -109,10 +107,10 @@ public class DisplayWindow
 
         JMenu menu2 = new JMenu("Test");
         playItem = new JMenuItem("Run", KeyEvent.VK_R);
-        playItem.addActionListener(e-> InputEvents.play());
+        playItem.addActionListener(e-> InputEvents.toggleSimulation(true));
 
         stopItem = new JMenuItem("Stop", KeyEvent.VK_ESCAPE);
-        stopItem.addActionListener(e-> InputEvents.stop());
+        stopItem.addActionListener(e-> InputEvents.toggleSimulation(false));
         menu2.add(playItem);
         menu2.add(stopItem);
         menuBar.add(menu2);
@@ -120,7 +118,6 @@ public class DisplayWindow
         JMenu menu3 = new JMenu("Selection");
         JMenu addComponentSubMenu = new JMenu("Add Component");
 
-        System.out.println(modelSelected);
         if(!modelSelected) {
             JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
             elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
@@ -171,14 +168,9 @@ public class DisplayWindow
         menuBar.add(helpMenu);
     }
 
-    private void enableMenuBarOptionsOnPlay(boolean b){
-        stopItem.setEnabled(true);
-        playItem.setEnabled(false);
-    }
-
-    private void enableMenuBarOptionsOnStop(boolean b){
-        stopItem.setEnabled(false);
-        playItem.setEnabled(true);
+    private void enableMenuBarOptionsOnToggle(boolean b){
+        stopItem.setEnabled(b);
+        playItem.setEnabled(!b);
     }
 
     public void exportImage(){

@@ -23,7 +23,6 @@ public class EditorState extends State
 
     @Override
     public void enter() {
-        InputEvents.onPlay.subscribe(this::goToRunState);
         // Find an object to act as base physics/ setup for the simulation
         if(findObjectWithTag(MODEL) == null){
             // create a new model with specific components
@@ -50,15 +49,9 @@ public class EditorState extends State
     public void tick() {
     }
 
-    private void goToRunState(Boolean b){
-        if(b) stateMachine.changeState(new RunState(stateMachine));
-    }
-
-
     @Override
     void exit() {
         saveInitial();
-        InputEvents.onPlay.unSubscribe(this::goToRunState);
     }
 
 }
