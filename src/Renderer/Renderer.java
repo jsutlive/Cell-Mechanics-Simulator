@@ -11,6 +11,8 @@ public abstract class Renderer implements Runnable {
     //Renderer.Graphics object that our painter class references to draw objects
     public static Graphics g;
 
+    public static Color DEFAULT_COLOR = Color.white;
+
     public static Renderer instance;
 
     protected List<IRender> batch = new ArrayList<>();

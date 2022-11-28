@@ -4,8 +4,6 @@ import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Rigidbodies.Nodes.Node2D;
-import Renderer.Graphics.IRender;
-import Renderer.Graphics.Painter;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;

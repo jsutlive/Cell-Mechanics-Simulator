@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Renderer.Graphics.Painter.DEFAULT_COLOR;
+import static Renderer.Renderer.DEFAULT_COLOR;
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 

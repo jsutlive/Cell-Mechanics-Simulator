@@ -1,6 +1,5 @@
 package Renderer.Graphics.Vector;
 
-import Renderer.Graphics.Painter;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -15,6 +14,6 @@ public class LineGraphic extends VectorGraphic {
 
     @Override
     public void render() {
-        Painter.drawLine(posA, posB, Color.GREEN);
+        drawLine(posA, posB, Color.GREEN);
     }
 }

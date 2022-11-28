@@ -1,6 +1,5 @@
 package Renderer.Graphics.Vector;
 
-import Renderer.Graphics.Painter;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.*;
@@ -17,8 +16,8 @@ public class CircleGraphic extends VectorGraphic{
 
     @Override
     public void render() {
-        Painter.drawCircle(center, radius-1, color);
-        Painter.drawCircle(center, radius, color);
-        Painter.drawCircle(center, radius+1, color);
+        drawCircle(center, radius-1, color);
+        drawCircle(center, radius, color);
+        drawCircle(center, radius+1, color);
     }
 }

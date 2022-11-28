@@ -9,7 +9,6 @@ import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.MeshRenderer;
-import Renderer.Graphics.Painter;
 
 
 import java.awt.*;
@@ -18,6 +17,7 @@ import java.util.List;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
+import static Renderer.Renderer.DEFAULT_COLOR;
 
 @ReloadComponentOnChange
 @GroupSelector
@@ -77,7 +77,7 @@ public class LateralGradient extends Component {
             }
             else if(cell.getComponent(LateralShorteningSpringForce.class)!= null){
                 cell.removeComponent(LateralShorteningSpringForce.class);
-                cell.getComponent(MeshRenderer.class).setColor(Painter.DEFAULT_COLOR);
+                cell.getComponent(MeshRenderer.class).setColor(DEFAULT_COLOR);
             }
         }
     }

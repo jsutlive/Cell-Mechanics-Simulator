@@ -1,14 +1,10 @@
 package Morphogenesis.Components.Render;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
-import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
-import Framework.States.State;
 import Input.SelectionEvents;
-import Morphogenesis.Components.MouseSelector;
 import Renderer.Graphics.IColor;
 import Renderer.Graphics.IRender;
-import Renderer.Graphics.Painter;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import Utilities.Geometry.Vector.Vector2f;
@@ -81,14 +77,14 @@ public class MeshRenderer extends ObjectRenderer
     @Override
     public void render()
     {
-        if(enabled)
-            for(Edge edge: cellMesh.edges)
-            {
-                Vector2f[] positions = edge.getPositions();
-                Painter.drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
-                        positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
-                Painter.drawEdgeNormal(edge);
-            }
+        if(!enabled) return;
+        for(Edge edge: cellMesh.edges)
+        {
+            Vector2f[] positions = edge.getPositions();
+            drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
+                    positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
+            drawEdgeNormal(edge);
+        }
     }
 
     @Override
