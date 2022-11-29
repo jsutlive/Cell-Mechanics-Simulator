@@ -71,6 +71,15 @@ public class MeshRenderer extends ObjectRenderer
         alterColors(color);
     }
 
+    private void drawEdgeNormal(Edge edge){
+        Vector2f center = edge.getCenter();
+        Vector2f normal = (Vector2f) CustomMath.normal(edge);
+        normal.mul(7);
+        normal = normal.add(center);
+
+        drawLine(center.asInt(), normal.asInt());
+    }
+
     /**
      * Tells rendering system to draw components of cell.
      */
