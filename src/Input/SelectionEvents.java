@@ -7,6 +7,7 @@ import Renderer.UIElements.Panels.EntityPanel;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class SelectionEvents {
     private static HashSet<Entity> selectedEntities = new HashSet<>();
@@ -18,6 +19,12 @@ public class SelectionEvents {
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
+        onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void selectEntities(List<Entity> e){
+        if(!selectingMultiple) selectedEntities.clear();
+        selectedEntities.addAll(e);
         onEntitySelected.invoke(selectedEntities);
     }
 

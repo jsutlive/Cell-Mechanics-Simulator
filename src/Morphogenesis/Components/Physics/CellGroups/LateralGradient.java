@@ -49,10 +49,7 @@ public class LateralGradient extends Component {
 
     private void selectAllInGroup(Component c){
         if(c == this) {
-            SelectionEvents.selectEntity(cellGroup.get(0));
-            SelectionEvents.beginSelectingMultiple();
-            for(Entity e: cellGroup) SelectionEvents.selectEntity(e);
-            SelectionEvents.cancelSelectingMultiple();
+            SelectionEvents.selectEntities(cellGroup);
         }
     }
 
