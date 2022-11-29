@@ -10,15 +10,12 @@ public abstract class Renderer implements Runnable {
 
     //Graphics object that our painter class references to draw objects
     public static Graphics graphics;
-
     public static Color DEFAULT_COLOR = Color.white;
 
     protected List<IRender> batch = new ArrayList<>();
-
     protected Dimension bounds;
 
     protected boolean applicationIsRunning = false;
-
     private final Time renderClock = Time.getTime(60f);
 
     @Override

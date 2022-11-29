@@ -6,7 +6,6 @@ import Renderer.Graphics.IRender;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-
 public class Renderer2D extends Renderer {
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;
@@ -18,21 +17,21 @@ public class Renderer2D extends Renderer {
         IRender.onRendererRemoved.subscribe(this::removeGraphicFromBatch);
         applicationIsRunning = true;
     }
+
     /**
-     * Renders graphics to the screen. Should only be accessed from the Engine object.
+     * Renders graphics to the screen.
      */
     @Override
-    public void render()
+    protected void render()
     {
         bufferStrategy = displayWindow.GetCanvas().getBufferStrategy();
+
         if(bufferStrategy == null) {
             displayWindow.GetCanvas().createBufferStrategy(3);
             return;
         }
         graphics = bufferStrategy.getDrawGraphics();
-
         graphics.clearRect(0,0, bounds.width, bounds.height);
-
 
         for(int i = batch.size() -1; i >= 0; i--){
             batch.get(i).render();
