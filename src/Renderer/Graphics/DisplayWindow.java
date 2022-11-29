@@ -39,6 +39,7 @@ public class DisplayWindow
 
     JMenuItem playItem;
     JMenuItem stopItem;
+    JMenuItem clearItem;
 
     boolean modelSelected = false;
 
@@ -106,6 +107,16 @@ public class DisplayWindow
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
 
+        JMenu loadMenu = new JMenu("Load Preset");
+        JMenuItem loadEmbryo = new JMenuItem("Embryo");
+        loadEmbryo.addActionListener(e->InputEvents.onLoadModel.invoke("Embryo"));
+        JMenuItem loadHex = new JMenuItem("Hexagons");
+        loadHex.addActionListener(e-> InputEvents.onLoadModel.invoke("Hexagons"));
+        loadMenu.add(loadEmbryo);
+        loadMenu.add(loadHex);
+
+        menu.add(loadMenu);
+
         exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
         menuBar.add(menu);
@@ -118,6 +129,13 @@ public class DisplayWindow
         stopItem.addActionListener(e-> InputEvents.toggleSimulation(false));
         menu2.add(playItem);
         menu2.add(stopItem);
+
+        clearItem = new JMenuItem("Clear Simulation");
+        clearItem.addActionListener(e->{
+            InputEvents.clear();
+            SelectionEvents.clearSelection();
+        });
+        menu2.add(clearItem);
         menuBar.add(menu2);
 
         JMenu menu3 = new JMenu("Selection");

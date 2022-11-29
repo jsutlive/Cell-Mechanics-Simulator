@@ -34,6 +34,7 @@ public class Renderer2D extends Renderer {
         graphics.clearRect(0,0, bounds.width, bounds.height);
 
         for(int i = batch.size() -1; i >= 0; i--){
+            if(i >= batch.size())return;
             batch.get(i).render();
         }
 

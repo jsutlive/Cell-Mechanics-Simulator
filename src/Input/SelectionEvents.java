@@ -4,7 +4,6 @@ import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Renderer.UIElements.Panels.EntityPanel;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +21,11 @@ public class SelectionEvents {
         onEntitySelected.invoke(selectedEntities);
     }
 
+    public static void clearSelection(){
+        selectedEntities.clear();
+        onEntitySelected.invoke(selectedEntities);
+    }
+
     public static void selectEntities(List<Entity> e){
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.addAll(e);
@@ -29,14 +33,7 @@ public class SelectionEvents {
     }
 
     public static void refresh(){
-        HashSet<Entity> temp = new HashSet<>(selectedEntities);
-        selectedEntities.clear();
-        selectingMultiple = true;
-        for(Entity e: temp){
-            selectedEntities.add(e);
-        }
         onEntitySelected.invoke(selectedEntities);
-        selectingMultiple = false;
     }
 
     public static void beginSelectingMultiple(){

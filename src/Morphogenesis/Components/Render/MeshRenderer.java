@@ -27,7 +27,7 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void awake() {
-        IRender.onRendererAdded.invoke(this);
+        onRendererAdded.invoke(this);
         cellMesh = parent.getComponent(Mesh.class);
         defaultColor = color;
         SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
@@ -100,6 +100,7 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void onDestroy() {
+        onRendererRemoved.invoke(this);
         SelectionEvents.onEntitySelected.unSubscribe(this::highlightColor);
     }
 }

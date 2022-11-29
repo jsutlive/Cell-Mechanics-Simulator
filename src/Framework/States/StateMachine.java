@@ -1,6 +1,7 @@
 package Framework.States;
 
 import Framework.Object.Entity;
+import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
 import Input.InputEvents;
 import Morphogenesis.Components.Meshing.RingMesh;
@@ -27,6 +28,8 @@ public final class StateMachine {
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
+        InputEvents.onClear.subscribe(this::clearStateMachine);
+        InputEvents.onLoadModel.subscribe(this::loadModel);
         changeState(new EditorState(this));
     }
 
@@ -35,6 +38,7 @@ public final class StateMachine {
      * @param e entity added
      */
     private void addEntityToList(Entity e) {
+        if(allObjects.contains(e))return;
         allObjects.add(e);
         e.awake();
     }
@@ -67,13 +71,30 @@ public final class StateMachine {
         else changeState(new EditorState(this));
     }
 
+    public void clearStateMachine(boolean keepSameModel){
+        if(keepSameModel){
+            for(int i = allObjects.size()-1; i>= 0; i-- ){
+                allObjects.get(i).destroy();
+            }
+        }
+    }
+
+    public void loadModel(String modelName){
+        clearStateMachine(true);
+        changeState(new EditorState(this));
+        if(modelName.equals("Embryo")) ModelLoader.loadDrosophilaEmbryo();
+        if(modelName.equals("Hexagons")) ModelLoader.loadHexMesh();
+    }
+
     /**
      *  unsubscribe from events when application is exited.
      */
     public void deactivate(){
-        Entity.onAddEntity.unSubscribe(this::addEntityToList);
-        Entity.onRemoveEntity.unSubscribe(this::removeEntityFromList);
-        InputEvents.onToggleSimulation.unSubscribe(this::handleSimulationToggle);
+        Entity.onAddEntity.close();
+        Entity.onRemoveEntity.close();
+        InputEvents.onToggleSimulation.close();
+        InputEvents.onClear.close();
+
     }
 
 }

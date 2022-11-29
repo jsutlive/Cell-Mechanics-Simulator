@@ -27,35 +27,13 @@ public class EditorState extends State
     @Override
     public void enter() {
         // Find an object to act as base physics/ setup for the simulation
-        if(findObjectWithTag(MODEL) == null){
-            Entity physics;
-            // create a new model with specific components
-            if(!hexMesh) {
-                 physics = new Entity("Physics System", 0, MODEL).
-                        with(new RingMesh()).
-                        with(new MouseSelector()).
-                        with(new ApicalGradient()).
-                        with(new LateralGradient()).
-                        with(new CellRingCollider()).
-                        with(new RigidBoundary()).
-                        with(new Yolk()
-                        );
-            }
-            else {
-                 physics = new Entity("Physics System", 0, MODEL).
-                        with(new HexMesh()).
-                        with(new MouseSelector()).
-                        with(new MeshCollider()
-                        );
-            }
-            SelectionEvents.selectEntity(physics);
-        }
-        else{
+        if(findObjectWithTag(MODEL) != null){
             //ensure mesh object is not null, then reset
             for(Entity obj: stateMachine.allObjects) {
                 Objects.requireNonNull(obj.getComponent(Mesh.class)).reset();
             }
         }
+        System.out.println(stateMachine.allObjects.size());
         //loadModel();
     }
 

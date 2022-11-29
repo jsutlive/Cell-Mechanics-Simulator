@@ -2,6 +2,7 @@ package Input;
 
 import Framework.Events.EventHandler;
 import Utilities.Geometry.Vector.Vector2i;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.input.KeyCode;
 
 import javax.swing.event.MouseInputAdapter;
@@ -9,6 +10,7 @@ import java.awt.event.*;
 
 public class InputEvents implements KeyListener, MouseListener, MouseMotionListener {
 
+    public static EventHandler<String> onLoadModel = new EventHandler<>();
     private boolean spaceToggle = false;
 
     @Override
@@ -61,6 +63,9 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         }
     }
 
+    public static void clear(){
+        onClear.invoke(true);
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -87,6 +92,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     }
 
+    public static EventHandler<Boolean> onClear = new EventHandler<>();
     public static EventHandler<Vector2i> onShift = new EventHandler<>();
     public static EventHandler<Float> onScale = new EventHandler<>();
 

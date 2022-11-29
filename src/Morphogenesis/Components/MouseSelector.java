@@ -99,10 +99,11 @@ public class MouseSelector extends Component {
 
     @Override
     public void onDestroy() {
-        InputEvents.onClick.unSubscribe(this::onMouseClicked);
-        InputEvents.onPress.unSubscribe(this::onMousePressed);
-        InputEvents.onDrag.unSubscribe(this::onMouseDragged);
-        InputEvents.onRelease.unSubscribe(this::onMouseReleased);
-        InputEvents.onAlt.unSubscribe(this::setAlt);
+        System.out.println("HERE");
+        InputEvents.onClick.close();
+        InputEvents.onPress.close();
+        InputEvents.onDrag.close();
+        InputEvents.onRelease.close();
+        InputEvents.onAlt.close();
     }
 }
