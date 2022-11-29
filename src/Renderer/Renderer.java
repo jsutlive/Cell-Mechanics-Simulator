@@ -6,6 +6,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Render object responsible for updating canvas
+ */
 public abstract class Renderer implements Runnable {
 
     //Graphics object that our painter class references to draw objects

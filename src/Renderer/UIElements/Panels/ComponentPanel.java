@@ -3,8 +3,6 @@ package Renderer.UIElements.Panels;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
-import Framework.States.EditorState;
-import Framework.States.State;
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
@@ -19,6 +17,7 @@ import java.lang.reflect.Modifier;
 public class ComponentPanel {
 
     JPanel panel;
+    private int numFields;
     public JPanel getPanel() {
         return panel;
     }
@@ -36,13 +35,17 @@ public class ComponentPanel {
 
 
         JPanel namePanel = new JPanel();
-        namePanel.add(new JLabel(componentClass.getSimpleName()));
+        JLabel nameLabel = new JLabel(componentClass.getSimpleName());
+        namePanel.add(nameLabel);
+        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
+
 
         setSelectButton(c, namePanel);
         setDeleteButton(c, namePanel);
 
         panel.add(namePanel);
         setFields(c, type, value, name, componentClass);
+        panel.setPreferredSize(new Dimension(300, (30* numFields) + 30));
     }
 
     protected void handleSimulationToggle(Boolean b){
@@ -98,13 +101,17 @@ public class ComponentPanel {
             if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                     (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
                 StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
-                if(staticFieldPanel.isSerializable)
+                if(staticFieldPanel.isSerializable){
                     panel.add(staticFieldPanel.getPanel());
+                    numFields++;
+                }
             }
             else {
                 FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
-                if (fieldPanel.isSerializable)
+                if (fieldPanel.isSerializable) {
                     panel.add(fieldPanel.getPanel());
+                    numFields++;
+                }
             }
 
 

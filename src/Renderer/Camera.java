@@ -1,27 +1,21 @@
 package Renderer;
 
-import Framework.Events.IEvent;
 import Input.InputEvents;
 import Utilities.Geometry.Vector.Vector2i;
 
 public class Camera {
     public static Camera main;
     public int width, height;
-    public Vector2i shift;
-    public float scale;
+    public Vector2i shift = new Vector2i(0);
+    public float scale = 1f;
 
     public Camera(int width, int height){
         if(main == null) main = this;
         this.width = width;
         this.height = height;
-        scale = 1f;
-        shift = new Vector2i(0);
 
-        IEvent<Vector2i> shiftEventSink = this::setShift;
-        IEvent<Float> scaleEventSink = this::setScale;
-
-        InputEvents.onShift.subscribe(shiftEventSink);
-        InputEvents.onScale.subscribe(scaleEventSink);
+        InputEvents.onShift.subscribe(this::setShift);
+        InputEvents.onScale.subscribe(this::setScale);
     }
 
     public void setScale(float newScale)
@@ -44,8 +38,8 @@ public class Camera {
 
     /**
      * Returns pixel viewing coordinates of a data (world) position
-     * @param pos
-     * @return
+     * @param pos scene (engine/data) position of an object
+     * @return pixel/viewport coordinates of the object
      */
     public Vector2i transformToView(Vector2i pos){
         return new Vector2i(
@@ -54,10 +48,10 @@ public class Camera {
         );
     }
 
-    /** Returns data (world) coordinates from given pixel location
-     *
-     * @param pos
-     * @return
+    /**
+     * Returns data (world) coordinates from given pixel location
+     * @param pos pixel/viewport coordinate of an object
+     * @return scene engine/data position of the object
      */
     public Vector2i getScreenPoint(Vector2i pos){
         return new Vector2i(
@@ -66,8 +60,8 @@ public class Camera {
         );
     }
 
-
     public void clearAllEvents(){
         InputEvents.onShift.close();
+        InputEvents.onScale.close();
     }
 }

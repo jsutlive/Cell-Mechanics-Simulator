@@ -1,10 +1,10 @@
 package Framework.States;
 
 import Framework.Object.Entity;
-import Input.InputEvents;
+
 import java.util.Collections;
 
-import static Input.InputPanel.onTimestepSliderChanged;
+import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
@@ -44,10 +44,6 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-    }
-
-    private void goToEditorState(Boolean b){
-        if(b) stateMachine.changeState(new EditorState(stateMachine));
     }
 
     void exit()

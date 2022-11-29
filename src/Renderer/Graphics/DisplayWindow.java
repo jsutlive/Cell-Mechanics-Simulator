@@ -3,16 +3,19 @@ package Renderer.Graphics;
 import Framework.Data.ImageHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
-import Framework.States.State;
 import Input.InputEvents;
-import Input.InputPanel;
+import Morphogenesis.Components.Meshing.RingMesh;
+import Morphogenesis.Components.MouseSelector;
+import Morphogenesis.Components.Physics.Collision.CellRingCollider;
+import Morphogenesis.Components.Physics.Collision.RigidBoundary;
+import Morphogenesis.Components.Yolk;
+import Renderer.UIElements.Panels.InputPanel;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
 import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
-import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
-import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Renderer.UIElements.Panels.HierarchyPanel;
+import Renderer.UIElements.Panels.PlayPanel;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
@@ -23,6 +26,7 @@ import java.io.File;
 import java.util.HashSet;
 
 import static Framework.Data.ImageHandler.loadImage;
+import static Framework.Object.Tag.MODEL;
 
 public class DisplayWindow
 {
@@ -101,6 +105,7 @@ public class DisplayWindow
         menuBar.removeAll();
         JMenu menu = new JMenu("File");
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
+
         exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
         menuBar.add(menu);
@@ -134,31 +139,6 @@ public class DisplayWindow
         menu3.add(addComponentSubMenu);
         menuBar.add(menu3);
 
-        /*JMenu menu4 = new JMenu("All Objects");
-        JMenu removeComponentFromAllSubMenu = new JMenu("Remove Component");
-
-        JMenuItem cornerStiffness2DOption = new JMenuItem("CornerStiffness2D");
-        cornerStiffness2DOption.addActionListener(e-> {
-            try {
-                State.GetState().removeComponentFromAll(CornerStiffness2D.class);
-            } catch (InstantiationException | IllegalAccessException instantiationException) {
-                instantiationException.printStackTrace();
-            }
-        });
-        removeComponentFromAllSubMenu.add(cornerStiffness2DOption);
-
-        JMenuItem edgeStiffness2DOption = new JMenuItem("EdgeStiffness2D");
-        edgeStiffness2DOption.addActionListener(e-> {
-            try {
-                State.GetState().removeComponentFromAll(EdgeStiffness2D.class);
-            } catch (InstantiationException | IllegalAccessException instantiationException) {
-                instantiationException.printStackTrace();
-            }
-        });
-        removeComponentFromAllSubMenu.add(edgeStiffness2DOption);
-
-        menu4.add(removeComponentFromAllSubMenu);
-        menuBar.add(menu4);*/
         JMenu helpMenu = new JMenu("Help");
         JMenuItem keysHelp = new JMenuItem("Keyboard Shortcuts");
         keysHelp.addActionListener(e-> {

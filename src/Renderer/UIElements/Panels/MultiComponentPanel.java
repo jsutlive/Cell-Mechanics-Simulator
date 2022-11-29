@@ -31,7 +31,9 @@ public class MultiComponentPanel extends ComponentPanel{
 
 
         JPanel namePanel = new JPanel();
-        namePanel.add(new JLabel(componentClass.getSimpleName()));
+        JLabel nameLabel = new JLabel(componentClass.getSimpleName());
+        namePanel.add(nameLabel);
+        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
 
         setDeleteButton(entities, componentClass, namePanel);
 

@@ -83,13 +83,17 @@ public class MouseSelector extends Component {
      */
     private void selectEntity(Vector2i mousePosition) {
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
-        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        if(getComponent(Yolk.class)!= null) {
+            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        }
         SelectionEvents.selectEntity(selected);
     }
 
     private void deselectEntity(Vector2i mousePosition){
         Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
-        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        if(getComponent(Yolk.class)!= null) {
+            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        }
         SelectionEvents.deselectEntity(selected);
     }
 

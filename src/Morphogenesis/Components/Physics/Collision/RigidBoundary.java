@@ -25,11 +25,12 @@ public class RigidBoundary extends Component{
     public void awake() {
         onMeshRebuilt.subscribe(this::regenerateGraphic);
         referenceRing = getComponent(RingMesh.class);
+        if(referenceRing == null) outerRadius = 320f;
+        else outerRadius = referenceRing.outerRadius;
         createGraphic();
     }
 
     private void createGraphic() {
-        outerRadius = referenceRing.outerRadius;
         graphic = new CircleGraphic(center.asInt(), (int)((outerRadius * 2) + 2), Color.gray);
         graphic.add(graphic);
     }

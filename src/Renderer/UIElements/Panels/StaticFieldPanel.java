@@ -19,9 +19,10 @@ public class StaticFieldPanel {
         panel = new JPanel(new GridLayout(0, 2));
         panel.setBorder(new EmptyBorder(2, 5, 2, 5));
         panel.setBackground(Color.lightGray);
+        panel.setMaximumSize(new Dimension(325, 50));
         this.name = name;
+        panel.add(new JLabel(name));
         if (type == int.class) {
-            panel.add(new JLabel(name));
             int val;
             JLabel field;
             if(value!=PLACEHOLDER_FIELD) {
@@ -45,7 +46,6 @@ public class StaticFieldPanel {
             panel.add(field);
         } else if (type == String.class) {
             String val = (String) value;
-            panel.add(new JLabel(name));
             JLabel field = new JLabel(val);
             field.setBackground(Color.white);
             panel.add(field);

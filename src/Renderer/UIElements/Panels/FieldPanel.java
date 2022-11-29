@@ -33,6 +33,7 @@ public class FieldPanel {
         panel = new JPanel(new GridLayout(0, 2));
         panel.setBorder(new EmptyBorder(2,5,2,5));
         panel.setBackground(Color.lightGray);
+        panel.setMaximumSize(new Dimension(325, 50));
         this.name = name;
         if(type == int.class){
             panel.add(new JLabel(name));

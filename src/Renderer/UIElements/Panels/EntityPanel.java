@@ -9,6 +9,7 @@ import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -37,8 +38,11 @@ public class EntityPanel {
     }
 
     private void createBaseLabels() {
-        nameLabel = new JLabel("Inspector", SwingConstants.CENTER);
-        panel.add(nameLabel);
+        JPanel nameLabelPanel = new JPanel();
+        nameLabel = new JLabel("Inspector");
+        nameLabel.setFont(nameLabel.getFont().deriveFont(18.0f));
+        nameLabelPanel.add(nameLabel);
+        panel.add(nameLabelPanel);
     }
 
     public void setPanelName(HashSet<Entity> entities){
@@ -49,6 +53,7 @@ public class EntityPanel {
             for(Entity e: entities) createSingleEntityPanel(e);
         }else{
             nameLabel.setText(entities.size() + " entities");
+            nameLabel.setFont(nameLabel.getFont().deriveFont(18.0f));
             panel.add(new JLabel(""));
             setComponentsMultipleEntity(entities);
         }
@@ -69,6 +74,7 @@ public class EntityPanel {
     }
 
     private void setComponentsMultipleEntity(HashSet<Entity> entities){
+        boolean hasDifferentEntityTypes = false;
         List<Entity> e = new ArrayList<>(entities);
 
         for(Component c: e.get(0).getComponents()){
@@ -83,12 +89,14 @@ public class EntityPanel {
             if(makePanel) {
                 ComponentPanel multiPanel = new MultiComponentPanel(e,c.getClass());
                 panel.add(multiPanel.getPanel());
+            }else{
+                hasDifferentEntityTypes = true;
             }
-
-
         }
-
+        if(hasDifferentEntityTypes){
+            JPanel warning = new JPanel();
+            warning.add(new JLabel("Only common components are editable"));
+            panel.add(warning);
+        }
     }
-
-
 }

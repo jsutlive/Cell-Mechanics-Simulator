@@ -24,7 +24,12 @@ public class SelectionEvents {
     public static void refresh(){
         HashSet<Entity> temp = new HashSet<>(selectedEntities);
         selectedEntities.clear();
-        for(Entity e: temp) selectEntity(e);
+        selectingMultiple = true;
+        for(Entity e: temp){
+            selectedEntities.add(e);
+        }
+        onEntitySelected.invoke(selectedEntities);
+        selectingMultiple = false;
     }
 
     public static void beginSelectingMultiple(){
