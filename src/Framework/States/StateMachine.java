@@ -1,10 +1,21 @@
 package Framework.States;
 
 import Framework.Object.Entity;
+import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
+import Input.InputEvents;
+import Morphogenesis.Components.Meshing.RingMesh;
+import Morphogenesis.Components.MouseSelector;
+import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
+import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
+import Morphogenesis.Components.Physics.Collision.CellRingCollider;
+import Morphogenesis.Components.Physics.Collision.RigidBoundary;
+import Morphogenesis.Components.Yolk;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Framework.Object.Tag.MODEL;
 
 public final class StateMachine {
 
@@ -16,6 +27,9 @@ public final class StateMachine {
         timer = referenceTime;
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+        InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
+        InputEvents.onClear.subscribe(this::clearStateMachine);
+        InputEvents.onLoadModel.subscribe(this::loadModel);
         changeState(new EditorState(this));
     }
 
@@ -24,6 +38,7 @@ public final class StateMachine {
      * @param e entity added
      */
     private void addEntityToList(Entity e) {
+        if(allObjects.contains(e))return;
         allObjects.add(e);
         e.awake();
     }
@@ -45,6 +60,41 @@ public final class StateMachine {
         currentState = newState;
         timer.reset();
         currentState.enter();
+    }
+
+    /**Manage GUI events for switching between editor and simulator
+     *
+     * @param isPlaying is true if need to go to RunState.
+     */
+    private void handleSimulationToggle(boolean isPlaying){
+        if(isPlaying) changeState(new RunState(this));
+        else changeState(new EditorState(this));
+    }
+
+    public void clearStateMachine(boolean keepSameModel){
+        if(keepSameModel){
+            for(int i = allObjects.size()-1; i>= 0; i-- ){
+                allObjects.get(i).destroy();
+            }
+        }
+    }
+
+    public void loadModel(String modelName){
+        clearStateMachine(true);
+        changeState(new EditorState(this));
+        if(modelName.equals("Embryo")) ModelLoader.loadDrosophilaEmbryo();
+        if(modelName.equals("Hexagons")) ModelLoader.loadHexMesh();
+    }
+
+    /**
+     *  unsubscribe from events when application is exited.
+     */
+    public void deactivate(){
+        Entity.onAddEntity.close();
+        Entity.onRemoveEntity.close();
+        InputEvents.onToggleSimulation.close();
+        InputEvents.onClear.close();
+
     }
 
 }

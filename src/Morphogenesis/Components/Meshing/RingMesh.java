@@ -56,10 +56,7 @@ public class RingMesh extends Mesh {
 
     private void selectAll(Component component){
         if(component ==this){
-            SelectionEvents.selectEntity(cellList.get(0));
-            SelectionEvents.beginSelectingMultiple();
-            for(Entity e: cellList) SelectionEvents.selectEntity(e);
-            SelectionEvents.cancelSelectingMultiple();
+            SelectionEvents.selectEntities(cellList);
         }
     }
 

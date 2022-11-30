@@ -1,6 +1,7 @@
 package Framework.States;
 
 import Framework.Object.Entity;
+
 import java.util.Collections;
 
 public class RunState extends State
@@ -42,10 +43,6 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-    }
-
-    private void goToEditorState(Boolean b){
-        if(b) stateMachine.changeState(new EditorState(stateMachine));
     }
 
     void exit()

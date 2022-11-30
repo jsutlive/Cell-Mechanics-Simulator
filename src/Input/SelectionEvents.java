@@ -5,6 +5,7 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class SelectionEvents {
     private static HashSet<Entity> selectedEntities = new HashSet<>();
@@ -19,10 +20,19 @@ public class SelectionEvents {
         onEntitySelected.invoke(selectedEntities);
     }
 
-    public static void refresh(){
-        HashSet<Entity> temp = new HashSet<>(selectedEntities);
+    public static void clearSelection(){
         selectedEntities.clear();
-        for(Entity e: temp) selectEntity(e);
+        onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void selectEntities(List<Entity> e){
+        if(!selectingMultiple) selectedEntities.clear();
+        selectedEntities.addAll(e);
+        onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void refresh(){
+        onEntitySelected.invoke(selectedEntities);
     }
 
     public static void beginSelectingMultiple(){

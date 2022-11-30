@@ -8,6 +8,9 @@ import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
+import javafx.scene.input.MouseButton;
+
+import java.awt.event.MouseEvent;
 
 @DoNotExposeInGUI
 public class MouseSelector extends Component {
@@ -39,15 +42,19 @@ public class MouseSelector extends Component {
      * Select an entity whose mesh contains a given point. Return this object's parent if none exists.
      * @param mousePosition derived mouse position from cursor location and camera state
      */
-    private void selectEntity(Vector2f mousePosition) {
-        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition);
-        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition);
+    private void selectEntity(Vector2i mousePosition) {
+        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
+        if(getComponent(Yolk.class)!= null) {
+            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        }
         SelectionEvents.selectEntity(selected);
     }
 
-    private void deselectEntity(Vector2f mousePosition){
-        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition);
-        if(selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition);
+    private void deselectEntity(Vector2i mousePosition){
+        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
+        if(getComponent(Yolk.class)!= null) {
+            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        }
         SelectionEvents.deselectEntity(selected);
     }
 

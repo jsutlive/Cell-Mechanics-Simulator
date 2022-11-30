@@ -1,18 +1,21 @@
 package Morphogenesis.Components.Physics;
 
 import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Components.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector;
 import Morphogenesis.Rigidbodies.Edges.Edge;
 import java.util.List;
 
 import static Utilities.Math.CustomMath.normal;
 
-
+@ReloadComponentOnChange
 public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;
     private transient float initialArea;
+    public transient float desiredArea;
     public float osmosisConstant = 0.025f;
+    public float internalPressure = 0f;
 
     @Override
     public void update() {
@@ -37,12 +40,13 @@ public class OsmosisForce extends Force {
     }
 
     private float calculateOsmosisForceMagnitude(Mesh mesh) {
-        return osmosisConstant * (mesh.getArea() - initialArea);
+        return osmosisConstant * (mesh.getArea() - desiredArea);
     }
 
     @Override
     public void awake() {
         this.edges = getComponent(Mesh.class).edges;
         initialArea = getComponent(Mesh.class).getArea();
+        desiredArea = initialArea + (initialArea*internalPressure);
     }
 }

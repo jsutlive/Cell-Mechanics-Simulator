@@ -10,19 +10,21 @@ import Utilities.Geometry.Vector.Vector2i;
 
 import static Morphogenesis.Components.Meshing.Mesh.onMeshRebuilt;
 
+
 import java.awt.*;
 import java.util.List;
 
-public class RigidBoundary extends Component {
+public class RigidBoundary extends Component{
 
     float outerRadius;
     RingMesh referenceRing;
     Vector2f center = new Vector2f(0);
 
-
     @Override
     public void awake() {
         referenceRing = getComponent(RingMesh.class);
+        if(referenceRing == null) outerRadius = 320f;
+        else outerRadius = referenceRing.outerRadius;
     }
 
     @Override
