@@ -1,6 +1,9 @@
 package Renderer.Graphics;
 
 import Framework.Data.ImageHandler;
+import Framework.Object.Annotations.DoNotDestroyInGUI;
+import Framework.Object.Annotations.DoNotExposeInGUI;
+import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Input.InputEvents;
@@ -8,14 +11,15 @@ import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.MouseSelector;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Morphogenesis.Components.Physics.Collision.RigidBoundary;
+import Morphogenesis.Components.Physics.OsmosisForce;
+import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
+import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
 import Morphogenesis.Components.Yolk;
-import Renderer.UIElements.Panels.InputPanel;
+import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
 import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
-import Renderer.UIElements.Panels.HierarchyPanel;
-import Renderer.UIElements.Panels.PlayPanel;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
@@ -23,7 +27,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import static Framework.Data.ImageHandler.loadImage;
 import static Framework.Object.Tag.MODEL;
@@ -145,6 +151,11 @@ public class DisplayWindow
             JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
             elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
             addComponentSubMenu.add(elasticForceOption);
+
+            JMenuItem osmosisForceOption = new JMenuItem("Osmosis Force");
+            osmosisForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new OsmosisForce()));
+            addComponentSubMenu.add(osmosisForceOption);
+
         }else{
             JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
             apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
@@ -155,6 +166,16 @@ public class DisplayWindow
             addComponentSubMenu.add(lateralGradientOption);
         }
         menu3.add(addComponentSubMenu);
+
+        JMenu removeComponentSubMenu = new JMenu("Remove Component");
+        for (Component c : getSelectedComponents()) {
+            JMenuItem option = new JMenuItem(c.getClass().getSimpleName());
+            option.addActionListener(e -> SelectionEvents.removeComponentFromSelected(c.getClass()));
+            removeComponentSubMenu.add(option);
+        }
+        menu3.add(removeComponentSubMenu);
+
+
         menuBar.add(menu3);
 
         JMenu helpMenu = new JMenu("Help");
@@ -164,6 +185,27 @@ public class DisplayWindow
         });
         helpMenu.add(keysHelp);
         menuBar.add(helpMenu);
+    }
+
+    public List<Component> getSelectedComponents(){
+        List<Entity> e = new ArrayList<>(SelectionEvents.getSelectedEntities());
+        List<Component> componentsToMenu = new ArrayList<>();
+        if(e.size() == 0) return componentsToMenu;
+        for(Component c: e.get(0).getComponents()) {
+            boolean addToMenu = true;
+            if (c.getClass().getAnnotation(DoNotExposeInGUI.class) != null) continue;
+            if (c.getClass().getAnnotation(DoNotDestroyInGUI.class) != null) continue;
+            for (int i = 1; i < e.size(); i++) {
+                if (e.get(i).getComponent(c.getClass()) == null) {
+                    addToMenu = false;
+                    break;
+                }
+            }
+            if (addToMenu) {
+                componentsToMenu.add(c);
+            }
+        }
+        return componentsToMenu;
     }
 
     private void enableMenuBarOptionsOnToggle(boolean b){

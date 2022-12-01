@@ -12,7 +12,6 @@ import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,8 +36,6 @@ public class HexMesh extends Mesh{
         onSelectionButtonPressed.subscribe(this::selectAll);
         positionToNodeMap.clear();
         generateSimpleMesh(new Vector2f(0), 6);
-        //float hypot = CustomMath.sq(distanceFromCenter) + CustomMath.sq(distanceFromCenter) -
-        //        (float)(2 * CustomMath.sq(distanceFromCenter) * Math.cos(Math.toRadians(120)));
         float hypot = 121.244f;
         List<Vector2f> centroids = new ArrayList<>();
         for(int i = 0; i < 6; i++){
