@@ -1,5 +1,6 @@
 package Morphogenesis.Components.Physics.Collision;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.HexMesh;
@@ -11,6 +12,7 @@ import Utilities.Physics.Collision2D;
 import java.util.Collections;
 import java.util.List;
 
+@DoNotDestroyInGUI
 public class MeshCollider extends Collider{
     transient List<Entity> cells;
     transient List<Node2D> nodes;

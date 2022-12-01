@@ -142,6 +142,14 @@ public class Vector2f extends Vector
         return (this.x == vec2f.x && this.y == vec2f.y);
     }
 
+    public boolean approx(Vector2f vec){
+        float xR = vec.x-x;
+        float yR = vec.y-y;
+        if(xR > 0.01f || xR < -0.01f)return false;
+        if(yR > 0.01f || yR < -0.01f)return false;
+        return true;
+    }
+
     public static Vector2f unit(Vector2f a, Vector2f b)
     {
         float d = Vector2f.dist(a, b);

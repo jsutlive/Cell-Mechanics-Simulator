@@ -25,6 +25,10 @@ public class MeshRenderer extends ObjectRenderer
     private Color highlightColor = Color.yellow;
     public boolean enabled = true;
 
+    public MeshRenderer(boolean active){
+        enabled = active;
+    }
+
     @Override
     public void awake() {
         onRendererAdded.invoke(this);
@@ -94,7 +98,7 @@ public class MeshRenderer extends ObjectRenderer
             Vector2f[] positions = edge.getPositions();
             drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
                     positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
-            drawEdgeNormal(edge);
+            //drawEdgeNormal(edge);
         }
     }
 

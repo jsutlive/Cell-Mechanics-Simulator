@@ -48,6 +48,13 @@ public class GeometryTests {
     }
 
     @Test
+    void check_approximation(){
+        Vector2f base = new Vector2f(30f, -20f);
+        Vector2f test = new Vector2f(30.02f,-20.05f);
+        assertTrue(base.approx(test));
+    }
+
+    @Test
     void check_accuracy_of_vector2f_distance(){
         Vector2f a = new Vector2f(0,3);
         Vector2f b = new Vector2f(4,0);
