@@ -3,7 +3,7 @@ package Morphogenesis.Components.Physics;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector;
-import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edge;
 import java.util.List;
 
 import static Utilities.Math.CustomMath.normal;

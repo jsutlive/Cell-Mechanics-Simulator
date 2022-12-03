@@ -1,8 +1,7 @@
 package Math;
 
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,7 @@ public class CustomMathTests {
     void calculate_edge_normal_horiz_line(){
         Node2D a = new Node2D(0,0);
         Node2D b = new Node2D(0, 1);
-        Edge e = new BasicEdge(a, b);
+        Edge e = new Edge(a, b);
         Vector2f norm = (Vector2f)CustomMath.normal(e);
         assertEquals(0.0f, norm.y);
         assertEquals(1.0f, norm.x);
@@ -65,7 +64,7 @@ public class CustomMathTests {
         float root2 = (float) (Math.sqrt(2)/2);
         Node2D a = new Node2D(new Vector2f(0));
         Node2D b = new Node2D(new Vector2f(root2));
-        Edge e = new BasicEdge(a,b);
+        Edge e = new Edge(a,b);
         Vector2f norm = (Vector2f) CustomMath.normal(e);
         //assertEquals(-root2, norm.y);
         assertEquals(root2, norm.x);
@@ -98,7 +97,7 @@ public class CustomMathTests {
     void check_perpendicular_distance_simple_line()
     {
         Node2D n = new Node2D(0,1);
-        Edge e = new BasicEdge(
+        Edge e = new Edge(
                 new Node2D(-1,0),
                 new Node2D(1,0));
 
@@ -110,7 +109,7 @@ public class CustomMathTests {
     void check_perpendicular_distance_simple_line_at_end_of_edge()
     {
         Node2D n = new Node2D(-1,1);
-        Edge e = new BasicEdge(
+        Edge e = new Edge(
                 new Node2D(-1,0),
                 new Node2D(1,0));
         float dist = CustomMath.pDistanceSq(n, e);
@@ -121,7 +120,7 @@ public class CustomMathTests {
     void check_perpendicular_distance_simple_line_diagonal_to_edge()
     {
         Node2D n = new Node2D(-4,4);
-        Edge e = new BasicEdge(
+        Edge e = new Edge(
                 new Node2D(-1,0),
                 new Node2D(1,0));
         float dist = CustomMath.pDistanceSq(n, e);

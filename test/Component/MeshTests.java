@@ -1,8 +1,8 @@
 package Component;
 
 import Morphogenesis.Components.Meshing.RingCellMesh;
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,13 +26,13 @@ public class MeshTests {
         Node2D g = new Node2D(1,-1);  testMesh.nodes.add(g);
         Node2D h = new Node2D(0,-1);  testMesh.nodes.add(h);
 
-        testMesh.edges.add(new BasicEdge(a,b));
-        testMesh.edges.add(new BasicEdge(b,c));
-        testMesh.edges.add(new BasicEdge(c,d));
-        testMesh.edges.add(new BasicEdge(d,e));
-        testMesh.edges.add(new BasicEdge(e,f));
-        testMesh.edges.add(new BasicEdge(f,g));
-        testMesh.edges.add(new BasicEdge(g,h));
+        testMesh.edges.add(new Edge(a,b));
+        testMesh.edges.add(new Edge(b,c));
+        testMesh.edges.add(new Edge(c,d));
+        testMesh.edges.add(new Edge(d,e));
+        testMesh.edges.add(new Edge(e,f));
+        testMesh.edges.add(new Edge(f,g));
+        testMesh.edges.add(new Edge(g,h));
     }
 
     @Test

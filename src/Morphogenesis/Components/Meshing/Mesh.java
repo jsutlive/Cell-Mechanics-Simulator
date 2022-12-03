@@ -5,9 +5,10 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Components.Render.MeshRenderer;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Components.Render.VirtualRenderer;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
 
@@ -91,7 +92,10 @@ public abstract class Mesh extends Component {
                 }
             }
         }
-        parent.addComponent(new MeshRenderer());
+        if(parent.getClass().isAnnotationPresent(VirtualRenderer.class)){
+            parent.addComponent(new MeshRenderer(false));
+        }
+        else parent.addComponent(new MeshRenderer(true));
     }
 
     public Entity returnCellContainingPoint(Vector2f vector2f){

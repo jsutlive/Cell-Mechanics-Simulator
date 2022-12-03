@@ -1,8 +1,7 @@
 package Math;
 import Framework.Object.Entity;
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -37,14 +36,21 @@ public class GeometryTests {
         Node2D d = new Node2D(new Vector2f(2, 0));
         testNodes.add(a); testNodes.add(b); testNodes.add(c); testNodes.add(d);
 
-        Edge e1 = new BasicEdge(a, b);
-        Edge e2 = new BasicEdge(b, c);
-        Edge e3 = new BasicEdge(c, d);
-        Edge e4 = new BasicEdge(d, a);
+        Edge e1 = new Edge(a, b);
+        Edge e2 = new Edge(b, c);
+        Edge e3 = new Edge(c, d);
+        Edge e4 = new Edge(d, a);
         testEdges.add(e1); testEdges.add(e2); testEdges.add(e3); testEdges.add(e4);
         cell = new Entity();
         //cell.setNodes(testNodes);
         //cell.setEdges(testEdges);
+    }
+
+    @Test
+    void check_approximation(){
+        Vector2f base = new Vector2f(30f, -20f);
+        Vector2f test = new Vector2f(30.02f,-20.05f);
+        assertTrue(base.approx(test));
     }
 
     @Test
@@ -128,7 +134,7 @@ public class GeometryTests {
         Vector2f p1 = new Vector2f(1, 0);
         Vector2f p2 = new Vector2f(1, 2);
 
-        Edge e = new BasicEdge(new Node2D(p1), new Node2D(p2));
+        Edge e = new Edge(new Node2D(p1), new Node2D(p2));
         Vector2f n = new Vector2f(0,1);
 
         Vector2f intersection = Geometry.getNearestPointOnLine(e, n);

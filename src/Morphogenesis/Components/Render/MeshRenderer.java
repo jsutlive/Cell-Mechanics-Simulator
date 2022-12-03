@@ -4,15 +4,16 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node;
+import Morphogenesis.Rigidbodies.Node2D;
 import Renderer.Graphics.IColor;
-import Renderer.Graphics.IRender;
 import Morphogenesis.Components.Meshing.Mesh;
-import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edge;
 import Utilities.Geometry.Vector.Vector;
+import Morphogenesis.Rigidbodies.Edge;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
+
 import java.awt.*;
 import java.util.HashSet;
 
@@ -25,6 +26,10 @@ public class MeshRenderer extends ObjectRenderer
     private transient Mesh cellMesh;
     private Color highlightColor = Color.yellow;
     public boolean enabled = true;
+
+    public MeshRenderer(boolean active){
+        enabled = active;
+    }
 
     @Override
     public void awake() {

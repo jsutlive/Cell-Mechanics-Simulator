@@ -14,8 +14,6 @@ import Morphogenesis.Components.Yolk;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Framework.Object.Tag.MODEL;
-
 public final class StateMachine {
 
     public State currentState;
@@ -58,8 +56,8 @@ public final class StateMachine {
         currentState.enter();
     }
 
-    /**Manage GUI events for switching between editor and simulator
-     *
+    /**
+     * Manage GUI events for switching between editor and simulator     *
      * @param isPlaying is true if need to go to RunState.
      */
     private void handleSimulationToggle(boolean isPlaying){

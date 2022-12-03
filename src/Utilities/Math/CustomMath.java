@@ -1,8 +1,8 @@
 package Utilities.Math;
 
 import Framework.Object.Entity;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;

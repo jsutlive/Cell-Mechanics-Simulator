@@ -2,7 +2,7 @@ package Morphogenesis.Components.Physics.Spring;
 
 import Morphogenesis.Components.Lattice.Lattice;
 import Utilities.Geometry.Vector.Vector;
-import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edge;
 
 public class InternalElasticForce extends SpringForce {
 

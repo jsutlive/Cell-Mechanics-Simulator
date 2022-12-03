@@ -1,4 +1,4 @@
-package Morphogenesis.Rigidbodies.Nodes;
+package Morphogenesis.Rigidbodies;
 
 
 import Utilities.Geometry.Vector.Vector;

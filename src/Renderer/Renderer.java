@@ -2,6 +2,8 @@ package Renderer;
 
 import Framework.Timer.Time;
 import Renderer.Graphics.IRender;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,7 @@ public abstract class Renderer implements Runnable {
 
     protected List<IRender> batch = new ArrayList<>();
 
-    private boolean applicationIsRunning = true;
-
+    protected boolean applicationIsRunning = false;
     private final Time renderClock = Time.getTime(60f);
 
     @Override

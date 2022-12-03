@@ -4,9 +4,8 @@ import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Morphogenesis.Components.Meshing.Builder;
 import Morphogenesis.Components.Meshing.RingCellMesh;
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,8 +26,8 @@ public class Lattice extends Component {
             int nodeSize = nodes.size();
             int count = (nodeSize/2) - 1;
             for(int i = 0; i <count; i++){
-                edgeList.add(new BasicEdge(nodes.get(i), nodes.get(nodeSize - i - 2)));
-                edgeList.add(new BasicEdge(nodes.get(i+1), nodes.get(nodeSize - i - 1) ));
+                edgeList.add(new Edge(nodes.get(i), nodes.get(nodeSize - i - 2)));
+                edgeList.add(new Edge(nodes.get(i+1), nodes.get(nodeSize - i - 1) ));
             }
         }
 
