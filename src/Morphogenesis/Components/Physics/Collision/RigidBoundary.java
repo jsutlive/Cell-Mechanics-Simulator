@@ -3,7 +3,7 @@ package Morphogenesis.Components.Physics.Collision;
 import Framework.Object.Component;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node2D;
 import Renderer.Graphics.Vector.CircleGraphic;
 import Utilities.Geometry.Boundary;
 import Utilities.Geometry.Vector.Vector2f;

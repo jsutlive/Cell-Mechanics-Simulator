@@ -1,8 +1,6 @@
 package Morphogenesis.Rigidbodies;
 
 
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;

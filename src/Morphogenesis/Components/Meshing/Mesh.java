@@ -6,9 +6,9 @@ import Framework.Object.Entity;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Components.Render.MeshRenderer;
 import Morphogenesis.Components.Render.VirtualRenderer;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
 

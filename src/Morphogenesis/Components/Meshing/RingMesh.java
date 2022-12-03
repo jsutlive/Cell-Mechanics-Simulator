@@ -4,7 +4,6 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Component;
 import Framework.Object.Entity;
-import Framework.States.State;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
@@ -13,8 +12,8 @@ import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
 import Morphogenesis.Components.Render.DoNotEditInGUI;
-import Morphogenesis.Rigidbodies.Edges.*;
-import Morphogenesis.Rigidbodies.Nodes.*;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.Gauss;
 
@@ -74,19 +73,22 @@ public class RingMesh extends Mesh {
     private void setApicalAndBasalEdges() {
         for(Entity cell: cellList)
         {
-            for(Node2D node: cell.getComponent(RingCellMesh.class).nodes){
+            RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
+            for(Node2D node: mesh.nodes){
                 if(!node.getPosition().isNull()) {
                     if (!contains(node)) nodes.add(node);
                 }
             }
-            for(Edge edge: cell.getComponent(RingCellMesh.class).edges){
-                if(edge instanceof ApicalEdge) {
-                    apicalEdges.add(edge);
-                    outerNodes.add((Node2D) edge.getNodes()[0]);
+            for(int i =0; i < mesh.edges.size(); i++){
+                if(i == lateralResolution) {
+                    Edge e = mesh.edges.get(i);
+                    apicalEdges.add(e);
+                    outerNodes.add((Node2D) e.getNodes()[0]);
                 }
-                if(edge instanceof BasalEdge){
-                    basalEdges.add(edge);
-                    innerNodes.add((Node2D)edge.getNodes()[0]);
+                if(i == mesh.edges.size()-1){
+                    Edge e = mesh.edges.get(i);
+                    basalEdges.add(e);
+                    innerNodes.add((Node2D) e.getNodes()[0]);
                 }
             }
 
@@ -189,8 +191,7 @@ public class RingMesh extends Mesh {
 
     private Entity getNewCell(List<Node2D> cellNodes, int mod) {
         return new Entity("Cell " + (cellList.size() + mod)).
-                with(new RingCellMesh().
-                        build(cellNodes)).
+                with(new RingCellMesh().build(cellNodes)).
                 with(new EdgeStiffness2D()).
                 with(new ElasticForce()).
                 with(new CornerStiffness2D()).

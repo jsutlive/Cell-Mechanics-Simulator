@@ -2,7 +2,7 @@ package Morphogenesis.Components.Physics.Collision;
 
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Physics.Force;
-import Morphogenesis.Rigidbodies.Nodes.Node;
+import Morphogenesis.Rigidbodies.Node;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;

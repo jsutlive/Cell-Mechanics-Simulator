@@ -4,8 +4,8 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.HexMesh;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Physics.Collision2D;
 

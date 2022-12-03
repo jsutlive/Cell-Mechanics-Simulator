@@ -2,8 +2,8 @@ package Component.Physics;
 
 import Morphogenesis.Components.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Components.Physics.Collision.EdgeStiffness2D;
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

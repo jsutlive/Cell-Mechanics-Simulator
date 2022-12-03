@@ -1,6 +1,5 @@
-package Morphogenesis.Rigidbodies.Nodes;
+package Morphogenesis.Rigidbodies;
 
-import Morphogenesis.Rigidbodies.IRigidbody;
 import Utilities.Geometry.Vector.Vector;
 
 import static Framework.States.RunState.deltaTime;

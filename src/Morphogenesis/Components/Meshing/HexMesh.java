@@ -8,7 +8,7 @@ import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Components.Physics.OsmosisForce;
 import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 

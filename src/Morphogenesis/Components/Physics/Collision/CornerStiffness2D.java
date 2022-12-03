@@ -2,9 +2,8 @@ package Morphogenesis.Components.Physics.Collision;
 
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Physics.Force;
-import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Rigidbodies.Nodes.Node;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;

@@ -1,6 +1,6 @@
 package Framework.Data.Json;
 
-import Morphogenesis.Rigidbodies.Nodes.Node;
+import Morphogenesis.Rigidbodies.Node;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

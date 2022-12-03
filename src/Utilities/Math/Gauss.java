@@ -1,6 +1,6 @@
 package Utilities.Math;
 
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package Morphogenesis.Components.Physics.Collision;
 
 import Framework.Object.Entity;
 import Morphogenesis.Components.Physics.Force;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Node2D;
 
 import java.util.ArrayList;
 import java.util.List;

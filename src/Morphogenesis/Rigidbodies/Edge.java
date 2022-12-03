@@ -1,9 +1,6 @@
-package Morphogenesis.Rigidbodies.Edges;
+package Morphogenesis.Rigidbodies;
 
-import Framework.States.State;
 import Renderer.Graphics.IColor;
-import Morphogenesis.Rigidbodies.IRigidbody;
-import Morphogenesis.Rigidbodies.Nodes.Node;
 import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -15,14 +12,12 @@ import java.awt.*;
  * This class is abstract, different physics characteristics can be configured depending on the type of edge
  * selected.
  */
-public abstract class Edge implements IRigidbody, IColor
+public class Edge implements IRigidbody, IColor
 {
     protected transient Color color;
     protected transient Node[] nodes = new Node[2];
     //order of nodes in cell list
-    protected int[] nodesReference = new int[2];
     protected transient float initialLength;
-    public transient boolean isNull = true;
     /**
      * Add a force vector equally to both nodes. Will result in the nodes acting in parallel
      * @param forceVector vector containing force information
@@ -48,18 +43,6 @@ public abstract class Edge implements IRigidbody, IColor
         Vector forceNeg = force.neg();
         nodes[0].addForceVector("", force);
         nodes[1].addForceVector("", forceNeg);
-    }
-
-    public void setNodesReference(int a, int b){
-        nodesReference[0] = a;
-        nodesReference[1] = b;
-    }
-
-    protected void MakeNewEdge(Node a, Node b)
-    {
-        nodes[0] = a;
-        nodes[1] = b;
-        initialLength = getLength();
     }
 
     public void flip()
@@ -156,7 +139,9 @@ public abstract class Edge implements IRigidbody, IColor
         return false;
     }
 
-    public abstract Edge clone();
+    public Edge clone(){
+        return new Edge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
+    }
 
     public Edge(Node a, Node b){
         setNodes(a, b);

@@ -1,12 +1,9 @@
 package Morphogenesis.Components.Physics.Spring;
 
 import Framework.Timer.Time;
-import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
-import Morphogenesis.Components.Meshing.RingMesh;
 import Utilities.Geometry.Vector.Vector;
-import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
-import Morphogenesis.Rigidbodies.Edges.Edge;
+import Morphogenesis.Rigidbodies.Edge;
 
 import static Framework.States.StateMachine.timer;
 

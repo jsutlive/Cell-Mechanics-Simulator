@@ -1,8 +1,6 @@
 package Morphogenesis.Components.Physics.Spring;
 
 import Morphogenesis.Components.Meshing.RingCellMesh;
-import Morphogenesis.Rigidbodies.Edges.Edge;
-import Morphogenesis.Rigidbodies.Edges.LateralEdge;
 
 
 public class LateralShorteningSpringForce extends SpringForce {

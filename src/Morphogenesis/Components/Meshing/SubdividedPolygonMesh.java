@@ -1,8 +1,8 @@
 package Morphogenesis.Components.Meshing;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
-import Morphogenesis.Rigidbodies.Edges.BasicEdge;
-import Morphogenesis.Rigidbodies.Nodes.Node2D;
+import Morphogenesis.Rigidbodies.Edge;
+import Morphogenesis.Rigidbodies.Node2D;
 
 import java.util.List;
 
@@ -26,9 +26,9 @@ public class SubdividedPolygonMesh extends Mesh{
     public SubdividedPolygonMesh build(List<Node2D> simpleNodes){
         nodes.addAll(simpleNodes);
         for(int i = 1; i < simpleNodes.size(); i++){
-            edges.add(new BasicEdge(simpleNodes.get(i-1), simpleNodes.get(i)));
+            edges.add(new Edge(simpleNodes.get(i-1), simpleNodes.get(i)));
         }
-        edges.add(new BasicEdge(simpleNodes.get(simpleNodes.size()-1), simpleNodes.get(0)));
+        edges.add(new Edge(simpleNodes.get(simpleNodes.size()-1), simpleNodes.get(0)));
 
         return this;
     }
