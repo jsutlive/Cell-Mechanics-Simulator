@@ -2,6 +2,8 @@ package Renderer;
 
 import Framework.Timer.Time;
 import Renderer.Graphics.IRender;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +28,6 @@ public abstract class Renderer implements Runnable {
     public void run() {
         //Create a new camera when render loop starts. This is the main camera.
         Camera cam = new Camera(bounds.width, bounds.height);
-
         while(applicationIsRunning) {
             renderClock.advance();
             if (renderClock.isReadyForNextFrame()) {

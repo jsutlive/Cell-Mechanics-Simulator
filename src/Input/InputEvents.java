@@ -1,6 +1,7 @@
 package Input;
 
 import Framework.Events.EventHandler;
+import Framework.Object.Entity;
 import Utilities.Geometry.Vector.Vector2i;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.input.KeyCode;
@@ -49,6 +50,9 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         }
         if(keyCode == KeyEvent.VK_SHIFT){
             onShiftKey.invoke(true);
+        }
+        if(keyCode == KeyEvent.VK_DELETE || keyCode == KeyEvent.VK_BACK_SPACE){
+            SelectionEvents.deleteSelection();
         }
     }
 

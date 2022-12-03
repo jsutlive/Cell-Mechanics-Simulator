@@ -1,9 +1,11 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Events.EventHandler;
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
+import Framework.Object.Tag;
 import Input.SelectionEvents;
 import Morphogenesis.Components.MouseSelector;
 
@@ -18,6 +20,7 @@ public class EntityPanel {
 
     JPanel panel;
     JLabel nameLabel;
+    JPanel nameLabelPanel;
 
     public static EventHandler<Boolean> onRefresh = new EventHandler<>();
     public JPanel getPanel() {
@@ -38,16 +41,20 @@ public class EntityPanel {
     }
 
     private void createBaseLabels() {
-        JPanel nameLabelPanel = new JPanel();
+        nameLabelPanel = new JPanel();
         nameLabel = new JLabel("Inspector");
         nameLabel.setFont(nameLabel.getFont().deriveFont(18.0f));
         nameLabelPanel.add(nameLabel);
+
         panel.add(nameLabelPanel);
     }
 
     public void setPanelName(HashSet<Entity> entities){
         panel.removeAll();
         createBaseLabels();
+        if(entities.size()!= 0) {
+            setDeleteButton(nameLabelPanel, entities);
+        }
         if(entities.size() == 0) return;
         if(entities.size() == 1) {
             for(Entity e: entities) createSingleEntityPanel(e);
@@ -63,6 +70,24 @@ public class EntityPanel {
         nameLabel.setText(e.name);
         panel.add(new JLabel(""));
         setComponentsSingleEntity(e);
+    }
+
+    private void setDeleteButton(JPanel namePanel, HashSet<Entity> entities) {
+        JButton deleteButton = new JButton("X");
+        deleteButton.setMargin(new Insets(0,0,0,0));
+        deleteButton.setFont(new Font("Serif", Font.BOLD, 10));
+        deleteButton.setPreferredSize(new Dimension(15, 15));
+        if(entities.size()==1) {
+            deleteButton.setToolTipText("Delete Entity");
+        }else {
+            deleteButton.setToolTipText("Delete Entities");
+        }
+        deleteButton.setBackground(Color.red);
+        deleteButton.addActionListener(e -> {
+            SelectionEvents.deleteSelection();
+        });
+        namePanel.add(deleteButton);
+
     }
 
     private void setComponentsSingleEntity(Entity e) {

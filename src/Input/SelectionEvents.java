@@ -29,6 +29,13 @@ public class SelectionEvents {
         onEntitySelected.invoke(selectedEntities);
     }
 
+    public static void deleteSelection(){
+        for(Entity e: selectedEntities){
+            e.destroy();
+        }
+        clearSelection();
+    }
+
     public static void selectEntities(List<Entity> e){
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.addAll(e);
@@ -36,8 +43,6 @@ public class SelectionEvents {
     }
 
     public static HashSet<Entity> getSelectedEntities() {return selectedEntities;}
-
-
 
     public static void refresh(){
         onEntitySelected.invoke(selectedEntities);
