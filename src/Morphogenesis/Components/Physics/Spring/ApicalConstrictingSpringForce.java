@@ -2,6 +2,8 @@ package Morphogenesis.Components.Physics.Spring;
 
 import Framework.Timer.Time;
 import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Components.Meshing.RingCellMesh;
+import Morphogenesis.Components.Meshing.RingMesh;
 import Utilities.Geometry.Vector.Vector;
 import Morphogenesis.Rigidbodies.Edges.ApicalEdge;
 import Morphogenesis.Rigidbodies.Edges.Edge;
@@ -14,8 +16,8 @@ public class ApicalConstrictingSpringForce extends SpringForce {
 
     @Override
     public void awake() {
-        Mesh mesh = parent.getComponent(Mesh.class);
-        for(Edge edge : mesh.edges) if (edge instanceof ApicalEdge) edges.add(edge);
+        RingCellMesh mesh = parent.getComponent(RingCellMesh.class);
+        edges.add(mesh.edges.get(mesh.lateralResolution));
     }
 
     @Override
