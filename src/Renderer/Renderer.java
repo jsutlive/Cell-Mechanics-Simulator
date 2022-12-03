@@ -12,17 +12,19 @@ import java.util.List;
 public abstract class Renderer implements Runnable {
     //Renderer object singleton instance.
     private static Renderer instance;
+    public static Color DEFAULT_COLOR = Color.white;
 
     protected List<IRender> batch = new ArrayList<>();
 
-    private boolean applicationIsRunning = false;
+    private boolean applicationIsRunning = true;
 
     private final Time renderClock = Time.getTime(60f);
 
     @Override
     // run the renderer in an update loop
     public void run() {
-        while(applicationIsRunning) {
+        while(applicationIsRunning)
+        {
             renderClock.advance();
             if (renderClock.isReadyForNextFrame()) {
                 System.out.print("clear ");

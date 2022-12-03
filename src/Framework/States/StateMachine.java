@@ -3,7 +3,6 @@ package Framework.States;
 import Framework.Object.Entity;
 import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
-import Input.InputEvents;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.MouseSelector;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
@@ -27,9 +26,6 @@ public final class StateMachine {
         timer = referenceTime;
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
-        InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
-        InputEvents.onClear.subscribe(this::clearStateMachine);
-        InputEvents.onLoadModel.subscribe(this::loadModel);
         changeState(new EditorState(this));
     }
 
@@ -92,8 +88,6 @@ public final class StateMachine {
     public void deactivate(){
         Entity.onAddEntity.close();
         Entity.onRemoveEntity.close();
-        InputEvents.onToggleSimulation.close();
-        InputEvents.onClear.close();
 
     }
 

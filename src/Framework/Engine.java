@@ -34,7 +34,6 @@ public final class Engine implements Runnable
     public void run()
     {
         init();
-
         // advance clock and perform physics update
         while(applicationIsRunning) {
             physicsClock.advance();

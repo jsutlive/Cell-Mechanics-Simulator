@@ -8,7 +8,6 @@ import Morphogenesis.Components.Meshing.Mesh;
 import Renderer.Renderer;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
-import javafx.scene.input.MouseButton;
 
 import java.awt.event.MouseEvent;
 

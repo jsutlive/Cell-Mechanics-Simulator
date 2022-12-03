@@ -10,9 +10,9 @@ import Renderer.Graphics.IColor;
 import Renderer.Graphics.IRender;
 import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Rigidbodies.Edges.Edge;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
-
 import java.awt.*;
 import java.util.HashSet;
 
@@ -74,15 +74,6 @@ public class MeshRenderer extends ObjectRenderer
         alterColors(color);
     }
 
-    private void drawEdgeNormal(Edge edge){
-        Vector2f center = edge.getCenter();
-        Vector2f normal = (Vector2f) CustomMath.normal(edge);
-        normal.mul(7);
-        normal = normal.add(center);
-
-        drawLine(center.asInt(), normal.asInt());
-    }
-
     /**
      * Tells rendering system to draw components of cell.
      */
@@ -93,9 +84,13 @@ public class MeshRenderer extends ObjectRenderer
         for(Edge edge: cellMesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
-                    positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
-            drawEdgeNormal(edge);
+            System.out.print("meshStart ");
+            for(Node node: cellMesh.nodes)
+            {
+                Vector position = node.getPosition();
+                System.out.print(position.get(0) + "&" + position.get(1) + " ");
+            }
+            System.out.print("meshEnd ");
         }
     }
 
