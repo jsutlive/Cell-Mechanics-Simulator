@@ -32,7 +32,6 @@ public class MeshCollider extends Collider{
     private void checkCollision() {
         for(Entity cell: cells){
             Mesh mesh = cell.getComponent(Mesh.class);
-            if (mesh.isStatic) continue;
             for(Node2D node: nodes){
                 if(!mesh.contains(node) && mesh.collidesWithNode(node)) {
                     for (Edge e : mesh.edges) {

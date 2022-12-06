@@ -6,7 +6,7 @@ import Morphogenesis.Components.Render.DoNotEditInGUI;
 import Morphogenesis.Rigidbodies.Edge;
 import Morphogenesis.Rigidbodies.Node2D;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * RingCellMesh retains the mesh information about a given cell, in particular its nodes, edges, and boundaries.
@@ -41,7 +41,7 @@ public class RingCellMesh extends Mesh{
         calculateArea();
     }
 
-    public RingCellMesh build(List<Node2D> builderNodes){
+    public RingCellMesh build(ArrayList<Node2D> builderNodes){
         nodes = builderNodes;
         for(int i = 1; i < builderNodes.size(); i++){
             edges.add(new Edge(builderNodes.get(i-1), builderNodes.get(i)));

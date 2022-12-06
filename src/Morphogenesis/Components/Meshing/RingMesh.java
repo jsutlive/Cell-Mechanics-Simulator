@@ -37,11 +37,11 @@ public class RingMesh extends Mesh {
     public float outerRadius = 300;
     public float innerRadius = 200;
 
-    public transient List<Node2D> outerNodes = new ArrayList<>();
-    public transient List<Node2D> innerNodes = new ArrayList<>();
-    public transient List<Entity> cellList = new ArrayList<>();
-    public transient List<Edge> basalEdges = new ArrayList<>();
-    public transient List<Edge> apicalEdges = new ArrayList<>();
+    public transient ArrayList<Node2D> outerNodes = new ArrayList<>();
+    public transient ArrayList<Node2D> innerNodes = new ArrayList<>();
+    public transient ArrayList<Entity> cellList = new ArrayList<>();
+    public transient ArrayList<Edge> basalEdges = new ArrayList<>();
+    public transient ArrayList<Edge> apicalEdges = new ArrayList<>();
 
     @Override
     public void awake() {
@@ -159,7 +159,7 @@ public class RingMesh extends Mesh {
             Entity newCell;
             if (i >= 1) {
 
-                List<Node2D> cellNodes = new ArrayList<>(mirroredNodes);
+                ArrayList<Node2D> cellNodes = new ArrayList<>(mirroredNodes);
                 cellNodes.addAll(oldMirroredNodes);
                 newCell = getNewCell(cellNodes, 0);
                 addCellToList(mirroredCells, newCell, i);
@@ -189,7 +189,7 @@ public class RingMesh extends Mesh {
         cellList.addAll(mirroredCells);
     }
 
-    private Entity getNewCell(List<Node2D> cellNodes, int mod) {
+    private Entity getNewCell(ArrayList<Node2D> cellNodes, int mod) {
         return new Entity("Cell " + (cellList.size() + mod)).
                 with(new RingCellMesh().build(cellNodes)).
                 with(new EdgeStiffness2D()).

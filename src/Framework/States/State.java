@@ -49,7 +49,7 @@ public abstract class State
      * save a json file with initial position
      */
     protected void saveInitial(){
-       save(stateMachine.allObjects);
+       save(findObjectWithTag(Tag.MODEL));
     }
 
     /**

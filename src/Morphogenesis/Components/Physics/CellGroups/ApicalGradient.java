@@ -24,7 +24,7 @@ import static Input.SelectionEvents.onSelectionButtonPressed;
 @GroupSelector
 public class ApicalGradient extends Component {
 
-    List<Entity> cellGroup = new ArrayList<>();
+    transient List<Entity> cellGroup = new ArrayList<>();
     public int numberOfConstrictingCells = 12;
     public float mu = 0f;
     public float sigma = 0.8f;
@@ -34,7 +34,7 @@ public class ApicalGradient extends Component {
     public float ratioFloor = .05f;
     public Color groupColor = Color.MAGENTA;
 
-    Gradient gradient = new GaussianGradient(mu, sigma);
+    transient Gradient gradient = new GaussianGradient(mu, sigma);
 
     @Override
     public void awake() {

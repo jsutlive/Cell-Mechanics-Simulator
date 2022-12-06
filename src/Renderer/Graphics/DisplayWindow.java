@@ -6,6 +6,7 @@ import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
+import Framework.States.StateMachine;
 import Input.InputEvents;
 import Morphogenesis.Components.Meshing.RingMesh;
 import Morphogenesis.Components.MouseSelector;
@@ -83,6 +84,7 @@ public class DisplayWindow
 
         InputEvents.onToggleSimulation.subscribe(this::enableMenuBarOptionsOnToggle);
         SelectionEvents.onEntitySelected.subscribe(this::checkForSelectionMenuChange);
+        StateMachine.onSaveStateInfo.subscribe(this::exportImage);
     }
 
     private void checkForSelectionMenuChange(HashSet<Entity> entities){
@@ -213,10 +215,11 @@ public class DisplayWindow
         playItem.setEnabled(!b);
     }
 
-    public void exportImage(){
+    public void exportImage(String name){
         BufferedImage screenshot = captureImage();
         ImageHandler writer = new ImageHandler(screenshot,
-                new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets/no_cornerv2_"+count*500 + ".jpg"));
+                new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets//export" +
+                        name +count*6000 + ".jpg"));
         writer.write();
         count++;
 

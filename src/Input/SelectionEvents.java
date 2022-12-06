@@ -1,12 +1,10 @@
 package Input;
 
 import Framework.Events.EventHandler;
-import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Component;
 import Framework.Object.Entity;
-import Renderer.UIElements.Panels.ComponentPanel;
 import Renderer.UIElements.Panels.EntityPanel;
-import Renderer.UIElements.Panels.MultiComponentPanel;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -66,7 +64,7 @@ public class SelectionEvents {
     }
 
     public static void deselectEntity(Entity selected) {
-        if(selectedEntities.contains(selected)) selectedEntities.remove(selected);
+        selectedEntities.remove(selected);
         onEntitySelected.invoke(selectedEntities);
     }
 

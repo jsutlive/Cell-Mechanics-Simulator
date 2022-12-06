@@ -1,18 +1,16 @@
 package Framework.States;
 
+import Framework.Object.Component;
 import Framework.Object.Entity;
-import Input.SelectionEvents;
+import Morphogenesis.Components.DebuggerComponent;
+import Morphogenesis.Components.Meshing.CircleMesh;
 import Morphogenesis.Components.Meshing.Mesh;
-import Morphogenesis.Components.Meshing.HexMesh;
-import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Components.MouseSelector;
-import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
-import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
-import Morphogenesis.Components.Physics.Collision.CellRingCollider;
-import Morphogenesis.Components.Physics.Collision.MeshCollider;
-import Morphogenesis.Components.Physics.Collision.RigidBoundary;
-import Morphogenesis.Components.Yolk;
+import Morphogenesis.Components.Meshing.SubdividedPolygonMesh;
+import Morphogenesis.Components.Physics.OsmosisForce;
+import Morphogenesis.Components.Physics.Spring.ElasticForce;
+import Morphogenesis.Rigidbodies.Node2D;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static Framework.Object.Tag.MODEL;
@@ -23,7 +21,6 @@ public class EditorState extends State
         super(stateMachine);
     }
 
-    boolean hexMesh = false;
     @Override
     public void enter() {
         // Find an object to act as base physics/ setup for the simulation
@@ -33,8 +30,14 @@ public class EditorState extends State
                 Objects.requireNonNull(obj.getComponent(Mesh.class)).reset();
             }
         }
-        System.out.println(stateMachine.allObjects.size());
-        //loadModel();
+        else{
+            //Node2D n = new Node2D(0,0);
+           //Node2D o = new Node2D(10,10);
+            //ArrayList<Node2D> nodes = new ArrayList<>();
+           // nodes.add(n); nodes.add(o);
+            //Entity e = new Entity("Test").with(new DebuggerComponent()).with(new SubdividedPolygonMesh().build(nodes)).with(new ElasticForce());
+            //loadModel();
+        }
     }
 
     @Override

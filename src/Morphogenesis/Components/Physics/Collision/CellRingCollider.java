@@ -12,23 +12,15 @@ import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Physics.Collision2D;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @LogOnce
 @DoNotExposeInGUI
 public class CellRingCollider extends Force {
-    transient List<Entity> cells;
-    transient List<Node2D> nodes;
-    transient List<Node2D> bothRings;
-    transient List<Node2D> innerNodes;
-    transient  List<Node2D> outerNodes;
+    transient ArrayList<Entity> cells;
+    transient ArrayList<Node2D> nodes;
 
     @Override
     public void awake() {
-        innerNodes = getComponent(RingMesh.class).innerNodes;
-        outerNodes = getComponent(RingMesh.class).outerNodes;
-        bothRings = new ArrayList<>(innerNodes);
-        bothRings.addAll(outerNodes);
         cells = getComponent(RingMesh.class).cellList;
         nodes = getComponent(RingMesh.class).nodes;
     }
@@ -53,7 +45,7 @@ public class CellRingCollider extends Force {
 
     private void setNodePositionToClosestEdge(Node2D node, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        //if(closePoint.isNull() || closePoint.x <= 0) return;
+        if(closePoint.isNull() || (closePoint.x == 0 && closePoint.y ==0)) return;
         if(node.getPosition().distanceTo(closePoint) > 5f) return;
         node.moveTo(closePoint);
     }

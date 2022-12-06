@@ -10,6 +10,7 @@ public class RunState extends State
 {
     protected static float dt  = 1e-3f;
     public static float deltaTime;
+    private int count;
 
     public RunState(StateMachine stateMachine) {
         super(stateMachine);
@@ -44,6 +45,11 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
+        if (count %6000 ==0){
+            StateMachine.onSaveStateInfo.invoke("WildType");
+        }
+        count++;
+
     }
 
     void exit()

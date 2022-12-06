@@ -23,7 +23,7 @@ import static Renderer.Renderer.DEFAULT_COLOR;
 @GroupSelector
 public class LateralGradient extends Component {
 
-    List<Entity> cellGroup = new ArrayList<>();
+    transient List<Entity> cellGroup = new ArrayList<>();
 
     public int numberOfConstrictingCells = 20;
 

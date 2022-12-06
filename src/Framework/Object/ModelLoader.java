@@ -9,6 +9,7 @@ import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
 import Morphogenesis.Components.Physics.Collision.CellRingCollider;
 import Morphogenesis.Components.Physics.Collision.MeshCollider;
 import Morphogenesis.Components.Physics.Collision.RigidBoundary;
+import Morphogenesis.Components.Physics.Collision.RingStiffness2D;
 import Morphogenesis.Components.Yolk;
 
 import static Framework.Object.Tag.MODEL;
@@ -23,6 +24,7 @@ public class ModelLoader {
                 with(new LateralGradient()).
                 with(new CellRingCollider()).
                 with(new RigidBoundary()).
+                with(new RingStiffness2D()).
                 with(new Yolk()
                 );
         SelectionEvents.selectEntity(e);

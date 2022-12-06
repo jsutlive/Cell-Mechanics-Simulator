@@ -15,12 +15,10 @@ import Utilities.Math.Gauss;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Mesh extends Component {
-    public List<Node2D> nodes = new ArrayList<>();
-    public List<Edge> edges = new ArrayList<>();
-    public boolean isStatic = false;
+    public transient ArrayList<Node2D> nodes = new ArrayList<>();
+    public transient ArrayList<Edge> edges = new ArrayList<>();
 
     public static EventHandler<Mesh> onMeshRebuilt = new EventHandler<>();
 
@@ -29,11 +27,6 @@ public abstract class Mesh extends Component {
     private Vector2f centroid;
     @DoNotEditInGUI
     public float restingArea;
-
-    public Mesh setStatic(){
-        isStatic = true;
-        return this;
-    }
 
     public boolean contains(Node n){
         for(Node2D node : nodes){

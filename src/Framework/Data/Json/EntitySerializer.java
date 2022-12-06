@@ -12,10 +12,10 @@ public class EntitySerializer implements JsonSerializer<Entity>, JsonDeserialize
     @Override
     public Entity deserialize(JsonElement json, Type typOfT, JsonDeserializationContext context){
         JsonObject jsonObject = json.getAsJsonObject();
-        String name = jsonObject.get("properties.name").getAsString();
-        JsonArray components = jsonObject.getAsJsonArray("properites.components");
-        Tag tag = context.deserialize(jsonObject.get("properties.tag"), Tag.class);
-        int uniqueID = context.deserialize(jsonObject.get("properties.uniqueID"), int.class);
+        String name = jsonObject.get("name").getAsString();
+        JsonArray components = jsonObject.getAsJsonArray("components");
+        Tag tag = context.deserialize(jsonObject.get("tag"), Tag.class);
+        int uniqueID = context.deserialize(jsonObject.get("uniqueID"), int.class);
 
         Entity entity = new Entity(name, uniqueID, tag);
         for(JsonElement e: components){

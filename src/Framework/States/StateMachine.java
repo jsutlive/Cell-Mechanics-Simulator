@@ -1,5 +1,6 @@
 package Framework.States;
 
+import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
@@ -13,6 +14,7 @@ public final class StateMachine {
     public State currentState;
     public List<Entity> allObjects = new ArrayList<>();
     public static Time timer;
+    public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
 
     public StateMachine(Time referenceTime){
         timer = referenceTime;

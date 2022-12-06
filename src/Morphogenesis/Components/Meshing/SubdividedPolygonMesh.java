@@ -16,7 +16,6 @@ public class SubdividedPolygonMesh extends Mesh{
 
     @Override
     public void lateUpdate() {
-        if(isStatic) return;
         for (Node2D n : nodes) {
             n.move();
         }

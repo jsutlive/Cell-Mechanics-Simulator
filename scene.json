@@ -1,1 +1,243 @@
-[]
+[
+  {
+    "name": "Physics System",
+    "uniqueID": 0,
+    "components": [
+      {
+        "type": "Morphogenesis.Components.Meshing.RingMesh",
+        "properties": {
+          "lateralResolution": 4,
+          "segments": 80,
+          "outerRadius": 300.0,
+          "innerRadius": 200.0,
+          "area": 0.0,
+          "restingArea": 0.0
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.Render.MeshRenderer",
+        "properties": {
+          "highlightColor": {
+            "value": -256,
+            "falpha": 0.0
+          },
+          "enabled": true,
+          "color": {
+            "value": -256,
+            "falpha": 0.0
+          },
+          "defaultColor": {
+            "value": -1,
+            "falpha": 0.0
+          }
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.MouseSelector",
+        "properties": {}
+      },
+      {
+        "type": "Morphogenesis.Components.Physics.CellGroups.ApicalGradient",
+        "properties": {
+          "numberOfConstrictingCells": 12,
+          "mu": 0.0,
+          "sigma": 0.8,
+          "constantCeiling": 125.4,
+          "constantFloor": 55.0,
+          "ratioCeiling": 0.01,
+          "ratioFloor": 0.05,
+          "groupColor": {
+            "value": -65281,
+            "falpha": 0.0
+          }
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.Physics.CellGroups.LateralGradient",
+        "properties": {
+          "numberOfConstrictingCells": 20,
+          "constrictingCellsStartLocation": 10,
+          "constantCeiling": 10.0,
+          "ratioCeiling": 0.9,
+          "groupColor": {
+            "value": -16776961,
+            "falpha": 0.0
+          }
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.Physics.Collision.CellRingCollider",
+        "properties": {}
+      },
+      {
+        "type": "Morphogenesis.Components.Physics.Collision.RigidBoundary",
+        "properties": {
+          "outerRadius": 300.0,
+          "referenceRing": {
+            "lateralResolution": 4,
+            "segments": 80,
+            "outerRadius": 300.0,
+            "innerRadius": 200.0,
+            "area": 0.0,
+            "restingArea": 0.0
+          },
+          "graphic": {
+            "radius": 602,
+            "center": {
+              "x": 0,
+              "y": 0
+            },
+            "color": {
+              "value": -8355712,
+              "falpha": 0.0
+            }
+          },
+          "center": {
+            "x": 0.0,
+            "y": 0.0
+          }
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.Physics.Collision.RingStiffness2D",
+        "properties": {
+          "edgeAngleHashMap": {
+            "[Morphogenesis.Rigidbodies.Node2D@6a0fd54d, Morphogenesis.Rigidbodies.Node2D@5f1fab68, Morphogenesis.Rigidbodies.Node2D@14b425fa]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@2614d21f, Morphogenesis.Rigidbodies.Node2D@1a27d94b, Morphogenesis.Rigidbodies.Node2D@17cbe6fa]": 175.50005,
+            "[Morphogenesis.Rigidbodies.Node2D@100f545, Morphogenesis.Rigidbodies.Node2D@23664ae6, Morphogenesis.Rigidbodies.Node2D@16483085]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@417f211f, Morphogenesis.Rigidbodies.Node2D@505852e3, Morphogenesis.Rigidbodies.Node2D@399991d3]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@505852e3, Morphogenesis.Rigidbodies.Node2D@399991d3, Morphogenesis.Rigidbodies.Node2D@445738e4]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@76dde8, Morphogenesis.Rigidbodies.Node2D@7593425d, Morphogenesis.Rigidbodies.Node2D@311f259c]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@7430b421, Morphogenesis.Rigidbodies.Node2D@4d9aeb97, Morphogenesis.Rigidbodies.Node2D@1506761]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@22ac6c35, Morphogenesis.Rigidbodies.Node2D@2614d21f, Morphogenesis.Rigidbodies.Node2D@1a27d94b]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@6db7c496, Morphogenesis.Rigidbodies.Node2D@33b87ae, Morphogenesis.Rigidbodies.Node2D@538e3c05]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@1b97b069, Morphogenesis.Rigidbodies.Node2D@4d8ecea8, Morphogenesis.Rigidbodies.Node2D@75bba205]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@720a3f0d, Morphogenesis.Rigidbodies.Node2D@3abefb80, Morphogenesis.Rigidbodies.Node2D@53ff2958]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@75bba205, Morphogenesis.Rigidbodies.Node2D@7433ef8b, Morphogenesis.Rigidbodies.Node2D@5acbdee9]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@399991d3, Morphogenesis.Rigidbodies.Node2D@445738e4, Morphogenesis.Rigidbodies.Node2D@7c188ea8]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@16b41ff8, Morphogenesis.Rigidbodies.Node2D@496dfc77, Morphogenesis.Rigidbodies.Node2D@6ba18f4b]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@62ebbc5b, Morphogenesis.Rigidbodies.Node2D@24d4bf2a, Morphogenesis.Rigidbodies.Node2D@2cd6fdb]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@18b84de2, Morphogenesis.Rigidbodies.Node2D@3b004262, Morphogenesis.Rigidbodies.Node2D@998b3c6]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@5acbdee9, Morphogenesis.Rigidbodies.Node2D@618bb096, Morphogenesis.Rigidbodies.Node2D@49089d28]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@c1b9ca8, Morphogenesis.Rigidbodies.Node2D@a37eab3, Morphogenesis.Rigidbodies.Node2D@1b97b069]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@618bb096, Morphogenesis.Rigidbodies.Node2D@49089d28, Morphogenesis.Rigidbodies.Node2D@22ac6c35]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@1ba71780, Morphogenesis.Rigidbodies.Node2D@664a8c08, Morphogenesis.Rigidbodies.Node2D@5e1f33a7]": 175.49994,
+            "[Morphogenesis.Rigidbodies.Node2D@3c692f34, Morphogenesis.Rigidbodies.Node2D@71c6a1c2, Morphogenesis.Rigidbodies.Node2D@5b59f34b]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@56c3591f, Morphogenesis.Rigidbodies.Node2D@720a3f0d, Morphogenesis.Rigidbodies.Node2D@3abefb80]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@71c6a1c2, Morphogenesis.Rigidbodies.Node2D@5b59f34b, Morphogenesis.Rigidbodies.Node2D@76dde8]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@3b004262, Morphogenesis.Rigidbodies.Node2D@998b3c6, Morphogenesis.Rigidbodies.Node2D@2e3d3b59]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@17cbe6fa, Morphogenesis.Rigidbodies.Node2D@56c7edf2, Morphogenesis.Rigidbodies.Node2D@56c3591f]": 175.50003,
+            "[Morphogenesis.Rigidbodies.Node2D@16483085, Morphogenesis.Rigidbodies.Node2D@c1b9ca8, Morphogenesis.Rigidbodies.Node2D@a37eab3]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@538e3c05, Morphogenesis.Rigidbodies.Node2D@4574e0b4, Morphogenesis.Rigidbodies.Node2D@16b41ff8]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@56c7edf2, Morphogenesis.Rigidbodies.Node2D@56c3591f, Morphogenesis.Rigidbodies.Node2D@720a3f0d]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@1d085dda, Morphogenesis.Rigidbodies.Node2D@74d24a17, Morphogenesis.Rigidbodies.Node2D@405a2d8e]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@14b425fa, Morphogenesis.Rigidbodies.Node2D@15b1ff03, Morphogenesis.Rigidbodies.Node2D@100f545]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@3abefb80, Morphogenesis.Rigidbodies.Node2D@53ff2958, Morphogenesis.Rigidbodies.Node2D@1fb89999]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@2cd6fdb, Morphogenesis.Rigidbodies.Node2D@2312f5c6, Morphogenesis.Rigidbodies.Node2D@1c248c9b]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@405a2d8e, Morphogenesis.Rigidbodies.Node2D@78a2214a, Morphogenesis.Rigidbodies.Node2D@279b4509]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@4d8ecea8, Morphogenesis.Rigidbodies.Node2D@75bba205, Morphogenesis.Rigidbodies.Node2D@7433ef8b]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@6ec51482, Morphogenesis.Rigidbodies.Node2D@1ba71780, Morphogenesis.Rigidbodies.Node2D@664a8c08]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@1a27d94b, Morphogenesis.Rigidbodies.Node2D@17cbe6fa, Morphogenesis.Rigidbodies.Node2D@56c7edf2]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@78a2214a, Morphogenesis.Rigidbodies.Node2D@279b4509, Morphogenesis.Rigidbodies.Node2D@417f211f]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@6ba18f4b, Morphogenesis.Rigidbodies.Node2D@9b2a3cb, Morphogenesis.Rigidbodies.Node2D@3fcf26da]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@5307acb2, Morphogenesis.Rigidbodies.Node2D@7a154e12, Morphogenesis.Rigidbodies.Node2D@4d3b7aea]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@445738e4, Morphogenesis.Rigidbodies.Node2D@7c188ea8, Morphogenesis.Rigidbodies.Node2D@6ec51482]": 175.49994,
+            "[Morphogenesis.Rigidbodies.Node2D@1fb89999, Morphogenesis.Rigidbodies.Node2D@3c692f34, Morphogenesis.Rigidbodies.Node2D@71c6a1c2]": 175.50009,
+            "[Morphogenesis.Rigidbodies.Node2D@7a154e12, Morphogenesis.Rigidbodies.Node2D@4d3b7aea, Morphogenesis.Rigidbodies.Node2D@6db7c496]": 175.49994,
+            "[Morphogenesis.Rigidbodies.Node2D@1c248c9b, Morphogenesis.Rigidbodies.Node2D@1d085dda, Morphogenesis.Rigidbodies.Node2D@74d24a17]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@467063e1, Morphogenesis.Rigidbodies.Node2D@379046b2, Morphogenesis.Rigidbodies.Node2D@2dccd584]": 175.49992,
+            "[Morphogenesis.Rigidbodies.Node2D@24d4bf2a, Morphogenesis.Rigidbodies.Node2D@2cd6fdb, Morphogenesis.Rigidbodies.Node2D@2312f5c6]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@74d24a17, Morphogenesis.Rigidbodies.Node2D@405a2d8e, Morphogenesis.Rigidbodies.Node2D@78a2214a]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@7433ef8b, Morphogenesis.Rigidbodies.Node2D@5acbdee9, Morphogenesis.Rigidbodies.Node2D@618bb096]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@1967fb10, Morphogenesis.Rigidbodies.Node2D@7e5be4a0, Morphogenesis.Rigidbodies.Node2D@62ebbc5b]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@34f28bd0, Morphogenesis.Rigidbodies.Node2D@5307acb2, Morphogenesis.Rigidbodies.Node2D@7a154e12]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@379046b2, Morphogenesis.Rigidbodies.Node2D@2dccd584, Morphogenesis.Rigidbodies.Node2D@2fa5c433]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@2dccd584, Morphogenesis.Rigidbodies.Node2D@2fa5c433, Morphogenesis.Rigidbodies.Node2D@6a0fd54d]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@13675b83, Morphogenesis.Rigidbodies.Node2D@7c896218, Morphogenesis.Rigidbodies.Node2D@34f28bd0]": 175.5001,
+            "[Morphogenesis.Rigidbodies.Node2D@15b1ff03, Morphogenesis.Rigidbodies.Node2D@100f545, Morphogenesis.Rigidbodies.Node2D@23664ae6]": 175.50005,
+            "[Morphogenesis.Rigidbodies.Node2D@23664ae6, Morphogenesis.Rigidbodies.Node2D@16483085, Morphogenesis.Rigidbodies.Node2D@c1b9ca8]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@496dfc77, Morphogenesis.Rigidbodies.Node2D@6ba18f4b, Morphogenesis.Rigidbodies.Node2D@9b2a3cb]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@2e3d3b59, Morphogenesis.Rigidbodies.Node2D@7430b421, Morphogenesis.Rigidbodies.Node2D@4d9aeb97]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@664a8c08, Morphogenesis.Rigidbodies.Node2D@5e1f33a7, Morphogenesis.Rigidbodies.Node2D@18b84de2]": 175.5001,
+            "[Morphogenesis.Rigidbodies.Node2D@279b4509, Morphogenesis.Rigidbodies.Node2D@417f211f, Morphogenesis.Rigidbodies.Node2D@505852e3]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@998b3c6, Morphogenesis.Rigidbodies.Node2D@2e3d3b59, Morphogenesis.Rigidbodies.Node2D@7430b421]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@49089d28, Morphogenesis.Rigidbodies.Node2D@22ac6c35, Morphogenesis.Rigidbodies.Node2D@2614d21f]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@3fcf26da, Morphogenesis.Rigidbodies.Node2D@1967fb10, Morphogenesis.Rigidbodies.Node2D@7e5be4a0]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@2fa5c433, Morphogenesis.Rigidbodies.Node2D@6a0fd54d, Morphogenesis.Rigidbodies.Node2D@5f1fab68]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@25485b5f, Morphogenesis.Rigidbodies.Node2D@13675b83, Morphogenesis.Rigidbodies.Node2D@7c896218]": 175.49988,
+            "[Morphogenesis.Rigidbodies.Node2D@4d3b7aea, Morphogenesis.Rigidbodies.Node2D@6db7c496, Morphogenesis.Rigidbodies.Node2D@33b87ae]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@a37eab3, Morphogenesis.Rigidbodies.Node2D@1b97b069, Morphogenesis.Rigidbodies.Node2D@4d8ecea8]": 175.4999,
+            "[Morphogenesis.Rigidbodies.Node2D@7593425d, Morphogenesis.Rigidbodies.Node2D@311f259c, Morphogenesis.Rigidbodies.Node2D@25485b5f]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@2312f5c6, Morphogenesis.Rigidbodies.Node2D@1c248c9b, Morphogenesis.Rigidbodies.Node2D@1d085dda]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@311f259c, Morphogenesis.Rigidbodies.Node2D@25485b5f, Morphogenesis.Rigidbodies.Node2D@13675b83]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@53ff2958, Morphogenesis.Rigidbodies.Node2D@1fb89999, Morphogenesis.Rigidbodies.Node2D@3c692f34]": 175.49992,
+            "[Morphogenesis.Rigidbodies.Node2D@4d9aeb97, Morphogenesis.Rigidbodies.Node2D@1506761, Morphogenesis.Rigidbodies.Node2D@467063e1]": 175.49997,
+            "[Morphogenesis.Rigidbodies.Node2D@4574e0b4, Morphogenesis.Rigidbodies.Node2D@16b41ff8, Morphogenesis.Rigidbodies.Node2D@496dfc77]": 175.5,
+            "[Morphogenesis.Rigidbodies.Node2D@7c188ea8, Morphogenesis.Rigidbodies.Node2D@6ec51482, Morphogenesis.Rigidbodies.Node2D@1ba71780]": 175.50006,
+            "[Morphogenesis.Rigidbodies.Node2D@1506761, Morphogenesis.Rigidbodies.Node2D@467063e1, Morphogenesis.Rigidbodies.Node2D@379046b2]": 175.50009,
+            "[Morphogenesis.Rigidbodies.Node2D@5e1f33a7, Morphogenesis.Rigidbodies.Node2D@18b84de2, Morphogenesis.Rigidbodies.Node2D@3b004262]": 175.49988,
+            "[Morphogenesis.Rigidbodies.Node2D@5f1fab68, Morphogenesis.Rigidbodies.Node2D@14b425fa, Morphogenesis.Rigidbodies.Node2D@15b1ff03]": 175.50003,
+            "[Morphogenesis.Rigidbodies.Node2D@9b2a3cb, Morphogenesis.Rigidbodies.Node2D@3fcf26da, Morphogenesis.Rigidbodies.Node2D@1967fb10]": 175.49995,
+            "[Morphogenesis.Rigidbodies.Node2D@7e5be4a0, Morphogenesis.Rigidbodies.Node2D@62ebbc5b, Morphogenesis.Rigidbodies.Node2D@24d4bf2a]": 175.50008,
+            "[Morphogenesis.Rigidbodies.Node2D@7c896218, Morphogenesis.Rigidbodies.Node2D@34f28bd0, Morphogenesis.Rigidbodies.Node2D@5307acb2]": 175.49994,
+            "[Morphogenesis.Rigidbodies.Node2D@33b87ae, Morphogenesis.Rigidbodies.Node2D@538e3c05, Morphogenesis.Rigidbodies.Node2D@4574e0b4]": 175.50002,
+            "[Morphogenesis.Rigidbodies.Node2D@5b59f34b, Morphogenesis.Rigidbodies.Node2D@76dde8, Morphogenesis.Rigidbodies.Node2D@7593425d]": 175.4999
+          },
+          "constant": 50.0
+        }
+      },
+      {
+        "type": "Morphogenesis.Components.Yolk",
+        "properties": {
+          "referenceRing": {
+            "lateralResolution": 4,
+            "segments": 80,
+            "outerRadius": 300.0,
+            "innerRadius": 200.0,
+            "area": 0.0,
+            "restingArea": 0.0
+          },
+          "yolk": {
+            "name": "Yolk",
+            "uniqueID": 0,
+            "components": [
+              {
+                "type": "Morphogenesis.Components.Meshing.CircleMesh",
+                "properties": {
+                  "area": 125534.51,
+                  "restingArea": 125534.51
+                }
+              },
+              {
+                "type": "Morphogenesis.Components.Render.MeshRenderer",
+                "properties": {
+                  "highlightColor": {
+                    "value": -256,
+                    "falpha": 0.0
+                  },
+                  "enabled": false,
+                  "color": {
+                    "value": -1,
+                    "falpha": 0.0
+                  },
+                  "defaultColor": {
+                    "value": -1,
+                    "falpha": 0.0
+                  }
+                }
+              },
+              {
+                "type": "Morphogenesis.Components.Physics.OsmosisForce",
+                "properties": {
+                  "osmosisConstant": -5.0E-4,
+                  "internalPressure": 0.0
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "tag": "MODEL"
+  }
+]
