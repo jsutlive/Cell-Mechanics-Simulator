@@ -66,10 +66,14 @@ public class EntityPanel {
         }
     }
 
-    private void createSingleEntityPanel(Entity e) {
-        nameLabel.setText(e.name);
-        panel.add(new JLabel(""));
-        setComponentsSingleEntity(e);
+    private void createSingleEntityPanel(Entity entity) {
+        panel.remove(nameLabel);
+        JTextField nameField = new JTextField(entity.name);
+        nameField.setHorizontalAlignment(JTextField.CENTER);
+        nameField.setFont(nameLabel.getFont().deriveFont(18.0f));
+        panel.add(nameField);
+        nameField.addActionListener(e->entity.name = nameField.getText());
+        setComponentsSingleEntity(entity);
     }
 
     private void setDeleteButton(JPanel namePanel, HashSet<Entity> entities) {

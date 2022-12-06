@@ -120,6 +120,9 @@ public class DisplayWindow
         loadEmbryo.addActionListener(e->InputEvents.onLoadModel.invoke("Embryo"));
         JMenuItem loadHex = new JMenuItem("Hexagons");
         loadHex.addActionListener(e-> InputEvents.onLoadModel.invoke("Hexagons"));
+        JMenuItem loadDebug = new JMenuItem("Debug");
+        loadDebug.addActionListener(e-> InputEvents.onLoadModel.invoke("Debug"));
+        loadMenu.add(loadDebug);
         loadMenu.add(loadEmbryo);
         loadMenu.add(loadHex);
 

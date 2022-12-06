@@ -77,6 +77,7 @@ public final class StateMachine {
         changeState(new EditorState(this));
         if(modelName.equals("Embryo")) ModelLoader.loadDrosophilaEmbryo();
         if(modelName.equals("Hexagons")) ModelLoader.loadHexMesh();
+        if(modelName.equals("Debug")) ModelLoader.loadDebugMesh();
     }
 
     /**

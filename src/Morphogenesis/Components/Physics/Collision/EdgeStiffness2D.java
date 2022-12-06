@@ -1,6 +1,7 @@
 package Morphogenesis.Components.Physics.Collision;
 
-import Morphogenesis.Components.Meshing.RingCellMesh;
+import Morphogenesis.Components.Meshing.IBoxMesh;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Physics.Force;
 import Morphogenesis.Rigidbodies.Node;
 import Utilities.Geometry.Vector.Vector;
@@ -21,9 +22,10 @@ public class EdgeStiffness2D extends Force {
     @Override
     public void awake() {
         sideA = new ArrayList<>();
-        RingCellMesh ringCellMesh = getComponent(RingCellMesh.class);
-        for(int i =0; i <= ringCellMesh.lateralResolution; i++){
-            sideA.add(ringCellMesh.nodes.get(i));
+        IBoxMesh boxMesh = (IBoxMesh) getComponent(Mesh.class);
+        assert boxMesh!= null;
+        for(int i =0; i <= boxMesh.getLengthResolution(); i++){
+            sideA.add(boxMesh.getNodes().get(i));
         }
     }
 

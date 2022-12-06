@@ -1,5 +1,7 @@
 package Morphogenesis.Components.Physics.Collision;
 
+import Morphogenesis.Components.Meshing.IBoxMesh;
+import Morphogenesis.Components.Meshing.Mesh;
 import Morphogenesis.Components.Meshing.RingCellMesh;
 import Morphogenesis.Components.Physics.Force;
 import Morphogenesis.Rigidbodies.Node;
@@ -24,9 +26,11 @@ public class CornerStiffness2D extends Force {
 
     @Override
     public void awake() {
-        int apicalResolution = getComponent(RingCellMesh.class).apicalResolution;
-        int lateralResolution = getComponent(RingCellMesh.class).lateralResolution;
-        List<Node2D> nodes = getComponent(RingCellMesh.class).nodes;
+        IBoxMesh boxMesh = (IBoxMesh) getComponent(Mesh.class);
+        assert boxMesh!= null;
+        int apicalResolution = boxMesh.getWidthResolution();
+        int lateralResolution = boxMesh.getLengthResolution();
+        List<Node2D> nodes = boxMesh.getNodes();
 
         cornerA.add(nodes.get(nodes.size() - 1)); cornerA.add(nodes.get(0)); cornerA.add(nodes.get(1));
 

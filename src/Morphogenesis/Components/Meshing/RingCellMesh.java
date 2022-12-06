@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 @LogData
 @DoNotDestroyInGUI
-public class RingCellMesh extends Mesh{
+public class RingCellMesh extends Mesh implements IBoxMesh{
 
     @DoNotEditInGUI
     public int lateralResolution = 4;
@@ -49,5 +49,19 @@ public class RingCellMesh extends Mesh{
         edges.add(new Edge(builderNodes.get(builderNodes.size()-1), builderNodes.get(0)));
 
         return this;
+    }
+
+    @Override
+    public int getLengthResolution() {
+        return lateralResolution;
+    }
+
+    @Override
+    public int getWidthResolution() {
+        return apicalResolution;
+    }
+
+    public ArrayList<Node2D> getNodes(){
+        return nodes;
     }
 }

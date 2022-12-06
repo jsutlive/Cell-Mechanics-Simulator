@@ -40,4 +40,10 @@ public class ModelLoader {
         SelectionEvents.selectEntity(e);
         return e;
     }
+
+    public static Entity loadDebugMesh(){
+        Entity e = new Entity("Box", 0, MODEL);
+        SelectionEvents.selectEntity(e);
+        return e;
+    }
 }
