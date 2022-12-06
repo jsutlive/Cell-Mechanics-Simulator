@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import static Utilities.Geometry.Geometry.calculateAngleBetweenPoints;
 
 public class RingStiffness2D extends Force {
-    HashMap<ArrayList<Node2D>, Float> edgeAngleHashMap = new HashMap<>();
+    HashMap<ArrayList<Node2D>, Float> outerEdgeAngleHashMap = new HashMap<>();
+    HashMap<ArrayList<Node2D>, Float> innerEdgeAngleHashMap = new HashMap<>();
 
-    public float constant = 5f;
+    public float innerConstant = 5f;
+    public float outerConstant = 5f;
 
     @Override
     public void awake() {
@@ -36,19 +38,27 @@ public class RingStiffness2D extends Force {
             outerAngle.add(outerNodes.get(a)); outerAngle.add(outerNodes.get(b)); outerAngle.add(outerNodes.get(c));
             ArrayList<Node2D> innerAngle = new ArrayList<>();
             innerAngle.add(outerNodes.get(a)); innerAngle.add(outerNodes.get(b)); innerAngle.add(outerNodes.get(c));
-            edgeAngleHashMap.put(outerAngle, calculateAngleBetweenNodes(outerAngle));
-            edgeAngleHashMap.put(innerAngle, calculateAngleBetweenNodes(innerAngle));
+            outerEdgeAngleHashMap.put(outerAngle, calculateAngleBetweenNodes(outerAngle));
+            innerEdgeAngleHashMap.put(innerAngle, calculateAngleBetweenNodes(innerAngle));
         }
     }
 
     @Override
     public void update() {
-        for(ArrayList<Node2D> key : edgeAngleHashMap.keySet()){
+        for(ArrayList<Node2D> key : outerEdgeAngleHashMap.keySet()){
             Vector normal = getNormalForNodeSet(key);
             float theta = calculateAngleBetweenNodes(key);
-            float restingTheta = edgeAngleHashMap.get(key);
-            if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(constant));
-            else if(theta < restingTheta) addForceToBody(key.get(1), normal.mul(-constant));
+            float restingTheta = outerEdgeAngleHashMap.get(key);
+            if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(outerConstant));
+            else if(theta < restingTheta) addForceToBody(key.get(1), normal.mul(-outerConstant));
+            else addForceToBody(key.get(1), normal.mul(0));
+        }
+        for(ArrayList<Node2D> key : innerEdgeAngleHashMap.keySet()){
+            Vector normal = getNormalForNodeSet(key);
+            float theta = calculateAngleBetweenNodes(key);
+            float restingTheta = innerEdgeAngleHashMap.get(key);
+            if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(innerConstant));
+            else if(theta < restingTheta) addForceToBody(key.get(1), normal.mul(-innerConstant));
             else addForceToBody(key.get(1), normal.mul(0));
         }
     }
