@@ -3,12 +3,14 @@ package Renderer;
 import Framework.Object.Component;
 import Framework.Object.Tag;
 import Input.InputEvents;
+import Renderer.UIElements.SetSlider;
 import Utilities.Geometry.Vector.Vector2i;
 
 public class Camera extends Component {
     public static Camera main;
     private int width = 800, height = 800;
     public Vector2i shift = new Vector2i(0);
+    @SetSlider(min = 0.1f, max = 2)
     public float scale = 1f;
 
     @Override

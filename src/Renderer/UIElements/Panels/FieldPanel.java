@@ -4,6 +4,7 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Renderer.UIElements.ColorDropDownMenu;
+import Renderer.UIElements.SetSlider;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -51,14 +52,15 @@ public class FieldPanel {
             panel.add(new JLabel(name));
             float val;
             JTextField field;
-            if(value!=PLACEHOLDER_FIELD) {
+            if (value != PLACEHOLDER_FIELD) {
                 val = (float) value;
                 field = new JTextField(String.valueOf(val));
-            }else{
-                field = new JTextField((String)value);
+            } else {
+                field = new JTextField((String) value);
             }
-            for(Component c: components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
+            for (Component c : components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
             panel.add(field);
+
         }else if(type == String.class){
             panel.add(new JLabel(name));
             String val;
