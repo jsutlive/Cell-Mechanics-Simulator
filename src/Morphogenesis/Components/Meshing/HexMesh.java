@@ -33,85 +33,94 @@ public class HexMesh extends Mesh{
 
 
     private void removeEntityFromList(Entity e){
-        cellList.remove(e);
+        for(int i = cellList.size() -1; i >= 0; i --){
+            if(cellList.get(i) == e){
+                cellList.remove(e);
+            }
+        }
     }
 
     @Override
     public void awake() {
-        for(Entity e: cellList) {
-            removeEntityFromList(e);
+
+        for(Entity e: cellList){
             e.destroy();
         }
+        cellList.clear();
+
+        allCentroids.clear();
         onSelectionButtonPressed.subscribe(this::selectAll);
-        Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+        //Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
         positionToNodeMap.clear();
-        generateSimpleMesh(new Vector2f(0), 6);
+        generateSimpleMesh(new Vector2f(0), sidesPerCell);
         allCentroids.add(new Vector2f(0));
-        float hypot = 121.244f;
+        //float hypot = 121.244f;
+        float sinAngle = (float) Math.sin(Math.toRadians(360f/sidesPerCell));
+        float hypot = (distanceFromCenter * sinAngle) * 2;
         List<Vector2f> centroids = new ArrayList<>();
-        for(int i = 0; i < 6; i++){
-            Vector2f unitVector = GetUnitVectorOnCircle((i*2)+1, 12);
+        for(int i = 0; i < sidesPerCell; i++){
+            Vector2f unitVector = GetUnitVectorOnCircle((i*2)+1, sidesPerCell * 2);
             Vector2f position = TransformToWorldSpace(unitVector, hypot);
             position.x = CustomMath.round(position.x, 3);
             position.y = CustomMath.round(position.y, 3);
-            generateSimpleMesh(position, 6);
+            generateSimpleMesh(position, sidesPerCell);
             centroids.add(position);
             allCentroids.add(position);
         }
         List<Vector2f> centroids2 = new ArrayList<>();
         for(int i = 0; i < centroids.size(); i++){
-            for(int j = 0; j < 6; j++) {
-                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, 12);
+            for(int j = 0; j < sidesPerCell; j++) {
+                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, sidesPerCell * 2);
                 Vector2f position = TransformToWorldSpace(unitVector, hypot);
                 position = position.add(centroids.get(i));
                 position.x = CustomMath.round(position.x, 3);
                 position.y = CustomMath.round(position.y, 3);
                 if(isNewCentroidPosition(position)){
                     centroids2.add(position);
-                    generateSimpleMesh(position, 6);
+                    generateSimpleMesh(position, sidesPerCell);
                     allCentroids.add(position);
                 }
             }
         }
         List<Vector2f> centroids3 = new ArrayList<>();
         for(int i = 0; i < centroids2.size(); i++){
-            for(int j = 0; j < 6; j++) {
-                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, 12);
+            for(int j = 0; j < sidesPerCell; j++) {
+                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, sidesPerCell * 2);
                 Vector2f position = TransformToWorldSpace(unitVector, hypot);
                 position = position.add(centroids2.get(i));
                 position.x = CustomMath.round(position.x, 3);
                 position.y = CustomMath.round(position.y, 3);
                 if(isNewCentroidPosition(position)) {
                     centroids3.add(position);
-                    generateSimpleMesh(position, 6);
+                    generateSimpleMesh(position, sidesPerCell);
                     allCentroids.add(position);
                 }
             }
         }
         List<Vector2f> centroids4 = new ArrayList<>();
         for(int i = 0; i < centroids3.size(); i++){
-            for(int j = 0; j < 6; j++) {
-                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, 12);
+            for(int j = 0; j < sidesPerCell; j++) {
+                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, sidesPerCell * 2);
                 Vector2f position = TransformToWorldSpace(unitVector, hypot);
                 position = position.add(centroids3.get(i));
                 position.x = CustomMath.round(position.x, 3);
                 position.y = CustomMath.round(position.y, 3);
                 if(isNewCentroidPosition(position)) {
                     centroids4.add(position);
-                    generateSimpleMesh(position, 6);
+                    generateSimpleMesh(position, sidesPerCell);
                     allCentroids.add(position);
                 }
             }
         }
         for(int i = 0; i < centroids4.size(); i++){
-            for(int j = 0; j < 6; j++) {
-                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, 12);
+            for(int j = 0; j < sidesPerCell; j++) {
+                Vector2f unitVector = GetUnitVectorOnCircle((j * 2) + 1, sidesPerCell * 2);
                 Vector2f position = TransformToWorldSpace(unitVector, hypot);
                 position = position.add(centroids4.get(i));
                 position.x = CustomMath.round(position.x, 3);
                 position.y = CustomMath.round(position.y, 3);
                 if(isNewCentroidPosition(position)) {
-                    generateSimpleMesh(position, 6);
+                    generateSimpleMesh(position, sidesPerCell);
                     allCentroids.add(position);
                 }
             }
@@ -224,7 +233,7 @@ public class HexMesh extends Mesh{
     @Override
     public void onDestroy() {
         onSelectionButtonPressed.unSubscribe(this::selectAll);
-        Entity.onRemoveEntity.unSubscribe(this::removeEntityFromList);
+        //Entity.onRemoveEntity.unSubscribe(this::removeEntityFromList);
 
     }
 }

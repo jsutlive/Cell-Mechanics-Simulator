@@ -3,8 +3,11 @@ package Framework.States;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.ModelLoader;
+import Framework.Object.Tag;
 import Framework.Timer.Time;
 import Input.InputEvents;
+import Input.SelectionEvents;
+import Renderer.Camera;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +23,11 @@ public final class StateMachine {
         timer = referenceTime;
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+        SelectionEvents.onTagSelected.subscribe(this::selectEntityWithTag);
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         InputEvents.onClear.subscribe(this::clearStateMachine);
         InputEvents.onLoadModel.subscribe(this::loadModel);
+        new Entity("Camera", -1, Tag.CAMERA).with(new Camera());
         changeState(new EditorState(this));
     }
 
@@ -34,6 +39,11 @@ public final class StateMachine {
         if(allObjects.contains(e))return;
         allObjects.add(e);
         e.awake();
+    }
+
+    private void selectEntityWithTag(Tag t){
+        Entity e = currentState.findObjectWithTag(t);
+        if(e!=null) SelectionEvents.selectEntity(e);
     }
 
     /**
@@ -64,12 +74,12 @@ public final class StateMachine {
         else changeState(new EditorState(this));
     }
 
-    public void clearStateMachine(boolean keepSameModel){
-        if(keepSameModel){
+    public void clearStateMachine(boolean keepCamera){
             for(int i = allObjects.size()-1; i>= 0; i-- ){
+                if(keepCamera && allObjects.get(i).getTag() == Tag.CAMERA) continue;
                 allObjects.get(i).destroy();
             }
-        }
+
     }
 
     public void loadModel(String modelName){
@@ -88,7 +98,7 @@ public final class StateMachine {
         Entity.onRemoveEntity.close();
         InputEvents.onToggleSimulation.close();
         InputEvents.onClear.close();
-
+        SelectionEvents.onTagSelected.close();
     }
 
 }

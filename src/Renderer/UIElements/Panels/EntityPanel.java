@@ -71,6 +71,7 @@ public class EntityPanel {
         JTextField nameField = new JTextField(entity.name);
         nameField.setHorizontalAlignment(JTextField.CENTER);
         nameField.setFont(nameLabel.getFont().deriveFont(18.0f));
+        nameField.setMaximumSize(new Dimension(300, 50));
         panel.add(nameField);
         nameField.addActionListener(e->entity.name = nameField.getText());
         setComponentsSingleEntity(entity);

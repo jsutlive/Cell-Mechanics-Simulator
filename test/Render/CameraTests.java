@@ -1,5 +1,6 @@
 package Render;
 
+import Framework.Object.Entity;
 import Renderer.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,7 +14,8 @@ public class CameraTests {
 
     @BeforeAll
     static void setup(){
-        camera = new Camera(800,800);
+        Entity e = new Entity().with(new Camera());
+        camera = e.getComponent(Camera.class);
     }
 
     @Test

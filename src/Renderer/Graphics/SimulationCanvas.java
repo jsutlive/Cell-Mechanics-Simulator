@@ -1,6 +1,10 @@
 package Renderer.Graphics;
 
+import Framework.Object.Tag;
+import Input.SelectionEvents;
+
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;

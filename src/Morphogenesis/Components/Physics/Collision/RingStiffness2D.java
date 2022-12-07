@@ -37,7 +37,7 @@ public class RingStiffness2D extends Force {
             ArrayList<Node2D> outerAngle = new ArrayList<>();
             outerAngle.add(outerNodes.get(a)); outerAngle.add(outerNodes.get(b)); outerAngle.add(outerNodes.get(c));
             ArrayList<Node2D> innerAngle = new ArrayList<>();
-            innerAngle.add(outerNodes.get(a)); innerAngle.add(outerNodes.get(b)); innerAngle.add(outerNodes.get(c));
+            innerAngle.add(innerNodes.get(a)); innerAngle.add(innerNodes.get(b)); innerAngle.add(innerNodes.get(c));
             outerEdgeAngleHashMap.put(outerAngle, calculateAngleBetweenNodes(outerAngle));
             innerEdgeAngleHashMap.put(innerAngle, calculateAngleBetweenNodes(innerAngle));
         }

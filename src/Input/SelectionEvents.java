@@ -3,6 +3,7 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Framework.Object.Tag;
 import Renderer.UIElements.Panels.EntityPanel;
 
 
@@ -15,6 +16,7 @@ public class SelectionEvents {
     // Event handler for when this object selects an entity
     public static EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
     public static EventHandler<Component> onSelectionButtonPressed = new EventHandler<>();
+    public static EventHandler<Tag> onTagSelected = new EventHandler<>();
 
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();

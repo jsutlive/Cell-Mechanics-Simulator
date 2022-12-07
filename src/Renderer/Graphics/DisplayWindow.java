@@ -24,6 +24,7 @@ import Morphogenesis.Components.Physics.Spring.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -33,6 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import static Framework.Data.ImageHandler.loadImage;
+import static Framework.Object.Tag.CAMERA;
 import static Framework.Object.Tag.MODEL;
 
 public class DisplayWindow
@@ -59,8 +61,18 @@ public class DisplayWindow
         CreateDisplay();
         CreateCanvas();
         createJMenuBar();
-
         frame.add(canvas);
+
+        JPanel sideBar = new JPanel();
+        sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
+        sideBar.setBorder(new BevelBorder(BevelBorder.RAISED));
+        JButton physicsButton = getButton("physics", MODEL);
+        physicsButton.setToolTipText("Select Group Physics");
+        JButton cameraButton = getButton("camera", CAMERA);
+        cameraButton.setToolTipText("Select Main Camera");
+        sideBar.add(physicsButton);
+        sideBar.add(cameraButton);
+        frame.add(sideBar, BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
 
         InputPanel inputPanel = new InputPanel(canvas);
@@ -85,6 +97,17 @@ public class DisplayWindow
         InputEvents.onToggleSimulation.subscribe(this::enableMenuBarOptionsOnToggle);
         SelectionEvents.onEntitySelected.subscribe(this::checkForSelectionMenuChange);
         StateMachine.onSaveStateInfo.subscribe(this::exportImage);
+    }
+
+    private JButton getButton(String name, Tag tag) {
+        JButton button = new JButton();
+        button.setPreferredSize(new Dimension(35,35));
+        ImageIcon icon = new ImageIcon(loadImage(name + ".png"));
+        Image image = icon.getImage();
+        image = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(image));
+        button.addActionListener(e-> SelectionEvents.onTagSelected.invoke(tag));
+        return button;
     }
 
     private void checkForSelectionMenuChange(HashSet<Entity> entities){

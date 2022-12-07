@@ -27,7 +27,6 @@ public abstract class Renderer implements Runnable {
     // run the renderer in an update loop
     public void run() {
         //Create a new camera when render loop starts. This is the main camera.
-        Camera cam = new Camera(bounds.width, bounds.height);
         while(applicationIsRunning) {
             renderClock.advance();
             if (renderClock.isReadyForNextFrame()) {
@@ -35,7 +34,6 @@ public abstract class Renderer implements Runnable {
             }
             renderClock.printFrameRateAndResetFrameTimer();
         }
-        cam.clearAllEvents();
     }
 
     public void clearBatch(){

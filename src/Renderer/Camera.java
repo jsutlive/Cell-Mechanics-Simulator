@@ -1,19 +1,20 @@
 package Renderer;
 
+import Framework.Object.Component;
+import Framework.Object.Tag;
 import Input.InputEvents;
 import Utilities.Geometry.Vector.Vector2i;
 
-public class Camera {
+public class Camera extends Component {
     public static Camera main;
-    public int width, height;
+    private int width = 800, height = 800;
     public Vector2i shift = new Vector2i(0);
     public float scale = 1f;
 
-    public Camera(int width, int height){
+    @Override
+    public void awake() {
         if(main == null) main = this;
-        this.width = width;
-        this.height = height;
-
+        if(parent.getTag()!= Tag.CAMERA) parent.addTag(Tag.CAMERA);
         InputEvents.onShift.subscribe(this::setShift);
         InputEvents.onScale.subscribe(this::setScale);
     }
@@ -58,6 +59,11 @@ public class Camera {
                 Math.round((pos.x-width/2f)/scale - shift.x),
                 Math.round((pos.y-height/2f)/scale - shift.y)
         );
+    }
+
+    @Override
+    public void onDestroy() {
+        clearAllEvents();
     }
 
     public void clearAllEvents(){
