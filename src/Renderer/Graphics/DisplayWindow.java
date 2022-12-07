@@ -8,14 +8,7 @@ import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
 import Input.InputEvents;
-import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Components.MouseSelector;
-import Morphogenesis.Components.Physics.Collision.CellRingCollider;
-import Morphogenesis.Components.Physics.Collision.RigidBoundary;
 import Morphogenesis.Components.Physics.OsmosisForce;
-import Morphogenesis.Components.Physics.Spring.ApicalConstrictingSpringForce;
-import Morphogenesis.Components.Physics.Spring.LateralShorteningSpringForce;
-import Morphogenesis.Components.Yolk;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
 import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
@@ -63,16 +56,8 @@ public class DisplayWindow
         createJMenuBar();
         frame.add(canvas);
 
-        JPanel sideBar = new JPanel();
-        sideBar.setLayout(new BoxLayout(sideBar, BoxLayout.Y_AXIS));
-        sideBar.setBorder(new BevelBorder(BevelBorder.RAISED));
-        JButton physicsButton = getButton("physics", MODEL);
-        physicsButton.setToolTipText("Select Group Physics");
-        JButton cameraButton = getButton("camera", CAMERA);
-        cameraButton.setToolTipText("Select Main Camera");
-        sideBar.add(physicsButton);
-        sideBar.add(cameraButton);
-        frame.add(sideBar, BorderLayout.EAST);
+        ObjectPanel obj = new ObjectPanel();
+        frame.add(obj.getPanel(), BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
 
         InputPanel inputPanel = new InputPanel(canvas);
@@ -80,11 +65,6 @@ public class DisplayWindow
         frame.setIconImage(loadImage("cell.png"));
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
 
-        HierarchyPanel hierarchyPanel = new HierarchyPanel();
-        JScrollPane hierarchyScrollPlane= new JScrollPane(hierarchyPanel.getPanel());
-        hierarchyPanel.getPanel().setAutoscrolls(true);
-        //frame.add(hierarchyScrollPlane);
-        //frame.add(hierarchyPanel.getPanel(), BorderLayout.EAST);
 
         input = new InputEvents();
         canvas.addKeyListener(input);
@@ -99,16 +79,6 @@ public class DisplayWindow
         StateMachine.onSaveStateInfo.subscribe(this::exportImage);
     }
 
-    private JButton getButton(String name, Tag tag) {
-        JButton button = new JButton();
-        button.setPreferredSize(new Dimension(35,35));
-        ImageIcon icon = new ImageIcon(loadImage(name + ".png"));
-        Image image = icon.getImage();
-        image = image.getScaledInstance(30,30, Image.SCALE_SMOOTH);
-        button.setIcon(new ImageIcon(image));
-        button.addActionListener(e-> SelectionEvents.onTagSelected.invoke(tag));
-        return button;
-    }
 
     private void checkForSelectionMenuChange(HashSet<Entity> entities){
         if(entities.size() > 1 && modelSelected) {

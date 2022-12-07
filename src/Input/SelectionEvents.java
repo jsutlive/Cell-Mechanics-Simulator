@@ -7,6 +7,7 @@ import Framework.Object.Tag;
 import Renderer.UIElements.Panels.EntityPanel;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -17,10 +18,46 @@ public class SelectionEvents {
     public static EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
     public static EventHandler<Component> onSelectionButtonPressed = new EventHandler<>();
     public static EventHandler<Tag> onTagSelected = new EventHandler<>();
+    public static EventHandler<Integer> onCreateGroup = new EventHandler<>();
+    public static EventHandler<Integer> onSelectGroup = new EventHandler<>();
+    public static EventHandler<Integer> onDeleteGroup = new EventHandler<>();
+    public static EventHandler<Boolean> onClearGroups = new EventHandler<>();
+
+
+    public static List<List<Entity>> groups = new ArrayList<>();
 
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
+        onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void createGroup(List<Entity> e){
+        for(List<Entity> group:groups){
+            if(group.contains(e.get(0)))return;
+        }
+        groups.add(e);
+        onCreateGroup.invoke(groups.size()-1);
+    }
+
+    public static void deleteGroup(int index){
+        List<List<Entity>> newGroups = new ArrayList<>();
+        for(int i = 0; i < groups.size(); i++){
+            if(i!=index)newGroups.add(groups.get(i));
+        }
+        groups = newGroups;
+        onDeleteGroup.invoke(index);
+    }
+
+    public static void clearGroups(){
+        groups.clear();
+        onClearGroups.invoke(true);
+    }
+
+    public static void selectGroup(int i){
+        selectedEntities.clear();
+        selectedEntities.addAll(groups.get(i));
+        onSelectGroup.invoke(i);
         onEntitySelected.invoke(selectedEntities);
     }
 

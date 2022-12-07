@@ -79,7 +79,7 @@ public final class StateMachine {
                 if(keepCamera && allObjects.get(i).getTag() == Tag.CAMERA) continue;
                 allObjects.get(i).destroy();
             }
-
+            SelectionEvents.clearGroups();
     }
 
     public void loadModel(String modelName){

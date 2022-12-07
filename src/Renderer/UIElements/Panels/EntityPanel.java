@@ -21,6 +21,8 @@ public class EntityPanel {
     JPanel panel;
     JLabel nameLabel;
     JPanel nameLabelPanel;
+    JButton groupButton;
+    int currentGroupSelection = -1;
 
     public static EventHandler<Boolean> onRefresh = new EventHandler<>();
     public JPanel getPanel() {
@@ -37,7 +39,12 @@ public class EntityPanel {
 
     public EntityPanel(){
         SelectionEvents.onEntitySelected.subscribe(this::setPanelName);
+        SelectionEvents.onSelectGroup.subscribe(this::setIsGroupSelection);
         refresh(true);
+    }
+
+    private void setIsGroupSelection(int index){
+        currentGroupSelection = index;
     }
 
     private void createBaseLabels() {
@@ -54,6 +61,11 @@ public class EntityPanel {
         createBaseLabels();
         if(entities.size()!= 0) {
             setDeleteButton(nameLabelPanel, entities);
+            if(entities.size()>1){
+                setGroupButton(nameLabelPanel, entities);
+            }else{
+                currentGroupSelection = -1;
+            }
         }
         if(entities.size() == 0) return;
         if(entities.size() == 1) {
@@ -93,6 +105,31 @@ public class EntityPanel {
         });
         namePanel.add(deleteButton);
 
+    }
+
+    private void setGroupButton(JPanel namePanel, HashSet<Entity> entities){
+        groupButton = new JButton("G");
+        groupButton.setMargin(new Insets(0,0,0,0));
+        groupButton.setFont(new Font("Serif", Font.BOLD, 10));
+        groupButton.setPreferredSize(new Dimension(15, 15));
+
+        if(currentGroupSelection < 0) {
+            groupButton.setToolTipText("Group Entities");
+            groupButton.setBackground(Color.green);
+            List<Entity> ent = new ArrayList<>();
+            ent.addAll(entities);
+            groupButton.addActionListener(e -> {
+                SelectionEvents.createGroup(ent);
+            });
+        }else{
+            groupButton.setText("U");
+            groupButton.setToolTipText("Delete Group");
+            groupButton.setBackground(Color.yellow);
+            groupButton.addActionListener(e -> {
+                SelectionEvents.deleteGroup(currentGroupSelection);
+            });
+        }
+        namePanel.add(groupButton);
     }
 
     private void setComponentsSingleEntity(Entity e) {
