@@ -34,16 +34,17 @@ public class CornerStiffness2D extends Force {
 
         cornerA.add(nodes.get(nodes.size() - 1)); cornerA.add(nodes.get(0)); cornerA.add(nodes.get(1));
 
-        cornerB.add(nodes.get(lateralResolution - 1)); cornerB.add(nodes.get(lateralResolution));
-        cornerB.add(nodes.get(lateralResolution + 1));
+        cornerB.add(nodes.get(lateralResolution - 2)); cornerB.add(nodes.get(lateralResolution-1));
+        cornerB.add(nodes.get(lateralResolution));
 
+        cornerC.add(nodes.get(lateralResolution + apicalResolution -2));
         cornerC.add(nodes.get(lateralResolution + apicalResolution -1));
         cornerC.add(nodes.get(lateralResolution + apicalResolution));
-        cornerC.add(nodes.get(lateralResolution + apicalResolution + 1));
 
         cornerD.add(nodes.get(nodes.size() - apicalResolution - 1));
         cornerD.add(nodes.get(nodes.size() - apicalResolution));
         cornerD.add(nodes.get(0));
+        int i = 2;
     }
 
     @Override
