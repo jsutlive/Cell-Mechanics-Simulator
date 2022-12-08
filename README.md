@@ -6,13 +6,30 @@ Morphogenesis Simulator Updated
 Note: The readme/ documentation currently describes the Master branch of the project.
 To have the most up-to-date, stable code, please refer to the Master branch.
 
-Folder organization:
+The Morphogenesis Simulator is a physics simulator initially constructed to simulate developing organisms as mechanical systems.
+
+## Features
+
+### Component-based physics system
+
+-Easily change behaviors of physics objects by adding and removing components.
+-Easy coding of new components to add new behaviors to system.
+
+### Functional GUI with object inspector
+
+-Change parameters of models without needing to code with the object inspector. 
+-Mouse select/multi-select objects
+-Group objects
+
+## Folder organization:
 
 Framework: the base engine and base object classes of the simulation including states, entity/component modules, and data saving
 
 Input: classes responsible for handling user input
 
-Morphogenesis: specific physics/ objects to the morophogenesis project including physics entities, vertex/edge rigidbodies, and physics components
+General Physics: specific components for basic physics, such as gravity.
+
+Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
 
 Renderer: classes responsible for graphics
 
