@@ -13,12 +13,15 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 ### Component-based physics system
 
 -Easily change behaviors of physics objects by adding and removing components.
+
 -Easy coding of new components to add new behaviors to system.
 
 ### Functional GUI with object inspector
 
 -Change parameters of models without needing to code with the object inspector. 
+
 -Mouse select/multi-select objects
+
 -Group objects
 
 ## Folder organization:
