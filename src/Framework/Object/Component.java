@@ -1,7 +1,7 @@
 package Framework.Object;
 
-import Morphogenesis.Components.ReloadComponentOnChange;
-import Morphogenesis.Components.ReloadEntityOnChange;
+import Morphogenesis.ReloadComponentOnChange;
+import Morphogenesis.ReloadEntityOnChange;
 
 import java.lang.reflect.Field;
 

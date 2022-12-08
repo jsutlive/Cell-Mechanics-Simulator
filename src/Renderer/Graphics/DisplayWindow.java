@@ -8,16 +8,15 @@ import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
 import Input.InputEvents;
-import Morphogenesis.Components.Physics.OsmosisForce;
+import Morphogenesis.Physics.OsmosisForce;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
-import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
-import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
-import Morphogenesis.Components.Physics.Spring.ElasticForce;
+import Morphogenesis.Physics.CellGroups.ApicalGradient;
+import Morphogenesis.Physics.CellGroups.LateralGradient;
+import Morphogenesis.Physics.Spring.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -27,8 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import static Framework.Data.ImageHandler.loadImage;
-import static Framework.Object.Tag.CAMERA;
-import static Framework.Object.Tag.MODEL;
 
 public class DisplayWindow
 {

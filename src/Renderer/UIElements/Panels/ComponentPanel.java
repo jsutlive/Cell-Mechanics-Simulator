@@ -5,8 +5,8 @@ import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Input.InputEvents;
 import Input.SelectionEvents;
-import Morphogenesis.Components.Physics.CellGroups.GroupSelector;
-import Morphogenesis.Components.Render.DoNotEditInGUI;
+import Morphogenesis.Physics.CellGroups.GroupSelector;
+import Morphogenesis.Render.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

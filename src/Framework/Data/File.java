@@ -6,7 +6,7 @@ import Framework.Data.Json.NodeSerializer;
 import Framework.Data.Json.VectorDeserializer;
 import Framework.Object.Component;
 import Framework.Object.Entity;
-import Morphogenesis.Rigidbodies.Node;
+import Framework.Rigidbodies.Node;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

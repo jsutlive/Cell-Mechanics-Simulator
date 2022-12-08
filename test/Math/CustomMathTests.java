@@ -1,7 +1,7 @@
 package Math;
 
-import Morphogenesis.Rigidbodies.Edge;
-import Morphogenesis.Rigidbodies.Node2D;
+import Framework.Rigidbodies.Edge;
+import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import org.junit.jupiter.api.Test;

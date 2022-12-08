@@ -1,13 +1,11 @@
 package Renderer.UIElements.Panels;
 
-
 import Framework.Object.Tag;
 import Input.SelectionEvents;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import java.awt.*;
-import java.awt.font.TextLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ import static Framework.Object.Tag.MODEL;
 
 public class ObjectPanel {
 
-    private JPanel panel;
+    private final JPanel panel;
     List<JButton> groupButtons = new ArrayList<>();
 
     public JPanel getPanel(){
@@ -59,9 +57,7 @@ public class ObjectPanel {
                 panel.add(button);
             }
         }
-
     }
-
 
     private void addGroupButton(int index){
         JButton button = getGroupButton(index);
@@ -69,10 +65,18 @@ public class ObjectPanel {
     }
 
     private JButton getGroupButton(int index) {
-        JButton button = new JButton("  " + index + "  " );
+        JButton button = new JButton();
         button.setHorizontalAlignment(JButton.CENTER);
+        button.setBackground(Color.PINK);
         button.setMargin(new Insets(0,0,0,0));
-        button.setFont(new Font("Serif", Font.BOLD, 20));
+        ImageIcon icon = new ImageIcon(loadImage("group.png"));
+        Image image = icon.getImage();
+        image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        button.setIcon(new ImageIcon(image));
+        button.setFont(new Font("Serif", Font.BOLD, 14));
+        button.setText("  " + index + "  " );
+        button.setHorizontalTextPosition(JButton.CENTER);
+        button.setVerticalTextPosition(JButton.BOTTOM);
         button.addActionListener(e-> SelectionEvents.selectGroup(index));
         button.setToolTipText("Select Group " + index);
         button.setMinimumSize(new Dimension(35,35));
@@ -82,7 +86,7 @@ public class ObjectPanel {
     private JButton getTaggedObjectButton(String name, Tag tag) {
         JButton button = new JButton();
         button.setPreferredSize(new Dimension(35,35));
-        if(name!="") {
+        if(!name.equals("")) {
             ImageIcon icon = new ImageIcon(loadImage(name + ".png"));
             Image image = icon.getImage();
             image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
@@ -91,6 +95,4 @@ public class ObjectPanel {
         button.addActionListener(e-> SelectionEvents.onTagSelected.invoke(tag));
         return button;
     }
-
-
 }

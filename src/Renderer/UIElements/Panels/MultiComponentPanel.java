@@ -4,10 +4,8 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Component;
 import Framework.Object.Entity;
-import Framework.States.EditorState;
-import Framework.States.State;
 import Input.InputEvents;
-import Morphogenesis.Components.Render.DoNotEditInGUI;
+import Morphogenesis.Render.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

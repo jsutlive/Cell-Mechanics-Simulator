@@ -1,6 +1,6 @@
 package Utilities.Geometry;
 
-import Morphogenesis.Rigidbodies.Node2D;
+import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 

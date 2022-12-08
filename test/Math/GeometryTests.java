@@ -1,7 +1,7 @@
 package Math;
 import Framework.Object.Entity;
-import Morphogenesis.Rigidbodies.Edge;
-import Morphogenesis.Rigidbodies.Node2D;
+import Framework.Rigidbodies.Edge;
+import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Geometry;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;

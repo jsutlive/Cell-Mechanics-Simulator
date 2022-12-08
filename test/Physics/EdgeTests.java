@@ -1,7 +1,7 @@
 package Physics;
 
-import Morphogenesis.Rigidbodies.Edge;
-import Morphogenesis.Rigidbodies.Node2D;
+import Framework.Rigidbodies.Edge;
+import Framework.Rigidbodies.Node2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

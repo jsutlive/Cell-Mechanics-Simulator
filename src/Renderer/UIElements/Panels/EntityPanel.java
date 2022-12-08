@@ -1,13 +1,10 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Events.EventHandler;
-import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
-import Framework.Object.Tag;
 import Input.SelectionEvents;
-import Morphogenesis.Components.MouseSelector;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -60,12 +57,12 @@ public class EntityPanel {
         panel.removeAll();
         createBaseLabels();
         if(entities.size()!= 0) {
-            setDeleteButton(nameLabelPanel, entities);
             if(entities.size()>1){
                 setGroupButton(nameLabelPanel, entities);
             }else{
                 currentGroupSelection = -1;
             }
+            setDeleteButton(nameLabelPanel, entities);
         }
         if(entities.size() == 0) return;
         if(entities.size() == 1) {

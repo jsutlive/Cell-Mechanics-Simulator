@@ -1,15 +1,15 @@
 package Framework.Object;
 
 import Input.SelectionEvents;
-import Morphogenesis.Components.Meshing.BoxDebugMesh;
-import Morphogenesis.Components.Meshing.HexMesh;
-import Morphogenesis.Components.Meshing.RingMesh;
-import Morphogenesis.Components.MouseSelector;
-import Morphogenesis.Components.Physics.CellGroups.ApicalGradient;
-import Morphogenesis.Components.Physics.CellGroups.LateralGradient;
-import Morphogenesis.Components.Physics.Collision.*;
-import Morphogenesis.Components.Physics.Spring.ElasticForce;
-import Morphogenesis.Components.Yolk;
+import Morphogenesis.Meshing.BoxDebugMesh;
+import Morphogenesis.Meshing.HexMesh;
+import Morphogenesis.Meshing.RingMesh;
+import Morphogenesis.MouseSelector;
+import Morphogenesis.Physics.CellGroups.ApicalGradient;
+import Morphogenesis.Physics.CellGroups.LateralGradient;
+import Morphogenesis.Physics.Collision.*;
+import Morphogenesis.Physics.Spring.ElasticForce;
+import Morphogenesis.Yolk;
 
 import static Framework.Object.Tag.MODEL;
 

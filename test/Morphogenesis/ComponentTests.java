@@ -1,7 +1,7 @@
 package Morphogenesis;
 
 import Framework.Object.Component;
-import Morphogenesis.Components.Meshing.RingMesh;
+import Morphogenesis.Meshing.RingMesh;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

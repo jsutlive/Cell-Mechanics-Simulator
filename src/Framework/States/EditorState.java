@@ -2,7 +2,7 @@ package Framework.States;
 
 
 import Framework.Object.Entity;
-import Morphogenesis.Components.Meshing.Mesh;
+import Morphogenesis.Meshing.Mesh;
 
 
 import static Framework.Object.Tag.MODEL;
