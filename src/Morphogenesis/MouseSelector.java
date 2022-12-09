@@ -97,7 +97,6 @@ public class MouseSelector extends Component {
 
     @Override
     public void onDestroy() {
-        System.out.println("HERE");
         InputEvents.onClick.close();
         InputEvents.onPress.close();
         InputEvents.onDrag.close();

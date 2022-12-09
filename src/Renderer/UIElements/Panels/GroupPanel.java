@@ -1,6 +1,5 @@
 package Renderer.UIElements.Panels;
 
-import Framework.Object.Component;
 import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Renderer.UIElements.ColorDropDownMenu;
@@ -27,7 +26,6 @@ public class GroupPanel {
     }
 
     private void createPanel(int i){
-        System.out.println("HERE");
         if(i > -1){
             group = SelectionEvents.groups.get(i);
             panel.removeAll();

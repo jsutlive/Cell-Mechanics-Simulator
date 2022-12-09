@@ -1,7 +1,6 @@
 package Framework.Object;
 
 import Renderer.Graphics.IColor;
-import Renderer.Graphics.IRender;
 import Renderer.Renderer;
 
 import java.awt.*;
@@ -10,7 +9,7 @@ import java.util.List;
 public class EntityGroup {
     public List<Entity> entities;
     public Color color = Renderer.DEFAULT_COLOR;
-    public String name = "";
+    public String name;
 
     public EntityGroup(List<Entity>entities, int index){
         this.entities = entities;
