@@ -1,10 +1,11 @@
 # MorphogenesisSimulationV2
 Morphogenesis Simulator Updated
-
+<p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png"
      alt="Markdown Monster icon"
      width="750"
      style="float: left; margin-right: 10px;" />
+</p>
 Note: The readme/ documentation currently describes the Master branch of the project.
 To have the most up-to-date, stable code, please refer to the Master branch.
 
@@ -42,12 +43,12 @@ Utilities: Additional math/physics functions, i.e. vector mathematics and comple
 
 Morphogenesis Simulator:
 An animated physics simulator used to model folding of tissue during morphogenesis. Compatible with PC and Mac!
-
+<p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
      alt="Markdown Monster icon"
      width="750"
      style="float: left; margin-right: 10px;" />
-
+</p>
 Simulation framework:
 The simulation has unique editor and simulation states which you can use to tweak model parameters via the component inspector.
 Each state has behaviors it performs every physics update, which drive the simulation.
