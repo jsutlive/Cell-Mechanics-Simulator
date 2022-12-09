@@ -90,6 +90,7 @@ public class MeshRenderer extends ObjectRenderer
     public void render()
     {
         if(!enabled) return;
+        if(cellMesh == null)return;
         for(Edge edge: cellMesh.edges)
         {
             Vector2f[] positions = edge.getPositions();
