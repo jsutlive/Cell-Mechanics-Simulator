@@ -3,6 +3,7 @@ package Input;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
 import Renderer.UIElements.Panels.EntityPanel;
 
@@ -24,29 +25,31 @@ public class SelectionEvents {
     public static EventHandler<Boolean> onClearGroups = new EventHandler<>();
 
 
-    public static List<List<Entity>> groups = new ArrayList<>();
+    public static List<EntityGroup> groups = new ArrayList<>();
 
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
         onEntitySelected.invoke(selectedEntities);
+        onSelectGroup.invoke(-1);
     }
 
     public static void createGroup(List<Entity> e){
-        for(List<Entity> group:groups){
-            if(group.contains(e.get(0)))return;
+        for(EntityGroup group:groups){
+            if(group.entities.contains(e.get(0)))return;
         }
-        groups.add(e);
+        groups.add(new EntityGroup(e, groups.size()));
         onCreateGroup.invoke(groups.size()-1);
     }
 
     public static void deleteGroup(int index){
-        List<List<Entity>> newGroups = new ArrayList<>();
+        List<EntityGroup> newGroups = new ArrayList<>();
         for(int i = 0; i < groups.size(); i++){
             if(i!=index)newGroups.add(groups.get(i));
         }
         groups = newGroups;
         onDeleteGroup.invoke(index);
+        onSelectGroup.invoke(-1);
     }
 
     public static void clearGroups(){
@@ -56,7 +59,7 @@ public class SelectionEvents {
 
     public static void selectGroup(int i){
         selectedEntities.clear();
-        selectedEntities.addAll(groups.get(i));
+        selectedEntities.addAll(groups.get(i).entities);
         onSelectGroup.invoke(i);
         onEntitySelected.invoke(selectedEntities);
     }

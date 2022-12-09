@@ -37,6 +37,8 @@ public class InputPanel {
 
         PlayPanel playPanel = new PlayPanel();
         panel.add(playPanel.getPanel());
+        GroupPanel groupPanel = new GroupPanel();
+        panel.add(groupPanel.getPanel());
         EntityPanel componentPanel = new EntityPanel();
 
         JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());

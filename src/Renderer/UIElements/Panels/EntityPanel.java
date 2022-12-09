@@ -37,6 +37,7 @@ public class EntityPanel {
     public EntityPanel(){
         SelectionEvents.onEntitySelected.subscribe(this::setPanelName);
         SelectionEvents.onSelectGroup.subscribe(this::setIsGroupSelection);
+        SelectionEvents.onCreateGroup.subscribe(this::setIsGroupSelection);
         refresh(true);
     }
 
@@ -117,6 +118,7 @@ public class EntityPanel {
             ent.addAll(entities);
             groupButton.addActionListener(e -> {
                 SelectionEvents.createGroup(ent);
+                setPanelName(entities);
             });
         }else{
             groupButton.setText("U");
@@ -124,6 +126,7 @@ public class EntityPanel {
             groupButton.setBackground(Color.yellow);
             groupButton.addActionListener(e -> {
                 SelectionEvents.deleteGroup(currentGroupSelection);
+                setPanelName(entities);
             });
         }
         namePanel.add(groupButton);

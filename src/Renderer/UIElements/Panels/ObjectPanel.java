@@ -1,5 +1,6 @@
 package Renderer.UIElements.Panels;
 
+import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
 import Input.SelectionEvents;
 
@@ -17,6 +18,8 @@ public class ObjectPanel {
 
     private final JPanel panel;
     List<JButton> groupButtons = new ArrayList<>();
+    JButton physicsButton;
+    JButton cameraButton;
 
     public JPanel getPanel(){
         return panel;
@@ -27,58 +30,87 @@ public class ObjectPanel {
         SelectionEvents.onCreateGroup.subscribe(this::addGroupButton);
         SelectionEvents.onClearGroups.subscribe(this::removeAllGroupButtons);
         SelectionEvents.onDeleteGroup.subscribe(this::removeGroupButton);
+        SelectionEvents.onSelectGroup.subscribe(this::modifyGroupButton);
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         removeAllGroupButtons(true);
     }
 
+    private void modifyGroupButton(int index){
+        panel.removeAll();
+        panel.add(physicsButton);
+        panel.add(cameraButton);
+        List<JButton> newGroupButtons = new ArrayList<>();
+        int idx = 0;
+        for(JButton button: groupButtons){
+            newGroupButtons.add(getGroupButton(idx));
+            idx++;
+        }
+        groupButtons.clear();
+        groupButtons = newGroupButtons;
+        for(JButton button:groupButtons){
+            panel.add(button);
+        }
+        panel.setVisible(false);
+        panel.setVisible(true);
+    }
+
     private void removeAllGroupButtons(boolean changeScene){
         panel.removeAll();
         groupButtons.clear();
-        JButton physicsButton = getTaggedObjectButton("physics", MODEL);
+        physicsButton = getTaggedObjectButton("physics", MODEL);
         physicsButton.setToolTipText("Select Group Physics");
-        JButton cameraButton = getTaggedObjectButton("camera", CAMERA);
+        cameraButton = getTaggedObjectButton("camera", CAMERA);
         cameraButton.setToolTipText("Select Main Camera");
         panel.add(physicsButton);
         panel.add(cameraButton);
     }
 
     private void removeGroupButton(int index){
-        for(JButton button: groupButtons){
-            panel.remove(button);
-        }
+        panel.removeAll();
+        panel.add(physicsButton);
+        panel.add(cameraButton);
         List<JButton> newGroupButtons = new ArrayList<>();
         int idx = 0;
         for(JButton button: groupButtons){
             if(button!= groupButtons.get(index)){
                 newGroupButtons.add(getGroupButton(idx));
                 idx++;
-                panel.add(button);
             }
         }
+        groupButtons.clear();
+        groupButtons = newGroupButtons;
+        for(JButton button:groupButtons){
+            panel.add(button);
+        }
+        panel.setVisible(false);
+        panel.setVisible(true);
     }
 
     private void addGroupButton(int index){
         JButton button = getGroupButton(index);
+        groupButtons.add(button);
         panel.add(button);
     }
 
     private JButton getGroupButton(int index) {
+        if(index < 0) return null;
+        EntityGroup group = SelectionEvents.groups.get(index);
         JButton button = new JButton();
         button.setHorizontalAlignment(JButton.CENTER);
-        button.setBackground(Color.PINK);
+        button.setBackground(group.color);
         button.setMargin(new Insets(0,0,0,0));
         ImageIcon icon = new ImageIcon(loadImage("group.png"));
         Image image = icon.getImage();
         image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
         button.setIcon(new ImageIcon(image));
         button.setFont(new Font("Serif", Font.BOLD, 14));
-        button.setText("  " + index + "  " );
+        button.setText(group.name);
         button.setHorizontalTextPosition(JButton.CENTER);
         button.setVerticalTextPosition(JButton.BOTTOM);
         button.addActionListener(e-> SelectionEvents.selectGroup(index));
-        button.setToolTipText("Select Group " + index);
+        button.setToolTipText("Select Group " + group.name);
         button.setMinimumSize(new Dimension(35,35));
         return button;
     }
