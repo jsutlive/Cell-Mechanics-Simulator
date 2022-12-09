@@ -1,9 +1,6 @@
 package Renderer.UIElements.Panels;
 
-import Framework.Events.EventHandler;
-import Framework.Events.IEvent;
 import Input.InputEvents;
-import Renderer.UIElements.Panels.EntityPanel;
 import Renderer.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 
@@ -12,13 +9,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-import static Framework.Data.ImageHandler.loadImage;
 import static java.awt.MouseInfo.getPointerInfo;
 
 public class InputPanel {
 
     private JPanel panel;
-    private JButton toggleSimulationButton;
     private JLabel mouseLabel;
     private final Canvas tempCanvasReference; //FIX
 

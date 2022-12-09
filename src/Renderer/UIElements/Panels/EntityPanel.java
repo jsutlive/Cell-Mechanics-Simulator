@@ -27,6 +27,7 @@ public class EntityPanel {
     }
 
     public void refresh(Boolean b){
+        if(!b)return;
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new EmptyBorder(2,2,2,2));
@@ -98,9 +99,7 @@ public class EntityPanel {
             deleteButton.setToolTipText("Delete Entities");
         }
         deleteButton.setBackground(Color.red);
-        deleteButton.addActionListener(e -> {
-            SelectionEvents.deleteSelection();
-        });
+        deleteButton.addActionListener(e -> SelectionEvents.deleteSelection());
         namePanel.add(deleteButton);
 
     }
@@ -114,8 +113,7 @@ public class EntityPanel {
         if(currentGroupSelection < 0) {
             groupButton.setToolTipText("Group Entities");
             groupButton.setBackground(Color.green);
-            List<Entity> ent = new ArrayList<>();
-            ent.addAll(entities);
+            List<Entity> ent = new ArrayList<>(entities);
             groupButton.addActionListener(e -> {
                 SelectionEvents.createGroup(ent);
                 setPanelName(entities);

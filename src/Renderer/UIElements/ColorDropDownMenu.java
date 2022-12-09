@@ -12,10 +12,10 @@ public class ColorDropDownMenu {
 
     public static HashMap<String, Color> colorDictionary = new HashMap<>();
 
-    private JComboBox menu;
+    private JComboBox<String> menu;
 
     public ColorDropDownMenu(Color value){
-        setMenu(new JComboBox(colorStrings));
+        setMenu(new JComboBox<>(colorStrings));
         for (int i = 0; i< colorStrings.length; i++) {
             colorDictionary.put(colorStrings[i], colors[i]);
             if(value == colors[i]) menu.setSelectedIndex(i);
@@ -23,15 +23,15 @@ public class ColorDropDownMenu {
     }
 
     public ColorDropDownMenu(){
-        setMenu(new JComboBox(colorStrings));
+        setMenu(new JComboBox<>(colorStrings));
         menu.setSelectedIndex(0);
     }
 
-    public JComboBox getMenu() {
+    public JComboBox<String> getMenu() {
         return menu;
     }
 
-    public void setMenu(JComboBox menu) {
+    public void setMenu(JComboBox<String> menu) {
         this.menu = menu;
     }
 }

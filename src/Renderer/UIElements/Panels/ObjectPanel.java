@@ -42,10 +42,8 @@ public class ObjectPanel {
         panel.add(physicsButton);
         panel.add(cameraButton);
         List<JButton> newGroupButtons = new ArrayList<>();
-        int idx = 0;
-        for(JButton button: groupButtons){
-            newGroupButtons.add(getGroupButton(idx));
-            idx++;
+        for(int i =0; i< groupButtons.size(); i++){
+            newGroupButtons.add(getGroupButton(i));
         }
         groupButtons.clear();
         groupButtons = newGroupButtons;

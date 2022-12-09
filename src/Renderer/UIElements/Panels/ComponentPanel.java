@@ -28,10 +28,10 @@ public class ComponentPanel {
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        Class type = null;
+        Class<?> type = null;
         Object value = null;
         String name = null;
-        Class componentClass = c.getClass();
+        Class<?> componentClass = c.getClass();
 
 
         JPanel namePanel = new JPanel();
@@ -60,9 +60,7 @@ public class ComponentPanel {
             deleteButton.setPreferredSize(new Dimension(15, 15));
             deleteButton.setToolTipText("Select all in group");
             deleteButton.setBackground(Color.cyan);
-            deleteButton.addActionListener(e -> {
-                SelectionEvents.onSelectionButtonPressed.invoke(c);
-            });
+            deleteButton.addActionListener(e -> SelectionEvents.onSelectionButtonPressed.invoke(c));
             namePanel.add(deleteButton);
         }
     }
@@ -83,7 +81,7 @@ public class ComponentPanel {
         }
     }
 
-    private void setFields(Component c, Class type, Object value, String name, Class componentClass) {
+    private void setFields(Component c, Class<?> type, Object value, String name, Class componentClass) {
         for(Field f : componentClass.getFields()){
             if(Modifier.isTransient(f.getModifiers())){
                 f.setAccessible(true);
