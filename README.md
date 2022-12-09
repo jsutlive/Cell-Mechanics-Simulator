@@ -42,6 +42,9 @@ Morphogenesis Simulator:
 An animated physics simulator used to model folding of tissue during morphogenesis. Compatible with PC and Mac!
 
 ![image of morphogenesis simulation GUI](https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png)
+<img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
 
 Simulation framework:
 The simulation has unique editor and simulation states which you can use to tweak model parameters via the component inspector.
