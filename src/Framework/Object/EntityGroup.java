@@ -17,6 +17,10 @@ public class EntityGroup {
         name = Integer.toString(index);
     }
 
+    public void setName(String name){
+        this.name = name.substring(0, Math.min(name.length(), 5));
+    }
+
     public void changeGroupColor(Color color){
         if (this.color == color) return;
         this.color = color;

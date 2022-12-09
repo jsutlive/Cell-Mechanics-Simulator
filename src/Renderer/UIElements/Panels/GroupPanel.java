@@ -53,7 +53,7 @@ public class GroupPanel {
         JTextField field;
         field = new JTextField(group.name);
         field.addActionListener(e -> {
-            group.name =  field.getText();
+            group.setName(field.getText());
             SelectionEvents.selectGroup(i);
         });
         nameFieldPanel.add(field);
