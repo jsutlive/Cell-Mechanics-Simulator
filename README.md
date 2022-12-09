@@ -1,8 +1,10 @@
 # MorphogenesisSimulationV2
 Morphogenesis Simulator Updated
 
-![image of morphogenesis simulation GUI](https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png)
-
+<img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png"
+     alt="Markdown Monster icon"
+     width="750"
+     style="float: left; margin-right: 10px;" />
 Note: The readme/ documentation currently describes the Master branch of the project.
 To have the most up-to-date, stable code, please refer to the Master branch.
 
@@ -43,7 +45,7 @@ An animated physics simulator used to model folding of tissue during morphogenes
 
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
      alt="Markdown Monster icon"
-     width="250"
+     width="750"
      style="float: left; margin-right: 10px;" />
 
 Simulation framework:
