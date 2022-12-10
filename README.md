@@ -1,5 +1,6 @@
 # MorphogenesisSimulationV2
 Morphogenesis Simulator Updated
+For in-depth information, please consult the [wiki](https://github.com/jsutlive/MorphogenesisSimulationV2/wiki)!
 <p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png"
      alt="Markdown Monster icon"
