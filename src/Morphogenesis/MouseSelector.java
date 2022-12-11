@@ -15,9 +15,10 @@ import java.awt.event.MouseEvent;
 @DoNotDestroyInGUI
 public class MouseSelector extends Component {
 
-    private static boolean alt = false;
-    private static boolean shiftKey = false;
-    private static boolean selecting = false;
+    static boolean alt = false;
+    static boolean shiftKey = false;
+    private boolean selecting = false;
+    private boolean doNotSelect = false;
     public StateMachine stateMachine;
 
     @Override
@@ -34,7 +35,7 @@ public class MouseSelector extends Component {
         alt = _alt;
     }
 
-    public void setShiftModifier(boolean _shift){
+    private void setShiftModifier(boolean _shift){
         if(_shift) {
             SelectionEvents.beginSelectingMultiple();
             shiftKey = true;
@@ -46,7 +47,11 @@ public class MouseSelector extends Component {
     }
 
     private void onMousePressed(MouseEvent e){
-        if(e.getButton() == MouseEvent.BUTTON2) return;
+        if(e.getButton() == MouseEvent.BUTTON2) {
+            doNotSelect = true;
+            return;
+        }
+        doNotSelect = false;
         assert Camera.main != null;
         Vector2i mousePosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
@@ -61,6 +66,7 @@ public class MouseSelector extends Component {
     }
 
     private void onMouseDragged(MouseEvent e){
+        if(doNotSelect)return;
         assert Camera.main != null;
         Vector2i mousePosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(!selecting) deselectEntity(mousePosition);
