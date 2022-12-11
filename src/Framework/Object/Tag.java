@@ -3,5 +3,6 @@ package Framework.Object;
 public enum Tag
 {
     MODEL,
-    CAMERA
+    CAMERA,
+    PHYSICS
 }

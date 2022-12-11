@@ -44,6 +44,7 @@ public class Camera extends Component {
     }
 
     private void mouseDragged(MouseEvent e){
+        System.out.println("HERE");
         if(isMovingCamera){
             Vector2i mousePos = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
             Vector2i shift = mousePos.sub(mouseStartingClickPosition);

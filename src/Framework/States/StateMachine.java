@@ -2,15 +2,19 @@ package Framework.States;
 
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
-import Framework.Object.ModelLoader;
 import Framework.Object.Tag;
+import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
 import Input.InputEvents;
 import Input.SelectionEvents;
+import Morphogenesis.MouseSelector;
 import Renderer.Camera;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static Framework.Object.Tag.PHYSICS;
+import static Framework.Object.Tag.CAMERA;
 
 public final class StateMachine {
 
@@ -27,7 +31,9 @@ public final class StateMachine {
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
         InputEvents.onClear.subscribe(this::clearStateMachine);
         InputEvents.onLoadModel.subscribe(this::loadModel);
-        new Entity("Camera", -1, Tag.CAMERA).with(new Camera());
+        new Entity("Camera", -1, CAMERA).with(new Camera());
+        Entity physics = new Entity("Physics", -2, PHYSICS).with(new MouseSelector());
+        physics.getComponent(MouseSelector.class).stateMachine = this;
         changeState(new EditorState(this));
     }
 
@@ -76,10 +82,12 @@ public final class StateMachine {
 
     public void clearStateMachine(boolean keepCamera){
             for(int i = allObjects.size()-1; i>= 0; i-- ){
-                if(keepCamera && allObjects.get(i).getTag() == Tag.CAMERA) continue;
+                Tag tag = allObjects.get(i).getTag();
+                if(keepCamera &&( tag== CAMERA || tag == PHYSICS)) continue;
                 allObjects.get(i).destroy();
             }
             SelectionEvents.clearGroups();
+        System.out.println(allObjects.size());
     }
 
     public void loadModel(String modelName){
@@ -99,6 +107,7 @@ public final class StateMachine {
         InputEvents.onToggleSimulation.close();
         InputEvents.onClear.close();
         SelectionEvents.onTagSelected.close();
+        for(Entity e: allObjects) e.destroy();
     }
 
 }

@@ -18,7 +18,6 @@ public class ModelLoader {
     public static Entity loadDrosophilaEmbryo(){
         Entity e = new Entity("Physics System", 0, MODEL).
                 with(new RingMesh()).
-                with(new MouseSelector()).
                 with(new ApicalGradient()).
                 with(new LateralGradient()).
                 with(new CellRingCollider()).
@@ -33,7 +32,6 @@ public class ModelLoader {
     public static Entity loadHexMesh(){
         Entity e =  new Entity("Physics System", 0, MODEL).
                 with(new HexMesh()).
-                with(new MouseSelector()).
                 with(new MeshCollider()
                 );
         SelectionEvents.selectEntity(e);

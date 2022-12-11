@@ -101,12 +101,12 @@ public class RingMesh extends Mesh {
 
     @Override
     public Entity returnCellContainingPoint(Vector2f vector2f) {
-        for (Entity cell : cellList) {
+        /*for (Entity cell : cellList) {
             if (cell.getComponent(RingCellMesh.class).collidesWithPoint(vector2f)) {
                 return cell;
             }
-        }
-        return parent;
+        }*/
+        return null;
     }
 
     public void addCellToList(List<Entity> cellList, Entity cell, int ringLocation) {

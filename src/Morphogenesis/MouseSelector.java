@@ -3,6 +3,8 @@ package Morphogenesis;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
+import Framework.Object.Tag;
+import Framework.States.StateMachine;
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Morphogenesis.Meshing.Mesh;
@@ -17,6 +19,8 @@ public class MouseSelector extends Component {
     private static boolean alt = false;
     private static boolean shiftKey = false;
     private static boolean selecting = false;
+    public StateMachine stateMachine;
+
     @Override
     public void awake() {
         InputEvents.onPress.subscribe(this::onMousePressed);
@@ -24,6 +28,7 @@ public class MouseSelector extends Component {
         InputEvents.onRelease.subscribe(this::onMouseReleased);
         InputEvents.onAlt.subscribe(this::setAlt);
         InputEvents.onShiftKey.subscribe(this::setShiftModifier);
+
     }
 
     public void setAlt(boolean _alt){
@@ -71,24 +76,38 @@ public class MouseSelector extends Component {
      * @param mousePosition derived mouse position from cursor location and camera state
      */
     private void selectEntity(Vector2i mousePosition) {
-        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
-        if(getComponent(Yolk.class)!= null) {
-            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        System.out.println(stateMachine.allObjects.size());
+        for(Entity e:stateMachine.allObjects){
+            if(e.getTag()== Tag.MODEL) continue;
+            Mesh mesh = e.getComponent(Mesh.class);
+            if(mesh!= null){
+
+                Entity selected = mesh.returnCellContainingPoint(mousePosition.asFloat());
+                if(selected!= null) {
+                    SelectionEvents.selectEntity(selected);
+                    return;
+                }
+            }
         }
-        SelectionEvents.selectEntity(selected);
+        SelectionEvents.clearSelection();
     }
 
     private void deselectEntity(Vector2i mousePosition){
-        Entity selected = getComponent(Mesh.class).returnCellContainingPoint(mousePosition.asFloat());
-        if(getComponent(Yolk.class)!= null) {
-            if (selected == parent) selected = getComponent(Yolk.class).checkSelection(mousePosition.asFloat());
+        for(Entity e:stateMachine.allObjects){
+            if(e.getTag()== Tag.MODEL) continue;
+            Mesh mesh = e.getComponent(Mesh.class);
+            if(mesh!= null){
+                Entity selected = mesh.returnCellContainingPoint(mousePosition.asFloat());
+                if(selected!= null) {
+                    SelectionEvents.deselectEntity(selected);
+                    return;
+                }
+            }
         }
-        SelectionEvents.deselectEntity(selected);
     }
 
     @Override
     public void onDestroy() {
-        InputEvents.onClick.close();
         InputEvents.onPress.close();
         InputEvents.onDrag.close();
         InputEvents.onRelease.close();

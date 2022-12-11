@@ -212,12 +212,12 @@ public class HexMesh extends Mesh{
 
     @Override
     public Entity returnCellContainingPoint(Vector2f vector2f) {
-        for (Entity cell : cellList) {
+        /*for (Entity cell : cellList) {
             if (cell.getComponent(Mesh.class).collidesWithPoint(vector2f)) {
                 return cell;
             }
-        }
-        return parent;
+        }*/
+        return null;
     }
 
     private void selectAll(Component component){
