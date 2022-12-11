@@ -1,7 +1,7 @@
 package Morphogenesis;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Component;
-import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
@@ -12,8 +12,7 @@ import Renderer.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.event.MouseEvent;
-
-@DoNotExposeInGUI
+@DoNotDestroyInGUI
 public class MouseSelector extends Component {
 
     private static boolean alt = false;

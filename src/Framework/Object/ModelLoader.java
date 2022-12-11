@@ -16,7 +16,7 @@ import static Framework.Object.Tag.MODEL;
 public class ModelLoader {
 
     public static Entity loadDrosophilaEmbryo(){
-        Entity e = new Entity("Physics System", 0, MODEL).
+        Entity e = new Entity("Drosophila Embryo Ring", 0, MODEL).
                 with(new RingMesh()).
                 with(new ApicalGradient()).
                 with(new LateralGradient()).
@@ -30,7 +30,7 @@ public class ModelLoader {
     }
 
     public static Entity loadHexMesh(){
-        Entity e =  new Entity("Physics System", 0, MODEL).
+        Entity e =  new Entity("Cell Sheet", 0, MODEL).
                 with(new HexMesh()).
                 with(new MeshCollider()
                 );

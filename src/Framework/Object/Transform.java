@@ -1,11 +1,13 @@
 package Framework.Object;
 
 import Framework.Events.EventHandler;
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Morphogenesis.Meshing.Mesh;
 import Morphogenesis.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector2f;
 
 @ReloadComponentOnChange
+@DoNotDestroyInGUI
 public class Transform extends Component{
     public Vector2f position = new Vector2f();
     Mesh mesh;

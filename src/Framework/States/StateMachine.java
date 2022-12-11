@@ -50,6 +50,7 @@ public final class StateMachine {
     private void selectEntityWithTag(Tag t){
         Entity e = currentState.findObjectWithTag(t);
         if(e!=null) SelectionEvents.selectEntity(e);
+        else SelectionEvents.clearSelection();
     }
 
     /**

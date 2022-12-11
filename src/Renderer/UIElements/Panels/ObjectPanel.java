@@ -1,5 +1,6 @@
 package Renderer.UIElements.Panels;
 
+import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
 import Input.SelectionEvents;
@@ -11,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Framework.Data.ImageHandler.loadImage;
-import static Framework.Object.Tag.CAMERA;
-import static Framework.Object.Tag.MODEL;
+import static Framework.Object.Tag.*;
 
 public class ObjectPanel {
 
@@ -20,6 +20,7 @@ public class ObjectPanel {
     List<JButton> groupButtons = new ArrayList<>();
     JButton physicsButton;
     JButton cameraButton;
+    JButton modelButton;
 
     public JPanel getPanel(){
         return panel;
@@ -41,6 +42,7 @@ public class ObjectPanel {
         panel.removeAll();
         panel.add(physicsButton);
         panel.add(cameraButton);
+        panel.add(modelButton);
         List<JButton> newGroupButtons = new ArrayList<>();
         for(int i =0; i< groupButtons.size(); i++){
             newGroupButtons.add(getGroupButton(i));
@@ -56,19 +58,24 @@ public class ObjectPanel {
 
     private void removeAllGroupButtons(boolean changeScene){
         panel.removeAll();
+        modelButton = null;
         groupButtons.clear();
-        physicsButton = getTaggedObjectButton("physics", MODEL);
-        physicsButton.setToolTipText("Select Group Physics");
+        physicsButton = getTaggedObjectButton("physics", PHYSICS);
+        physicsButton.setToolTipText("Select Physics Settings");
         cameraButton = getTaggedObjectButton("camera", CAMERA);
         cameraButton.setToolTipText("Select Main Camera");
+        modelButton = getTaggedObjectButton("model", MODEL);
+        modelButton.setToolTipText("Select Model Settings");
         panel.add(physicsButton);
         panel.add(cameraButton);
+        panel.add(modelButton);
     }
 
     private void removeGroupButton(int index){
         panel.removeAll();
         panel.add(physicsButton);
         panel.add(cameraButton);
+        panel.add(modelButton);
         List<JButton> newGroupButtons = new ArrayList<>();
         int idx = 0;
         for(JButton button: groupButtons){

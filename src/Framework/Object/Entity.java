@@ -28,7 +28,7 @@ public final class Entity implements IBehavior
       this.name = name;
       this.uniqueID = uniqueID;
       this.tag = tag;
-      if(tag!=Tag.MODEL) {
+      if(tag!=Tag.MODEL && tag!= Tag.PHYSICS) {
          addComponent(new Transform());
       }
       onAddEntity.invoke(this);
@@ -46,7 +46,7 @@ public final class Entity implements IBehavior
    public Tag getTag() {return tag;}
    public void addTag(Tag tag){
       this.tag = tag;
-      if (tag == Tag.MODEL){
+      if (tag == Tag.MODEL|| tag == Tag.PHYSICS){
          removeComponent(Transform.class);
       }
    }
