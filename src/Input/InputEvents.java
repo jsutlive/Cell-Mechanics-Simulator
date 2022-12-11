@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;
 
-public class InputEvents implements KeyListener, MouseListener, MouseMotionListener {
+public class InputEvents implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     public static EventHandler<String> onLoadModel = new EventHandler<>();
     private boolean spaceToggle = false;
@@ -79,11 +79,13 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     @Override
     public void mousePressed(MouseEvent e) {
         onPress.invoke(e);
+        SelectionEvents.refresh();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         onRelease.invoke(e);
+        SelectionEvents.refresh();
     }
 
     @Override
@@ -132,10 +134,22 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     @Override
     public void mouseDragged(MouseEvent e) {
         onDrag.invoke(e);
+        SelectionEvents.refresh();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         moveMouse(e);
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+
+            if (e.getWheelRotation() < 0) {
+                onScale.invoke(1.05f);
+            } else {
+                onScale.invoke(1/(1.05f));
+            }
+
     }
 }

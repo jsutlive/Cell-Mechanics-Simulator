@@ -25,10 +25,13 @@ public class Vector2i {
         y += vec.y;
     }
 
-    public void sub(Vector2f vec)
+    public Vector2i sub(Vector2i vec)
     {
-        x -= vec.x;
-        y -= vec.y;
+        Vector2i v = new Vector2i();
+        v.x = this.x - vec.x;
+        v.y = this.y - vec.y;
+
+        return v;
     }
 
     public Vector2f asFloat()

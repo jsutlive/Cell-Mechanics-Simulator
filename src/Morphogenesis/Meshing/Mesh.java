@@ -3,6 +3,7 @@ package Morphogenesis.Meshing;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Framework.Object.Transform;
 import Morphogenesis.Render.DoNotEditInGUI;
 import Morphogenesis.Render.MeshRenderer;
 import Morphogenesis.Render.VirtualRenderer;
@@ -55,7 +56,7 @@ public abstract class Mesh extends Component {
         if(restingArea == 0) restingArea = area;
     }
 
-    private void calculateCentroid(){
+    public Vector2f calculateCentroid(){
         float x = 0;
         float y = 0;
         for (Node2D node: nodes){
@@ -65,6 +66,7 @@ public abstract class Mesh extends Component {
         x = x/nodes.size();
         y = y/nodes.size();
         centroid = new Vector2f(x,y);
+        return centroid;
     }
 
     @Override
@@ -75,6 +77,8 @@ public abstract class Mesh extends Component {
             return;
         }
         parent.removeComponent(MeshRenderer.class);
+        Transform t = getComponent(Transform.class);
+        if(t!= null) t.position = calculateCentroid();
         for(Method method: getClass().getDeclaredMethods()){
             if(method.isAnnotationPresent(Builder.class))
             {

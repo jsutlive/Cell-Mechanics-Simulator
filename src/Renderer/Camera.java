@@ -2,23 +2,59 @@ package Renderer;
 
 import Framework.Object.Component;
 import Framework.Object.Tag;
+import Framework.Object.Transform;
 import Input.InputEvents;
 import Renderer.UIElements.SetSlider;
+import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
+
+import java.awt.event.MouseEvent;
 
 public class Camera extends Component {
     public static Camera main;
     private int width = 800, height = 800;
-    public Vector2i shift = new Vector2i(0);
+    private Vector2i shift = new Vector2i(0);
     @SetSlider(min = 0.1f, max = 2)
     public float scale = 1f;
+    private boolean isMovingCamera;
+    private Vector2i mouseStartingClickPosition = new Vector2i();
 
     @Override
     public void awake() {
         if(main == null) main = this;
         if(parent.getTag()!= Tag.CAMERA) parent.addTag(Tag.CAMERA);
+        getComponent(Transform.class).onPositionChanged.subscribe(this::overrideShift);
         InputEvents.onShift.subscribe(this::setShift);
         InputEvents.onScale.subscribe(this::setScale);
+        InputEvents.onPress.subscribe(this::mousePressed);
+        InputEvents.onRelease.subscribe(this::mouseReleased);
+        InputEvents.onDrag.subscribe(this::mouseDragged);
+    }
+
+    private void overrideShift(Vector2f vec){
+        System.out.println("HI");
+        shift = vec.asInt();
+    }
+
+    private void mousePressed(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON2){
+            isMovingCamera = true;
+            mouseStartingClickPosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
+        }
+    }
+
+    private void mouseDragged(MouseEvent e){
+        if(isMovingCamera){
+            Vector2i mousePos = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
+            Vector2i shift = mousePos.sub(mouseStartingClickPosition);
+            setShift(shift);
+        }
+    }
+
+    private void mouseReleased(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON2){
+            isMovingCamera = false;
+        }
     }
 
     public void setScale(float newScale)
@@ -33,6 +69,7 @@ public class Camera extends Component {
     public void setShift(Vector2i newShift)
     {
         shift.add(newShift);
+        getComponent(Transform.class).position = shift.asFloat();
     }
 
     public Vector2i getShift(){
@@ -71,5 +108,9 @@ public class Camera extends Component {
     public void clearAllEvents(){
         InputEvents.onShift.close();
         InputEvents.onScale.close();
+        InputEvents.onPress.unSubscribe(this::mousePressed);
+        InputEvents.onRelease.unSubscribe(this::mouseReleased);
+        InputEvents.onDrag.unSubscribe(this::mouseDragged);
+        getComponent(Transform.class).onPositionChanged.unSubscribe(this::overrideShift);
     }
 }

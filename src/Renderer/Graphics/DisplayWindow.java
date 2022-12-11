@@ -19,6 +19,7 @@ import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class DisplayWindow
         canvas.addKeyListener(input);
         canvas.addMouseListener(input);
         canvas.addMouseMotionListener(input);
+        canvas.addMouseWheelListener(input);
         frame.setFocusable(true);
         frame.requestFocus();
         frame.pack();

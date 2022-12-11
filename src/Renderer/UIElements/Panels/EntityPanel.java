@@ -21,7 +21,6 @@ public class EntityPanel {
     JButton groupButton;
     int currentGroupSelection = -1;
 
-    public static EventHandler<Boolean> onRefresh = new EventHandler<>();
     public JPanel getPanel() {
         return panel;
     }

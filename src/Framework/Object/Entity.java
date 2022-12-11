@@ -20,6 +20,7 @@ public final class Entity implements IBehavior
    }
    public Entity(String name){
       this.name = name;
+      addComponent(new Transform());
       onAddEntity.invoke(this);
    }
 
@@ -27,6 +28,9 @@ public final class Entity implements IBehavior
       this.name = name;
       this.uniqueID = uniqueID;
       this.tag = tag;
+      if(tag!=Tag.MODEL) {
+         addComponent(new Transform());
+      }
       onAddEntity.invoke(this);
    }
 
@@ -40,7 +44,12 @@ public final class Entity implements IBehavior
       uniqueID = ID;
    }
    public Tag getTag() {return tag;}
-   public void addTag(Tag tag){this.tag = tag;}
+   public void addTag(Tag tag){
+      this.tag = tag;
+      if (tag == Tag.MODEL){
+         removeComponent(Transform.class);
+      }
+   }
 
    public void awake() {}
    public void start() {for (Component c: components) c.start();}

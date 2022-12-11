@@ -5,6 +5,8 @@ import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Renderer.UIElements.ColorDropDownMenu;
 import Renderer.UIElements.SetSlider;
+import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -89,8 +91,69 @@ public class FieldPanel {
                         changeGUI(c, (String) colorDropDownMenu.getMenu().getSelectedItem(), type));
             panel.add(colorDropDownMenu.getMenu());
         }
+        else if(type == Vector2i.class){
+            panel.setLayout(new GridLayout(0, 5));
+            panel.add(new JLabel(name));
+            Vector2i val;
+            JTextField fieldX,fieldY;
+            if(value!=PLACEHOLDER_FIELD) {
+                val = (Vector2i) value;
+                fieldX = new JTextField(String.valueOf(val.x));
+                fieldY = new JTextField(String.valueOf(val.y));
+
+            }else{
+                fieldX = new JTextField((String)value);
+                fieldY = new JTextField((String)value);
+            }
+            for(Component c: components) {
+                fieldX.addActionListener(e -> changeGUIVec(c, new String[]{fieldX.getText(), fieldY.getText()}, type));
+            }
+            fieldX.setHorizontalAlignment(JTextField.CENTER);
+            fieldY.setHorizontalAlignment(JTextField.CENTER);
+            panel.add(fieldX);
+            panel.add(new JLabel("X"));
+            panel.add(fieldY);
+            panel.add(new JLabel("Y"));
+        }
+        else if(type == Vector2f.class){
+            panel.setLayout(new GridLayout(0, 5));
+            panel.add(new JLabel(name));
+            Vector2f val;
+            JTextField fieldX,fieldY;
+            if(value!=PLACEHOLDER_FIELD) {
+                val = (Vector2f) value;
+                fieldX = new JTextField(String.valueOf(val.x));
+                fieldY = new JTextField(String.valueOf(val.y));
+
+            }else{
+                fieldX = new JTextField((String)value);
+                fieldY = new JTextField((String)value);
+            }
+            for(Component c: components) {
+                fieldX.addActionListener(e -> changeGUIVec(c, new String[]{fieldX.getText(), fieldY.getText()}, type));
+            }
+            fieldX.setHorizontalAlignment(JTextField.CENTER);
+            fieldY.setHorizontalAlignment(JTextField.CENTER);
+            panel.add(fieldX);
+            panel.add(new JLabel("X"));
+            panel.add(fieldY);
+            panel.add(new JLabel("Y"));
+        }
         else{
             isSerializable = false;
+        }
+    }
+
+    public void changeGUIVec(Component c, String[] field, Class<?> type){
+        if(type == Vector2i.class){
+            int x = Integer.parseInt(field[0]);
+            int y = Integer.parseInt(field[1]);
+            c.changeFieldOnGUI(name, new Vector2i(x, y));
+        }
+        else if(type == Vector2f.class){
+            float x = Float.parseFloat(field[0]);
+            float y = Float.parseFloat(field[1]);
+            c.changeFieldOnGUI(name, new Vector2f(x, y));
         }
     }
 
@@ -108,7 +171,6 @@ public class FieldPanel {
             Color value = ColorDropDownMenu.colorDictionary.get(field);
             c.changeFieldOnGUI(name, value);
         }
-        EntityPanel.onRefresh.invoke(true);
         SelectionEvents.refresh();
     }
 

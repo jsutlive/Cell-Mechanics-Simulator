@@ -101,7 +101,6 @@ public class SelectionEvents {
         for(Entity e: selectedEntities) {
             e.addComponent(c);
         }
-        EntityPanel.onRefresh.invoke(true);
         onEntitySelected.invoke(selectedEntities);
     }
 

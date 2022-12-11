@@ -19,7 +19,6 @@ public class MouseSelector extends Component {
     private static boolean selecting = false;
     @Override
     public void awake() {
-        InputEvents.onClick.subscribe(this::onMouseClicked);
         InputEvents.onPress.subscribe(this::onMousePressed);
         InputEvents.onDrag.subscribe(this::onMouseDragged);
         InputEvents.onRelease.subscribe(this::onMouseReleased);
@@ -40,14 +39,6 @@ public class MouseSelector extends Component {
             SelectionEvents.cancelSelectingMultiple();
             shiftKey = false;
         }
-    }
-
-    /**
-     * Left-click: get mouse position based on screenpoint/ camera
-     * @param e mouse event
-     */
-    private void onMouseClicked(MouseEvent e){
-
     }
 
     private void onMousePressed(MouseEvent e){
