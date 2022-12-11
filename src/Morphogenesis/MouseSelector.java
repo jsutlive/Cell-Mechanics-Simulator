@@ -46,6 +46,7 @@ public class MouseSelector extends Component {
     }
 
     private void onMousePressed(MouseEvent e){
+        if(e.getButton() == MouseEvent.BUTTON2) return;
         assert Camera.main != null;
         Vector2i mousePosition = Camera.main.getScreenPoint(new Vector2i(e.getX(), e.getY()));
         if(e.getButton() == MouseEvent.BUTTON1) {
