@@ -2,10 +2,10 @@ package Morphogenesis.Physics.CellGroups;
 
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Morphogenesis.Meshing.Mesh;
 import Morphogenesis.Meshing.RingCellMesh;
-import Morphogenesis.Meshing.RingMesh;
 import Morphogenesis.Physics.Forces.GaussianGradient;
 import Morphogenesis.Physics.Forces.Gradient;
 import Morphogenesis.Physics.Spring.ApicalConstrictingSpringForce;
@@ -24,7 +24,7 @@ import static Input.SelectionEvents.onSelectionButtonPressed;
 @GroupSelector
 public class ApicalGradient extends Component {
 
-    transient List<Entity> cellGroup = new ArrayList<>();
+    transient EntityGroup cellGroup;
     public int numberOfConstrictingCells = 12;
     public float mu = 0f;
     public float sigma = 0.8f;
@@ -40,33 +40,38 @@ public class ApicalGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
+        if(cellGroup!=null) {
+            SelectionEvents.deleteGroup(cellGroup.groupID);
+        }
+        cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
-        RingMesh mesh = getComponent(RingMesh.class);
-        addCellsToGroup(mesh);
+        addCellsToGroup();
+        cellGroup.recolor();
     }
 
     private void recalculate(Mesh mesh){
         if(mesh == getComponent(Mesh.class)){
             calculateGradient();
-            addCellsToGroup(getComponent(RingMesh.class));
+            addCellsToGroup();
+            cellGroup.recolor();
         }
     }
 
     private void selectAllInGroup(Component c){
         if(c == this) {
-            SelectionEvents.selectEntities(cellGroup);
+            SelectionEvents.selectGroup(cellGroup);
         }
     }
 
     public void calculateGradient(){
-        cellGroup.clear();
         gradient.calculate(numberOfConstrictingCells,
                 constantCeiling, ratioCeiling, constantFloor, ratioFloor);
     }
 
-    private void addCellsToGroup(RingMesh mesh) {
-        for(Entity cell: mesh.cellList){
+    private void addCellsToGroup() {
+        System.out.println("HERE");
+        for(Entity cell: getChildren()){
             int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
             if( ringLocation <= numberOfConstrictingCells / 2){
                 ApicalConstrictingSpringForce apicalConstriction =
@@ -76,7 +81,6 @@ public class ApicalGradient extends Component {
                 }
                 apicalConstriction.setConstant(gradient.getConstants()[ringLocation- 1]);
                 apicalConstriction.setTargetLengthRatio(gradient.getRatios()[ringLocation - 1]);
-                cell.getComponent(MeshRenderer.class).setColor(groupColor);
                 cellGroup.add(cell);
             }
             else{
@@ -86,13 +90,15 @@ public class ApicalGradient extends Component {
                 }
             }
         }
+        SelectionEvents.createGroup(cellGroup);
     }
 
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::recalculate);
         onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
-        for(Entity cell: cellGroup){
+        SelectionEvents.deleteGroup(cellGroup.groupID);
+        for(Entity cell: cellGroup.entities){
             cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }

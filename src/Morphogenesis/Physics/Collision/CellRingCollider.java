@@ -21,7 +21,7 @@ public class CellRingCollider extends Force {
 
     @Override
     public void awake() {
-        cells = getComponent(RingMesh.class).cellList;
+        cells = getChildren();
         nodes = getComponent(RingMesh.class).nodes;
     }
 
@@ -45,8 +45,9 @@ public class CellRingCollider extends Force {
 
     private void setNodePositionToClosestEdge(Node2D node, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        if(closePoint.isNull() || (closePoint.x == 0 && closePoint.y ==0)) return;
-        if(node.getPosition().distanceTo(closePoint) > 5f) return;
+        if(closePoint.equals(node.getPosition()))return;
+        if (closePoint.isNull() || (closePoint.x == 0 && closePoint.y == 0)) return;
+        if (node.getPosition().distanceTo(closePoint) > 5f) return;
         node.moveTo(closePoint);
     }
 }

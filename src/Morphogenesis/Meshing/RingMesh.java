@@ -38,7 +38,6 @@ public class RingMesh extends Mesh {
 
     public transient ArrayList<Node2D> outerNodes = new ArrayList<>();
     public transient ArrayList<Node2D> innerNodes = new ArrayList<>();
-    public transient ArrayList<Entity> cellList = new ArrayList<>();
     public transient ArrayList<Edge> basalEdges = new ArrayList<>();
     public transient ArrayList<Edge> apicalEdges = new ArrayList<>();
 
@@ -54,15 +53,15 @@ public class RingMesh extends Mesh {
 
     private void selectAll(Component component){
         if(component ==this){
-            SelectionEvents.selectEntities(cellList);
+            SelectionEvents.selectEntities(parent.children);
         }
     }
 
     private void resetCells() {
-        for(Entity cell: cellList){
+        for(Entity cell: parent.children){
             cell.destroy();
         }
-        cellList.clear();
+        parent.children.clear();
         outerNodes.clear();
         innerNodes.clear();
         basalEdges.clear();
@@ -70,7 +69,7 @@ public class RingMesh extends Mesh {
     }
 
     private void setApicalAndBasalEdges() {
-        for(Entity cell: cellList)
+        for(Entity cell: parent.children)
         {
             RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
             for(Node2D node: mesh.nodes){
@@ -90,7 +89,6 @@ public class RingMesh extends Mesh {
                     innerNodes.add((Node2D) e.getNodes()[0]);
                 }
             }
-
         }
     }
 
@@ -101,25 +99,20 @@ public class RingMesh extends Mesh {
 
     @Override
     public Entity returnCellContainingPoint(Vector2f vector2f) {
-        /*for (Entity cell : cellList) {
-            if (cell.getComponent(RingCellMesh.class).collidesWithPoint(vector2f)) {
-                return cell;
-            }
-        }*/
         return null;
     }
 
-    public void addCellToList(List<Entity> cellList, Entity cell, int ringLocation) {
+    /*public void addCellToList(List<Entity> cellList, Entity cell, int ringLocation) {
         if (cell.getComponent(RingCellMesh.class) != null) {
             cell.getComponent(RingCellMesh.class).ringLocation = ringLocation;
-            cellList.add(cell);
+            cell.setParent(parent);
         } else {
             throw new NullPointerException("New cell object not instantiated successfully");
         }
         if (cell.getComponent(RingCellMesh.class).nodes.size() == 0) {
             throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
         }
-    }
+    }*/
 
     public float getRadiusToNode(int j) {
         float radiusStep = (innerRadius - outerRadius) / lateralResolution;
@@ -160,8 +153,9 @@ public class RingMesh extends Mesh {
 
                 ArrayList<Node2D> cellNodes = new ArrayList<>(mirroredNodes);
                 cellNodes.addAll(oldMirroredNodes);
-                newCell = getNewCell(cellNodes, 0);
-                addCellToList(mirroredCells, newCell, i);
+                newCell = getNewCell(cellNodes);
+                newCell.getComponent(RingCellMesh.class).ringLocation = i;
+                mirroredCells.add(newCell);
                 if(i != 1) {
                     cellNodes = new ArrayList<>(oldNodes);
                 }else {
@@ -174,8 +168,9 @@ public class RingMesh extends Mesh {
                 }else{
                     cellNodes.addAll(nodes);
                 }
-                newCell = getNewCell(cellNodes, 1);
-                addCellToList(cellList, newCell, i);
+                newCell = getNewCell(cellNodes);
+                newCell.getComponent(RingCellMesh.class).ringLocation = i;
+                newCell.setParent(parent);
             }
             Collections.reverse(mirroredNodes);
             Collections.reverse(oldNodes);
@@ -185,15 +180,13 @@ public class RingMesh extends Mesh {
             mirroredNodes.clear();
         }
         Collections.reverse(mirroredCells);
-        cellList.addAll(mirroredCells);
+        for(Entity e: mirroredCells) e.setParent(parent);
     }
 
-    private Entity getNewCell(ArrayList<Node2D> cellNodes, int mod) {
-        return new Entity("Cell " + (cellList.size() + mod)).
+    private Entity getNewCell(ArrayList<Node2D> cellNodes) {
+        return new Entity("Cell " + (parent.children.size())).
                 with(new RingCellMesh().build(cellNodes)).
-                //with(new EdgeStiffness2D()).
                 with(new ElasticForce()).
-                //with(new CornerStiffness2D()).
                 with(new MeshStiffness2D()).
                 with(new OsmosisForce());
     }

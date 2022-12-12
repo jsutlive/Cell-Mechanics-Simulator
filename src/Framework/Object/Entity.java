@@ -11,6 +11,8 @@ public final class Entity implements IBehavior
    private int uniqueID;
    private List<Component> components = new ArrayList<>();
    private Tag tag;
+   public Entity parent;
+   public ArrayList<Entity> children = new ArrayList<>();
 
    public static EventHandler<Entity> onAddEntity = new EventHandler<>();
    public static EventHandler<Entity> onRemoveEntity = new EventHandler<>();
@@ -32,6 +34,16 @@ public final class Entity implements IBehavior
          addComponent(new Transform());
       }
       onAddEntity.invoke(this);
+   }
+
+   public void setParent(Entity e){
+         parent = e;
+         e.children.add(this);
+   }
+
+   public void removeParent(){
+      parent.children.remove(this);
+      parent = null;
    }
 
    /**

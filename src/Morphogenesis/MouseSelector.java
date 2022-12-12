@@ -82,7 +82,6 @@ public class MouseSelector extends Component {
      * @param mousePosition derived mouse position from cursor location and camera state
      */
     private void selectEntity(Vector2i mousePosition) {
-        System.out.println(stateMachine.allObjects.size());
         for(Entity e:stateMachine.allObjects){
             if(e.getTag()== Tag.MODEL) continue;
             Mesh mesh = e.getComponent(Mesh.class);
@@ -98,8 +97,12 @@ public class MouseSelector extends Component {
         SelectionEvents.clearSelection();
     }
 
+    /**
+     * If a selected entity exists in the current mousePosition, deselect it.
+     * @param mousePosition
+     */
     private void deselectEntity(Vector2i mousePosition){
-        for(Entity e:stateMachine.allObjects){
+        for(Entity e:SelectionEvents.getSelectedEntities()){
             if(e.getTag()== Tag.MODEL) continue;
             Mesh mesh = e.getComponent(Mesh.class);
             if(mesh!= null){

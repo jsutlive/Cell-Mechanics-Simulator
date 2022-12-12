@@ -41,11 +41,19 @@ public class SelectionEvents {
         groups.add(new EntityGroup(e, groups.size()));
         onCreateGroup.invoke(groups.size()-1);
     }
+    public static void createGroup(EntityGroup group){
+        groups.add(group);
+        group.groupID = groups.size()-1;
+        onCreateGroup.invoke(group.groupID);
+    }
 
     public static void deleteGroup(int index){
         List<EntityGroup> newGroups = new ArrayList<>();
         for(int i = 0; i < groups.size(); i++){
-            if(i!=index)newGroups.add(groups.get(i));
+            if(i!=index){
+                newGroups.add(groups.get(i));
+                newGroups.get(i).groupID = i;
+            }
         }
         groups = newGroups;
         onDeleteGroup.invoke(index);
@@ -61,6 +69,13 @@ public class SelectionEvents {
         selectedEntities.clear();
         selectedEntities.addAll(groups.get(i).entities);
         onSelectGroup.invoke(i);
+        onEntitySelected.invoke(selectedEntities);
+    }
+
+    public static void selectGroup(EntityGroup group){
+        selectedEntities.clear();
+        selectedEntities.addAll(group.entities);
+        onSelectGroup.invoke(group.groupID);
         onEntitySelected.invoke(selectedEntities);
     }
 

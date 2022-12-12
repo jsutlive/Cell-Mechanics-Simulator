@@ -22,9 +22,16 @@ public class Collision2D {
         float t = -dotProduct/segmentLengthSquared;
 
         if(t >=0 && t<= 1) return vectorToSegment2D(t, new Vector2f(), segment);
+        Vector2f result = testPoints(point, segment);
+        if(result.equals(point)) return null;
+        else return result;
+    }
+
+    public static Vector2f testPoints(Vector2f point, Vector2f[] segment) {
         float zeroTest = squareDiagonal2D(vectorToSegment2D(0, point, segment));
         float oneTest = squareDiagonal2D(vectorToSegment2D(1, point, segment));
-        return zeroTest <= oneTest ? segment[0] : segment[1];
+        Vector2f result =  zeroTest <= oneTest ? segment[0] : segment[1];
+        return result;
     }
 
     private static Vector2f vectorToSegment2D(float t, Vector2f point, Vector2f[] segment){

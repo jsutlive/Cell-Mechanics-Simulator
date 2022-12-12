@@ -33,12 +33,10 @@ public class ComponentPanel {
         String name = null;
         Class<?> componentClass = c.getClass();
 
-
         JPanel namePanel = new JPanel();
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
         nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
-
 
         setSelectButton(c, namePanel);
         setDeleteButton(c, namePanel);
@@ -81,7 +79,7 @@ public class ComponentPanel {
         }
     }
 
-    private void setFields(Component c, Class<?> type, Object value, String name, Class componentClass) {
+    private void setFields(Component c, Class<?> type, Object value, String name, Class<?> componentClass) {
         for(Field f : componentClass.getFields()){
             if(Modifier.isTransient(f.getModifiers())){
                 f.setAccessible(true);
@@ -111,8 +109,6 @@ public class ComponentPanel {
                     numFields++;
                 }
             }
-
-
         }
     }
 

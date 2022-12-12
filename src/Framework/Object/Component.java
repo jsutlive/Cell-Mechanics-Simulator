@@ -4,6 +4,8 @@ import Morphogenesis.ReloadComponentOnChange;
 import Morphogenesis.ReloadEntityOnChange;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Component implements IBehavior, IExposeToGUI {
     protected transient Entity parent;
@@ -42,6 +44,10 @@ public abstract class Component implements IBehavior, IExposeToGUI {
     public void removeSelf(){
         onDestroy();
         parent.removeComponent(this.getClass());
+    }
+
+    public ArrayList<Entity> getChildren(){
+        return parent.children;
     }
 
     @Override

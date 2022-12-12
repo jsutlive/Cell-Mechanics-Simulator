@@ -26,9 +26,34 @@ public class Collision2DTests {
         Vector2f checkPoint = new Vector2f(0.8f, 0.5f);
         Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[1], point2Dmesh[2]};
         Vector2f pointOnEdge = Collision2D.closestPointToSegmentFromPoint(checkPoint, eastSegment);
-        System.out.println(pointOnEdge.print());
+        assertNotNull(pointOnEdge);
         assertEquals(1.0f, pointOnEdge.x);
         assertEquals(0.5f, pointOnEdge.y);
+    }
+
+    @Test
+    void check_value_throws_exception_if_node_on_segment_is_null(){
+        Vector2f checkPoint = new Vector2f(0,0);
+        Vector2f[] segment = new Vector2f[]{new Vector2f(2,2), null};
+        assertThrows(NullPointerException.class, () -> Collision2D.testPoints(checkPoint, segment));
+    }
+
+    @Test
+    void check_value_when_segment_points_are_equal(){
+        Vector2f checkPoint = new Vector2f(0,0);
+        Vector2f[] segment  = new Vector2f[]{new Vector2f(1,1), new Vector2f(1, 1)};
+        Vector2f result = Collision2D.testPoints(checkPoint, segment);
+        assertEquals(1f, result.x);
+        assertEquals(1f, result.y);
+    }
+
+    @Test
+    void check_value_when_segment_point_and_check_points_are_equal(){
+        Vector2f checkPoint = new Vector2f(0,0);
+        Vector2f[] segment  = new Vector2f[]{new Vector2f(0,0), new Vector2f(1, 1)};
+        Vector2f result = Collision2D.testPoints(checkPoint, segment);
+        assertEquals(0f, result.x);
+        assertEquals(0f, result.y);
     }
 
     @Test
@@ -36,7 +61,7 @@ public class Collision2DTests {
         Vector2f checkPoint = new Vector2f(0.2f, 0.5f);
         Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[3], point2Dmesh[0]};
         Vector2f pointOnEdge = Collision2D.closestPointToSegmentFromPoint(checkPoint, eastSegment);
-        System.out.println(pointOnEdge.print());
+        assertNotNull(pointOnEdge);
         assertEquals(0.0f, pointOnEdge.x);
         assertEquals(0.5f, pointOnEdge.y);
     }
@@ -48,9 +73,7 @@ public class Collision2DTests {
         Vector2f[] eastSegment = new Vector2f[]{point2Dmesh[2], point2Dmesh[3]};
 
         Vector2f testPoint = Collision2D.closestPointToSegmentFromPoint(checkPoint, eastSegment);
-
-        System.out.println(testPoint.print());
-
+        assertNotNull(testPoint);
         assertEquals(SE_point.x, testPoint.x);
         assertEquals(SE_point.y, testPoint.y);
     }
