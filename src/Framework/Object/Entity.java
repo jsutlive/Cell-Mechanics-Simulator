@@ -103,7 +103,7 @@ public final class Entity implements IBehavior
    /**
     * Returns a component of a given subclass of component
     * @param componentClass an instance of this class is added as a component
-    * @param <T> sybtype of component
+    * @param <T> subtype of component
     * @return the component that was added to this entity
     */
    public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -120,6 +120,11 @@ public final class Entity implements IBehavior
       return null;
    }
 
+   /**
+    * Remove all components of a given type
+    * @param componentClass class of component to remove
+    * @param <T> subtype of component
+    */
    public <T extends Component> void removeComponent(Class<T> componentClass){
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
