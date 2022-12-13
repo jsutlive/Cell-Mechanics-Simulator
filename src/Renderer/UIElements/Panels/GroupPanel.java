@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
+/**
+ * Group Panel: UI element for editing group characteristics, primarily for UI purposes
+ */
 public class GroupPanel {
     JPanel panel;
     EntityGroup group;

@@ -6,6 +6,10 @@ import Renderer.Renderer;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Entity Group: grouped assortment of entities, i.e., an extension of a list/ array of cells. Designed to improve GUI
+ * functionality
+ */
 public class EntityGroup {
     public List<Entity> entities;
     public Color color = Renderer.DEFAULT_COLOR;
@@ -29,10 +33,6 @@ public class EntityGroup {
 
     public void add(Entity entity){
         entities.add(entity);
-    }
-
-    public void clear(){
-        entities.clear();
     }
 
     public void recolor(){

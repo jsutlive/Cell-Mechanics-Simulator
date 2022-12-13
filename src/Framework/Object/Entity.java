@@ -1,15 +1,17 @@
 package Framework.Object;
 
 import Framework.Events.EventHandler;
-import Framework.States.State;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity: physics object for use in engine
+ */
 public final class Entity implements IBehavior
 {
    public String name;
    private int uniqueID;
-   private List<Component> components = new ArrayList<>();
+   final private List<Component> components = new ArrayList<>();
    private Tag tag;
    public Entity parent;
    public ArrayList<Entity> children = new ArrayList<>();
@@ -47,7 +49,8 @@ public final class Entity implements IBehavior
    }
 
    /**
-    * Each object has a unique ID, which we can access if necessary. Currently not used for anything.
+    * Each object has a unique ID, which we can access if necessary. Is not currently used for
+    * anything outside debugging purposes.
     * @return uniqueID of a given Entity
     */
    public int getStateID() {return uniqueID;}
@@ -121,6 +124,11 @@ public final class Entity implements IBehavior
       components.removeIf(c -> componentClass.isAssignableFrom(c.getClass()));
    }
 
+   /**
+    * Method to have an easy way for adding components to an Entity upon instantiation.
+    * @param c component to be added
+    * @return this Entity (with new component attached)
+    */
    public Entity with(Component c){
       this.addComponent(c);
       return this;
