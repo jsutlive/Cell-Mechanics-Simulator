@@ -27,20 +27,19 @@ public class HexMesh extends Mesh{
     public int numSubdivisions = 5;
     public int sidesPerCell = 6;
     int distanceFromCenter = 70;
-    public List<Entity> cellList = new ArrayList<>();
     HashMap<Vector2f, Node2D> positionToNodeMap = new HashMap<>();
     List<Vector2f> allCentroids = new ArrayList<>();
 
 
     private void removeEntityFromList(Entity e){
-        cellList.remove(e);
+        getChildren().remove(e);
     }
 
     @Override
     public void awake() {
         //onSelectionButtonPressed.unSubscribe(this::selectAll);
-        for(int i = cellList.size()-1; i >= 0; i--){
-            cellList.get(i).destroy();
+        for(int i = getChildren().size()-1; i >= 0; i--){
+            getChildren().get(i).destroy();
         }
         //cellList.clear();
 
@@ -141,11 +140,11 @@ public class HexMesh extends Mesh{
             entityNodes.add(newNode);
         }
         entityNodes = subdivide(entityNodes, numSubdivisions);
-        Entity e = new Entity("Cell " + cellList.size()).
+        Entity e = new Entity("Cell " + getChildren().size()).
                 with(new SubdividedPolygonMesh().build(entityNodes)).
                 with(new OsmosisForce()).
                 with(new ElasticForce());
-        cellList.add(e);
+        e.setParent(parent);
     }
 
     private Node2D getNode2DFromPositionHash(Vector2f newPosition) {
@@ -222,7 +221,7 @@ public class HexMesh extends Mesh{
 
     private void selectAll(Component component){
         if(component ==this){
-            SelectionEvents.selectEntities(cellList);
+            SelectionEvents.selectEntities(getChildren());
         }
     }
 

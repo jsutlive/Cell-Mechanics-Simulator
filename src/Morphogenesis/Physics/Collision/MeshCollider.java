@@ -19,7 +19,7 @@ public class MeshCollider extends Collider{
 
     @Override
     public void awake() {
-        cells = getComponent(HexMesh.class).cellList;
+        cells = getChildren();
         nodes = getComponent(Mesh.class).nodes;
     }
 
