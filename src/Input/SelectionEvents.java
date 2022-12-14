@@ -39,7 +39,6 @@ public class SelectionEvents {
             if(group.entities.contains(e.get(0)))return;
         }
         groups.add(new EntityGroup(e, groups.size()));
-        onCreateGroup.invoke(groups.size()-1);
     }
     public static void createGroup(EntityGroup group){
         groups.add(group);
@@ -51,8 +50,8 @@ public class SelectionEvents {
         List<EntityGroup> newGroups = new ArrayList<>();
         for(int i = 0; i < groups.size(); i++){
             if(i!=index){
+                groups.get(i).groupID = i;
                 newGroups.add(groups.get(i));
-                newGroups.get(i).groupID = i;
             }
         }
         groups = newGroups;

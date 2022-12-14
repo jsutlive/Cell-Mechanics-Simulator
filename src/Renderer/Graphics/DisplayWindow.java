@@ -8,6 +8,9 @@ import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
 import Input.InputEvents;
+import Morphogenesis.Physics.Collision.CornerStiffness2D;
+import Morphogenesis.Physics.Collision.EdgeStiffness2D;
+import Morphogenesis.Physics.Collision.MeshStiffness2D;
 import Morphogenesis.Physics.OsmosisForce;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
@@ -153,6 +156,18 @@ public class DisplayWindow
             osmosisForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new OsmosisForce()));
             addComponentSubMenu.add(osmosisForceOption);
 
+            JMenuItem cornerStiffOption = new JMenuItem("Corner Stiffness");
+            cornerStiffOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new CornerStiffness2D()));
+            addComponentSubMenu.add(cornerStiffOption);
+
+            JMenuItem edgeStiffnessOption = new JMenuItem("Edge Stiffness");
+            edgeStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new EdgeStiffness2D()));
+            addComponentSubMenu.add(edgeStiffnessOption);
+
+            JMenuItem meshStiffnessOption = new JMenuItem("Mesh Stiffness");
+            meshStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new MeshStiffness2D()));
+            addComponentSubMenu.add(meshStiffnessOption);
+
         }else{
             JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
             apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
@@ -214,7 +229,7 @@ public class DisplayWindow
         BufferedImage screenshot = captureImage();
         ImageHandler writer = new ImageHandler(screenshot,
                 new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets//export" +
-                        name +count*6000 + ".jpg"));
+                        name +count*3000 + ".jpg"));
         writer.write();
         count++;
 

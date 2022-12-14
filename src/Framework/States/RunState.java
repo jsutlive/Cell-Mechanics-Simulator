@@ -46,8 +46,8 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        if (count %6000 ==0){
-            StateMachine.onSaveStateInfo.invoke("WildType");
+        if (count %3000 ==0){
+            StateMachine.onSaveStateInfo.invoke("noLat");
         }
         count++;
     }

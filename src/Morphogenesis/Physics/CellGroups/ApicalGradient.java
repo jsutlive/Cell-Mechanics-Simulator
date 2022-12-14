@@ -40,10 +40,9 @@ public class ApicalGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
-        if(cellGroup!=null) {
-            SelectionEvents.deleteGroup(cellGroup.groupID);
+        if(cellGroup==null) {
+            cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
         }
-        cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
         addCellsToGroup();
@@ -90,7 +89,6 @@ public class ApicalGradient extends Component {
                 }
             }
         }
-        SelectionEvents.createGroup(cellGroup);
     }
 
     @Override

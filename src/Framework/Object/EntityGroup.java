@@ -1,5 +1,6 @@
 package Framework.Object;
 
+import Input.SelectionEvents;
 import Renderer.Graphics.IColor;
 import Renderer.Renderer;
 
@@ -19,12 +20,14 @@ public class EntityGroup {
     public EntityGroup(List<Entity>entities, int index){
         this.entities = entities;
         name = Integer.toString(index);
+        SelectionEvents.createGroup(this);
     }
 
     public EntityGroup(List<Entity> entities, String name, Color color){
         this.entities = entities;
         this.name = name;
         this.color = color;
+        SelectionEvents.createGroup(this);
     }
 
     public void setName(String name){

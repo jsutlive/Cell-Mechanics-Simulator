@@ -38,10 +38,9 @@ public class LateralGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
-        if(cellGroup!=null) {
-            SelectionEvents.deleteGroup(cellGroup.groupID);
+        if(cellGroup==null) {
+            cellGroup = new EntityGroup(new ArrayList<>(), "latrl", groupColor);
         }
-        cellGroup = new EntityGroup(new ArrayList<>(), "latrl", groupColor);
         calculateParameters();
         cellGroup.recolor();
     }
@@ -80,7 +79,6 @@ public class LateralGradient extends Component {
                 cell.getComponent(MeshRenderer.class).setColor(DEFAULT_COLOR);
             }
         }
-        SelectionEvents.createGroup(cellGroup);
     }
 
     @Override

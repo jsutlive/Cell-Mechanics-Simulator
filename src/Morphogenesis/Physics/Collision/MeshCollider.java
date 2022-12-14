@@ -3,7 +3,6 @@ package Morphogenesis.Physics.Collision;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Morphogenesis.Meshing.Mesh;
-import Morphogenesis.Meshing.HexMesh;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
