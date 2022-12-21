@@ -8,11 +8,11 @@ import Framework.Timer.Time;
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Morphogenesis.MouseSelector;
-import Morphogenesis.Physics.Collision.Collider;
 import Renderer.Camera;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static Framework.Object.Tag.PHYSICS;
 import static Framework.Object.Tag.CAMERA;
@@ -33,8 +33,10 @@ public final class StateMachine {
         InputEvents.onClear.subscribe(this::clearStateMachine);
         InputEvents.onLoadModel.subscribe(this::loadModel);
         new Entity("Camera", -1, CAMERA).with(new Camera());
-        Entity physics = new Entity("Physics", -2, PHYSICS).with(new MouseSelector());
-        physics.getComponent(MouseSelector.class).stateMachine = this;
+        Entity physics;
+        physics = new Entity("Physics", -2, PHYSICS).
+                with(new MouseSelector());
+        Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
         changeState(new EditorState(this));
     }
 

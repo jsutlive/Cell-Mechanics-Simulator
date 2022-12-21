@@ -47,9 +47,10 @@ public class MeshStiffness2D extends Force {
             Vector normal = getNormalForNodeSet(key);
             float theta = calculateAngleBetweenNodes(key);
             float restingTheta = edgeAngleHashMap.get(key);
-            if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(constant));
+            addForceToBody(key.get(1), normal.mul(constant * (theta - restingTheta)));
+            /*if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(constant));
             else if(theta < restingTheta) addForceToBody(key.get(1), normal.mul(-constant));
-            else addForceToBody(key.get(1), normal.mul(0));
+            else addForceToBody(key.get(1), normal.mul(0));*/
         }
     }
 
