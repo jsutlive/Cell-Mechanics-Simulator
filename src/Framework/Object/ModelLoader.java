@@ -20,7 +20,7 @@ public class ModelLoader {
                 with(new RingMesh()).
                 with(new ApicalGradient()).
                 with(new LateralGradient()).
-                with(new CellRingCollider()).
+                with(new RigidbodyCollider()).
                 with(new RigidBoundary()).
                 with(new RingStiffness2D()).
                 with(new Yolk()

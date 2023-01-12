@@ -6,6 +6,8 @@ import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Edge: A container of two nodes which acts as a mechanism to apply physics forces between them.
@@ -50,6 +52,16 @@ public class Edge implements IRigidbody, IColor
         Node a = nodes[0];
         nodes[0] = nodes[1];
         nodes[1] = a;
+    }
+
+    public List<Vector2f> getCollisionBox(float boundaryDistance){
+        List<Vector2f> collisionPoints = new ArrayList<>();
+        Vector norm = CustomMath.normal(this).mul(boundaryDistance);
+        collisionPoints.add((Vector2f) nodes[0].getPosition().add(norm));
+        collisionPoints.add((Vector2f) nodes[0].getPosition().sub(norm));
+        collisionPoints.add((Vector2f) nodes[2].getPosition().sub(norm));
+        collisionPoints.add((Vector2f) nodes[1].getPosition().add(norm));
+        return collisionPoints;
     }
 
     /**

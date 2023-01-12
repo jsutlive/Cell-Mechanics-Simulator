@@ -14,6 +14,29 @@ public class Geometry {
 
     public static Vector2f APPROX_INF = new Vector2f(1e15f);
 
+
+    public static boolean doesIntersect(float p0_x, float p0_y, float p1_x, float p1_y,
+                               float p2_x, float p2_y, float p3_x, float p3_y, Vector2f out)
+    {
+        float s1_x, s1_y, s2_x, s2_y;
+        s1_x = p1_x - p0_x;     s1_y = p1_y - p0_y;
+        s2_x = p3_x - p2_x;     s2_y = p3_y - p2_y;
+
+        float s, t;
+        s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y);
+        t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y);
+
+        if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+        {
+            // Collision detected
+            out.x = p0_x + (t * s1_x);
+            out.y = p0_y + (t * s1_y);
+            return true;
+        }
+
+        return false; // No collision
+    }
+
     public static float calculateAngleBetweenPoints(Vector2f p1, Vector2f p2, Vector2f p3){
         Vector2f a = new Vector2f(p2.x - p1.x, p2.y - p1.y);
         Vector2f b = new Vector2f(p2.x - p3.x, p2.y - p3.y);
