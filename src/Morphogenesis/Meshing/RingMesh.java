@@ -20,7 +20,6 @@ import Utilities.Math.Gauss;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import static Utilities.Math.CustomMath.TransformToWorldSpace;
 import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
@@ -103,18 +102,6 @@ public class RingMesh extends Mesh {
     public Entity returnCellContainingPoint(Vector2f vector2f) {
         return null;
     }
-
-    /*public void addCellToList(List<Entity> cellList, Entity cell, int ringLocation) {
-        if (cell.getComponent(RingCellMesh.class) != null) {
-            cell.getComponent(RingCellMesh.class).ringLocation = ringLocation;
-            cell.setParent(parent);
-        } else {
-            throw new NullPointerException("New cell object not instantiated successfully");
-        }
-        if (cell.getComponent(RingCellMesh.class).nodes.size() == 0) {
-            throw new IllegalStateException("Nodes list not found at ring location " + ringLocation);
-        }
-    }*/
 
     public float getRadiusToNode(int j) {
         float radiusStep = (innerRadius - outerRadius) / lateralResolution;

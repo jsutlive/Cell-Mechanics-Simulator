@@ -16,9 +16,8 @@ import static Utilities.Geometry.Geometry.calculateAngleBetweenPoints;
 public class MeshStiffness2D extends Force {
 
     private HashMap<ArrayList<Node2D>, Float> edgeAngleHashMap = new HashMap<>();
-
-    public float constant = 10f;
-
+    public float constant = 3.5f;
+    public float cornerFactor = 2f;
 
     @Override
     public void awake() {
@@ -39,29 +38,32 @@ public class MeshStiffness2D extends Force {
         }
     }
 
-
-
     @Override
     public void update() {
         for(ArrayList<Node2D> key : edgeAngleHashMap.keySet()){
             Vector normal = getNormalForNodeSet(key);
             float theta = calculateAngleBetweenNodes(key);
             float restingTheta = edgeAngleHashMap.get(key);
-            addForceToBody(key.get(1), normal.mul(constant * (theta - restingTheta)));
-            /*if(theta > restingTheta) addForceToBody(key.get(1), normal.mul(constant));
-            else if(theta < restingTheta) addForceToBody(key.get(1), normal.mul(-constant));
-            else addForceToBody(key.get(1), normal.mul(0));*/
+            if(theta!= restingTheta) {
+                float distFromTheta = Math.abs(theta - restingTheta);
+                if (restingTheta > 130) {
+                    addForceToBody(key.get(1), normal.mul(constant * distFromTheta));
+                }else{
+                    addForceToBody(key.get(1), normal.mul(constant * cornerFactor * distFromTheta));
+                }
+            }
         }
     }
 
+    // get positions from node list, use external method to calculate angle between points
     private float calculateAngleBetweenNodes(ArrayList<Node2D> nodes){
         Vector2f p1 = nodes.get(0).getPosition();
         Vector2f p2 = nodes.get(1).getPosition();
         Vector2f p3 = nodes.get(2).getPosition();
-
         return calculateAngleBetweenPoints(p1, p2, p3);
     }
 
+    // get positions from node list, use external method to calculate normal
     private Vector getNormalForNodeSet(ArrayList<Node2D> nodes){
         Vector2f p1 = nodes.get(0).getPosition();
         Vector2f p2 = nodes.get(2).getPosition();

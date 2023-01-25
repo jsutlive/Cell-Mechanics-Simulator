@@ -45,6 +45,7 @@ public class MeshCollider extends Collider{
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
         if(closePoint.isNull() || (closePoint.x == 0 && closePoint.y == 0)) return;
         if(node.getPosition().distanceTo(closePoint) > 5f) return;
-        node.moveTo(closePoint);
+        Vector2f force = closePoint.sub(node.getPosition());
+        node.addForceVector("Collision", force);
     }
 }
