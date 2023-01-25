@@ -45,8 +45,8 @@ public class MeshStiffness2D extends Force {
             float theta = calculateAngleBetweenNodes(key);
             float restingTheta = edgeAngleHashMap.get(key);
             if(theta!= restingTheta) {
-                float distFromTheta = Math.abs(theta - restingTheta);
-                if (restingTheta > 130) {
+                float distFromTheta = theta - restingTheta;
+                if (restingTheta > 130 || restingTheta < 45) {
                     addForceToBody(key.get(1), normal.mul(constant * distFromTheta));
                 }else{
                     addForceToBody(key.get(1), normal.mul(constant * cornerFactor * distFromTheta));

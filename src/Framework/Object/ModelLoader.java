@@ -22,7 +22,7 @@ public class ModelLoader {
                 with(new LateralGradient()).
                 with(new MeshCollider()).
                 with(new RigidBoundary()).
-                with(new RingStiffness2D()).
+                //with(new RingStiffness2D()).
                 with(new Yolk()
                 );
         SelectionEvents.selectEntity(e);
@@ -41,9 +41,10 @@ public class ModelLoader {
     public static Entity loadDebugMesh(){
         Entity e = new Entity("Box", 0, MODEL).
                 with(new BoxDebugMesh().build()).
-                with(new EdgeStiffness2D()).
+                //with(new EdgeStiffness2D()).
                 with(new ElasticForce()).
-                with(new CornerStiffness2D());
+                with(new MeshStiffness2D());
+                //with(new CornerStiffness2D());
         SelectionEvents.selectEntity(e);
         return e;
     }
