@@ -1,8 +1,10 @@
 package Framework.States;
 
+import Framework.Data.FileBuilder;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 
+import java.io.IOException;
 import java.util.Collections;
 
 import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
@@ -48,6 +50,12 @@ public class RunState extends State
         }
         if (count %3000 ==0){
             StateMachine.onSaveStateInfo.invoke("noLat");
+            String path = System.getProperty("user.dir") + "/data" + count;
+            try {
+                FileBuilder.saveAbridged(stateMachine.allObjects, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         count++;
     }

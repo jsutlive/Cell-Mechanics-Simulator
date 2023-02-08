@@ -3,8 +3,8 @@ package Framework.States;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 
-import static Framework.Data.File.load;
-import static Framework.Data.File.save;
+import static Framework.Data.FileBuilder.load;
+import static Framework.Data.FileBuilder.save;
 
 
 public abstract class State
