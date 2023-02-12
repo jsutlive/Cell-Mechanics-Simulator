@@ -11,6 +11,7 @@ import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node;
 import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
 
 import java.lang.reflect.InvocationTargetException;
@@ -52,7 +53,7 @@ public abstract class Mesh extends Component {
     }
 
     protected void calculateArea(){
-        area = Gauss.nShoelace(nodes);
+        area = CustomMath.round(Gauss.nShoelace(nodes),1);
         if(restingArea == 0) restingArea = area;
     }
 

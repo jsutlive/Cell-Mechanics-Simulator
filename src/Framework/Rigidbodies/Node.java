@@ -51,7 +51,9 @@ public abstract class Node implements IRigidbody {
      */
     @Override
     public void move() {
-        position = position.add(resultantForceVector.mul(deltaTime));
+        Vector moveVector = resultantForceVector.mul(deltaTime);
+        if(moveVector.mag() > 3) return;
+        else position = position.add(moveVector);
     }
 
     /**

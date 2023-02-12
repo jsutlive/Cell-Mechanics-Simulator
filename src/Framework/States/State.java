@@ -49,8 +49,7 @@ public abstract class State
      * save a json file with initial position
      */
     protected void saveInitial(){
-
-        //save(findObjectWithTag(Tag.MODEL));
+        //save(findObjectWithTag(Tag.MODEL), "scene");
     }
 
     /**

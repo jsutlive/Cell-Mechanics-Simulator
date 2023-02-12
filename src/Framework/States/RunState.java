@@ -1,6 +1,8 @@
 package Framework.States;
 
+import Framework.Data.File;
 import Framework.Object.Entity;
+import Framework.Object.Tag;
 import Input.SelectionEvents;
 
 import java.util.Collections;
@@ -9,7 +11,7 @@ import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
-    protected static float dt  = 1e-3f;
+    protected static float dt  = 1e-4f;
     public static float deltaTime;
     private int count;
 
@@ -46,9 +48,10 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        if (count %3000 ==0){
+        /*if (count %3000 ==0){
             StateMachine.onSaveStateInfo.invoke("noLat");
-        }
+            File.save(findObjectWithTag(Tag.MODEL), String.valueOf(count));
+        }*/
         count++;
     }
 

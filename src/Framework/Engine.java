@@ -23,7 +23,7 @@ public final class Engine implements Runnable
      * Prepare state loading and timer system
      */
     private void init() {
-        physicsClock = Time.getTime(100f);
+        physicsClock = Time.getTime(12f);
         stateMachine = new StateMachine(physicsClock);
     }
 

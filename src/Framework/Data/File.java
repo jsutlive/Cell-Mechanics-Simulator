@@ -20,14 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class File {
-    public static void save(List<Entity> entities){
+    public static void save(List<Entity> entities, String name){
         Gson gson = new GsonBuilder().setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).
                 registerTypeAdapter(Node.class, new NodeSerializer()).
                 registerTypeAdapter(Vector.class, new VectorDeserializer()).
                 create();
         try {
-            FileWriter filewriter = new FileWriter("scene.json");
+            FileWriter filewriter = new FileWriter(name  + ".json");
             filewriter.write(gson.toJson(entities));
             filewriter.close();
         }catch(IOException e)
@@ -36,10 +36,10 @@ public class File {
         }
     }
 
-    public static void save(Entity entity){
+    public static void save(Entity entity, String name){
         List<Entity> entities = new ArrayList<>();
         entities.add(entity);
-        save(entities);
+        save(entities, name);
     }
 
     public static Entity[] load(){

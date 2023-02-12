@@ -6,8 +6,6 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Morphogenesis.Physics.CellGroups.GroupSelector;
-import Morphogenesis.Physics.Collision.CornerStiffness2D;
-import Morphogenesis.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Physics.Collision.MeshStiffness2D;
 import Morphogenesis.Physics.OsmosisForce;
 import Morphogenesis.Physics.Spring.ElasticForce;
