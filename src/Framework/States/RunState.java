@@ -1,17 +1,17 @@
 package Framework.States;
 
-import Framework.Data.File;
+import Framework.Data.FileBuilder;
 import Framework.Object.Entity;
-import Framework.Object.Tag;
 import Input.SelectionEvents;
 
+import java.io.IOException;
 import java.util.Collections;
 
 import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
-    protected static float dt  = 1e-4f;
+    protected static float dt  = 1e-3f;
     public static float deltaTime;
     private int count;
 
@@ -48,10 +48,15 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        /*if (count %3000 ==0){
+        if (count %3000 ==0){
             StateMachine.onSaveStateInfo.invoke("noLat");
-            File.save(findObjectWithTag(Tag.MODEL), String.valueOf(count));
-        }*/
+            String path = System.getProperty("user.dir") + "/data" + count;
+            try {
+                FileBuilder.saveAbridged(stateMachine.allObjects, path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         count++;
     }
 

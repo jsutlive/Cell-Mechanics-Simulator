@@ -30,6 +30,12 @@ public abstract class Mesh extends Component {
     @DoNotEditInGUI
     public float restingArea;
 
+    public float getPerimeter(){
+        float perimeter = 0;
+        for(Edge e: edges) perimeter += e.getLength();
+        return perimeter;
+    }
+
     public boolean contains(Node n){
         for(Node2D node : nodes){
             if(node.getPosition().equals(n.getPosition()))
