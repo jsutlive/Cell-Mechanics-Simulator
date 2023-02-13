@@ -226,12 +226,12 @@ public class DisplayWindow
     }
 
     public void exportImage(String name){
-        /*BufferedImage screenshot = captureImage();
+        BufferedImage screenshot = captureImage();
         ImageHandler writer = new ImageHandler(screenshot,
-                new File("I://Documents//Harvard//MorphogenesisSimulatorV2//MorphogenesisSimulationV2//assets//export" +
+                new File(System.getProperty("user.dir") + "//assets//export" +
                         name +count*3000 + ".jpg"));
         writer.write();
-        count++;*/
+        count++;
 
     }
 
