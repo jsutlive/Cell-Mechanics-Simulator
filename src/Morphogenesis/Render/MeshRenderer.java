@@ -91,11 +91,28 @@ public class MeshRenderer extends ObjectRenderer
     {
         if(!enabled) return;
         if(cellMesh == null)return;
-        for(Edge edge: cellMesh.edges)
-        {
-            Vector2f[] positions = edge.getPositions();
-            drawLine(positions[0].add(CustomMath.normal(edge).mul(0.5f)).asInt(),
-                    positions[1].add(CustomMath.normal(edge).mul(0.5f)).asInt(), color);
+        int edgeCount = cellMesh.edges.size();
+        for(int i = 0; i < edgeCount; i++){
+            Edge mainEdge = cellMesh.edges.get(i);
+            //floor mod is necessary here because the % operator is actually the remainder, (-1 % 5) = -1, floorMod(-1,5) = 4
+            Edge nextEdge = cellMesh.edges.get(Math.floorMod(i + 1, edgeCount));
+            Edge previousEdge = cellMesh.edges.get(Math.floorMod(i - 1, edgeCount));
+
+            Vector2f[] positions = mainEdge.getPositions();
+
+            //instead of just offsetting an edge by its own normals, it's nodes must be offset by the adjacent edge normals as well
+            //so that the end point of each edge matches the others.
+
+            drawLine(
+                    positions[0]
+                            .add(CustomMath.normal(mainEdge).mul(0.25f))
+                            .add(CustomMath.normal(previousEdge).mul(0.25f))
+                            .asInt(),
+                    positions[1]
+                            .add(CustomMath.normal(mainEdge).mul(0.25f))
+                            .add(CustomMath.normal(nextEdge).mul(0.25f))
+                            .asInt(),
+                    color);
             //drawEdgeNormal(edge);
         }
     }
