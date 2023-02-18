@@ -16,8 +16,8 @@ import static Utilities.Geometry.Geometry.calculateAngleBetweenPoints;
 public class MeshStiffness2D extends Force {
 
     private HashMap<ArrayList<Node2D>, Float> edgeAngleHashMap = new HashMap<>();
-    public float constant = 1.5f;
-    public float cornerFactor = 0.5f;
+    public float constant = 15f;
+    public float cornerFactor = 1f;
 
     @Override
     public void awake() {
@@ -49,16 +49,32 @@ public class MeshStiffness2D extends Force {
             Vector normal = getNormalForNodeSet(key);
             float theta = calculateAngleBetweenNodes(key);
             float restingTheta = edgeAngleHashMap.get(key);
+
+            //the longer the edge, the lesser the force is applied to the edge, makes sense when thinking about force
+            //scaling the force linearly based on distance (longer edge, stronger force) makes the mesh unstable
+            float dist1 = 1/p1.distanceTo(p2);
+            float dist2 = 1/p2.distanceTo(p3);
+
             if(theta!= restingTheta) {
                 float distFromTheta = theta - restingTheta;
                 if (restingTheta > 130 || restingTheta < 45) {
-                    addForceToBody(key.get(1), normal.mul(constant * distFromTheta));
-                    addForceToBody(key.get(0), normal1.mul(constant * distFromTheta).neg());
-                    addForceToBody(key.get(2), normal2.mul(constant * distFromTheta).neg());
+                    Vector edge1Force = normal1.mul(constant * distFromTheta * dist1).neg();
+                    Vector edge2Force = normal2.mul(constant * distFromTheta * dist2).neg();
+                    //by adding the opposite of whatever is added to the surrounding edges, the total force added is 0, so it shouldn't drift
+                    addForceToBody(key.get(1), edge1Force.neg());
+                    addForceToBody(key.get(1), edge2Force.neg());
+
+                    addForceToBody(key.get(0), edge1Force);
+                    addForceToBody(key.get(2), edge2Force );
                 }else{
-                    addForceToBody(key.get(1), normal.mul(constant * cornerFactor * distFromTheta));
-                    addForceToBody(key.get(0), normal1.mul(constant * cornerFactor * distFromTheta).neg());
-                    addForceToBody(key.get(2), normal2.mul(constant * cornerFactor * distFromTheta).neg());
+                    Vector edge1Force = normal1.mul(constant * cornerFactor * distFromTheta * dist1).neg();
+                    Vector edge2Force = normal2.mul(constant * cornerFactor * distFromTheta * dist2).neg();
+
+                    addForceToBody(key.get(1), edge1Force.neg());
+                    addForceToBody(key.get(1), edge2Force.neg());
+
+                    addForceToBody(key.get(0), edge1Force);
+                    addForceToBody(key.get(2), edge2Force );
                 }
             }
         }

@@ -34,23 +34,23 @@ public class BoxDebugMesh extends Mesh implements IBoxMesh {
     }
     public Mesh build() {
         //curved cell
-//        Node2D node1 = new Node2D(new Vector2f(50, 0));
-//        Node2D node2 = new Node2D(new Vector2f(20, 20));
-//        Node2D node3 = new Node2D(new Vector2f(10, 40));
-//        Node2D node4 = new Node2D(new Vector2f(0, 60));
-//        Node2D node5 = new Node2D(new Vector2f(20, 60));
-//        Node2D node6 = new Node2D(new Vector2f(30, 40));
-//        Node2D node7 = new Node2D(new Vector2f(40, 20));
-//        Node2D node8 = new Node2D(new Vector2f(70, 0));
-
-        Node2D node1 = new Node2D(new Vector2f(0, 0));
-        Node2D node2 = new Node2D(new Vector2f(0, 20));
-        Node2D node3 = new Node2D(new Vector2f(0, 40));
+        Node2D node1 = new Node2D(new Vector2f(30, 0));
+        Node2D node2 = new Node2D(new Vector2f(20, 20));
+        Node2D node3 = new Node2D(new Vector2f(10, 40));
         Node2D node4 = new Node2D(new Vector2f(0, 60));
         Node2D node5 = new Node2D(new Vector2f(20, 60));
-        Node2D node6 = new Node2D(new Vector2f(20, 40));
-        Node2D node7 = new Node2D(new Vector2f(20, 20));
-        Node2D node8 = new Node2D(new Vector2f(20, 0));
+        Node2D node6 = new Node2D(new Vector2f(30, 40));
+        Node2D node7 = new Node2D(new Vector2f(40, 20));
+        Node2D node8 = new Node2D(new Vector2f(50, 0));
+
+//        Node2D node1 = new Node2D(new Vector2f(0, 0));
+//        Node2D node2 = new Node2D(new Vector2f(0, 20));
+//        Node2D node3 = new Node2D(new Vector2f(0, 40));
+//        Node2D node4 = new Node2D(new Vector2f(0, 60));
+//        Node2D node5 = new Node2D(new Vector2f(20, 60));
+//        Node2D node6 = new Node2D(new Vector2f(20, 40));
+//        Node2D node7 = new Node2D(new Vector2f(20, 20));
+//        Node2D node8 = new Node2D(new Vector2f(20, 0));
 
         nodes.add(node1);
         nodes.add(node2);
