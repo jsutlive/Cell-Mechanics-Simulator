@@ -75,7 +75,6 @@ public class FileBuilder {
             // create FileWriter object with file as parameter
             FileWriter outputfile = new FileWriter(file);
             CSVWriter writer = new CSVWriter(outputfile);
-            List<String> dataFiles = new ArrayList<>();
             String[] header = new String[3];
             header[0] = "Name";
             header[1] = "Area";
@@ -95,20 +94,5 @@ public class FileBuilder {
         }catch (IOException e){
             throw new IOException("FAILED TO MAKE FILE");
         }
-    }
-
-    private static String convertToCSV(String[] data) {
-        return Stream.of(data)
-                .map(FileBuilder::escapeSpecialCharacters)
-                .collect(Collectors.joining(","));
-    }
-
-    private static String escapeSpecialCharacters(String data) {
-        String escapedData = data.replaceAll("\\R", " ");
-        if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-            data = data.replace("\"", "\"\"");
-            escapedData = "\"" + data + "\"";
-        }
-        return escapedData;
     }
 }

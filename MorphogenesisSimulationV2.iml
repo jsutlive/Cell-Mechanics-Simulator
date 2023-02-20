@@ -58,6 +58,15 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="google.code.gson" level="project" />
-    <orderEntry type="library" name="opencsv-5.7.1" level="project" />
+    <orderEntry type="library" exported="" name="opencsv-5.7.1" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/opencsv-5.7.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

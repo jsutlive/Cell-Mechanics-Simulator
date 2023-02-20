@@ -48,7 +48,7 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        if (count %3000 ==0){
+        if (count %500 ==0){
             StateMachine.onSaveStateInfo.invoke("noLat");
             String path = System.getProperty("user.dir") + "/data" + count;
             try {

@@ -6,6 +6,7 @@ import Framework.Rigidbodies.Node;
 import Morphogenesis.Meshing.Mesh;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Physics.Collision2D;
 
@@ -42,20 +43,47 @@ public class MeshCollider extends Collider{
             Mesh mesh = cell.getComponent(Mesh.class);
             for(Node2D node: nodes){
                 if(!mesh.contains(node) && mesh.collidesWithNode(node)) {
+                    Vector2f closestPoint = new Vector2f();
+                    Vector2f secondClosestPoint = new Vector2f();
+                    Vector2f thirdClosestPoint = new Vector2f();
+                    float closestDistance = Float.POSITIVE_INFINITY;
+                    float secondClosestDistance = Float.POSITIVE_INFINITY;
+                    float thirdClosestDistance = Float.POSITIVE_INFINITY;
                     for (Edge e : mesh.edges) {
-                        setNodePositionToClosestEdge(node, e);
-                        collidingNodes.add(node);
+                        Vector2f potentialPoint = setNodePositionToClosestEdge(node, e);
+                        float thisDistance = Vector2f.dist(node.getPosition(), potentialPoint);
+                        if ( thisDistance < closestDistance) {
+                            thirdClosestDistance = secondClosestDistance;
+                            secondClosestDistance = closestDistance;
+                            closestDistance = thisDistance;
+
+                            thirdClosestPoint = secondClosestPoint;
+                            secondClosestPoint = closestPoint;
+                            closestPoint = potentialPoint;
+
+                        }else if(thisDistance < secondClosestDistance){
+                            thirdClosestDistance = secondClosestDistance;
+                            secondClosestDistance = thisDistance;
+
+                            thirdClosestPoint = secondClosestPoint;
+                            secondClosestPoint = potentialPoint;
+
+                        } else if (thisDistance < thirdClosestDistance){
+                            thirdClosestDistance = thisDistance;
+                            thirdClosestPoint = potentialPoint;
+                        }
                     }
+                    node.moveTo(closestPoint);
+                    collidingNodes.add(node);
+
                 }
             }
         }
         return collidingNodes;
     }
 
-    private void setNodePositionToClosestEdge(Node2D node, Edge e) {
+    private Vector2f setNodePositionToClosestEdge(Node2D node, Edge e) {
         Vector2f closePoint = Collision2D.closestPointToSegmentFromPoint(node.getPosition(), e.getPositions());
-        if(closePoint.isNull() || (closePoint.x == 0 && closePoint.y == 0)) return;
-        if(node.getPosition().distanceTo(closePoint) > 5f) return;
-        node.moveTo(closePoint);
+        return closePoint;
     }
 }
