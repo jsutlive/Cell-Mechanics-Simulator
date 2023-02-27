@@ -8,6 +8,7 @@ import Input.SelectionEvents;
 import Morphogenesis.Physics.CellGroups.GroupSelector;
 import Morphogenesis.Physics.Collision.MeshStiffness2D;
 import Morphogenesis.Physics.OsmosisForce;
+import Morphogenesis.Physics.Spring.BasalRigidityLossSpringForce;
 import Morphogenesis.Physics.Spring.ElasticForce;
 import Morphogenesis.ReloadComponentOnChange;
 import Morphogenesis.Render.DoNotEditInGUI;
@@ -173,7 +174,7 @@ public class RingMesh extends Mesh {
     private Entity getNewCell(ArrayList<Node2D> cellNodes) {
         return new Entity("Cell " + (parent.children.size())).
                 with(new RingCellMesh().build(cellNodes)).
-                with(new ElasticForce()).
+                with(new BasalRigidityLossSpringForce()).
                 //with(new CornerStiffness2D()).
                 //with(new EdgeStiffness2D()).
                 with(new MeshStiffness2D()).

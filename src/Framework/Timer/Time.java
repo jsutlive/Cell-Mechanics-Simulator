@@ -40,6 +40,7 @@ public final class Time {
     public static long asNanoseconds(float f){
         return (long)f * 1000000000;
     }
+    public static float fromNanoseconds(long l) {return l/1000000000f;}
 
     /**
      * private constructor to prevent objects from creating additional timers
