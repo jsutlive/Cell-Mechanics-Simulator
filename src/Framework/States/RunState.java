@@ -48,14 +48,18 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
+        saveDataToCSV();
+    }
+
+    private void saveDataToCSV() {
         if (count %500 ==0){
-            StateMachine.onSaveStateInfo.invoke("noLat");
-            String path = System.getProperty("user.dir") + "/data" + count;
+            StateMachine.onSaveStateInfo.invoke("noLat" + count);
+            /*String path = System.getProperty("user.dir") + "/data" + count;
             try {
                 FileBuilder.saveAbridged(stateMachine.allObjects, path);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
         count++;
     }

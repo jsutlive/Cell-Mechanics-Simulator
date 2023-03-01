@@ -1,5 +1,6 @@
 package Renderer.Graphics;
 
+import Framework.Data.FileBuilder;
 import Framework.Data.ImageHandler;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotExposeInGUI;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static Framework.Data.FileBuilder.fullPathName;
 import static Framework.Data.ImageHandler.loadImage;
 
 public class DisplayWindow
@@ -46,7 +48,6 @@ public class DisplayWindow
 
     boolean modelSelected = false;
 
-    int count  = 0;
     public DisplayWindow(String _title, int _width, int _height)
     {
         this.title = _title;
@@ -228,11 +229,9 @@ public class DisplayWindow
     public void exportImage(String name){
         BufferedImage screenshot = captureImage();
         ImageHandler writer = new ImageHandler(screenshot,
-                new File(System.getProperty("user.dir") + "//assets//export" +
-                        name +count*3000 + ".jpg"));
+                new File(fullPathName +
+                        name + ".jpg"));
         writer.write();
-        count++;
-
     }
 
     private void captureImageFromMenu(){

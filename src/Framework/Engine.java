@@ -40,6 +40,7 @@ public final class Engine implements Runnable
             physicsClock.advance();
             if(physicsClock.isReadyForNextFrame()){
                 stateMachine.currentState.tick();
+                stateMachine.cycle();
             }
             physicsClock.resetFrameTimer();
         }

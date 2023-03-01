@@ -25,6 +25,21 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class FileBuilder {
+
+    private static String basePath = System.getProperty("user.dir") + "//assets//export//";
+    public static String fullPathName;
+
+    public static void setFullPathName(String endPath){
+        fullPathName = basePath + endPath + "//";
+        File directory = new File(fullPathName);
+        if(directory.exists())return;
+        try {
+            Files.createDirectory(Paths.get(fullPathName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void save(List<Entity> entities){
         Gson gson = new GsonBuilder().setPrettyPrinting().
                 registerTypeAdapter(Component.class, new ComponentSerializer()).

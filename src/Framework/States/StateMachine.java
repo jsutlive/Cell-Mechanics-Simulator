@@ -1,5 +1,6 @@
 package Framework.States;
 
+import Framework.Data.SaveSystem;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
@@ -11,6 +12,7 @@ import Morphogenesis.MouseSelector;
 import Renderer.Camera;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,7 +37,8 @@ public final class StateMachine {
         new Entity("Camera", -1, CAMERA).with(new Camera());
         Entity physics;
         physics = new Entity("Physics", -2, PHYSICS).
-                with(new MouseSelector());
+                with(new MouseSelector()).
+                with(new SaveSystem());
         Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
         changeState(new EditorState(this));
     }
@@ -48,6 +51,10 @@ public final class StateMachine {
         if(allObjects.contains(e))return;
         allObjects.add(e);
         e.awake();
+    }
+
+    public void cycle(){
+        Collections.reverse(allObjects);
     }
 
     private void selectEntityWithTag(Tag t){
