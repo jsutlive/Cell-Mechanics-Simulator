@@ -8,6 +8,8 @@
       <element id="file-copy" path="$PROJECT_DIR$/assets/cell.png" />
       <element id="file-copy" path="$PROJECT_DIR$/assets/play.png" />
       <element id="file-copy" path="$PROJECT_DIR$/assets/stop.png" />
+      <element id="library" level="project" name="opencsv-5.7.1" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/opencsv-5.7.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

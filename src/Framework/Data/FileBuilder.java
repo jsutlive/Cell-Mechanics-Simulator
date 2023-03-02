@@ -7,6 +7,7 @@ import Framework.Data.Json.VectorDeserializer;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.Rigidbodies.Node;
+import Framework.Timer.Time;
 import Morphogenesis.Meshing.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
@@ -21,13 +22,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FileBuilder {
 
-    private static String basePath = System.getProperty("user.dir") + "//assets//export//";
+    private static String basePath = System.getProperty("user.dir") + "//export//";
     public static String fullPathName;
+    public static float saveFrequency = Time.asNanoseconds(20);
+
+    public static void setSaveFrequency(float seconds){
+        saveFrequency = Time.asNanoseconds(seconds);
+    }
+
 
     public static void setFullPathName(String endPath){
         fullPathName = basePath + endPath + "//";
@@ -84,24 +89,28 @@ public class FileBuilder {
     }
 
     public static void saveAbridged(List<Entity> entities, String filePath) throws IOException {
-        File file = new File(filePath + ".csv");
+        File file = new File(fullPathName + filePath + ".csv");
         file.createNewFile();
         try {
             // create FileWriter object with file as parameter
             FileWriter outputfile = new FileWriter(file);
             CSVWriter writer = new CSVWriter(outputfile);
-            String[] header = new String[3];
+            String[] header = new String[5];
             header[0] = "Name";
             header[1] = "Area";
             header[2] = "Perimeter";
+            header[3] = "Centroid X";
+            header[4] = "Centroid Y";
             writer.writeNext(header);
             for (Entity e : entities) {
                 if (e.getComponent(Mesh.class) != null) {
                     Mesh mesh = e.getComponent(Mesh.class);
-                    String[] data = new String[3];
+                    String[] data = new String[5];
                     data[0] = e.name;
                     data[1] = String.valueOf(mesh.getArea());
                     data[2] = String.valueOf(mesh.getPerimeter());
+                    data[3] = String.valueOf(mesh.calculateCentroid().x);
+                    data[4] = String.valueOf(mesh.calculateCentroid().y);
                     writer.writeNext(data);
                 }
             }

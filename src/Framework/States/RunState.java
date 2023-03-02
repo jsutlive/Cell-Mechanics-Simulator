@@ -2,7 +2,8 @@ package Framework.States;
 
 import Framework.Data.FileBuilder;
 import Framework.Object.Entity;
-import Input.SelectionEvents;
+import Framework.Timer.Time;
+import Utilities.Math.CustomMath;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -52,16 +53,19 @@ public class RunState extends State
     }
 
     private void saveDataToCSV() {
-        if (count %500 ==0){
-            StateMachine.onSaveStateInfo.invoke("noLat" + count);
-            /*String path = System.getProperty("user.dir") + "/data" + count;
+        float currentTime = StateMachine.timer.elapsedTime;
+        float targetTime = count * FileBuilder.saveFrequency;
+        if (currentTime > targetTime){
+            float simpleTime = CustomMath.round(Time.fromNanoseconds((long)targetTime), 1);
+            StateMachine.onSaveStateInfo.invoke( simpleTime+ "_seconds");
+            String path = "data_" + simpleTime + "_seconds";
             try {
                 FileBuilder.saveAbridged(stateMachine.allObjects, path);
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
+            count++;
         }
-        count++;
     }
 
     void exit()
