@@ -1,6 +1,5 @@
 package Renderer.Graphics;
 
-import Framework.Data.FileBuilder;
 import Framework.Data.ImageHandler;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotExposeInGUI;
@@ -8,7 +7,9 @@ import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
+import GeneralPhysics.TestComponent;
 import Input.InputEvents;
+import Morphogenesis.Meshing.BoxDebugMesh;
 import Morphogenesis.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Physics.Collision.MeshStiffness2D;
@@ -23,7 +24,6 @@ import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ import java.util.List;
 
 import static Framework.Data.FileBuilder.fullPathName;
 import static Framework.Data.ImageHandler.loadImage;
+import static Framework.Object.Tag.MODEL;
 
 public class DisplayWindow
 {
@@ -169,6 +170,10 @@ public class DisplayWindow
             meshStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new MeshStiffness2D()));
             addComponentSubMenu.add(meshStiffnessOption);
 
+            JMenuItem testOption = new JMenuItem("Fan's favorite component");
+            testOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new TestComponent()));
+            addComponentSubMenu.add(testOption);
+
         }else{
             JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
             apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
@@ -190,6 +195,16 @@ public class DisplayWindow
 
 
         menuBar.add(menu3);
+
+        JMenu objectMenu = new JMenu("Object");
+        JMenuItem addBasicObject = new JMenuItem("Add Basic Mesh");
+        addBasicObject.addActionListener(e->{
+            new Entity("Box", 0, MODEL).
+                    with(new BoxDebugMesh().build());
+        });
+        objectMenu.add(addBasicObject);
+
+        menuBar.add(objectMenu);
 
         JMenu helpMenu = new JMenu("Help");
         JMenuItem keysHelp = new JMenuItem("Keyboard Shortcuts");

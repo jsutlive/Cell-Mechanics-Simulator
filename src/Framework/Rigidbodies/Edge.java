@@ -160,6 +160,11 @@ public class Edge implements IRigidbody, IColor
         initialLength = getLength();
     }
 
+    public Edge(Vector2f a, Vector2f b){
+        setNodes(new Node2D(a), new Node2D(b));
+        initialLength = getLength();
+    }
+
     public Edge(){}
 
     public void setNodes(Node[] nodes){

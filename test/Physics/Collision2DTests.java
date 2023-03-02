@@ -1,5 +1,6 @@
 package Physics;
 
+import Framework.Rigidbodies.Edge;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Physics.Collision2D;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,6 +18,11 @@ public class Collision2DTests {
         Vector2f NE_point = new Vector2f(1f, 1f);
         Vector2f SE_point = new Vector2f(1f, 0f);
         Vector2f SW_point = new Vector2f(0f, 0f);
+
+        Edge W = new Edge(NW_point, SW_point);
+        Edge S = new Edge(SW_point, SE_point);
+        Edge E = new Edge(SE_point, NE_point);
+        Edge N = new Edge(NE_point, NW_point);
 
         point2Dmesh = new Vector2f[]{NW_point, NE_point, SE_point, SW_point};
     }
@@ -76,6 +82,11 @@ public class Collision2DTests {
         assertNotNull(testPoint);
         assertEquals(SE_point.x, testPoint.x);
         assertEquals(SE_point.y, testPoint.y);
+    }
+
+    @Test
+    void check_closest_edge_to_point_is_west_edge(){
+
     }
 
 }

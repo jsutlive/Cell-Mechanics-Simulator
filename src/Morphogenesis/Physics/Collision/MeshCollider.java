@@ -18,6 +18,7 @@ import java.util.List;
 public class MeshCollider extends Collider{
     transient List<Entity> cells;
     transient List<Node2D> nodes;
+    private List<Node2D> collision;
 
     @Override
     public void awake() {
@@ -26,9 +27,9 @@ public class MeshCollider extends Collider{
     }
 
     @Override
-    public void lateUpdate() {
+    public void earlyUpdate() {
         Collections.shuffle(cells);
-        List<Node2D>  collision = checkCollision(nodes);
+        collision = checkCollision(nodes);
         int count = 0;
         while(collision.size() > 0 && count < 3){
             count++;
@@ -36,7 +37,12 @@ public class MeshCollider extends Collider{
         }
     }
 
-    private List<Node2D> checkCollision(List<Node2D> nodes) {
+    @Override
+    public void lateUpdate() {
+        collision = checkCollision(collision);
+    }
+
+    public List<Node2D> checkCollision(List<Node2D> nodes) {
         if(nodes.size() < 1) return new ArrayList<>();
         List<Node2D> collidingNodes = new ArrayList<>();
         for(Entity cell: cells){
@@ -49,30 +55,14 @@ public class MeshCollider extends Collider{
                     float closestDistance = Float.POSITIVE_INFINITY;
                     float secondClosestDistance = Float.POSITIVE_INFINITY;
                     float thirdClosestDistance = Float.POSITIVE_INFINITY;
-                    for (Edge e : mesh.edges) {
-                        Vector2f potentialPoint = setNodePositionToClosestEdge(node, e);
-                        float thisDistance = Vector2f.dist(node.getPosition(), potentialPoint);
-                        if ( thisDistance < closestDistance) {
-                            thirdClosestDistance = secondClosestDistance;
-                            secondClosestDistance = closestDistance;
-                            closestDistance = thisDistance;
-
-                            thirdClosestPoint = secondClosestPoint;
-                            secondClosestPoint = closestPoint;
-                            closestPoint = potentialPoint;
-
-                        }else if(thisDistance < secondClosestDistance){
-                            thirdClosestDistance = secondClosestDistance;
-                            secondClosestDistance = thisDistance;
-
-                            thirdClosestPoint = secondClosestPoint;
-                            secondClosestPoint = potentialPoint;
-
-                        } else if (thisDistance < thirdClosestDistance){
-                            thirdClosestDistance = thisDistance;
-                            thirdClosestPoint = potentialPoint;
-                        }
-                    }
+                    closestPoint = getClosestPoint(
+                            mesh,
+                            node,
+                            closestPoint,
+                            secondClosestPoint,
+                            closestDistance,
+                            secondClosestDistance,
+                            thirdClosestDistance);
                     node.moveTo(closestPoint);
                     collidingNodes.add(node);
 
@@ -80,6 +70,35 @@ public class MeshCollider extends Collider{
             }
         }
         return collidingNodes;
+    }
+
+    private Vector2f getClosestPoint(Mesh mesh, Node2D node, Vector2f closestPoint, Vector2f secondClosestPoint, float closestDistance, float secondClosestDistance, float thirdClosestDistance) {
+        Vector2f thirdClosestPoint;
+        for (Edge e : mesh.edges) {
+            Vector2f potentialPoint = setNodePositionToClosestEdge(node, e);
+            float thisDistance = Vector2f.dist(node.getPosition(), potentialPoint);
+            if ( thisDistance < closestDistance) {
+                thirdClosestDistance = secondClosestDistance;
+                secondClosestDistance = closestDistance;
+                closestDistance = thisDistance;
+
+                thirdClosestPoint = secondClosestPoint;
+                secondClosestPoint = closestPoint;
+                closestPoint = potentialPoint;
+
+            }else if(thisDistance < secondClosestDistance){
+                thirdClosestDistance = secondClosestDistance;
+                secondClosestDistance = thisDistance;
+
+                thirdClosestPoint = secondClosestPoint;
+                secondClosestPoint = potentialPoint;
+
+            } else if (thisDistance < thirdClosestDistance){
+                thirdClosestDistance = thisDistance;
+                thirdClosestPoint = potentialPoint;
+            }
+        }
+        return closestPoint;
     }
 
     private Vector2f setNodePositionToClosestEdge(Node2D node, Edge e) {
