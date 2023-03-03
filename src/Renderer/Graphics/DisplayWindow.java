@@ -10,10 +10,13 @@ import Framework.States.StateMachine;
 import GeneralPhysics.TestComponent;
 import Input.InputEvents;
 import Morphogenesis.Meshing.BoxDebugMesh;
+import Morphogenesis.Meshing.HexMesh;
+import Morphogenesis.Meshing.RingMesh;
 import Morphogenesis.Physics.Collision.CornerStiffness2D;
 import Morphogenesis.Physics.Collision.EdgeStiffness2D;
 import Morphogenesis.Physics.Collision.MeshStiffness2D;
 import Morphogenesis.Physics.OsmosisForce;
+import Morphogenesis.Physics.Spring.BasalRigidityLossSpringForce;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
 import Morphogenesis.Physics.CellGroups.ApicalGradient;
@@ -98,6 +101,7 @@ public class DisplayWindow
         for (Entity e : entities) {
             if (e.getTag() == Tag.MODEL) {
                 modelSelected = true;
+                break;
             }
         }
 
@@ -149,10 +153,13 @@ public class DisplayWindow
         JMenu menu3 = new JMenu("Selection");
         JMenu addComponentSubMenu = new JMenu("Add Component");
 
-        if(!modelSelected) {
             JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
             elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
             addComponentSubMenu.add(elasticForceOption);
+
+            JMenuItem basalLossOption = new JMenuItem("Elastic Force Basal Rigidity Loss");
+            basalLossOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new BasalRigidityLossSpringForce()));
+            addComponentSubMenu.add(basalLossOption);
 
             JMenuItem osmosisForceOption = new JMenuItem("Osmosis Force");
             osmosisForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new OsmosisForce()));
@@ -170,11 +177,10 @@ public class DisplayWindow
             meshStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new MeshStiffness2D()));
             addComponentSubMenu.add(meshStiffnessOption);
 
-            JMenuItem testOption = new JMenuItem("Fan's favorite component");
+            /*JMenuItem testOption = new JMenuItem("Test component");
             testOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new TestComponent()));
-            addComponentSubMenu.add(testOption);
+            addComponentSubMenu.add(testOption);*/
 
-        }else{
             JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
             apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
             addComponentSubMenu.add(apicalGradientOption);
@@ -182,7 +188,7 @@ public class DisplayWindow
             JMenuItem lateralGradientOption = new JMenuItem("Lateral Gradient");
             lateralGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
             addComponentSubMenu.add(lateralGradientOption);
-        }
+
         menu3.add(addComponentSubMenu);
 
         JMenu removeComponentSubMenu = new JMenu("Remove Component");
@@ -198,19 +204,24 @@ public class DisplayWindow
 
         JMenu objectMenu = new JMenu("Object");
         JMenuItem addBasicObject = new JMenuItem("Add Basic Mesh");
-        addBasicObject.addActionListener(e->{
-            new Entity("Box", 0, MODEL).
-                    with(new BoxDebugMesh().build());
-        });
+        addBasicObject.addActionListener(e-> new Entity("Basic Mesh", 0, MODEL).
+                with(new BoxDebugMesh().build()));
+        JMenuItem addRingMesh = new JMenuItem("Add Ring Mesh");
+        addRingMesh.addActionListener(e-> new Entity("Ring Mesh", 0, MODEL).
+        with(new RingMesh()));
+        JMenuItem addHexMesh = new JMenuItem("Add Hexagon Mesh");
+        addHexMesh.addActionListener(e-> new Entity("Hexagon Mesh", 0, MODEL).
+                with(new HexMesh()));
+
         objectMenu.add(addBasicObject);
+        objectMenu.add(addRingMesh);
+        objectMenu.add(addHexMesh);
 
         menuBar.add(objectMenu);
 
         JMenu helpMenu = new JMenu("Help");
         JMenuItem keysHelp = new JMenuItem("Keyboard Shortcuts");
-        keysHelp.addActionListener(e-> {
-            new KeyCommandsHelpPopUp();
-        });
+        keysHelp.addActionListener(e-> new KeyCommandsHelpPopUp());
         helpMenu.add(keysHelp);
         menuBar.add(helpMenu);
     }
@@ -269,6 +280,7 @@ public class DisplayWindow
         int x = frame.getX() + canvas.getX();
         int y = frame.getY() +canvas.getY();
         Rectangle rect = new Rectangle(x, y, width, height);
+        assert robot != null;
         return robot.createScreenCapture(rect);
     }
 
