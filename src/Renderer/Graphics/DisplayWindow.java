@@ -280,7 +280,6 @@ public class DisplayWindow
         int x = frame.getX() + canvas.getX();
         int y = frame.getY() +canvas.getY();
         Rectangle rect = new Rectangle(x, y, width, height);
-        assert robot != null;
         return robot.createScreenCapture(rect);
     }
 
