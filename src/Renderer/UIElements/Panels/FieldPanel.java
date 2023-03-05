@@ -171,7 +171,6 @@ public class FieldPanel {
             Color value = ColorDropDownMenu.colorDictionary.get(field);
             c.changeFieldOnGUI(name, value);
         }
-        SelectionEvents.refresh();
     }
 
     public JPanel getPanel(){

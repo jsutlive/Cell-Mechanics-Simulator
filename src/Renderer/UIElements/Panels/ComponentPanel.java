@@ -26,6 +26,11 @@ public class ComponentPanel {
     public ComponentPanel(){}
     public ComponentPanel(Component c) {
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
+        c.onComponentChanged.subscribe(this::refreshPanel);
+        refreshPanel(c);
+    }
+
+    private void refreshPanel(Component c) {
         panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         Class<?> type = null;

@@ -1,5 +1,6 @@
 package Framework.Object;
 
+import Framework.Events.EventHandler;
 import Morphogenesis.ReloadComponentOnChange;
 import Morphogenesis.ReloadEntityOnChange;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Component implements IBehavior, IExposeToGUI {
+    public EventHandler<Component> onComponentChanged = new EventHandler<>();
     protected transient Entity parent;
     public void setParent(Entity mono){
         parent = mono;
@@ -75,6 +77,7 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                 if(f.getDeclaredAnnotation(ReloadEntityOnChange.class)!=null){
                     c.parent.awake();
                 }
+                c.onComponentChanged.invoke(this);
             }
         }
     }
