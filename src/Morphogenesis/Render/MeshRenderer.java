@@ -3,10 +3,13 @@ package Morphogenesis.Render;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
+import Morphogenesis.ReloadComponentOnChange;
 import Renderer.Graphics.IColor;
 import Morphogenesis.Meshing.Mesh;
 import Framework.Rigidbodies.Edge;
 import Utilities.Geometry.Vector.Vector2f;
+import Utilities.Geometry.Vector.Vector2i;
+import Renderer.Camera;
 import Utilities.Math.CustomMath;
 
 import java.awt.*;
@@ -21,6 +24,9 @@ public class MeshRenderer extends ObjectRenderer
     private transient Mesh cellMesh;
     private Color highlightColor = Color.yellow;
     public boolean enabled = true;
+
+    @ReloadComponentOnChange
+    public boolean showEdgeNormals = false;
 
     public MeshRenderer(boolean active){
         enabled = active;
@@ -80,7 +86,7 @@ public class MeshRenderer extends ObjectRenderer
         normal.mul(7);
         normal = normal.add(center);
 
-        drawLine(center.asInt(), normal.asInt());
+        drawLine(center, normal);
     }
 
     /**
@@ -103,17 +109,18 @@ public class MeshRenderer extends ObjectRenderer
             //instead of just offsetting an edge by its own normals, it's nodes must be offset by the adjacent edge normals as well
             //so that the end point of each edge matches the others.
 
+            float offsetAmount = 0.5f/Camera.main.getScale();
             drawLine(
                     positions[0]
-                            .add(CustomMath.normal(mainEdge).mul(0.25f))
-                            .add(CustomMath.normal(previousEdge).mul(0.25f))
-                            .asInt(),
+                            .add(CustomMath.normal(mainEdge).mul(offsetAmount))
+                            .add(CustomMath.normal(previousEdge).mul(offsetAmount)),
                     positions[1]
-                            .add(CustomMath.normal(mainEdge).mul(0.25f))
-                            .add(CustomMath.normal(nextEdge).mul(0.25f))
-                            .asInt(),
+                            .add(CustomMath.normal(mainEdge).mul(offsetAmount))
+                            .add(CustomMath.normal(nextEdge).mul(offsetAmount)),
                     color);
-            //drawEdgeNormal(edge);
+            if(showEdgeNormals) {
+                drawEdgeNormal(cellMesh.edges.get(i));
+            }
         }
     }
 

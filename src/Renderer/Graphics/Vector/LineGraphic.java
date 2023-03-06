@@ -1,13 +1,13 @@
 package Renderer.Graphics.Vector;
 
-import Utilities.Geometry.Vector.Vector2i;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.awt.*;
 
 public class LineGraphic extends VectorGraphic {
-    public Vector2i posA;
-    public Vector2i posB;
-    public LineGraphic(Vector2i posA, Vector2i posB){
+    public Vector2f posA;
+    public Vector2f posB;
+    public LineGraphic(Vector2f posA, Vector2f posB){
         this.posA = posA;
         this.posB = posB;
     }

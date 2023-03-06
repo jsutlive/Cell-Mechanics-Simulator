@@ -31,7 +31,7 @@ public class RigidBoundary extends Component{
     }
 
     private void createGraphic() {
-        graphic = new CircleGraphic(center.asInt(), (int)((outerRadius * 2) + 2), Color.gray);
+        graphic = new CircleGraphic(center,(outerRadius * 2) + 2, Color.gray);
         graphic.add(graphic);
     }
 

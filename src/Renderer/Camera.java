@@ -8,7 +8,10 @@ import Renderer.UIElements.SetSlider;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
+
+import static Renderer.Renderer.graphics;
 
 public class Camera extends Component {
     public static Camera main;
@@ -86,6 +89,14 @@ public class Camera extends Component {
                 Math.round((pos.y + shift.y) * scale + height/2f)
         );
     }
+
+    public Vector2i transformToView(Vector2f pos){
+        return new Vector2i(
+                Math.round((pos.x + shift.x) * scale + width/2f),
+                Math.round((pos.y + shift.y) * scale + height/2f)
+        );
+    }
+
 
     /**
      * Returns data (world) coordinates from given pixel location

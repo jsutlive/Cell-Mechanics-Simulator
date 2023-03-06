@@ -63,7 +63,17 @@ public class FieldPanel {
             for (Component c : components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
             panel.add(field);
 
-        }else if(type == String.class){
+        } else if(type == boolean.class){
+            panel.add(new JLabel(name));
+            boolean val;
+            JCheckBox checkBox = new JCheckBox("");
+            if(value != PLACEHOLDER_FIELD) {
+                val = (boolean) value;
+                checkBox.setSelected(val);
+            }
+            for(Component c: components) checkBox.addActionListener(e -> changeGUI(c, Boolean.toString(checkBox.isSelected()), type));
+            panel.add(checkBox);
+        } else if(type == String.class){
             panel.add(new JLabel(name));
             String val;
             JTextField field;
@@ -75,8 +85,7 @@ public class FieldPanel {
             }
             for(Component c: components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
             panel.add(field);
-        }
-        else if(type == Color.class){
+        } else if(type == Color.class){
             Color val;
             ColorDropDownMenu colorDropDownMenu;
             if(value!=PLACEHOLDER_FIELD) {
@@ -138,8 +147,7 @@ public class FieldPanel {
             panel.add(new JLabel("X"));
             panel.add(fieldY);
             panel.add(new JLabel("Y"));
-        }
-        else{
+        } else{
             isSerializable = false;
         }
     }
@@ -164,6 +172,10 @@ public class FieldPanel {
             c.changeFieldOnGUI(name, value);
         } else if(type == float.class){
             float value = Float.parseFloat(field);
+            c.changeFieldOnGUI(name, value);
+        }else if(type == boolean.class){
+            boolean value = Boolean.parseBoolean(field);
+            System.out.println(value);
             c.changeFieldOnGUI(name, value);
         }else if(type == String.class){
             c.changeFieldOnGUI(name, field);

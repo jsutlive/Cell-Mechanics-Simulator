@@ -1,14 +1,14 @@
 package Renderer.Graphics.Vector;
 
-import Utilities.Geometry.Vector.Vector2i;
+import Utilities.Geometry.Vector.Vector2f;
 
 import java.awt.*;
 
 public class CircleGraphic extends VectorGraphic{
-    int radius;
-    Vector2i center;
+    float radius;
+    Vector2f center;
     Color color;
-    public CircleGraphic(Vector2i center, int radius, Color color){
+    public CircleGraphic(Vector2f center, float radius, Color color){
         this.center = center;
         this.radius = radius;
         this.color = color;
