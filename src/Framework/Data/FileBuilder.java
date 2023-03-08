@@ -12,6 +12,7 @@ import Morphogenesis.Meshing.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -28,6 +29,7 @@ public class FileBuilder {
     private static String basePath = System.getProperty("user.dir") + "//export//";
     public static String fullPathName;
     public static float saveFrequency = Time.asNanoseconds(20);
+    public static List<Entity> saveEntities = new ArrayList<>();
 
     public static void setSaveFrequency(float seconds){
         saveFrequency = Time.asNanoseconds(seconds);
@@ -86,6 +88,42 @@ public class FileBuilder {
             return gson.fromJson(inFile, Entity[].class);
         }
         return null;
+    }
+
+    public static void saveMeshData(List<Entity> entities) throws IOException{
+        for(Entity entity: saveEntities) {
+            File file = new File(fullPathName + entity.name + ".csv");
+            if (!file.exists()) file.createNewFile();
+            try {
+                // create FileWriter object with file as parameter
+                FileWriter outputfile = new FileWriter(file);
+                CSVWriter writer = new CSVWriter(outputfile);
+                String[] header = new String[5];
+                header[0] = "Name";
+                header[1] = "Area";
+                header[2] = "Perimeter";
+                header[3] = "Centroid X";
+                header[4] = "Centroid Y";
+                writer.writeNext(header);
+                for (Entity e : entities) {
+                    if (e.getComponent(Mesh.class) != null) {
+                        Mesh mesh = e.getComponent(Mesh.class);
+                        String[] data = new String[5];
+                        data[0] = e.name;
+                        data[1] = String.valueOf(mesh.getArea());
+                        data[2] = String.valueOf(mesh.getPerimeter());
+                        data[3] = String.valueOf(mesh.calculateCentroid().x);
+                        data[4] = String.valueOf(mesh.calculateCentroid().y);
+                        writer.writeNext(data);
+                        //CSVReader reader = new CSVReader();
+                    }
+                }
+
+                writer.close();
+            } catch (IOException e) {
+                throw new IOException("FAILED TO MAKE FILE");
+            }
+        }
     }
 
     public static void saveAbridged(List<Entity> entities, String filePath) throws IOException {

@@ -92,13 +92,13 @@ public final class StateMachine {
     }
 
     public void clearStateMachine(boolean keepCamera){
-            for(int i = allObjects.size()-1; i>= 0; i-- ){
+        SelectionEvents.clearGroups();
+        for(int i = allObjects.size()-1; i>= 0; i-- ){
                 Tag tag = allObjects.get(i).getTag();
-                if(keepCamera &&( tag== CAMERA || tag == PHYSICS)) continue;
-                allObjects.get(i).destroy();
-            }
-            SelectionEvents.clearGroups();
-        System.out.println(allObjects.size());
+                if(!( tag== CAMERA || tag == PHYSICS)) {
+                    allObjects.get(i).destroy();
+                }
+        }
     }
 
     public void loadModel(String modelName){
