@@ -33,7 +33,7 @@ public abstract class Renderer implements Runnable {
             if (renderClock.isReadyForNextFrame()) {
                 render();
             }
-            renderClock.printFrameRateAndResetFrameTimer();
+            //renderClock.printFrameRateAndResetFrameTimer();
         }
     }
 

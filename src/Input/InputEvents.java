@@ -1,5 +1,6 @@
 package Input;
 
+import Framework.Data.FileBuilder;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Utilities.Geometry.Vector.Vector2i;
@@ -8,6 +9,7 @@ import javafx.scene.input.KeyCode;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class InputEvents implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
@@ -113,6 +115,15 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     public static void toggleSimulation(boolean b) {
         onToggleSimulation.invoke(b);
+        if(!b) {
+            try {
+                FileBuilder.saveCSV();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            FileBuilder.saveDictionary.clear();
+        }
     }
 
     public void click(MouseEvent event){

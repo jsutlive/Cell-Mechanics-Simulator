@@ -6,22 +6,29 @@ import Framework.Data.Json.NodeSerializer;
 import Framework.Data.Json.VectorDeserializer;
 import Framework.Object.Component;
 import Framework.Object.Entity;
+import Framework.Object.Tag;
 import Framework.Rigidbodies.Node;
 import Framework.Timer.Time;
 import Morphogenesis.Meshing.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class FileBuilder {
@@ -30,6 +37,7 @@ public class FileBuilder {
     public static String fullPathName;
     public static float saveFrequency = Time.asNanoseconds(20);
     public static List<Entity> saveEntities = new ArrayList<>();
+    public static HashMap<Entity, List<String[]>> saveDictionary = new HashMap<>();
 
     public static void setSaveFrequency(float seconds){
         saveFrequency = Time.asNanoseconds(seconds);
@@ -90,37 +98,53 @@ public class FileBuilder {
         return null;
     }
 
-    public static void saveMeshData(List<Entity> entities) throws IOException{
+    public static void saveMeshData(String timeStamp) throws IOException, CsvException {
         for(Entity entity: saveEntities) {
-            File file = new File(fullPathName + entity.name + ".csv");
-            if (!file.exists()) file.createNewFile();
-            try {
-                // create FileWriter object with file as parameter
+            Mesh mesh = entity.getComponent(Mesh.class);
+            if (!saveDictionary.containsKey(entity)) {
+                List<String[]> currentData = new ArrayList<>();
+                saveDictionary.put(entity, currentData);
+                String[] time = new String[]{"Time", timeStamp};
+                String[] area = new String[]{"Area", String.valueOf(mesh.getArea())};
+                String[] perimeter = new String[]{"Perimeter", String.valueOf(mesh.getPerimeter())};
+                String[] centroidX = new String[]{"CentroidX", String.valueOf(mesh.calculateCentroid().x)};
+                String[] centroidY = new String[]{"CentroidY", String.valueOf(mesh.calculateCentroid().y)};
+                currentData.clear();
+                currentData.add(time);
+                currentData.add(area);
+                currentData.add(perimeter);
+                currentData.add(centroidX);
+                currentData.add(centroidY);
+            }else {
+                System.out.println("NEW DATA");
+                List<String[]> currentData = saveDictionary.get(entity);
+                String[] time = appendStringArray(currentData.get(0), timeStamp);
+                String[] area = appendStringArray(currentData.get(1), String.valueOf(mesh.getArea()));
+                String[] perimeter = appendStringArray(currentData.get(2), String.valueOf(mesh.getPerimeter()));
+                String[] centroidX = appendStringArray(currentData.get(3), String.valueOf(mesh.calculateCentroid().x));
+                String[] centroidY = appendStringArray(currentData.get(4), String.valueOf(mesh.calculateCentroid().y));
+                currentData.clear();
+                currentData.add(time);
+                currentData.add(area);
+                currentData.add(perimeter);
+                currentData.add(centroidX);
+                currentData.add(centroidY);
+            }
+        }
+    }
+
+    public static void saveCSV() throws IOException {
+        for(Entity e: saveEntities) {
+            File file = new File(fullPathName + e.name + ".csv");
+            file.createNewFile();
+            try{
                 FileWriter outputfile = new FileWriter(file);
                 CSVWriter writer = new CSVWriter(outputfile);
-                String[] header = new String[5];
-                header[0] = "Name";
-                header[1] = "Area";
-                header[2] = "Perimeter";
-                header[3] = "Centroid X";
-                header[4] = "Centroid Y";
-                writer.writeNext(header);
-                for (Entity e : entities) {
-                    if (e.getComponent(Mesh.class) != null) {
-                        Mesh mesh = e.getComponent(Mesh.class);
-                        String[] data = new String[5];
-                        data[0] = e.name;
-                        data[1] = String.valueOf(mesh.getArea());
-                        data[2] = String.valueOf(mesh.getPerimeter());
-                        data[3] = String.valueOf(mesh.calculateCentroid().x);
-                        data[4] = String.valueOf(mesh.calculateCentroid().y);
-                        writer.writeNext(data);
-                        //CSVReader reader = new CSVReader();
-                    }
+                for(String[] data : saveDictionary.get(e)){
+                    writer.writeNext(data);
                 }
-
                 writer.close();
-            } catch (IOException e) {
+            }catch (IOException exception){
                 throw new IOException("FAILED TO MAKE FILE");
             }
         }
@@ -141,7 +165,7 @@ public class FileBuilder {
             header[4] = "Centroid Y";
             writer.writeNext(header);
             for (Entity e : entities) {
-                if (e.getComponent(Mesh.class) != null) {
+                if (e.getComponent(Mesh.class) != null && e.getTag()!= Tag.MODEL) {
                     Mesh mesh = e.getComponent(Mesh.class);
                     String[] data = new String[5];
                     data[0] = e.name;
@@ -156,5 +180,11 @@ public class FileBuilder {
         }catch (IOException e){
             throw new IOException("FAILED TO MAKE FILE");
         }
+    }
+
+    public static String[] appendStringArray(String[] array, String s){
+        array = Arrays.copyOf(array, array.length + 1);
+        array[array.length - 1] = s;
+        return array;
     }
 }

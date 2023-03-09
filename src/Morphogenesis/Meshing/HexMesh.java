@@ -1,5 +1,6 @@
 package Morphogenesis.Meshing;
 
+import Framework.Data.FileBuilder;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Component;
 import Framework.Object.Entity;
@@ -120,6 +121,8 @@ public class HexMesh extends Mesh{
                 }
             }
         }
+        FileBuilder.saveEntities.add(getChildren().get(0));
+
     }
 
     private boolean isNewCentroidPosition(Vector2f pos) {
