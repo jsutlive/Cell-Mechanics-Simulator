@@ -12,8 +12,8 @@ import static Framework.Timer.Time.fromNanoseconds;
 
 public class BasalRigidityLossSpringForce extends SpringForce{
     Edge basalEdge;
-    public float onsetTime = 0f;
-    public float rampTime = 25f;
+    public float onsetTime = 30f;
+    public float rampTime = 30f;
     public float basalEdgeConstant;
     public float rampConstantIncrementPerSecond;
     @Override
@@ -22,7 +22,7 @@ public class BasalRigidityLossSpringForce extends SpringForce{
         basalEdge = edges.get(edges.size()-1);
         edges.remove(edges.get(edges.size()-1));
         targetLengthRatio = 1;
-        constant = 25f;
+        constant = 70f;
         basalEdgeConstant = 5f;
         rampConstantIncrementPerSecond = (constant-basalEdgeConstant)/rampTime;
     }

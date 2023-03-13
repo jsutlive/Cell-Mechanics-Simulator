@@ -16,8 +16,8 @@ import static Utilities.Geometry.Geometry.calculateAngleBetweenPoints;
 public class MeshStiffness2D extends Force {
 
     private HashMap<ArrayList<Node2D>, Float> edgeAngleHashMap = new HashMap<>();
-    public float constant = 15f;
-    public float cornerFactor = 1f;
+    public float constant = 30f;
+    public float cornerFactor = 0.75f;
 
     @Override
     public void awake() {

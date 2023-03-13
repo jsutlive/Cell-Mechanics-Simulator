@@ -14,7 +14,7 @@ public class OsmosisForce extends Force {
     private transient List<Edge> edges;
     private transient float initialArea;
     public transient float desiredArea;
-    public float osmosisConstant = 0.025f;
+    public float osmosisConstant = 0.1f;
     public float internalPressure = 0f;
 
     @Override

@@ -25,12 +25,12 @@ public class LateralGradient extends Component {
 
     transient EntityGroup cellGroup;
 
-    public int numberOfConstrictingCells = 20;
+    public int numberOfConstrictingCells = 35;
 
     //@Tooltip(text = "number of cells away from center")
-    public int constrictingCellsStartLocation = 10;
-    public float constantCeiling = 10f;
-    public float ratioCeiling = 0.9f;
+    public int constrictingCellsStartLocation = 7;
+    public float constantCeiling = 15f;
+    public float ratioCeiling = 0.7f;
     public Color groupColor = Color.BLUE;
 
 

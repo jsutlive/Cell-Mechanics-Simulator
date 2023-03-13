@@ -28,8 +28,8 @@ public class ApicalGradient extends Component {
     public int numberOfConstrictingCells = 12;
     public float mu = 0f;
     public float sigma = 0.8f;
-    public float constantCeiling = 225.4f;
-    public float constantFloor = 155f;
+    public float constantCeiling = 450f;
+    public float constantFloor = 200f;
     public float ratioCeiling = 0.01f;
     public float ratioFloor = .05f;
     public Color groupColor = Color.MAGENTA;
