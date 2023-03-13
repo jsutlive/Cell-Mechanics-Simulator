@@ -13,14 +13,10 @@ import Morphogenesis.Meshing.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.opencsv.CSVParser;
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -98,7 +94,7 @@ public class FileBuilder {
         return null;
     }
 
-    public static void saveMeshData(String timeStamp) throws IOException, CsvException {
+    public static void saveMeshData(String timeStamp) throws CsvException {
         for(Entity entity: saveEntities) {
             Mesh mesh = entity.getComponent(Mesh.class);
             if (!saveDictionary.containsKey(entity)) {
@@ -109,12 +105,14 @@ public class FileBuilder {
                 String[] perimeter = new String[]{"Perimeter", String.valueOf(mesh.getPerimeter())};
                 String[] centroidX = new String[]{"CentroidX", String.valueOf(mesh.calculateCentroid().x)};
                 String[] centroidY = new String[]{"CentroidY", String.valueOf(mesh.calculateCentroid().y)};
+                String[] bounds = new String[]{"Distance from Bounds", String.valueOf(mesh.getDistanceToBoundary())};
                 currentData.clear();
                 currentData.add(time);
                 currentData.add(area);
                 currentData.add(perimeter);
                 currentData.add(centroidX);
                 currentData.add(centroidY);
+                currentData.add(bounds);
             }else {
                 System.out.println("NEW DATA");
                 List<String[]> currentData = saveDictionary.get(entity);
@@ -123,12 +121,14 @@ public class FileBuilder {
                 String[] perimeter = appendStringArray(currentData.get(2), String.valueOf(mesh.getPerimeter()));
                 String[] centroidX = appendStringArray(currentData.get(3), String.valueOf(mesh.calculateCentroid().x));
                 String[] centroidY = appendStringArray(currentData.get(4), String.valueOf(mesh.calculateCentroid().y));
+                String[] bounds = appendStringArray(currentData.get(5), String.valueOf(mesh.getDistanceToBoundary()));
                 currentData.clear();
                 currentData.add(time);
                 currentData.add(area);
                 currentData.add(perimeter);
                 currentData.add(centroidX);
                 currentData.add(centroidY);
+                currentData.add(bounds);
             }
         }
     }
@@ -173,6 +173,7 @@ public class FileBuilder {
                     data[2] = String.valueOf(mesh.getPerimeter());
                     data[3] = String.valueOf(mesh.calculateCentroid().x);
                     data[4] = String.valueOf(mesh.calculateCentroid().y);
+                    data[5] = String.valueOf(mesh.getDistanceToBoundary());
                     writer.writeNext(data);
                 }
             }

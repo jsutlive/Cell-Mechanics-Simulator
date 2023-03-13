@@ -4,12 +4,14 @@ import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Entity;
 import Framework.Object.Transform;
+import Morphogenesis.Physics.Collision.RigidBoundary;
 import Morphogenesis.Render.DoNotEditInGUI;
 import Morphogenesis.Render.MeshRenderer;
 import Morphogenesis.Render.VirtualRenderer;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node;
 import Framework.Rigidbodies.Node2D;
+import Utilities.Geometry.Vector.Vector;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
 import Utilities.Math.Gauss;
@@ -75,6 +77,34 @@ public abstract class Mesh extends Component {
         centroid = new Vector2f(x,y);
         return centroid;
     }
+
+    // REFACTOR THIS METHOD
+    public float getDistanceToBoundary(){
+        if(parent.parent!= null){
+            System.out.println(parent.parent.name);
+            RigidBoundary boundary = parent.parent.getComponent(RigidBoundary.class);
+            System.out.println(boundary);
+            if(boundary!= null) {
+                return getDistanceToBoundary(boundary);
+            }else{
+                System.out.println("NO BOUNDARY COMPONENT");
+            }
+        }
+        return 0;
+    }
+
+    public float getDistanceToBoundary(RigidBoundary boundary) {
+        float shortestDistance = Float.POSITIVE_INFINITY;
+        float radius = boundary.outerRadius;
+        for (Node node : nodes) {
+            Vector2f position = (Vector2f) node.getPosition();
+            System.out.println(Vector2f.dist(position , Vector2f.zero));
+            float dist = CustomMath.abs(Vector2f.dist(position, Vector2f.zero)- radius);
+            shortestDistance = Math.min(shortestDistance, dist);
+        }
+        return shortestDistance;
+    }
+
 
     @Override
     public void onValidate()

@@ -121,8 +121,6 @@ public class HexMesh extends Mesh{
                 }
             }
         }
-        FileBuilder.saveEntities.add(getChildren().get(0));
-
     }
 
     private boolean isNewCentroidPosition(Vector2f pos) {

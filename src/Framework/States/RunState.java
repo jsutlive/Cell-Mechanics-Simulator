@@ -63,7 +63,7 @@ public class RunState extends State
             try {
                 //FileBuilder.saveAbridged(stateMachine.allObjects, path);
                 FileBuilder.saveMeshData(String.valueOf(simpleTime));
-            } catch (IOException | CsvException e) {
+            } catch (CsvException e) {
                 e.printStackTrace();
             }
             count++;

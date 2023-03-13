@@ -3,6 +3,7 @@ package Component;
 import Morphogenesis.Meshing.RingCellMesh;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
+import Morphogenesis.Physics.Collision.RigidBoundary;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,6 +34,25 @@ public class MeshTests {
         testMesh.edges.add(new Edge(e,f));
         testMesh.edges.add(new Edge(f,g));
         testMesh.edges.add(new Edge(g,h));
+    }
+
+    @Test
+    void check_if_node_on_mesh_found_to_be_0_points_from_boundary_when_coincides(){
+        RingCellMesh boundaryTestMesh = new RingCellMesh();
+        Node2D a = new Node2D(0,-1); boundaryTestMesh.nodes.add(a);
+        Node2D b = new Node2D(-1, 0); boundaryTestMesh.nodes.add(b);
+        Node2D c = new Node2D(0, 1); boundaryTestMesh.nodes.add(c);
+        Node2D d = new Node2D(1,0);  boundaryTestMesh.nodes.add(d);
+        boundaryTestMesh.edges.add(new Edge(a,b));
+        boundaryTestMesh.edges.add(new Edge(b,c));
+        boundaryTestMesh.edges.add(new Edge(c,d));
+        boundaryTestMesh.edges.add(new Edge(d,a));
+
+        RigidBoundary boundary = new RigidBoundary();
+        boundary.outerRadius = 1;
+
+        float dist = boundaryTestMesh.getDistanceToBoundary(boundary);
+        assertEquals(0, dist);
     }
 
     @Test

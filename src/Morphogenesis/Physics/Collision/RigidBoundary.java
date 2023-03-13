@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RigidBoundary extends Component{
 
-    float outerRadius;
+    public float outerRadius;
     RingMesh referenceRing;
     CircleGraphic graphic;
     Vector2f center = new Vector2f(0);

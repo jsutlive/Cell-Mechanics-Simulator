@@ -1,5 +1,6 @@
 package Renderer.UIElements.Panels;
 
+import Framework.Data.FileBuilder;
 import Framework.Events.EventHandler;
 import Framework.Object.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
@@ -9,6 +10,7 @@ import Input.SelectionEvents;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +20,7 @@ public class EntityPanel {
     JPanel panel;
     JLabel nameLabel;
     JPanel nameLabelPanel;
+    JPanel statusPanel;
     JButton groupButton;
     int currentGroupSelection = -1;
 
@@ -45,10 +48,26 @@ public class EntityPanel {
         currentGroupSelection = index;
     }
 
+    private void createStatusPanel(Entity entity){
+        statusPanel = new JPanel();
+        JCheckBox checkBox = new JCheckBox("Retain Mesh Data");
+        statusPanel.add(checkBox);
+        checkBox.setSelected(FileBuilder.saveEntities.contains(entity));
+        checkBox.addActionListener(e->{
+            if(checkBox.isSelected()){
+                FileBuilder.saveEntities.add(entity);
+            }else{
+                FileBuilder.saveEntities.remove(entity);
+                FileBuilder.saveDictionary.remove(entity);
+            }
+        });
+        panel.add(statusPanel);
+    }
+
     private void createBaseLabels() {
         nameLabelPanel = new JPanel();
         nameLabel = new JLabel("Inspector");
-        nameLabel.setFont(nameLabel.getFont().deriveFont(18.0f));
+        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
         nameLabelPanel.add(nameLabel);
 
         panel.add(nameLabelPanel);
@@ -83,6 +102,7 @@ public class EntityPanel {
         nameField.setFont(nameLabel.getFont().deriveFont(18.0f));
         nameField.setMaximumSize(new Dimension(300, 50));
         panel.add(nameField);
+        createStatusPanel(entity);
         nameField.addActionListener(e->entity.name = nameField.getText());
         setComponentsSingleEntity(entity);
     }
