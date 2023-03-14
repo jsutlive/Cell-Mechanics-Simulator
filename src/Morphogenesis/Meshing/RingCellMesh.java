@@ -61,6 +61,19 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
         return apicalResolution;
     }
 
+    /**
+     * Gets the length of each cell by calculating the length of it's lateral edges
+     */
+    public float getLength(){
+        float firstEdgeLength = 0;
+        float secondEdgeLength = 0;
+        for(int i = 0; i<lateralResolution; i++){
+            firstEdgeLength += edges.get(i).getLength();
+            secondEdgeLength += edges.get(i+lateralResolution+1).getLength();
+        }
+        return (firstEdgeLength+secondEdgeLength)/2;
+    }
+
     public ArrayList<Node2D> getNodes(){
         return nodes;
     }
