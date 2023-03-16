@@ -61,8 +61,18 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
         return apicalResolution;
     }
 
+    @Override
+    public float getMaximumDistance() {
+        return getLength();
+    }
+
+    @Override
+    public float getMinimumDistance(){
+        return (edges.get(lateralResolution).getLength() + edges.get(edges.size()-1).getLength())/2;
+    }
+
     /**
-     * Gets the length of each cell by calculating the length of it's lateral edges
+     * Gets the length of each cell by calculating the length of its lateral edges
      */
     public float getLength(){
         float firstEdgeLength = 0;

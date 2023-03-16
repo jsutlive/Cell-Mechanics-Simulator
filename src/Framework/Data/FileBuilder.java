@@ -94,7 +94,7 @@ public class FileBuilder {
         return null;
     }
 
-    public static void saveMeshData(String timeStamp) throws CsvException {
+    public static void saveMeshData(String timeStamp) {
         for(Entity entity: saveEntities) {
             Mesh mesh = entity.getComponent(Mesh.class);
             if (!saveDictionary.containsKey(entity)) {
@@ -105,6 +105,8 @@ public class FileBuilder {
                 String[] perimeter = new String[]{"Perimeter", String.valueOf(mesh.getPerimeter())};
                 String[] centroidX = new String[]{"CentroidX", String.valueOf(mesh.calculateCentroid().x)};
                 String[] centroidY = new String[]{"CentroidY", String.valueOf(mesh.calculateCentroid().y)};
+                String[] min = new String[]{"Minimum Distance", String.valueOf(mesh.getMinimumDistance())};
+                String[] max = new String[]{"Maximum Distance", String.valueOf(mesh.getMaximumDistance())};
                 String[] bounds = new String[]{"Distance from Bounds", String.valueOf(mesh.getDistanceToBoundary())};
                 currentData.clear();
                 currentData.add(time);
@@ -112,22 +114,27 @@ public class FileBuilder {
                 currentData.add(perimeter);
                 currentData.add(centroidX);
                 currentData.add(centroidY);
+                currentData.add(min);
+                currentData.add(max);
                 currentData.add(bounds);
             }else {
-                System.out.println("NEW DATA");
                 List<String[]> currentData = saveDictionary.get(entity);
                 String[] time = appendStringArray(currentData.get(0), timeStamp);
                 String[] area = appendStringArray(currentData.get(1), String.valueOf(mesh.getArea()));
                 String[] perimeter = appendStringArray(currentData.get(2), String.valueOf(mesh.getPerimeter()));
                 String[] centroidX = appendStringArray(currentData.get(3), String.valueOf(mesh.calculateCentroid().x));
                 String[] centroidY = appendStringArray(currentData.get(4), String.valueOf(mesh.calculateCentroid().y));
-                String[] bounds = appendStringArray(currentData.get(5), String.valueOf(mesh.getDistanceToBoundary()));
+                String[] min = appendStringArray(currentData.get(5), String.valueOf(mesh.getMinimumDistance()));
+                String[] max = appendStringArray(currentData.get(6), String.valueOf(mesh.getMaximumDistance()));
+                String[] bounds = appendStringArray(currentData.get(7), String.valueOf(mesh.getDistanceToBoundary()));
                 currentData.clear();
                 currentData.add(time);
                 currentData.add(area);
                 currentData.add(perimeter);
                 currentData.add(centroidX);
                 currentData.add(centroidY);
+                currentData.add(min);
+                currentData.add(max);
                 currentData.add(bounds);
             }
         }

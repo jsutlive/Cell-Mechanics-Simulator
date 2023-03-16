@@ -60,6 +60,10 @@ public abstract class Mesh extends Component {
         return area;
     }
 
+    public float getMaximumDistance(){return 0f;}
+
+    public float getMinimumDistance(){return 0f;}
+
     protected void calculateArea(){
         area = CustomMath.round(Gauss.nShoelace(nodes),1);
         if(restingArea == 0) restingArea = area;
@@ -81,13 +85,9 @@ public abstract class Mesh extends Component {
     // REFACTOR THIS METHOD
     public float getDistanceToBoundary(){
         if(parent.parent!= null){
-            System.out.println(parent.parent.name);
             RigidBoundary boundary = parent.parent.getComponent(RigidBoundary.class);
-            System.out.println(boundary);
             if(boundary!= null) {
                 return getDistanceToBoundary(boundary);
-            }else{
-                System.out.println("NO BOUNDARY COMPONENT");
             }
         }
         return 0;

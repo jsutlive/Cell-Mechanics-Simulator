@@ -60,12 +60,8 @@ public class RunState extends State
             float simpleTime = CustomMath.round(Time.fromNanoseconds((long)targetTime), 1);
             StateMachine.onSaveStateInfo.invoke( simpleTime+ "_seconds");
             String path = "data_" + simpleTime + "_seconds";
-            try {
-                //FileBuilder.saveAbridged(stateMachine.allObjects, path);
-                FileBuilder.saveMeshData(String.valueOf(simpleTime));
-            } catch (CsvException e) {
-                e.printStackTrace();
-            }
+            //FileBuilder.saveAbridged(stateMachine.allObjects, path);
+            FileBuilder.saveMeshData(String.valueOf(simpleTime));
             count++;
         }
     }
