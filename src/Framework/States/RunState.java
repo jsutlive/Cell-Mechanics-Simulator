@@ -13,7 +13,7 @@ import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
 
 public class RunState extends State
 {
-    protected static float dt  = 1e-3f;
+    protected static float dt  = (float) Math.pow(2,-14);
     public static float deltaTime;
     private int count;
 

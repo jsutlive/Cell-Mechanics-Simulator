@@ -72,11 +72,12 @@ public class PlayPanel {
         JPanel timestepPanel = new JPanel();
         JLabel timestepLabel = new JLabel("timestep");
         timestepLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, 0, 60, 10);
+        JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, -18, -10, -14);
         timestepSlider.setFocusable(false);
-        timestepSlider.setMajorTickSpacing(5);
+        timestepSlider.setMajorTickSpacing(4);
+        timestepSlider.setMinorTickSpacing(1);
         timestepSlider.setPaintTicks(true);
-        timestepSlider.addChangeListener(e -> changeTimestepSlider(timestepSlider.getValue() / 1e4f));
+        timestepSlider.addChangeListener(e -> changeTimestepSlider((float) Math.pow(2f,timestepSlider.getValue())));
 
         timestepPanel.add(timestepLabel);
         timestepPanel.add(timestepSlider);
