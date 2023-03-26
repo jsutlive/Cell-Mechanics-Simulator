@@ -48,7 +48,7 @@ public class PlayPanel {
         ImageIcon icon;
         if(isPlayingSimulation) {
             toggleSimulationButton.setBackground(Color.RED);
-            toggleSimulationButton.setText("Stop");
+            toggleSimulationButton.setText("Restart");
             icon = new ImageIcon(loadImage("stop.png"));
         }else{
             toggleSimulationButton.setBackground(Color.GREEN);
