@@ -75,13 +75,34 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
      * Gets the length of each cell by calculating the length of its lateral edges
      */
     public float getLength(){
+        Edge[][] edges = getLateralEdges();
         float firstEdgeLength = 0;
         float secondEdgeLength = 0;
-        for(int i = 0; i<lateralResolution; i++){
-            firstEdgeLength += edges.get(i).getLength();
-            secondEdgeLength += edges.get(i+lateralResolution+1).getLength();
+        for(int i = 0; i<edges[0].length; i++){
+            firstEdgeLength += edges[0][i].getLength();
+            secondEdgeLength += edges[1][i+edges[0].length+1].getLength();
         }
         return (firstEdgeLength+secondEdgeLength)/2;
+    }
+
+    public Edge[][] getLateralEdges(){
+        Edge[] firstSide = new Edge[lateralResolution];
+        Edge[] secondSide = new Edge[lateralResolution];
+        for(int i = 0; i<lateralResolution; i++){
+            firstSide[i] = edges.get(i);
+            secondSide[i] = edges.get(i+lateralResolution+apicalResolution);
+        }
+        return(new Edge[][]{firstSide, secondSide});
+    }
+
+    public Edge[][] getApicalEdges(){
+        Edge[] firstSide = new Edge[apicalResolution];
+        Edge[] secondSide = new Edge[apicalResolution];
+        for(int i = 0; i<apicalResolution; i++){
+            firstSide[i] = edges.get(lateralResolution+i);
+            secondSide[i] = edges.get(i+lateralResolution+apicalResolution);
+        }
+        return(new Edge[][]{firstSide, secondSide});
     }
 
     public ArrayList<Node2D> getNodes(){
