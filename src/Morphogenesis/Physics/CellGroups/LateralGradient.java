@@ -32,6 +32,7 @@ public class LateralGradient extends Component {
     public float constantCeiling = 15f;
     public float ratioCeiling = 0.7f;
     public Color groupColor = Color.BLUE;
+    public float onsetTime = 300f;
 
 
     @Override
@@ -73,6 +74,7 @@ public class LateralGradient extends Component {
                 LateralShorteningSpringForce shorteningSpringForce = cell.getComponent(LateralShorteningSpringForce.class);
                 shorteningSpringForce.constant = constantCeiling;
                 shorteningSpringForce.targetLengthRatio = ratioCeiling;
+                shorteningSpringForce.onsetTime = onsetTime;
             }
             else if(cell.getComponent(LateralShorteningSpringForce.class)!= null){
                 cell.removeComponent(LateralShorteningSpringForce.class);

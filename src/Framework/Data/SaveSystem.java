@@ -3,11 +3,12 @@ package Framework.Data;
 import Framework.Object.Component;
 import Framework.States.StateMachine;
 import Framework.Timer.Time;
-import Input.InputEvents;
+
 import Morphogenesis.ReloadComponentOnChange;
 
 import static Framework.Data.FileBuilder.setFullPathName;
 import static Framework.Data.FileBuilder.setSaveFrequency;
+import static Input.InputEvents.toggleSimulation;
 
 @ReloadComponentOnChange
 public class SaveSystem extends Component {
@@ -23,7 +24,7 @@ public class SaveSystem extends Component {
     @Override
     public void update() {
         if(StateMachine.timer.elapsedTime < Time.asNanoseconds(stopTime * 60)){
-            InputEvents.toggleSimulation(false);
+            toggleSimulation(false);
         }
     }
 }
