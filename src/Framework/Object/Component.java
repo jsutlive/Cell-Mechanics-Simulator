@@ -25,6 +25,7 @@ public abstract class Component implements IBehavior, IExposeToGUI {
         return parent.getComponent(componentClass);
     }
 
+    // Methods in this block correspond to events in the program loop
     public void awake(){}
     public void start(){}
     public void update(){}
@@ -32,6 +33,7 @@ public abstract class Component implements IBehavior, IExposeToGUI {
     public void lateUpdate(){}
     public void onDestroy(){}
     public void onValidate(){}
+    //
 
     /**
      * Super hacky method to get instance of a subclass as its superclass, use wisely

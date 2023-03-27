@@ -7,38 +7,38 @@ package Framework.Object;
 public interface IBehavior
 {
     /**
-     * Called by the state for each object upon its creation.
+     * Called by the state for each object upon its creation, in any program state
      */
-    void awake() throws InstantiationException, IllegalAccessException;
+    void awake();
 
     /**
-     * This method is called a single time before the physics loop begins
+     * Checks/ methods to be run prior to awake, typically via annotations, occurs just after the awake method is called
      */
-    void start() throws InstantiationException, IllegalAccessException;
+    void onValidate();
 
     /**
-     * This method is called once per frame to update the physics
+     * This method is called a single time before the physics loop begins, when the "Run State" is entered
+     */
+    void start();
+
+    /**
+     * This method is called once per frame to update the physics, only during the "Run State"
      */
     void update();
 
     /**
-     * This method is called once per frame after the update method
+     * This method is called once per frame after the update method, only during the "Run State"
      */
     void lateUpdate();
 
     /**
-     * This method is called once per frame before the update method
+     * This method is called once per frame before the update method, only during the "Run State"
      */
     void earlyUpdate();
 
     /**
-     * This method is called just prior to this object's destruction
+     * This method is called just prior to this object's destruction, in any program state
      */
     void onDestroy();
-
-    /**
-     * Checks/ methods to be run prior to awake, typically via annotations
-     */
-    void onValidate();
 
 }
