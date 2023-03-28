@@ -19,12 +19,14 @@ public final class Engine implements Runnable
 
     private boolean applicationIsRunning = false;
 
+    String[] runtimeArgs;
+
     /**
      * Prepare state loading and timer system
      */
     private void init() {
         physicsClock = Time.getTime(50f);
-        stateMachine = new StateMachine(physicsClock);
+        stateMachine = new StateMachine(physicsClock, runtimeArgs[0] == "-h" );
     }
 
     /**
@@ -51,9 +53,10 @@ public final class Engine implements Runnable
     /**
      * Begin application thread
      */
-    public synchronized void start(Thread[] threads) {
+    public synchronized void start(Thread[] threads, String[] args) {
         if(applicationIsRunning){return;}
         applicationIsRunning = true;
+        runtimeArgs = args;
         thread = threads[0];
         for(Thread thread: threads) thread.start();
     }

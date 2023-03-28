@@ -175,7 +175,6 @@ public class FieldPanel {
             c.changeFieldOnGUI(name, value);
         }else if(type == boolean.class){
             boolean value = Boolean.parseBoolean(field);
-            System.out.println(value);
             c.changeFieldOnGUI(name, value);
         }else if(type == String.class){
             c.changeFieldOnGUI(name, field);

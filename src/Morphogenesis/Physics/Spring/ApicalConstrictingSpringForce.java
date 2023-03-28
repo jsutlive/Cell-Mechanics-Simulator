@@ -9,7 +9,7 @@ import static Framework.States.StateMachine.timer;
 
 
 public class ApicalConstrictingSpringForce extends SpringForce {
-    public float rampTime = 5f;
+    public float rampTime = 300f;
 
     @Override
     public void awake() {

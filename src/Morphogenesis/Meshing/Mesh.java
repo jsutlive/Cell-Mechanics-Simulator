@@ -98,7 +98,6 @@ public abstract class Mesh extends Component {
         float radius = boundary.outerRadius;
         for (Node node : nodes) {
             Vector2f position = (Vector2f) node.getPosition();
-            System.out.println(Vector2f.dist(position , Vector2f.zero));
             float dist = CustomMath.abs(Vector2f.dist(position, Vector2f.zero)- radius);
             shortestDistance = Math.min(shortestDistance, dist);
         }

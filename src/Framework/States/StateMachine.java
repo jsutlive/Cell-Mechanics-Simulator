@@ -26,7 +26,7 @@ public final class StateMachine {
     public static Time timer;
     public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
 
-    public StateMachine(Time referenceTime){
+    public StateMachine(Time referenceTime, boolean launchOnStart){
         timer = referenceTime;
         Entity.onAddEntity.subscribe(this::addEntityToList);
         Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
@@ -40,7 +40,11 @@ public final class StateMachine {
                 with(new MouseSelector()).
                 with(new SaveSystem());
         Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
-        changeState(new EditorState(this));
+        if(launchOnStart){
+            changeState(new RunState(this));
+        }else {
+            changeState(new EditorState(this));
+        }
     }
 
     /**

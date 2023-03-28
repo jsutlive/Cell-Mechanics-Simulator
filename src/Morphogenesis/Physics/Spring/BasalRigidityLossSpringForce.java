@@ -12,9 +12,10 @@ import static Framework.Timer.Time.fromNanoseconds;
 
 public class BasalRigidityLossSpringForce extends SpringForce{
     Edge basalEdge;
-    public float onsetTime = 30f;
-    public float rampTime = 30f;
-    public float basalEdgeConstant;
+    public float onsetTime = 60f;
+    public float rampTime = 300f;
+    public float basalEdgeConstantInitial;
+    public float basalEdgeConstantFinal = 5f;
     public float rampConstantIncrementPerSecond;
     @Override
     public void awake() {
@@ -23,8 +24,8 @@ public class BasalRigidityLossSpringForce extends SpringForce{
         edges.remove(edges.get(edges.size()-1));
         targetLengthRatio = 1;
         constant = 70f;
-        basalEdgeConstant = 5f;
-        rampConstantIncrementPerSecond = (constant-basalEdgeConstant)/rampTime;
+        basalEdgeConstantInitial = 450f;
+        rampConstantIncrementPerSecond = (basalEdgeConstantInitial-basalEdgeConstantFinal)/rampTime;
     }
 
     @Override
@@ -38,9 +39,9 @@ public class BasalRigidityLossSpringForce extends SpringForce{
             force = calculateSpringForce(basalEdge, constant);
         }else {
             if (timer.elapsedTime < asNanoseconds(rampTime)) {
-                force = calculateSpringForce(basalEdge, basalEdgeConstant - (rampConstantIncrementPerSecond * fromNanoseconds(timer.elapsedTime)));
+                force = calculateSpringForce(basalEdge, basalEdgeConstantInitial - (rampConstantIncrementPerSecond * fromNanoseconds(timer.elapsedTime)));
             } else {
-                force = calculateSpringForce(basalEdge, basalEdgeConstant);
+                force = calculateSpringForce(basalEdge, basalEdgeConstantFinal);
             }
         }
         basalEdge.addConstrictionForceVector(getClass().getSimpleName(), force);
