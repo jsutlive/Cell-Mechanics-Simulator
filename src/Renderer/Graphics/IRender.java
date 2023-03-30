@@ -1,15 +1,13 @@
 package Renderer.Graphics;
 
 import Framework.Events.EventHandler;
-import Renderer.Camera;
+import Component.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 import Utilities.Geometry.Vector.Vector2f;
 
 import static Renderer.Renderer.graphics;
 
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public interface IRender {
 

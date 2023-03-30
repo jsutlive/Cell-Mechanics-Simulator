@@ -1,7 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import Input.InputEvents;
-import Renderer.Camera;
+import Component.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 
 import javax.swing.*;

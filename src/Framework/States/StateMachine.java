@@ -1,6 +1,7 @@
 package Framework.States;
 
-import Framework.Data.SaveSystem;
+import Component.BatchManager;
+import Component.SaveSystem;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
@@ -8,8 +9,8 @@ import Framework.Object.ModelLoader;
 import Framework.Timer.Time;
 import Input.InputEvents;
 import Input.SelectionEvents;
-import Morphogenesis.MouseSelector;
-import Renderer.Camera;
+import Component.MouseSelector;
+import Component.Camera;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,9 @@ public final class StateMachine {
     public List<Entity> allObjects = new ArrayList<>();
     public static Time timer;
     public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
+    public EventHandler<Boolean> onStateMachineStateChange = new EventHandler<Boolean>();
+
+    private Entity physics;
 
     public StateMachine(Time referenceTime, boolean launchOnStart){
         timer = referenceTime;
@@ -35,11 +39,13 @@ public final class StateMachine {
         InputEvents.onClear.subscribe(this::clearStateMachine);
         InputEvents.onLoadModel.subscribe(this::loadModel);
         new Entity("Camera", -1, CAMERA).with(new Camera());
-        Entity physics;
         physics = new Entity("Physics", -2, PHYSICS).
                 with(new MouseSelector()).
+                with(new BatchManager()).
                 with(new SaveSystem());
         Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
+        Objects.requireNonNull(physics.getComponent(BatchManager.class)).stateMachine = this;
+
         if(launchOnStart){
             changeState(new RunState(this));
         }else {
@@ -91,9 +97,21 @@ public final class StateMachine {
      * @param isPlaying is true if need to go to RunState.
      */
     private void handleSimulationToggle(boolean isPlaying){
-        if(isPlaying) changeState(new RunState(this));
-        else changeState(new EditorState(this));
+        if(Objects.requireNonNull(physics.getComponent(BatchManager.class)).useBatchTesting){
+            physics.getComponent(BatchManager.class).runNextBatch(isPlaying);
+            return;
+        }
+        if(isPlaying) {
+            changeState(new RunState(this));
+            physics.getComponent(SaveSystem.class).hasStopped = false;
+        } else{
+            changeState(new EditorState(this));
+            physics.getComponent(SaveSystem.class).hasStopped = true;
+        }
+
     }
+
+
 
     public void clearStateMachine(boolean keepCamera){
         SelectionEvents.clearGroups();
@@ -124,5 +142,4 @@ public final class StateMachine {
         SelectionEvents.onTagSelected.close();
         for(Entity e: allObjects) e.destroy();
     }
-
 }

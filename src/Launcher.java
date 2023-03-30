@@ -9,25 +9,25 @@ public final class Launcher
 {
     public static void main(String[] args) {
 
-        if (args[0] == "-h") {
-            // Build engine
-            Engine sim = new Engine();
-            Thread physics = new Thread(sim);
+        // Build engine
+        Engine sim = new Engine();
+        Thread physics = new Thread(sim);
+        if(args.length > 0) {
+            if (args[0] == "-h") {
 
+
+                // Have engine start threads
+                sim.start(new Thread[]{physics}, args);
+            }
+        }
+        else{
             // Build renderer
             Renderer renderer = new Renderer2D("Morphogenesis Simulator");
 
             // Separate render thread and set as a background process
             Thread render = new Thread(renderer);
             render.setDaemon(true);
-
-            // Have engine start threads
-            sim.start(new Thread[]{physics, render}, args);
-        }
-        else{
-            Engine sim = new Engine();
-            Thread physics = new Thread(sim);
-            sim.start(new Thread[]{physics}, args);
+            sim.start(new Thread[]{physics, render}, new String[]{""});
         }
     }
 }

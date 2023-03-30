@@ -1,9 +1,7 @@
 package Component;
 
-import Morphogenesis.Meshing.RingCellMesh;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
-import Morphogenesis.Physics.Collision.RigidBoundary;
 import Utilities.Geometry.Vector.Vector2f;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

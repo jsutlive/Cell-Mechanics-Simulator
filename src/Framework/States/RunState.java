@@ -58,10 +58,7 @@ public class RunState extends State
         float targetTime = count * FileBuilder.saveFrequency;
         if (currentTime > targetTime){
             float simpleTime = CustomMath.round(Time.fromNanoseconds((long)targetTime), 1);
-            StateMachine.onSaveStateInfo.invoke( simpleTime+ "_seconds");
-            String path = "data_" + simpleTime + "_seconds";
-            //FileBuilder.saveAbridged(stateMachine.allObjects, path);
-            FileBuilder.saveMeshData(String.valueOf(simpleTime));
+            StateMachine.onSaveStateInfo.invoke( String.valueOf(simpleTime));
             count++;
         }
     }

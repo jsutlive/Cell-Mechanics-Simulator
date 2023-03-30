@@ -1,6 +1,6 @@
 package Framework.Data.Json;
 
-import Framework.Object.Component;
+import Component.Component;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

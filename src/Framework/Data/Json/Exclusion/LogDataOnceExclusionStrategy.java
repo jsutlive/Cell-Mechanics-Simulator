@@ -1,6 +1,6 @@
 package Framework.Data.Json.Exclusion;
 
-import Morphogenesis.Physics.Collision.CellRingCollider;
+import Component.CellRingCollider;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 

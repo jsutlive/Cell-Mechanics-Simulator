@@ -1,7 +1,7 @@
 package Render;
 
 import Framework.Object.Entity;
-import Renderer.Camera;
+import Component.Camera;
 import Utilities.Geometry.Vector.Vector2i;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

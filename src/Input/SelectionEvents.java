@@ -1,11 +1,10 @@
 package Input;
 
 import Framework.Events.EventHandler;
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
-import Renderer.UIElements.Panels.EntityPanel;
 
 
 import java.util.ArrayList;

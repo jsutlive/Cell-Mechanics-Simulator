@@ -1,6 +1,6 @@
 package Framework.Data.Json;
 
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import com.google.gson.*;

@@ -1,5 +1,6 @@
 package Framework.Object;
 
+import Component.Component;
 import Framework.Events.EventHandler;
 import java.util.ArrayList;
 import java.util.List;

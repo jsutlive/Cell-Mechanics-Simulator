@@ -2,10 +2,10 @@ package Renderer.UIElements.Panels;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Entity;
 import Input.InputEvents;
-import Morphogenesis.Render.DoNotEditInGUI;
+import Annotations.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

@@ -1,7 +1,7 @@
 package Utilities.Geometry;
 
 import Framework.Object.Entity;
-import Morphogenesis.Meshing.Mesh;
+import Component.Mesh;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector;

@@ -1,8 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Data.FileBuilder;
-import Framework.Events.EventHandler;
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Annotations.DoNotExposeInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
@@ -10,7 +9,6 @@ import Input.SelectionEvents;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

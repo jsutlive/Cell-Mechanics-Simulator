@@ -1,12 +1,12 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Input.InputEvents;
 import Input.SelectionEvents;
-import Morphogenesis.Physics.CellGroups.GroupSelector;
-import Morphogenesis.Render.DoNotEditInGUI;
+import Annotations.GroupSelector;
+import Annotations.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;

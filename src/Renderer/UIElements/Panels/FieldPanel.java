@@ -1,16 +1,17 @@
 package Renderer.UIElements.Panels;
 
-import Framework.Object.Component;
-import Framework.Object.Entity;
+import Component.BatchManager;
+import Component.Component;
 import Input.SelectionEvents;
 import Renderer.UIElements.ColorDropDownMenu;
-import Renderer.UIElements.SetSlider;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
+import Utilities.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +64,8 @@ public class FieldPanel {
             for (Component c : components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
             panel.add(field);
 
-        } else if(type == boolean.class){
+        }
+        else if(type == boolean.class) {
             panel.add(new JLabel(name));
             boolean val;
             JCheckBox checkBox = new JCheckBox("");
@@ -73,7 +75,8 @@ public class FieldPanel {
             }
             for(Component c: components) checkBox.addActionListener(e -> changeGUI(c, Boolean.toString(checkBox.isSelected()), type));
             panel.add(checkBox);
-        } else if(type == String.class){
+        }
+        else if(type == String.class){
             panel.add(new JLabel(name));
             String val;
             JTextField field;
@@ -147,10 +150,47 @@ public class FieldPanel {
             panel.add(new JLabel("X"));
             panel.add(fieldY);
             panel.add(new JLabel("Y"));
+        }
+        else if(type == File.class){
+            if(value == null) {
+                panel.add(new JLabel("No File"));
+                JButton fileSelect = new JButton("Select Batch File");
+                for(Component c: components) {
+                    fileSelect.addActionListener(e -> {
+                        getFileFromParams(c);
+                        SelectionEvents.refresh();
+                    });
+                }
+                panel.add(fileSelect);
+            }else{
+                File val = (File)value;
+                panel.add(new JLabel(val.getPath()));
+                JButton fileSelect = new JButton("Change Batch File");
+                for(Component c: components) {
+                    fileSelect.addActionListener(e -> {
+                        getFileFromParams(c);
+                        SelectionEvents.refresh();
+                    });
+                }
+                panel.add(fileSelect);
+            }
         } else{
             isSerializable = false;
+
         }
     }
+
+    private void getFileFromParams(Component c){
+        if(! (c instanceof BatchManager)) return;
+        JFileChooser chooser = new JFileChooser();
+        int choice = chooser.showSaveDialog(null);
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            String extension = StringUtils.getExtensionByStringHandling(file.getName()).toString();
+            c.changeFieldOnGUI(name, file);
+        }
+    }
+
 
     public void changeGUIVec(Component c, String[] field, Class<?> type){
         if(type == Vector2i.class){

@@ -1,5 +1,6 @@
 package Framework.Object;
 
+import Component.Component;
 import Input.SelectionEvents;
 import Renderer.Graphics.IColor;
 import Renderer.Renderer;

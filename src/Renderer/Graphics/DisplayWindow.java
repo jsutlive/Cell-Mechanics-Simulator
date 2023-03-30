@@ -3,25 +3,24 @@ package Renderer.Graphics;
 import Framework.Data.ImageHandler;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotExposeInGUI;
-import Framework.Object.Component;
+import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
-import GeneralPhysics.TestComponent;
 import Input.InputEvents;
-import Morphogenesis.Meshing.BoxDebugMesh;
-import Morphogenesis.Meshing.HexMesh;
-import Morphogenesis.Meshing.RingMesh;
-import Morphogenesis.Physics.Collision.CornerStiffness2D;
-import Morphogenesis.Physics.Collision.EdgeStiffness2D;
-import Morphogenesis.Physics.Collision.MeshStiffness2D;
-import Morphogenesis.Physics.OsmosisForce;
-import Morphogenesis.Physics.Spring.BasalRigidityLossSpringForce;
+import Component.BoxDebugMesh;
+import Component.HexMesh;
+import Component.RingMesh;
+import Component.CornerStiffness2D;
+import Component.EdgeStiffness2D;
+import Component.MeshStiffness2D;
+import Component.OsmosisForce;
+import Component.BasalRigidityLossSpringForce;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
-import Morphogenesis.Physics.CellGroups.ApicalGradient;
-import Morphogenesis.Physics.CellGroups.LateralGradient;
-import Morphogenesis.Physics.Spring.ElasticForce;
+import Component.ApicalGradient;
+import Component.LateralGradient;
+import Component.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
@@ -256,7 +255,7 @@ public class DisplayWindow
         BufferedImage screenshot = captureImage();
         ImageHandler writer = new ImageHandler(screenshot,
                 new File(fullPathName +
-                        name + ".jpg"));
+                        name + "_seconds.jpg"));
         writer.write();
     }
 
