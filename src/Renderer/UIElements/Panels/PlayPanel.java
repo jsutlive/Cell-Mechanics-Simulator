@@ -1,6 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import Framework.Events.EventHandler;
+import Framework.States.StateMachine;
 import Input.InputEvents;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ public class PlayPanel {
     private JButton toggleSimulationButton;
 
     public PlayPanel(){
-        InputEvents.onToggleSimulation.subscribe(this::toggleButton);
+        StateMachine.onStateMachineStateChange.subscribe(this::toggleButton);
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -62,6 +63,7 @@ public class PlayPanel {
         toggleSimulationButton.removeActionListener(toggleSimulationButton.getActionListeners()[0]);
         toggleSimulationButton.addActionListener(e -> InputEvents.toggleSimulation(!isPlayingSimulation));
     }
+
     public static EventHandler<Float> onTimestepSliderChanged = new EventHandler<>();
 
     public void changeTimestepSlider(float f){

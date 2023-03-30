@@ -2,6 +2,7 @@ package Framework.States;
 
 import Component.BatchManager;
 import Component.SaveSystem;
+import Framework.Debug.Debug;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
@@ -26,7 +27,7 @@ public final class StateMachine {
     public List<Entity> allObjects = new ArrayList<>();
     public static Time timer;
     public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
-    public EventHandler<Boolean> onStateMachineStateChange = new EventHandler<Boolean>();
+    public static EventHandler<Boolean> onStateMachineStateChange = new EventHandler<Boolean>();
 
     private Entity physics;
 
@@ -45,12 +46,14 @@ public final class StateMachine {
                 with(new SaveSystem());
         Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
         Objects.requireNonNull(physics.getComponent(BatchManager.class)).stateMachine = this;
+        Objects.requireNonNull(physics.getComponent(SaveSystem.class)).stateMachine = this;
 
         if(launchOnStart){
             changeState(new RunState(this));
         }else {
             changeState(new EditorState(this));
         }
+        Debug.Log("System Loaded");
     }
 
     /**
@@ -103,10 +106,10 @@ public final class StateMachine {
         }
         if(isPlaying) {
             changeState(new RunState(this));
-            physics.getComponent(SaveSystem.class).hasStopped = false;
+            onStateMachineStateChange.invoke(false);
         } else{
             changeState(new EditorState(this));
-            physics.getComponent(SaveSystem.class).hasStopped = true;
+            onStateMachineStateChange.invoke(true);
         }
 
     }

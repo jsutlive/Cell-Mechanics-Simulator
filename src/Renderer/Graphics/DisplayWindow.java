@@ -70,6 +70,9 @@ public class DisplayWindow
         frame.setIconImage(loadImage("cell.png"));
         frame.add(inputPanel.getPanel(), BorderLayout.WEST);
 
+        DebugPanel debug = new DebugPanel();
+        frame.add(debug.getPanel(), BorderLayout.SOUTH);
+
 
         input = new InputEvents();
         canvas.addKeyListener(input);
