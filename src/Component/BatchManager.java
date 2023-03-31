@@ -65,17 +65,15 @@ public class BatchManager extends Component {
                     Component component = e.getComponent(c);
                     if(component!=null){
                         Field f = c.getField(s[1]);
-                        if(f!=null){
-                            Type type = f.getType();
-                            if(type == int.class){
-                                component.changeFieldOnGUI(f.getName(), Integer.parseInt(s[currentBatch + 2]));
-                            }else if(type == float.class){
-                                component.changeFieldOnGUI(f.getName(), Float.parseFloat(s[currentBatch + 2]));
-                            }else if(type == String.class){
-                                component.changeFieldOnGUI(f.getName(), s[currentBatch + 2]);
-                            }else if(type == boolean.class){
-                                component.changeFieldOnGUI(f.getName(), Boolean.parseBoolean(s[currentBatch + 2]));
-                            }
+                        Type type = f.getType();
+                        if(type == int.class){
+                            component.changeFieldOnGUI(f.getName(), Integer.parseInt(s[currentBatch + 2]));
+                        }else if(type == float.class){
+                            component.changeFieldOnGUI(f.getName(), Float.parseFloat(s[currentBatch + 2]));
+                        }else if(type == String.class){
+                            component.changeFieldOnGUI(f.getName(), s[currentBatch + 2]);
+                        }else if(type == boolean.class){
+                            component.changeFieldOnGUI(f.getName(), Boolean.parseBoolean(s[currentBatch + 2]));
                         }
                     }
                 }
@@ -83,11 +81,9 @@ public class BatchManager extends Component {
             }
             // Don't crash the program, but log to user if there is a problem.
             catch(ClassNotFoundException e){
-                Debug.LogError("Component not found in library, skipping parameter");
-                continue;
+                Debug.LogWarning("Component not found in library, skipping parameter");
             } catch (NoSuchFieldException e){
-                Debug.LogError("Field not found in component parameters, skipping parameter");
-                continue;
+                Debug.LogWarning("Field not found in component parameters, skipping parameter");
             }
         }
     }
@@ -96,16 +92,14 @@ public class BatchManager extends Component {
         //if no batch file, throw error and return
         if(batchFile == null){
             Debug.LogError("No batch file found, simulation cancelled");
-            return;
         }
         // If out of batches, stop the simulation, return to editor state
-         if(currentBatch >= longestBatch) {
+         else if(currentBatch >= longestBatch) {
             stateMachine.changeState(new EditorState(stateMachine));
             StateMachine.onStateMachineStateChange.invoke(false);
             currentBatch = 0;
-             getComponent(SaveSystem.class).hasStopped = true;
              Debug.Log("Batch process complete");
-             return;
+
         }
         // Run simulation on two cases: if the simulation has been toggled to stop, or if the simulation was triggered
         // to start when the batch number was 0
@@ -114,19 +108,13 @@ public class BatchManager extends Component {
             stateMachine.changeState(new RunState(stateMachine));
              StateMachine.onStateMachineStateChange.invoke(true);
              currentBatch++;
-             getComponent(SaveSystem.class).hasStopped = false;
              Debug.Log("Running batch " + currentBatch + "/" + longestBatch);
          }else if (!isRunning){
              alterParameters();
              stateMachine.changeState(new RunState(stateMachine));
              StateMachine.onStateMachineStateChange.invoke(true);
              currentBatch++;
-             getComponent(SaveSystem.class).hasStopped = false;
              Debug.Log("Running batch " + currentBatch + "/" + longestBatch);
          }
-        else{
-            getComponent(SaveSystem.class).hasStopped = true;
-         }
-
     }
 }

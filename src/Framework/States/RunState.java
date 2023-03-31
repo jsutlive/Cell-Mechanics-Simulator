@@ -28,6 +28,9 @@ public class RunState extends State
     public void enter() {
         Collections.shuffle(stateMachine.allObjects);
         onTimestepSliderChanged.subscribe(this::setTimeStep);
+        for (Entity obj :(stateMachine.allObjects)) {
+            obj.start();
+        }
     }
 
     private void setTimeStep(float f){

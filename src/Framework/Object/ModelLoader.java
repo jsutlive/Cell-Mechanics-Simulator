@@ -1,6 +1,7 @@
 package Framework.Object;
 
 import Component.*;
+import Framework.Debug.Debug;
 import Input.SelectionEvents;
 import Component.ElasticForce;
 import Component.Yolk;
@@ -16,10 +17,10 @@ public class ModelLoader {
                 with(new LateralGradient()).
                 with(new MeshCollider()).
                 with(new RigidBoundary()).
-                //with(new RingStiffness2D()).
                 with(new Yolk()
                 );
         SelectionEvents.selectEntity(e);
+        Debug.Log("Loaded Drosophila embryo");
         return e;
     }
 
@@ -29,17 +30,17 @@ public class ModelLoader {
                 with(new MeshCollider()
                 );
         SelectionEvents.selectEntity(e);
+        Debug.Log("Loaded hexagon mesh");
         return e;
     }
 
     public static Entity loadDebugMesh(){
         Entity e = new Entity("Box", 0, MODEL).
                 with(new BoxDebugMesh().build()).
-                //with(new EdgeStiffness2D()).
                 with(new ElasticForce()).
                 with(new MeshStiffness2D());
-                //with(new CornerStiffness2D());
         SelectionEvents.selectEntity(e);
+        Debug.Log("Loaded debugger mesh");
         return e;
     }
 }

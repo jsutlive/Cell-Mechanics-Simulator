@@ -2,6 +2,9 @@ package Framework.Debug;
 
 import Framework.Events.EventHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Debug {
     public EventHandler<String> onLog = new EventHandler<>();
     public EventHandler<String> onLogWarning = new EventHandler<>();
@@ -10,7 +13,9 @@ public class Debug {
     private static Debug INSTANCE;
 
     public Debug(){
-        INSTANCE = this;
+        if(INSTANCE == null) {
+            INSTANCE = this;
+        }
     }
 
     public static void Log(String msg){

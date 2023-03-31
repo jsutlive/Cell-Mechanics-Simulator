@@ -27,7 +27,7 @@ public final class StateMachine {
     public List<Entity> allObjects = new ArrayList<>();
     public static Time timer;
     public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
-    public static EventHandler<Boolean> onStateMachineStateChange = new EventHandler<Boolean>();
+    public static EventHandler<Boolean> onStateMachineStateChange = new EventHandler<>();
 
     private Entity physics;
 
@@ -101,15 +101,17 @@ public final class StateMachine {
      */
     private void handleSimulationToggle(boolean isPlaying){
         if(Objects.requireNonNull(physics.getComponent(BatchManager.class)).useBatchTesting){
-            physics.getComponent(BatchManager.class).runNextBatch(isPlaying);
+            Objects.requireNonNull(physics.getComponent(BatchManager.class)).runNextBatch(isPlaying);
             return;
         }
         if(isPlaying) {
+            Debug.Log("Starting simulation");
             changeState(new RunState(this));
-            onStateMachineStateChange.invoke(false);
-        } else{
-            changeState(new EditorState(this));
             onStateMachineStateChange.invoke(true);
+        } else{
+            Debug.Log("Simulation complete");
+            changeState(new EditorState(this));
+            onStateMachineStateChange.invoke(false);
         }
 
     }
