@@ -27,7 +27,7 @@ public class InputPanel {
     public void initialize() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setPreferredSize(new Dimension(350,100));
+        panel.setPreferredSize(new Dimension(375,100));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         PlayPanel playPanel = new PlayPanel();

@@ -6,8 +6,8 @@ import Utilities.Geometry.Vector.Vector;
 import java.util.ArrayList;
 
 import static Framework.States.StateMachine.timer;
-import static Framework.Timer.Time.asNanoseconds;
-import static Framework.Timer.Time.fromNanoseconds;
+import static Framework.Utilities.Time.asNanoseconds;
+import static Framework.Utilities.Time.fromNanoseconds;
 
 public class BasalRigidityLossSpringForce extends SpringForce{
     Edge basalEdge;

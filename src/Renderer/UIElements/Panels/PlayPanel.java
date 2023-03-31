@@ -35,6 +35,7 @@ public class PlayPanel {
         toggleSimulationButton.setIcon(new ImageIcon(play));
         toggleSimulationButton.addActionListener(e -> InputEvents.toggleSimulation(true));
         toggleSimulationButton.setBackground(Color.GREEN);
+        toggleSimulationButton.setToolTipText("Start Simulation");
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(toggleSimulationButton);
         buttonPanel.setLayout(new FlowLayout());
@@ -50,10 +51,12 @@ public class PlayPanel {
         if(isPlayingSimulation) {
             toggleSimulationButton.setBackground(Color.RED);
             toggleSimulationButton.setText("Restart");
+            toggleSimulationButton.setToolTipText("End Simulation");
             icon = new ImageIcon(loadImage("stop.png"));
         }else{
             toggleSimulationButton.setBackground(Color.GREEN);
             toggleSimulationButton.setText("Play");
+            toggleSimulationButton.setToolTipText("Start Simulation");
             icon = new ImageIcon(loadImage("play.png"));
         }
 

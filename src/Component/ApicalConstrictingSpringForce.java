@@ -1,6 +1,6 @@
 package Component;
 
-import Framework.Timer.Time;
+import Framework.Utilities.Time;
 import Utilities.Geometry.Vector.Vector;
 import Framework.Rigidbodies.Edge;
 

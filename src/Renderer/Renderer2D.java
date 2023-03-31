@@ -11,7 +11,7 @@ public class Renderer2D extends Renderer {
     BufferStrategy bufferStrategy;
 
     public Renderer2D(String windowTitle) {
-        bounds = new Dimension(800,800);
+        bounds = new Dimension(850,850);
         displayWindow = new DisplayWindow(windowTitle, bounds.width, bounds.height);
         IRender.onRendererAdded.subscribe(this::addGraphicToBatch);
         IRender.onRendererRemoved.subscribe(this::removeGraphicFromBatch);

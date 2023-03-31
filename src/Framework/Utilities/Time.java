@@ -1,4 +1,4 @@
-package Framework.Timer;
+package Framework.Utilities;
 
 public final class Time {
     // Set frame rate and physics update rate

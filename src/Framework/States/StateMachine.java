@@ -2,12 +2,12 @@ package Framework.States;
 
 import Component.BatchManager;
 import Component.SaveSystem;
-import Framework.Debug.Debug;
+import Framework.Utilities.Debug;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.Object.ModelLoader;
-import Framework.Timer.Time;
+import Framework.Utilities.Time;
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Component.MouseSelector;

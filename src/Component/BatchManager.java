@@ -1,6 +1,6 @@
 package Component;
 
-import Framework.Debug.Debug;
+import Framework.Utilities.Debug;
 import Framework.Object.Entity;
 import Framework.States.EditorState;
 import Framework.States.RunState;

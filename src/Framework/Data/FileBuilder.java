@@ -5,10 +5,10 @@ import Framework.Data.Json.EntitySerializer;
 import Framework.Data.Json.NodeSerializer;
 import Framework.Data.Json.VectorDeserializer;
 import Component.Component;
+import Framework.Utilities.Debug;
 import Framework.Object.Entity;
-import Framework.Object.Tag;
 import Framework.Rigidbodies.Node;
-import Framework.Timer.Time;
+import Framework.Utilities.Time;
 import Component.Mesh;
 import Utilities.Geometry.Vector.Vector;
 import com.google.gson.Gson;
@@ -46,6 +46,7 @@ public class FileBuilder {
         try {
             Files.createDirectory(Paths.get(fullPathName));
         } catch (IOException e) {
+            Debug.LogError("Failed to print directory");
             e.printStackTrace();
         }
     }
@@ -62,6 +63,7 @@ public class FileBuilder {
             filewriter.close();
         }catch(IOException e)
         {
+            Debug.LogError("Failed to save scene");
             e.printStackTrace();
         }
     }
@@ -84,6 +86,7 @@ public class FileBuilder {
         try{
             inFile = new String(Files.readAllBytes(Paths.get("scene.json")));
         }catch(IOException e){
+            Debug.LogError("Failed to load scene");
             e.printStackTrace();
         }
 
@@ -93,13 +96,14 @@ public class FileBuilder {
         return null;
     }
 
-    public static void saveMeshData(String timeStamp) {
+    public static void cacheMeshData(String timeStamp) {
         for(Entity entity: saveEntities) {
             Mesh mesh = entity.getComponent(Mesh.class);
             if (!saveDictionary.containsKey(entity)) {
                 List<String[]> currentData = new ArrayList<>();
                 saveDictionary.put(entity, currentData);
                 String[] time = new String[]{"Time", timeStamp};
+                assert mesh != null;
                 String[] area = new String[]{"Area", String.valueOf(mesh.getArea())};
                 String[] perimeter = new String[]{"Perimeter", String.valueOf(mesh.getPerimeter())};
                 String[] centroidX = new String[]{"CentroidX", String.valueOf(mesh.calculateCentroid().x)};
@@ -119,6 +123,7 @@ public class FileBuilder {
             }else {
                 List<String[]> currentData = saveDictionary.get(entity);
                 String[] time = appendStringArray(currentData.get(0), timeStamp);
+                assert mesh != null;
                 String[] area = appendStringArray(currentData.get(1), String.valueOf(mesh.getArea()));
                 String[] perimeter = appendStringArray(currentData.get(2), String.valueOf(mesh.getPerimeter()));
                 String[] centroidX = appendStringArray(currentData.get(3), String.valueOf(mesh.calculateCentroid().x));
@@ -151,41 +156,9 @@ public class FileBuilder {
                 }
                 writer.close();
             }catch (IOException exception){
+                Debug.LogError("Failed to create csv");
                 throw new IOException("FAILED TO MAKE FILE");
             }
-        }
-    }
-
-    public static void saveAbridged(List<Entity> entities, String filePath) throws IOException {
-        File file = new File(fullPathName + filePath + ".csv");
-        file.createNewFile();
-        try {
-            // create FileWriter object with file as parameter
-            FileWriter outputfile = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(outputfile);
-            String[] header = new String[5];
-            header[0] = "Name";
-            header[1] = "Area";
-            header[2] = "Perimeter";
-            header[3] = "Centroid X";
-            header[4] = "Centroid Y";
-            writer.writeNext(header);
-            for (Entity e : entities) {
-                if (e.getComponent(Mesh.class) != null && e.getTag()!= Tag.MODEL) {
-                    Mesh mesh = e.getComponent(Mesh.class);
-                    String[] data = new String[5];
-                    data[0] = e.name;
-                    data[1] = String.valueOf(mesh.getArea());
-                    data[2] = String.valueOf(mesh.getPerimeter());
-                    data[3] = String.valueOf(mesh.calculateCentroid().x);
-                    data[4] = String.valueOf(mesh.calculateCentroid().y);
-                    data[5] = String.valueOf(mesh.getDistanceToBoundary());
-                    writer.writeNext(data);
-                }
-            }
-            writer.close();
-        }catch (IOException e){
-            throw new IOException("FAILED TO MAKE FILE");
         }
     }
 

@@ -1,10 +1,8 @@
 package Renderer;
 
-import Framework.Timer.Time;
-import Input.SelectionEvents;
+import Framework.Utilities.Time;
 import Renderer.Graphics.IRender;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

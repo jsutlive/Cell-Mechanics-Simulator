@@ -1,9 +1,9 @@
 package Component;
 
 import Framework.Data.FileBuilder;
-import Framework.Debug.Debug;
+import Framework.Utilities.Debug;
 import Framework.States.StateMachine;
-import Framework.Timer.Time;
+import Framework.Utilities.Time;
 
 import Annotations.ReloadComponentOnChange;
 import Input.InputEvents;
@@ -42,7 +42,7 @@ public class SaveSystem extends Component {
 
 
     private void saveData(String title){
-        FileBuilder.saveMeshData(String.valueOf(title));
+        FileBuilder.cacheMeshData(String.valueOf(title));
     }
 
     void clearEvents(){

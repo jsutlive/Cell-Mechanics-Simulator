@@ -1,7 +1,7 @@
 package Component;
 
 import static Framework.States.StateMachine.timer;
-import static Framework.Timer.Time.asNanoseconds;
+import static Framework.Utilities.Time.asNanoseconds;
 
 
 public class LateralShorteningSpringForce extends SpringForce {
@@ -12,6 +12,7 @@ public class LateralShorteningSpringForce extends SpringForce {
     public void awake() {
 
         RingCellMesh mesh = parent.getComponent(RingCellMesh.class);
+        assert mesh != null;
         int size = mesh.nodes.size();
         for(int i = 0; i < size; i++){
             if(i != mesh.lateralResolution || i != size-1){

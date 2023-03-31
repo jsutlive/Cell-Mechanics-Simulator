@@ -1,5 +1,7 @@
 package Framework.Data;
 
+import Framework.Utilities.Debug;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,6 +23,7 @@ public class ImageHandler {
             ImageIO.write(image, "JPG",
                     file);
         } catch (IOException e) {
+            Debug.LogError("Failed to save image");
             e.printStackTrace();
         }
     }
@@ -29,8 +32,10 @@ public class ImageHandler {
         InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
         Image image = null;
         try {
+            assert file != null;
             image = ImageIO.read(file);
         } catch (IOException e) {
+            Debug.LogError("Failed to load image");
             e.printStackTrace();
         }
         return image;

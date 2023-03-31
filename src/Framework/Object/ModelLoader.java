@@ -1,7 +1,7 @@
 package Framework.Object;
 
 import Component.*;
-import Framework.Debug.Debug;
+import Framework.Utilities.Debug;
 import Input.SelectionEvents;
 import Component.ElasticForce;
 import Component.Yolk;

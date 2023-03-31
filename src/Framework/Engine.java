@@ -1,7 +1,7 @@
 package Framework;
 
 import Framework.States.StateMachine;
-import Framework.Timer.Time;
+import Framework.Utilities.Time;
 
 /**
  * Engine is the main physics driver which is responsible for
@@ -26,7 +26,7 @@ public final class Engine implements Runnable
      */
     private void init() {
         physicsClock = Time.getTime(50f);
-        stateMachine = new StateMachine(physicsClock, runtimeArgs[0] == "-h" );
+        stateMachine = new StateMachine(physicsClock, runtimeArgs[0].equals("-h"));
     }
 
     /**

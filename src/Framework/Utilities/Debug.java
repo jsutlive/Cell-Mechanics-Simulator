@@ -1,11 +1,8 @@
-package Framework.Debug;
+package Framework.Utilities;
 
 import Framework.Events.EventHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Debug {
+public final class Debug {
     public EventHandler<String> onLog = new EventHandler<>();
     public EventHandler<String> onLogWarning = new EventHandler<>();
     public EventHandler<String> onLogError = new EventHandler<>();

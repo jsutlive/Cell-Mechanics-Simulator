@@ -1,6 +1,6 @@
 package Renderer.UIElements.Panels;
 
-import Framework.Debug.Debug;
+import Framework.Utilities.Debug;
 
 import javax.swing.*;
 import java.awt.*;
