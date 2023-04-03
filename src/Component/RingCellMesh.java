@@ -39,6 +39,7 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
             n.move();
         }
         calculateArea();
+        System.out.println(getLength());
     }
 
     public RingCellMesh build(ArrayList<Node2D> builderNodes){
@@ -76,18 +77,13 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
      * Gets the length of each cell by calculating the length of its lateral edges
      */
     public float getLength(){
-        //Edge[][] edges = getLateralEdges();
+        Edge[][] edges = getLateralEdges();
         float firstEdgeLength = 0;
         float secondEdgeLength = 0;
-        for(int i = 0; i<lateralResolution; i++){
-            firstEdgeLength += edges.get(i).getLength();
-            secondEdgeLength += edges.get(i+lateralResolution+1).getLength();
-        }
-        /* BROKEN
-        for(int i = 0; i<edges[0].length-1; i++){
+        for(int i = 0; i<edges[0].length; i++){
             firstEdgeLength += edges[0][i].getLength();
-            secondEdgeLength += edges[1][i+edges[0].length+1].getLength();
-        }*/
+            secondEdgeLength += edges[1][i].getLength();
+        }
         return (firstEdgeLength+secondEdgeLength)/2;
     }
 
