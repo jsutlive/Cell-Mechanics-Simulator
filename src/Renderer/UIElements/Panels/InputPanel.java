@@ -28,7 +28,6 @@ public class InputPanel {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setPreferredSize(new Dimension(375,100));
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         PlayPanel playPanel = new PlayPanel();
         panel.add(playPanel.getPanel());
@@ -38,10 +37,8 @@ public class InputPanel {
 
         JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());
         componentScroll.setHorizontalScrollBar(null);
-        panel.add(componentScroll);
         mouseLabel = new JLabel("TEST");
-        panel.add(mouseLabel);
-
+        panel.add(componentScroll);
 
     }
 

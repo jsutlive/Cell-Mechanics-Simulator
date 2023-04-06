@@ -10,6 +10,7 @@ import Annotations.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -31,20 +32,23 @@ public class ComponentPanel {
     }
 
     private void refreshPanel(Component c) {
-        panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.white);
         Class<?> type = null;
         Object value = null;
         String name = null;
         Class<?> componentClass = c.getClass();
 
         JPanel namePanel = new JPanel();
+        namePanel.setOpaque(false);
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
         nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
 
         setSelectButton(c, namePanel);
         setDeleteButton(c, namePanel);
+        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 20));
 
         panel.add(namePanel);
         setFields(c, type, value, name, componentClass);

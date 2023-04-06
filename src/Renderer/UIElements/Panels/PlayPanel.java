@@ -19,16 +19,16 @@ public class PlayPanel {
     public PlayPanel(){
         StateMachine.onStateMachineStateChange.subscribe(this::toggleButton);
         panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
-        panel.setPreferredSize(new Dimension(300, 160));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setMaximumSize(new Dimension(Short.MAX_VALUE, 160));
+        panel.setBackground(Color.darkGray);
         createPlayButton();
+        panel.add(Box.createGlue());
         createTimestepSlider();
     }
 
     void createPlayButton() {
         toggleSimulationButton = new JButton("Play");
-        toggleSimulationButton.setSize(new Dimension(200,80));
         ImageIcon playIcon = new ImageIcon(loadImage("play.png"));
         Image play = playIcon.getImage();
         play = play.getScaledInstance(30,30, Image.SCALE_SMOOTH);
@@ -36,10 +36,7 @@ public class PlayPanel {
         toggleSimulationButton.addActionListener(e -> InputEvents.toggleSimulation(true));
         toggleSimulationButton.setBackground(Color.GREEN);
         toggleSimulationButton.setToolTipText("Start Simulation");
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(toggleSimulationButton);
-        buttonPanel.setLayout(new FlowLayout());
-        panel.add(buttonPanel);
+        panel.add(toggleSimulationButton);
     }
 
     public JPanel getPanel(){
@@ -75,7 +72,10 @@ public class PlayPanel {
 
     private void createTimestepSlider() {
         JPanel timestepPanel = new JPanel();
+        timestepPanel.setLayout(new BoxLayout(timestepPanel, BoxLayout.X_AXIS));
+        timestepPanel.setOpaque(false);
         JLabel timestepLabel = new JLabel("timestep");
+        timestepLabel.setForeground(Color.white);
         timestepLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, -18, -10, -14);
         timestepSlider.setFocusable(false);

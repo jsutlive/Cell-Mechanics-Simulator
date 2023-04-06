@@ -7,6 +7,7 @@ import Input.SelectionEvents;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +29,15 @@ public class ObjectPanel {
 
     public ObjectPanel(){
         panel = new JPanel(new GridLayout(0, 1, 5, 15));
+        panel.setBorder(new MatteBorder(0,0,0,1, Color.BLACK));
         SelectionEvents.onCreateGroup.subscribe(this::addGroupButton);
         SelectionEvents.onClearGroups.subscribe(this::removeAllGroupButtons);
         SelectionEvents.onDeleteGroup.subscribe(this::removeGroupButton);
         SelectionEvents.onSelectGroup.subscribe(this::modifyGroupButton);
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
         removeAllGroupButtons(true);
+
     }
 
     private void modifyGroupButton(int index){
@@ -54,6 +56,7 @@ public class ObjectPanel {
         }
         panel.setVisible(false);
         panel.setVisible(true);
+        panel.add(Box.createGlue());
     }
 
     private void removeAllGroupButtons(boolean changeScene){
@@ -69,6 +72,7 @@ public class ObjectPanel {
         panel.add(physicsButton);
         panel.add(cameraButton);
         panel.add(modelButton);
+        panel.add(Box.createGlue());
     }
 
     private void removeGroupButton(int index){

@@ -21,22 +21,27 @@ public class MultiComponentPanel extends ComponentPanel{
 
     public <T extends Component> MultiComponentPanel(List<Entity> entities, Class<T> componentClass) {
         InputEvents.onToggleSimulation.subscribe(this::handleSimulationToggle);
-        panel = new JPanel(new GridLayout(0, 1, 0, 5 ));
-        panel.setBorder(new BevelBorder(BevelBorder.RAISED));
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.white);
         Class type = null;
         Object value = null;
         String name = null;
 
 
         JPanel namePanel = new JPanel();
+        namePanel.setOpaque(false);
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
         nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
 
         setDeleteButton(entities, componentClass, namePanel);
+        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 20));
+
 
         panel.add(namePanel);
         setFields(entities, type, value, name, componentClass);
+        panel.setPreferredSize(new Dimension(300, (30*componentClass.getFields().length)));
     }
 
     private <T extends Component> void setDeleteButton(List<Entity> entities, Class<T> componentClass, JPanel namePanel) {

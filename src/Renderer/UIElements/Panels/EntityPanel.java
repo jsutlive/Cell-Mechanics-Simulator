@@ -30,7 +30,6 @@ public class EntityPanel {
         if(!b)return;
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(new EmptyBorder(2,2,2,2));
         panel.setAutoscrolls(true);
         createBaseLabels();
     }
@@ -152,7 +151,9 @@ public class EntityPanel {
             if(c.getClass().getAnnotation(DoNotExposeInGUI.class) != null) continue;
             ComponentPanel componentPanel = new ComponentPanel(c);
             panel.add(componentPanel.getPanel());
+            panel.add(Box.createVerticalStrut(5));
         }
+        panel.add(Box.createVerticalGlue());
     }
 
     private void setComponentsMultipleEntity(HashSet<Entity> entities){
@@ -171,6 +172,8 @@ public class EntityPanel {
             if(makePanel) {
                 ComponentPanel multiPanel = new MultiComponentPanel(e,c.getClass());
                 panel.add(multiPanel.getPanel());
+                panel.add(Box.createVerticalStrut(5));
+
             }else{
                 hasDifferentEntityTypes = true;
             }
@@ -180,5 +183,6 @@ public class EntityPanel {
             warning.add(new JLabel("Only common components are editable"));
             panel.add(warning);
         }
+        panel.add(Box.createVerticalGlue());
     }
 }

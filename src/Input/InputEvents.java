@@ -4,8 +4,6 @@ import Framework.Data.FileBuilder;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
 import Utilities.Geometry.Vector.Vector2i;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import javafx.scene.input.KeyCode;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;

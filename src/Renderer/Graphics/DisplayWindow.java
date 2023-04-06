@@ -23,6 +23,8 @@ import Component.ApicalGradient;
 import Component.LateralGradient;
 import Component.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -56,19 +58,28 @@ public class DisplayWindow
         this.title = _title;
         this.width = _width;
         this.height = _height;
+
+
         CreateDisplay();
+
+
         CreateCanvas();
         createJMenuBar();
-        frame.add(canvas);
-
-        ObjectPanel obj = new ObjectPanel();
-        frame.add(obj.getPanel(), BorderLayout.EAST);
         frame.setJMenuBar(menuBar);
 
+        frame.add(canvas);
+
+
+        ObjectPanel obj = new ObjectPanel();
         InputPanel inputPanel = new InputPanel(canvas);
+        JPanel objectInputGroup = new JPanel();
+        objectInputGroup.setLayout(new BoxLayout(objectInputGroup, BoxLayout.X_AXIS));
+        objectInputGroup.add(obj.getPanel());
+        objectInputGroup.add(inputPanel.getPanel());
+        frame.add(objectInputGroup, BorderLayout.WEST);
 
         frame.setIconImage(loadImage("cell.png"));
-        frame.add(inputPanel.getPanel(), BorderLayout.WEST);
+
 
         DebugPanel debug = new DebugPanel();
         frame.add(debug.getPanel(), BorderLayout.SOUTH);
@@ -113,6 +124,8 @@ public class DisplayWindow
     }
 
     private void createJMenuBar(){
+        System.setProperty( "apple.laf.useScreenMenuBar", "true" );
+
         menuBar = new JMenuBar();
         menuBar.removeAll();
         JMenu menu = new JMenu("File");
@@ -295,7 +308,13 @@ public class DisplayWindow
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.getContentPane().setBackground( Color.black );
+//        try{
+//            UIManager.setLookAndFeel(new FlatLightLaf());
+//        } catch (UnsupportedLookAndFeelException e){
+//            System.out.println(e.getMessage());
+//        }
     }
+
 
     private void CreateCanvas() {
         canvas = new SimulationCanvas();

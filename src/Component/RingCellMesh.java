@@ -39,7 +39,6 @@ public class RingCellMesh extends Mesh implements IBoxMesh{
             n.move();
         }
         calculateArea();
-        System.out.println(getLength());
     }
 
     public RingCellMesh build(ArrayList<Node2D> builderNodes){
