@@ -38,12 +38,16 @@ public class RingMesh extends Mesh {
 
     @Override
     public void awake() {
+        onSelectionButtonPressed.subscribe(this::selectAll);
+    }
+
+    @Override
+    public void onValidate() {
         resetCells();
         nodes.clear();
         generateTissueRing();
         setApicalAndBasalEdges();
         onMeshRebuilt.invoke(this);
-        onSelectionButtonPressed.subscribe(this::selectAll);
     }
 
     private void selectAll(Component component){

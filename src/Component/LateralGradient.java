@@ -34,6 +34,10 @@ public class LateralGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
+    }
+
+    @Override
+    public void onValidate(){
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "latrl", groupColor);
         }

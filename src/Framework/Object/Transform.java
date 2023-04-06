@@ -12,10 +12,10 @@ import Utilities.Geometry.Vector.Vector2f;
 public class Transform extends Component {
     public Vector2f position = new Vector2f();
     Mesh mesh;
-
     public EventHandler<Vector2f> onPositionChanged = new EventHandler<>();
+
     @Override
-    public void awake() {
+    public void onValidate() {
         onPositionChanged.invoke(this.position);
     }
 

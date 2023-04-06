@@ -13,6 +13,8 @@ public class Yolk extends Component {
     RingMesh referenceRing;
     Entity yolk;
 
+    public float yolkOsmosisConstant = 0.0005f;
+
     @Override
     public void awake() {
         onMeshRebuilt.subscribe(this::rebuildYolk);
@@ -22,13 +24,17 @@ public class Yolk extends Component {
                 with(new CircleMesh().build(referenceRing.innerNodes, referenceRing.basalEdges)).
                 with(new OsmosisForce());
         yolk.getComponent(MeshRenderer.class).enabled = false;
-        yolk.getComponent(OsmosisForce.class).osmosisConstant = -0.0005f;
     }
 
     private void selectThis(Component component){
         if(component == this) {
             SelectionEvents.selectEntity(yolk);
         }
+    }
+
+    @Override
+    public void start() {
+        yolk.getComponent(OsmosisForce.class).osmosisConstant = -yolkOsmosisConstant;
     }
 
     private void rebuildYolk(Mesh mesh){
