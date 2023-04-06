@@ -10,7 +10,7 @@ import static Framework.Utilities.Message.Type.*;
 public final class Debug {
     public EventHandler<Message> onLog = new EventHandler<>();
 
-    private static Debug INSTANCE;
+    public static Debug INSTANCE;
     public List<Message> messageLog = new ArrayList<>();
 
     public Debug(){

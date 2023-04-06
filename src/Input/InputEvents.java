@@ -3,6 +3,8 @@ package Input;
 import Framework.Data.FileBuilder;
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
+import Framework.Utilities.Debug;
+import Renderer.UIElements.Windows.ConsolePopUp;
 import Utilities.Geometry.Vector.Vector2i;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.scene.input.KeyCode;
@@ -55,6 +57,9 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         }
         if(keyCode == KeyEvent.VK_DELETE || keyCode == KeyEvent.VK_BACK_SPACE){
             SelectionEvents.deleteSelection();
+        }
+        if(keyCode == KeyEvent.VK_C){
+            new ConsolePopUp(Debug.INSTANCE);
         }
     }
 

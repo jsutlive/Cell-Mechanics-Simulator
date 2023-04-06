@@ -8,6 +8,7 @@ import Framework.Object.Entity;
 import Framework.Object.Tag;
 import Framework.States.StateMachine;
 
+import Framework.Utilities.Debug;
 import Input.InputEvents;
 import Component.BoxDebugMesh;
 import Component.HexMesh;

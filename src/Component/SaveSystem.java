@@ -5,13 +5,11 @@ import Framework.Utilities.Debug;
 import Framework.States.StateMachine;
 import Framework.Utilities.Time;
 
-import Annotations.ReloadComponentOnChange;
 import Input.InputEvents;
 
 import static Framework.Data.FileBuilder.setFullPathName;
 import static Framework.Data.FileBuilder.setSaveFrequency;
 
-@ReloadComponentOnChange
 public class SaveSystem extends Component {
     public StateMachine stateMachine;
     public String saveFolder = "";
@@ -20,10 +18,7 @@ public class SaveSystem extends Component {
     @Override
 
     public void awake() {
-        clearEvents();
         StateMachine.onSaveStateInfo.subscribe(this::saveData);
-        setFullPathName(saveFolder);
-        setSaveFrequency(secondsPerSaveInterval);
     }
 
     @Override
@@ -31,6 +26,8 @@ public class SaveSystem extends Component {
         if(saveFolder.equals("")){
             Debug.LogWarning("No save file specified, saving to root directory");
         }
+        setFullPathName(saveFolder);
+        setSaveFrequency(secondsPerSaveInterval);
     }
 
     @Override
@@ -45,7 +42,8 @@ public class SaveSystem extends Component {
         FileBuilder.cacheMeshData(String.valueOf(title));
     }
 
-    void clearEvents(){
+    @Override
+    public void onDestroy(){
         StateMachine.onSaveStateInfo.unSubscribe(this::saveData);
     }
 }

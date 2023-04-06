@@ -62,7 +62,6 @@ public class ApicalGradient extends Component {
     }
 
     private void addCellsToGroup() {
-        System.out.println("HERE");
         for(Entity cell: getChildren()){
             int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
             if( ringLocation <= numberOfConstrictingCells / 2){

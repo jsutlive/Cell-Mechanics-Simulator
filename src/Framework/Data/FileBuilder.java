@@ -160,6 +160,11 @@ public class FileBuilder {
                 throw new IOException("FAILED TO MAKE FILE");
             }
         }
+        clearCache();
+    }
+
+    public static void clearCache(){
+        saveDictionary.clear();
     }
 
     public static String[] appendStringArray(String[] array, String s){
