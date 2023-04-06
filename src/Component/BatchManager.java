@@ -31,7 +31,7 @@ public class BatchManager extends Component {
     private List<String[]> args = new ArrayList<>();
 
     @Override
-    public void awake() {
+    public void onValidate() {
         if(batchFile == null) return;
         try {
             Scanner scanner = new Scanner(batchFile);

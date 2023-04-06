@@ -31,10 +31,14 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void awake() {
+        SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
+    }
+
+    @Override
+    public void onValidate() {
         onRendererAdded.invoke(this);
         cellMesh = parent.getComponent(Mesh.class);
         defaultColor = color;
-        SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
     }
 
     private void setDefaultColor(Color color){

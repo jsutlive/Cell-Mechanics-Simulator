@@ -33,6 +33,10 @@ public class ApicalGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
+    }
+
+    @Override
+    public void onValidate() {
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
         }
@@ -89,7 +93,10 @@ public class ApicalGradient extends Component {
         onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         SelectionEvents.deleteGroup(cellGroup.groupID);
         for(Entity cell: cellGroup.entities){
-            cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
+            MeshRenderer renderer = getComponent(MeshRenderer.class);
+            if(renderer!= null) {
+                renderer.setColor(renderer.defaultColor);
+            }
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }
     }

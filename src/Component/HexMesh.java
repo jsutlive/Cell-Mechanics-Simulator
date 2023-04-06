@@ -34,15 +34,17 @@ public class HexMesh extends Mesh{
 
     @Override
     public void awake() {
-        //onSelectionButtonPressed.unSubscribe(this::selectAll);
+        onSelectionButtonPressed.subscribe(this::selectAll);
+        Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+    }
+
+    @Override
+    public void onValidate() {
         for(int i = getChildren().size()-1; i >= 0; i--){
             getChildren().get(i).destroy();
         }
-        //cellList.clear();
-
         allCentroids.clear();
-        onSelectionButtonPressed.subscribe(this::selectAll);
-        Entity.onRemoveEntity.subscribe(this::removeEntityFromList);
+
         positionToNodeMap.clear();
         generateSimpleMesh(new Vector2f(0), sidesPerCell);
         allCentroids.add(new Vector2f(0));

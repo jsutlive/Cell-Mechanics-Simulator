@@ -88,7 +88,10 @@ public class LateralGradient extends Component {
         onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         SelectionEvents.deleteGroup(cellGroup.groupID);
         for(Entity cell: cellGroup.entities){
-            cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
+            MeshRenderer renderer = getComponent(MeshRenderer.class);
+            if(renderer!= null) {
+                renderer.setColor(renderer.defaultColor);
+            }
             cell.removeComponent(LateralShorteningSpringForce.class);
         }
     }

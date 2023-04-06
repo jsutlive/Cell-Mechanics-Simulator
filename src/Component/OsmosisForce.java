@@ -43,7 +43,7 @@ public class OsmosisForce extends Force {
     }
 
     @Override
-    public void awake() {
+    public void onValidate() {
         this.edges = getComponent(Mesh.class).edges;
         initialArea = getComponent(Mesh.class).getArea();
         desiredArea = initialArea + (initialArea*internalPressure);

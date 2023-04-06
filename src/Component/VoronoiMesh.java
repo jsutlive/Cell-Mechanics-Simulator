@@ -16,7 +16,7 @@ public class VoronoiMesh extends Mesh{
     private int[] xc, yc;
 
     @Override
-    public void awake() {
+    public void onValidate() {
         Random random = new Random();
         for(int i = 0; i < numberOfCells; i++){
             xc[i] = random.nextInt(modelWidth);
