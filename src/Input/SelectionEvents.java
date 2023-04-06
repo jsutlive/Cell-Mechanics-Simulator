@@ -5,6 +5,7 @@ import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
+import Framework.Utilities.Debug;
 
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class SelectionEvents {
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
         onEntitySelected.invoke(selectedEntities);
+        Debug.Log(String.valueOf(selectedEntities.size()));
         onSelectGroup.invoke(-1);
     }
 

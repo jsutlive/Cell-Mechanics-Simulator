@@ -4,7 +4,6 @@ import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 
 
 import java.awt.*;
@@ -14,7 +13,6 @@ import static Component.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 import static Renderer.Renderer.DEFAULT_COLOR;
 
-@ReloadComponentOnChange
 @GroupSelector
 public class LateralGradient extends Component {
 
@@ -40,6 +38,8 @@ public class LateralGradient extends Component {
     public void onValidate(){
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "latrl", groupColor);
+        }else{
+            cellGroup.changeGroupColor(groupColor);
         }
         calculateParameters();
         cellGroup.recolor();

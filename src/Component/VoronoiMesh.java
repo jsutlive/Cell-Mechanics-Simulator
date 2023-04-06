@@ -1,13 +1,11 @@
 package Component;
 
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector2f;
 
 import java.util.Random;
 
 @GroupSelector
-@ReloadComponentOnChange
 public class VoronoiMesh extends Mesh{
     public int numberOfCells = 20;
     public int modelWidth = 800;

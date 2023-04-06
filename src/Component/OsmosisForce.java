@@ -1,13 +1,11 @@
 package Component;
 
-import Annotations.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector;
 import Framework.Rigidbodies.Edge;
 import java.util.List;
 
 import static Utilities.Math.CustomMath.normal;
 
-@ReloadComponentOnChange
 public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;

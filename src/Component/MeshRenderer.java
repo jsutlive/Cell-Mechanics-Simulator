@@ -3,7 +3,6 @@ package Component;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
-import Annotations.ReloadComponentOnChange;
 import Renderer.Graphics.IColor;
 import Framework.Rigidbodies.Edge;
 import Utilities.Geometry.Vector.Vector2f;
@@ -22,7 +21,6 @@ public class MeshRenderer extends ObjectRenderer
     private Color highlightColor = Color.yellow;
     public boolean enabled = true;
 
-    @ReloadComponentOnChange
     public boolean showEdgeNormals = false;
 
     public MeshRenderer(boolean active){
@@ -32,14 +30,10 @@ public class MeshRenderer extends ObjectRenderer
     @Override
     public void awake() {
         SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
-    }
-
-    @Override
-    public void onValidate() {
         onRendererAdded.invoke(this);
         cellMesh = parent.getComponent(Mesh.class);
-        defaultColor = color;
     }
+
 
     private void setDefaultColor(Color color){
         defaultColor = color;

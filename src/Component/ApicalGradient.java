@@ -4,7 +4,6 @@ import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import static Renderer.Renderer.DEFAULT_COLOR;
 import static Component.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 
-@ReloadComponentOnChange
 @GroupSelector
 public class ApicalGradient extends Component {
 
@@ -39,6 +37,8 @@ public class ApicalGradient extends Component {
     public void onValidate() {
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
+        }else{
+            cellGroup.changeGroupColor(groupColor);
         }
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();

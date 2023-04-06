@@ -4,7 +4,6 @@ import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 import Framework.Rigidbodies.Node2D;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Math.CustomMath;
@@ -18,7 +17,6 @@ import static Utilities.Math.CustomMath.*;
 
 @GroupSelector
 @DoNotDestroyInGUI
-@ReloadComponentOnChange
 public class HexMesh extends Mesh{
 
     public int numSubdivisions = 5;
