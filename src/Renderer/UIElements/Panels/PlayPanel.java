@@ -6,6 +6,7 @@ import Input.InputEvents;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
@@ -20,9 +21,9 @@ public class PlayPanel {
         StateMachine.onStateMachineStateChange.subscribe(this::toggleButton);
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        panel.setBorder(new EmptyBorder(15,25,15,25));
+        panel.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(0,0,1,0, Color.lightGray), new EmptyBorder(15,25,15,25)));
         panel.setMaximumSize(new Dimension(Short.MAX_VALUE, 160));
-        panel.setBackground(Color.darkGray);
+        panel.setBackground(Color.white);
         createPlayButton();
         panel.add(Box.createGlue());
         createTimestepSlider();
@@ -76,7 +77,6 @@ public class PlayPanel {
         timestepPanel.setLayout(new BoxLayout(timestepPanel, BoxLayout.X_AXIS));
         timestepPanel.setOpaque(false);
         JLabel timestepLabel = new JLabel("timestep");
-        timestepLabel.setForeground(Color.white);
         timestepLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         JSlider timestepSlider = new JSlider(JSlider.HORIZONTAL, -18, -10, -14);
         timestepSlider.setFocusable(false);

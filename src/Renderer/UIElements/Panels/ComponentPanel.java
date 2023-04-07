@@ -10,9 +10,7 @@ import Annotations.DoNotEditInGUI;
 import org.apache.commons.collections.map.SingletonMap;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
@@ -46,11 +44,12 @@ public class ComponentPanel {
 
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
-        namePanel.setBorder(new EmptyBorder(4,25,2,25));
-        namePanel.setOpaque(false);
+        namePanel.setBorder(new EmptyBorder(4,25,3,25));
+        namePanel.setBackground(Color.decode("#5774b7"));
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(14f));
+        nameLabel.setForeground(Color.white);
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(18f));
 
         namePanel.add(Box.createHorizontalGlue());
 
@@ -111,14 +110,12 @@ public class ComponentPanel {
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
-            JSeparator separator = new JSeparator();
-            separator.setMaximumSize(new Dimension(Short.MAX_VALUE, 5));
+
             if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                     (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
                 StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
                 if(staticFieldPanel.isSerializable){
 
-                    panel.add(separator);
                     panel.add(staticFieldPanel.getPanel());
                     numFields++;
                 }
@@ -126,7 +123,6 @@ public class ComponentPanel {
             else {
                 FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
                 if (fieldPanel.isSerializable) {
-                    panel.add(separator);
                     panel.add(fieldPanel.getPanel());
                     numFields++;
                 }

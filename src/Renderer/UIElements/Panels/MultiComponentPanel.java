@@ -35,10 +35,11 @@ public class MultiComponentPanel extends ComponentPanel{
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.setBorder(new EmptyBorder(4,25,2,25));
-        namePanel.setOpaque(false);
+        namePanel.setBackground(Color.decode("#5774b7"));
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(14f));
+        nameLabel.setForeground(Color.white);
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(18f));
         namePanel.add(Box.createHorizontalGlue());
         setDeleteButton(entities, componentClass, namePanel);
         namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 35));
@@ -83,20 +84,16 @@ public class MultiComponentPanel extends ComponentPanel{
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
-            JSeparator separator = new JSeparator();
-            separator.setMaximumSize(new Dimension(Short.MAX_VALUE, 5));
             if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                     (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
                 StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
                 if(staticFieldPanel.isSerializable) {
-                    panel.add(separator);
                     panel.add(staticFieldPanel.getPanel());
                 }
             }
             else {
                 FieldPanel fieldPanel = new FieldPanel(components, type, value, name);
                 if (fieldPanel.isSerializable) {
-                    panel.add(separator);
                     panel.add(fieldPanel.getPanel());
                 }
             }

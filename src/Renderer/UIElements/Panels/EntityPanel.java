@@ -47,6 +47,7 @@ public class EntityPanel {
 
     private void createStatusPanel(Entity entity){
         statusPanel = new JPanel();
+        statusPanel.setOpaque(false);
         JCheckBox checkBox = new JCheckBox("Retain Mesh Data");
         statusPanel.add(checkBox);
         checkBox.setSelected(FileBuilder.saveEntities.contains(entity));
@@ -63,6 +64,7 @@ public class EntityPanel {
 
     private void createBaseLabels() {
         nameLabelPanel = new JPanel();
+        nameLabelPanel.setOpaque(false);
         nameLabel = new JLabel("Inspector");
         nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
         nameLabelPanel.add(nameLabel);

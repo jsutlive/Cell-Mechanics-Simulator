@@ -24,8 +24,6 @@ import Component.ApicalGradient;
 import Component.LateralGradient;
 import Component.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
-import com.formdev.flatlaf.FlatDarculaLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;

@@ -9,6 +9,7 @@ import Utilities.Geometry.Vector.Vector2i;
 import Utilities.StringUtils;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
@@ -36,8 +37,8 @@ public class FieldPanel {
     private void initialize(List<Component> components, Class<?> type, Object value, String name) {
         panel = new JPanel(new GridLayout(0, 2));
         panel.setOpaque(false);
-        panel.setMaximumSize(new Dimension(400, 30));
-        panel.setBorder(new EmptyBorder(4,25,2,25));
+        panel.setMaximumSize(new Dimension(400, 40));
+        panel.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.decode("#e4e4e4")),new EmptyBorder(4,25,2,25)));
         this.name = name;
         if(type == int.class){
             panel.add(new JLabel(name));

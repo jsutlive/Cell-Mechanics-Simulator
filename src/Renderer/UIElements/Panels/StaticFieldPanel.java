@@ -1,6 +1,7 @@
 package Renderer.UIElements.Panels;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import static Renderer.UIElements.Panels.MultiComponentPanel.PLACEHOLDER_FIELD;
@@ -19,7 +20,7 @@ public class StaticFieldPanel {
         panel = new JPanel(new GridLayout(0, 2));
         panel.setOpaque(false);
         panel.setMaximumSize(new Dimension(400, 30));
-        panel.setBorder(new EmptyBorder(4,25,2,25));
+        panel.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.decode("#e4e4e4")),new EmptyBorder(4,25,2,25)));
         this.name = name;
         panel.add(new JLabel(name));
         if (type == int.class) {
