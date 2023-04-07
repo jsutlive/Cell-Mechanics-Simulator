@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import static Framework.Data.ImageHandler.loadImage;
+
 public class EntityPanel {
 
     JPanel panel;
@@ -66,8 +68,10 @@ public class EntityPanel {
         nameLabelPanel = new JPanel();
         nameLabelPanel.setOpaque(false);
         nameLabel = new JLabel("Inspector");
-        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
+        nameLabel.setFont(nameLabel.getFont().deriveFont(20.0f));
+
         nameLabelPanel.add(nameLabel);
+        nameLabelPanel.setBackground(Color.decode("#5774b7"));
 
         panel.add(nameLabelPanel);
     }
@@ -107,16 +111,19 @@ public class EntityPanel {
     }
 
     private void setDeleteButton(JPanel namePanel, HashSet<Entity> entities) {
-        JButton deleteButton = new JButton("X");
+        JButton deleteButton = new JButton("");
+        ImageIcon icon = new ImageIcon(loadImage("close.png"));
+        Image image = icon.getImage();
+        image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        deleteButton.setIcon(new ImageIcon(image));
         deleteButton.setMargin(new Insets(0,0,0,0));
         deleteButton.setFont(new Font("Serif", Font.BOLD, 10));
-        deleteButton.setPreferredSize(new Dimension(15, 15));
+        deleteButton.setPreferredSize(new Dimension(30, 30));
         if(entities.size()==1) {
             deleteButton.setToolTipText("Delete Entity");
         }else {
             deleteButton.setToolTipText("Delete Entities");
         }
-        deleteButton.setBackground(Color.red);
         deleteButton.addActionListener(e -> SelectionEvents.deleteSelection());
         namePanel.add(deleteButton);
 
@@ -126,11 +133,12 @@ public class EntityPanel {
         groupButton = new JButton("G");
         groupButton.setMargin(new Insets(0,0,0,0));
         groupButton.setFont(new Font("Serif", Font.BOLD, 10));
-        groupButton.setPreferredSize(new Dimension(15, 15));
+        groupButton.setPreferredSize(new Dimension(30, 30));
+        groupButton.setBackground(Color.decode("#7EEF92"));
+        groupButton.setOpaque(true);
 
         if(currentGroupSelection < 0) {
             groupButton.setToolTipText("Group Entities");
-            groupButton.setBackground(Color.green);
             List<Entity> ent = new ArrayList<>(entities);
             groupButton.addActionListener(e -> {
                 SelectionEvents.createGroup(ent);

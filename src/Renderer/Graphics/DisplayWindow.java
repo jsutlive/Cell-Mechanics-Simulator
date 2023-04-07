@@ -122,7 +122,6 @@ public class DisplayWindow
     }
 
     private void createJMenuBar(){
-        System.setProperty( "apple.laf.useScreenMenuBar", "true" );
 
         menuBar = new JMenuBar();
         menuBar.removeAll();

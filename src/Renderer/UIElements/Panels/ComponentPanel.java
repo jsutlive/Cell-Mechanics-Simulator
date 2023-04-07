@@ -2,12 +2,14 @@ package Renderer.UIElements.Panels;
 
 import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Component.Component;
+import Component.*;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
+import Framework.Object.Transform;
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
 import Annotations.DoNotEditInGUI;
-import org.apache.commons.collections.map.SingletonMap;
+import Utilities.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -16,6 +18,8 @@ import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
+
+import static Framework.Data.ImageHandler.loadImage;
 
 public class ComponentPanel {
 
@@ -46,7 +50,11 @@ public class ComponentPanel {
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.setBorder(new EmptyBorder(4,25,3,25));
         namePanel.setBackground(Color.decode("#5774b7"));
-        JLabel nameLabel = new JLabel(componentClass.getSimpleName());
+        JLabel nameLabel = new JLabel(StringUtils.splitPascalCase(c.getClass().getSimpleName()));
+        JLabel nameIcon = new JLabel("");
+        nameIcon.setIcon(getComponentIcon(c));
+        namePanel.add(nameIcon);
+        namePanel.add(Box.createVerticalStrut(30));
         namePanel.add(nameLabel);
         nameLabel.setForeground(Color.white);
         nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(18f));
@@ -60,6 +68,28 @@ public class ComponentPanel {
         panel.add(namePanel);
         setFields(c, type, value, name, componentClass);
         panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
+    }
+
+    private ImageIcon getComponentIcon(Component c) {
+        ImageIcon icon;
+        if(Force.class.isAssignableFrom(c.getClass())) {
+            icon = new ImageIcon(loadImage("force.png"));
+        }else if(Mesh.class.isAssignableFrom(c.getClass())){
+            icon = new ImageIcon(loadImage("mesh.png"));
+        }else if(Camera.class.isAssignableFrom(c.getClass())){
+            icon = new ImageIcon(loadImage("camera.png"));
+        }else if(ObjectRenderer.class.isAssignableFrom(c.getClass())){
+            icon = new ImageIcon(loadImage("paint.png"));
+        }else if(SaveSystem.class.isAssignableFrom(c.getClass())){
+            icon = new ImageIcon(loadImage("save.png"));
+        }else if(Transform.class.isAssignableFrom(c.getClass())){
+            icon = new ImageIcon(loadImage("axis.png"));
+        }else{
+            icon = new ImageIcon(loadImage("code.png"));
+        }
+        Image image = icon.getImage();
+        image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+        return new ImageIcon(image);
     }
 
     protected void handleSimulationToggle(Boolean b){
@@ -81,12 +111,16 @@ public class ComponentPanel {
 
     private void setDeleteButton(Component c, JPanel namePanel) {
         if(c.getClass().getAnnotation(DoNotDestroyInGUI.class)==null) {
-            JButton deleteButton = new JButton("X");
+            JButton deleteButton = new JButton("");
+            ImageIcon icon = new ImageIcon(loadImage("close.png"));
+            Image image = icon.getImage();
+            image = image.getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            deleteButton.setIcon(new ImageIcon(image));
             deleteButton.setMargin(new Insets(0,0,0,0));
             deleteButton.setFont(new Font("Serif", Font.BOLD, 10));
-            deleteButton.setPreferredSize(new Dimension(15, 15));
+            deleteButton.setPreferredSize(new Dimension(30, 30));
             deleteButton.setToolTipText("Delete " + c.getClass().getSimpleName());
-            deleteButton.setBackground(Color.red);
+            deleteButton.setBackground(Color.black);
             deleteButton.addActionListener(e -> {
                 c.removeSelf();
                 SelectionEvents.refresh();
