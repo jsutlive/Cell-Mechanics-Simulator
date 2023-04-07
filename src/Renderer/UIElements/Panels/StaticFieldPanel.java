@@ -18,7 +18,8 @@ public class StaticFieldPanel {
     private void initialize(Class<?> type, Object value, String name){
         panel = new JPanel(new GridLayout(0, 2));
         panel.setOpaque(false);
-        panel.setMaximumSize(new Dimension(325, 30));
+        panel.setMaximumSize(new Dimension(400, 30));
+        panel.setBorder(new EmptyBorder(4,25,2,25));
         this.name = name;
         panel.add(new JLabel(name));
         if (type == int.class) {

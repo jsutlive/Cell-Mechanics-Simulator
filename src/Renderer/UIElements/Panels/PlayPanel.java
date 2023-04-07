@@ -20,6 +20,7 @@ public class PlayPanel {
         StateMachine.onStateMachineStateChange.subscribe(this::toggleButton);
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.setBorder(new EmptyBorder(15,25,15,25));
         panel.setMaximumSize(new Dimension(Short.MAX_VALUE, 160));
         panel.setBackground(Color.darkGray);
         createPlayButton();

@@ -7,13 +7,17 @@ import Input.InputEvents;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
 import Annotations.DoNotEditInGUI;
+import org.apache.commons.collections.map.SingletonMap;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Collections;
 
 public class ComponentPanel {
 
@@ -41,18 +45,22 @@ public class ComponentPanel {
         Class<?> componentClass = c.getClass();
 
         JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+        namePanel.setBorder(new EmptyBorder(4,25,2,25));
         namePanel.setOpaque(false);
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(14f));
+
+        namePanel.add(Box.createHorizontalGlue());
 
         setSelectButton(c, namePanel);
         setDeleteButton(c, namePanel);
-        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 20));
+        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 30));
 
         panel.add(namePanel);
         setFields(c, type, value, name, componentClass);
-        panel.setPreferredSize(new Dimension(300, (30* numFields) + 30));
+        panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
     }
 
     protected void handleSimulationToggle(Boolean b){
@@ -103,10 +111,14 @@ public class ComponentPanel {
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
+            JSeparator separator = new JSeparator();
+            separator.setMaximumSize(new Dimension(Short.MAX_VALUE, 5));
             if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                     (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
                 StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
                 if(staticFieldPanel.isSerializable){
+
+                    panel.add(separator);
                     panel.add(staticFieldPanel.getPanel());
                     numFields++;
                 }
@@ -114,6 +126,7 @@ public class ComponentPanel {
             else {
                 FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
                 if (fieldPanel.isSerializable) {
+                    panel.add(separator);
                     panel.add(fieldPanel.getPanel());
                     numFields++;
                 }

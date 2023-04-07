@@ -151,9 +151,8 @@ public class EntityPanel {
             if(c.getClass().getAnnotation(DoNotExposeInGUI.class) != null) continue;
             ComponentPanel componentPanel = new ComponentPanel(c);
             panel.add(componentPanel.getPanel());
-            panel.add(Box.createVerticalStrut(5));
+            panel.add(Box.createVerticalStrut(10));
         }
-        panel.add(Box.createVerticalGlue());
     }
 
     private void setComponentsMultipleEntity(HashSet<Entity> entities){
@@ -172,7 +171,7 @@ public class EntityPanel {
             if(makePanel) {
                 ComponentPanel multiPanel = new MultiComponentPanel(e,c.getClass());
                 panel.add(multiPanel.getPanel());
-                panel.add(Box.createVerticalStrut(5));
+                panel.add(Box.createVerticalStrut(10));
 
             }else{
                 hasDifferentEntityTypes = true;
@@ -183,6 +182,5 @@ public class EntityPanel {
             warning.add(new JLabel("Only common components are editable"));
             panel.add(warning);
         }
-        panel.add(Box.createVerticalGlue());
     }
 }

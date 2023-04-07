@@ -9,10 +9,13 @@ import Annotations.DoNotEditInGUI;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MultiComponentPanel extends ComponentPanel{
@@ -30,18 +33,20 @@ public class MultiComponentPanel extends ComponentPanel{
 
 
         JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+        namePanel.setBorder(new EmptyBorder(4,25,2,25));
         namePanel.setOpaque(false);
         JLabel nameLabel = new JLabel(componentClass.getSimpleName());
         namePanel.add(nameLabel);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(14.0f));
-
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(14f));
+        namePanel.add(Box.createHorizontalGlue());
         setDeleteButton(entities, componentClass, namePanel);
-        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 20));
+        namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 35));
 
 
         panel.add(namePanel);
         setFields(entities, type, value, name, componentClass);
-        panel.setPreferredSize(new Dimension(300, (30*componentClass.getFields().length)));
+        panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
     }
 
     private <T extends Component> void setDeleteButton(List<Entity> entities, Class<T> componentClass, JPanel namePanel) {
@@ -78,16 +83,22 @@ public class MultiComponentPanel extends ComponentPanel{
             catch (IllegalAccessException e){
                 e.printStackTrace();
             }
+            JSeparator separator = new JSeparator();
+            separator.setMaximumSize(new Dimension(Short.MAX_VALUE, 5));
             if(f.getDeclaredAnnotation(DoNotEditInGUI.class)!= null ||
                     (isPlaying && f.getDeclaredAnnotation(DoNotEditWhilePlaying.class) != null)){
                 StaticFieldPanel staticFieldPanel = new StaticFieldPanel(type, value, name);
-                if(staticFieldPanel.isSerializable)
+                if(staticFieldPanel.isSerializable) {
+                    panel.add(separator);
                     panel.add(staticFieldPanel.getPanel());
+                }
             }
             else {
                 FieldPanel fieldPanel = new FieldPanel(components, type, value, name);
-                if (fieldPanel.isSerializable)
+                if (fieldPanel.isSerializable) {
+                    panel.add(separator);
                     panel.add(fieldPanel.getPanel());
+                }
             }
         }
     }

@@ -29,7 +29,7 @@ public class ObjectPanel {
 
     public ObjectPanel(){
         panel = new JPanel(new GridLayout(0, 1, 5, 15));
-        panel.setBorder(new MatteBorder(0,0,0,1, Color.BLACK));
+        panel.setBorder(new MatteBorder(0,0,0,1, Color.LIGHT_GRAY));
         SelectionEvents.onCreateGroup.subscribe(this::addGroupButton);
         SelectionEvents.onClearGroups.subscribe(this::removeAllGroupButtons);
         SelectionEvents.onDeleteGroup.subscribe(this::removeGroupButton);

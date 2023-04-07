@@ -59,7 +59,6 @@ public class DisplayWindow
         this.width = _width;
         this.height = _height;
 
-
         CreateDisplay();
 
 
@@ -308,11 +307,6 @@ public class DisplayWindow
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.getContentPane().setBackground( Color.black );
-//        try{
-//            UIManager.setLookAndFeel(new FlatLightLaf());
-//        } catch (UnsupportedLookAndFeelException e){
-//            System.out.println(e.getMessage());
-//        }
     }
 
 
