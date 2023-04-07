@@ -36,7 +36,6 @@ public abstract class Renderer implements Runnable {
             if (renderClock.isReadyForNextFrame()) {
                 render();
             }
-            //renderClock.printFrameRateAndResetFrameTimer();
         }
     }
 
@@ -46,10 +45,6 @@ public abstract class Renderer implements Runnable {
                 new File(fullPathName +
                         name + "_seconds.jpg"));
         writer.write();
-    }
-
-    public void clearBatch(){
-        batch.clear();
     }
 
     protected void addGraphicToBatch(IRender rend){

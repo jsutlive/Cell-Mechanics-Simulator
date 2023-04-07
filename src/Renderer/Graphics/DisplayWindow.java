@@ -25,6 +25,8 @@ import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -59,7 +61,7 @@ public class DisplayWindow
         CreateDisplay();
 
 
-        CreateCanvas();
+        createCanvas();
         createJMenuBar();
         frame.setJMenuBar(menuBar);
 
@@ -116,6 +118,11 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
+        frame.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                createCanvas();
+            }
+        });
     }
 
     private void createJMenuBar(){
@@ -290,19 +297,17 @@ public class DisplayWindow
         frame = new JFrame(title);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //this line is necessary for the code to function.
-        frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.getContentPane().setBackground( Color.black );
     }
 
 
-    private void CreateCanvas() {
+    private void createCanvas() {
         canvas = new SimulationCanvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
-
     }
 
     public SimulationCanvas GetCanvas()

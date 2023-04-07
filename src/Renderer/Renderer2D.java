@@ -34,7 +34,9 @@ public class Renderer2D extends Renderer {
             return;
         }
         graphics = bufferStrategy.getDrawGraphics();
-        graphics.clearRect(0,0, bounds.width, bounds.height);
+        graphics.clearRect(0,0,
+                displayWindow.GetCanvas().getWidth(),
+                displayWindow.GetCanvas().getHeight());
         for(int i = batch.size() -1; i >= 0; i--){
             if(i >= batch.size())return;
             batch.get(i).render(graphics);
