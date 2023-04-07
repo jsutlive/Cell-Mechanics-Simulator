@@ -13,7 +13,7 @@ public class LineGraphic extends VectorGraphic {
     }
 
     @Override
-    public void render() {
-        drawLine(posA, posB, Color.GREEN);
+    public void render(Graphics g) {
+        drawLine(posA, posB, Color.GREEN, g);
     }
 }

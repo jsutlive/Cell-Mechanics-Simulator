@@ -1,20 +1,25 @@
 package Renderer;
 
+import Framework.Data.ImageHandler;
 import Framework.Utilities.Time;
 import Renderer.Graphics.IRender;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Framework.Data.FileBuilder.fullPathName;
 
 /**
  * Render object responsible for updating canvas
  */
 public abstract class Renderer implements Runnable {
 
-    //Graphics object that our painter class references to draw objects
-    public static Graphics graphics;
     public static Color DEFAULT_COLOR = Color.white;
+    //Graphics object that our painter class references to draw objects
+    protected Graphics graphics;
 
     protected List<IRender> batch = new ArrayList<>();
     protected Dimension bounds;
@@ -35,6 +40,14 @@ public abstract class Renderer implements Runnable {
         }
     }
 
+    protected void exportImage(String name){
+        BufferedImage screenshot = renderImage();
+        ImageHandler writer = new ImageHandler(screenshot,
+                new File(fullPathName +
+                        name + "_seconds.jpg"));
+        writer.write();
+    }
+
     public void clearBatch(){
         batch.clear();
     }
@@ -48,4 +61,5 @@ public abstract class Renderer implements Runnable {
     }
 
     protected abstract void render();
+    public abstract BufferedImage renderImage();
 }

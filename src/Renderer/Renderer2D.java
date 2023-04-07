@@ -1,10 +1,12 @@
 package Renderer;
 
+import Framework.States.StateMachine;
 import Renderer.Graphics.DisplayWindow;
 import Renderer.Graphics.IRender;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Renderer2D extends Renderer {
     DisplayWindow displayWindow;
@@ -17,6 +19,7 @@ public class Renderer2D extends Renderer {
         IRender.onRendererAdded.subscribe(this::addGraphicToBatch);
         IRender.onRendererRemoved.subscribe(this::removeGraphicFromBatch);
         applicationIsRunning = true;
+        StateMachine.onSaveStateInfo.subscribe(this::exportImage);
     }
 
     /**
@@ -26,21 +29,30 @@ public class Renderer2D extends Renderer {
     protected void render()
     {
         bufferStrategy = displayWindow.GetCanvas().getBufferStrategy();
-
         if(bufferStrategy == null) {
             displayWindow.GetCanvas().createBufferStrategy(3);
             return;
         }
         graphics = bufferStrategy.getDrawGraphics();
         graphics.clearRect(0,0, bounds.width, bounds.height);
-
         for(int i = batch.size() -1; i >= 0; i--){
             if(i >= batch.size())return;
-            batch.get(i).render();
+            batch.get(i).render(graphics);
         }
-
         bufferStrategy.show();
-        displayWindow.GetCanvas().prepareImageForExport();
         graphics.dispose();
     }
+
+    @Override
+    public BufferedImage renderImage(){
+        BufferedImage image = new BufferedImage(bounds.width, bounds.height, BufferedImage.TYPE_INT_RGB);
+        Graphics imageGraphics = image.createGraphics();
+        for(int i = batch.size() -1; i >= 0; i--){
+            if(i >= batch.size())continue;
+            batch.get(i).render(imageGraphics);
+        }
+        imageGraphics.dispose();
+        return image;
+    }
 }
+

@@ -75,20 +75,20 @@ public class MeshRenderer extends ObjectRenderer
         alterColors(color);
     }
 
-    private void drawEdgeNormal(Edge edge){
+    private void drawEdgeNormal(Edge edge, Graphics g){
         Vector2f center = edge.getCenter();
         Vector2f normal = (Vector2f) CustomMath.normal(edge);
         normal.mul(7);
         normal = normal.add(center);
 
-        drawLine(center, normal);
+        drawLine(center, normal, g);
     }
 
     /**
      * Tells rendering system to draw components of cell.
      */
     @Override
-    public void render()
+    public void render(Graphics g)
     {
         if(!enabled) return;
         if(cellMesh == null)return;
@@ -112,9 +112,9 @@ public class MeshRenderer extends ObjectRenderer
                     positions[1]
                             .add(CustomMath.normal(mainEdge).mul(offsetAmount))
                             .add(CustomMath.normal(nextEdge).mul(offsetAmount)),
-                    color);
+                    color, g);
             if(showEdgeNormals) {
-                drawEdgeNormal(cellMesh.edges.get(i));
+                drawEdgeNormal(cellMesh.edges.get(i), g);
             }
         }
     }

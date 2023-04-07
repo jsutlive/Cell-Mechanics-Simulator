@@ -15,9 +15,9 @@ public class CircleGraphic extends VectorGraphic{
     }
 
     @Override
-    public void render() {
-        drawCircle(center, radius-1, color);
-        drawCircle(center, radius, color);
-        drawCircle(center, radius+1, color);
+    public void render(Graphics g) {
+        drawCircle(center, radius-1, color, g);
+        drawCircle(center, radius, color, g);
+        drawCircle(center, radius+1, color, g);
     }
 }

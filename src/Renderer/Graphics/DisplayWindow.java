@@ -6,9 +6,7 @@ import Framework.Object.Annotations.DoNotExposeInGUI;
 import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
-import Framework.States.StateMachine;
 
-import Framework.Utilities.Debug;
 import Input.InputEvents;
 import Component.BoxDebugMesh;
 import Component.HexMesh;
@@ -94,7 +92,6 @@ public class DisplayWindow
 
         InputEvents.onToggleSimulation.subscribe(this::enableMenuBarOptionsOnToggle);
         SelectionEvents.onEntitySelected.subscribe(this::checkForSelectionMenuChange);
-        StateMachine.onSaveStateInfo.subscribe(this::exportImage);
     }
 
 
@@ -262,14 +259,6 @@ public class DisplayWindow
     private void enableMenuBarOptionsOnToggle(boolean b){
         stopItem.setEnabled(b);
         playItem.setEnabled(!b);
-    }
-
-    public void exportImage(String name){
-        BufferedImage screenshot = captureImage();
-        ImageHandler writer = new ImageHandler(screenshot,
-                new File(fullPathName +
-                        name + "_seconds.jpg"));
-        writer.write();
     }
 
     private void captureImageFromMenu(){
