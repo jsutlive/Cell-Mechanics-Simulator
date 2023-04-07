@@ -1,13 +1,11 @@
 package Component;
 
-import Annotations.ReloadComponentOnChange;
 import Utilities.Geometry.Vector.Vector;
 import Framework.Rigidbodies.Edge;
 import java.util.List;
 
 import static Utilities.Math.CustomMath.normal;
 
-@ReloadComponentOnChange
 public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;
@@ -43,7 +41,7 @@ public class OsmosisForce extends Force {
     }
 
     @Override
-    public void awake() {
+    public void onValidate() {
         this.edges = getComponent(Mesh.class).edges;
         initialArea = getComponent(Mesh.class).getArea();
         desiredArea = initialArea + (initialArea*internalPressure);

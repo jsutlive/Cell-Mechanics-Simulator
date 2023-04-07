@@ -64,6 +64,7 @@ public final class StateMachine {
         if(allObjects.contains(e))return;
         allObjects.add(e);
         e.awake();
+        e.onValidate();
     }
 
     public void cycle(){

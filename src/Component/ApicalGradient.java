@@ -4,7 +4,6 @@ import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import static Renderer.Renderer.DEFAULT_COLOR;
 import static Component.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 
-@ReloadComponentOnChange
 @GroupSelector
 public class ApicalGradient extends Component {
 
@@ -33,8 +31,14 @@ public class ApicalGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
+    }
+
+    @Override
+    public void onValidate() {
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "apicl", groupColor);
+        }else{
+            cellGroup.changeGroupColor(groupColor);
         }
         if(numberOfConstrictingCells%2!=0)numberOfConstrictingCells++;
         calculateGradient();
@@ -62,7 +66,6 @@ public class ApicalGradient extends Component {
     }
 
     private void addCellsToGroup() {
-        System.out.println("HERE");
         for(Entity cell: getChildren()){
             int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
             if( ringLocation <= numberOfConstrictingCells / 2){
@@ -90,7 +93,10 @@ public class ApicalGradient extends Component {
         onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         SelectionEvents.deleteGroup(cellGroup.groupID);
         for(Entity cell: cellGroup.entities){
-            cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
+            MeshRenderer renderer = getComponent(MeshRenderer.class);
+            if(renderer!= null) {
+                renderer.setColor(renderer.defaultColor);
+            }
             cell.removeComponent(ApicalConstrictingSpringForce.class);
         }
     }

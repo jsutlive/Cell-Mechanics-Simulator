@@ -4,7 +4,6 @@ import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 
 
 import java.awt.*;
@@ -14,7 +13,6 @@ import static Component.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 import static Renderer.Renderer.DEFAULT_COLOR;
 
-@ReloadComponentOnChange
 @GroupSelector
 public class LateralGradient extends Component {
 
@@ -34,8 +32,14 @@ public class LateralGradient extends Component {
     public void awake() {
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
+    }
+
+    @Override
+    public void onValidate(){
         if(cellGroup==null) {
             cellGroup = new EntityGroup(new ArrayList<>(), "latrl", groupColor);
+        }else{
+            cellGroup.changeGroupColor(groupColor);
         }
         calculateParameters();
         cellGroup.recolor();
@@ -84,7 +88,10 @@ public class LateralGradient extends Component {
         onSelectionButtonPressed.unSubscribe(this::selectAllInGroup);
         SelectionEvents.deleteGroup(cellGroup.groupID);
         for(Entity cell: cellGroup.entities){
-            cell.getComponent(MeshRenderer.class).setColor(getComponent(MeshRenderer.class).defaultColor);
+            MeshRenderer renderer = getComponent(MeshRenderer.class);
+            if(renderer!= null) {
+                renderer.setColor(renderer.defaultColor);
+            }
             cell.removeComponent(LateralShorteningSpringForce.class);
         }
     }

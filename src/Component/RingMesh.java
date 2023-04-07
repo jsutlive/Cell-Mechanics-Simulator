@@ -5,7 +5,6 @@ import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Framework.Object.Entity;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
-import Annotations.ReloadComponentOnChange;
 import Annotations.DoNotEditInGUI;
 import Framework.Rigidbodies.Edge;
 import Framework.Rigidbodies.Node2D;
@@ -19,7 +18,6 @@ import static Utilities.Math.CustomMath.TransformToWorldSpace;
 import static Utilities.Math.CustomMath.GetUnitVectorOnCircle;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 
-@ReloadComponentOnChange
 @DoNotDestroyInGUI
 @DoNotEditWhilePlaying
 @GroupSelector
@@ -38,12 +36,16 @@ public class RingMesh extends Mesh {
 
     @Override
     public void awake() {
+        onSelectionButtonPressed.subscribe(this::selectAll);
+    }
+
+    @Override
+    public void onValidate() {
         resetCells();
         nodes.clear();
         generateTissueRing();
         setApicalAndBasalEdges();
         onMeshRebuilt.invoke(this);
-        onSelectionButtonPressed.subscribe(this::selectAll);
     }
 
     private void selectAll(Component component){

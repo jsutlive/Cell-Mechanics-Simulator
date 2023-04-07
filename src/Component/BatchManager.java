@@ -5,7 +5,6 @@ import Framework.Object.Entity;
 import Framework.States.EditorState;
 import Framework.States.RunState;
 import Framework.States.StateMachine;
-import Annotations.ReloadComponentOnChange;
 import Annotations.DoNotEditInGUI;
 
 import java.io.*;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-@ReloadComponentOnChange
 public class BatchManager extends Component {
 
     public boolean useBatchTesting;
@@ -31,7 +29,7 @@ public class BatchManager extends Component {
     private List<String[]> args = new ArrayList<>();
 
     @Override
-    public void awake() {
+    public void onValidate() {
         if(batchFile == null) return;
         try {
             Scanner scanner = new Scanner(batchFile);

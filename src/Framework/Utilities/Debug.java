@@ -2,12 +2,16 @@ package Framework.Utilities;
 
 import Framework.Events.EventHandler;
 
-public final class Debug {
-    public EventHandler<String> onLog = new EventHandler<>();
-    public EventHandler<String> onLogWarning = new EventHandler<>();
-    public EventHandler<String> onLogError = new EventHandler<>();
+import java.util.ArrayList;
+import java.util.List;
 
-    private static Debug INSTANCE;
+import static Framework.Utilities.Message.Type.*;
+
+public final class Debug {
+    public EventHandler<Message> onLog = new EventHandler<>();
+
+    public static Debug INSTANCE;
+    public List<Message> messageLog = new ArrayList<>();
 
     public Debug(){
         if(INSTANCE == null) {
@@ -17,17 +21,23 @@ public final class Debug {
 
     public static void Log(String msg){
         if(INSTANCE == null) return;
-        INSTANCE.onLog.invoke(msg);
+        Message m = new Message(msg, Log);
+        INSTANCE.messageLog.add(m);
+        INSTANCE.onLog.invoke(m);
     }
 
     public static void LogWarning(String msg){
         if(INSTANCE == null) return;
-        INSTANCE.onLogWarning.invoke(msg);
+        Message m = new Message(msg, Warning);
+        INSTANCE.messageLog.add(m);
+        INSTANCE.onLog.invoke(m);
     }
 
     public static void LogError(String msg){
         if(INSTANCE == null) return;
-        INSTANCE.onLogError.invoke(msg);
+        Message m = new Message(msg, Error);
+        INSTANCE.messageLog.add(m);
+        INSTANCE.onLog.invoke(m);
     }
 
 }

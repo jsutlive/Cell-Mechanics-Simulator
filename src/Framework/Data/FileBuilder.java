@@ -28,7 +28,7 @@ import java.util.List;
 
 public class FileBuilder {
 
-    private static String basePath = System.getProperty("user.dir") + "//export//";
+    private static final String BASEPATH = System.getProperty("user.dir") + "//export//";
     public static String fullPathName;
     public static float saveFrequency = Time.asNanoseconds(20);
     public static List<Entity> saveEntities = new ArrayList<>();
@@ -40,7 +40,7 @@ public class FileBuilder {
 
 
     public static void setFullPathName(String endPath){
-        fullPathName = basePath + endPath + "//";
+        fullPathName = BASEPATH + endPath + "//";
         File directory = new File(fullPathName);
         if(directory.exists())return;
         try {
@@ -160,6 +160,11 @@ public class FileBuilder {
                 throw new IOException("FAILED TO MAKE FILE");
             }
         }
+        clearCache();
+    }
+
+    public static void clearCache(){
+        saveDictionary.clear();
     }
 
     public static String[] appendStringArray(String[] array, String s){
