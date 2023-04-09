@@ -1,15 +1,13 @@
-package Framework.Object;
+package Component;
 
-import Component.Component;
 import Framework.Events.EventHandler;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
-import Component.Mesh;
 import Utilities.Geometry.Vector.Vector2f;
 
 @DoNotDestroyInGUI
 public class Transform extends Component {
     public Vector2f position = new Vector2f();
-    Mesh mesh;
+    private Mesh mesh;
     public EventHandler<Vector2f> onPositionChanged = new EventHandler<>();
 
     @Override

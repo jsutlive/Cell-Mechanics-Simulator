@@ -31,7 +31,6 @@ public class SelectionEvents {
         if(!selectingMultiple) selectedEntities.clear();
         selectedEntities.add(e);
         onEntitySelected.invoke(selectedEntities);
-        Debug.Log(String.valueOf(selectedEntities.size()));
         onSelectGroup.invoke(-1);
     }
 

@@ -29,11 +29,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.*;
 import java.util.List;
 
-import static Framework.Data.FileBuilder.fullPathName;
 import static Framework.Data.ImageHandler.loadImage;
 import static Framework.Object.Tag.MODEL;
 
@@ -118,11 +116,12 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
-        frame.addComponentListener(new ComponentAdapter() {
+        // Needs debugging
+        /*frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 createCanvas();
             }
-        });
+        });*/
     }
 
     private void createJMenuBar(){
@@ -130,7 +129,10 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         menuBar.removeAll();
         JMenu menu = new JMenu("File");
-        JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
+
+        JMenuItem newSimulation = new JMenuItem("New Scene");
+        newSimulation.addActionListener(e->InputEvents.onLoadModel.invoke(""));
+        menu.add(newSimulation);
 
         JMenu loadMenu = new JMenu("Load Preset");
         JMenuItem loadEmbryo = new JMenuItem("Embryo");
@@ -145,6 +147,7 @@ public class DisplayWindow
 
         menu.add(loadMenu);
 
+        JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
         exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
         menuBar.add(menu);
@@ -299,6 +302,7 @@ public class DisplayWindow
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //this line is necessary for the code to function.
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setResizable(false); //Until after debugging
         frame.getContentPane().setBackground( Color.black );
     }
 

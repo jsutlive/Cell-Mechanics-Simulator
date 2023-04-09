@@ -19,7 +19,6 @@ public class MeshRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
     private Color highlightColor = Color.yellow;
-    public boolean enabled = true;
 
     public boolean showEdgeNormals = false;
 

@@ -1,12 +1,10 @@
 package Renderer.UIElements.Panels;
 
-import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
 import Framework.Object.Tag;
 import Input.SelectionEvents;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.util.ArrayList;

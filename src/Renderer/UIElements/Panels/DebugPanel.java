@@ -21,6 +21,7 @@ public class DebugPanel {
         msgLabel = new JButton();
         msgLabel.setPreferredSize(new Dimension(800,25));
         msgLabel.setBackground(Color.darkGray);
+        msgLabel.setOpaque(true);
         msgLabel.addActionListener(e->
         {
             new ConsolePopUp(debug);

@@ -1,6 +1,7 @@
 package Framework.Object;
 
 import Component.Component;
+import Component.Transform;
 import Framework.Events.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +69,24 @@ public final class Entity implements IBehavior
    }
 
    public void awake() {}
-   public void start() {for (Component c: components) c.start();}
-   public void update() {for (Component c: components) c.update();}
-   public void lateUpdate(){for(Component c: components)c.lateUpdate();}
-   public void earlyUpdate(){for (Component c: components) c.earlyUpdate();}
-   public void onDestroy(){for (Component c: components) c.onDestroy();}
-   public void onValidate(){}
+   public void start() {for (Component c: components) {
+         if(c.isEnabled()) c.start();
+   }}
+   public void update() {for (Component c: components) {
+      if(c.isEnabled()) c.update();
+   }}
+   public void lateUpdate(){for(Component c: components){
+      if(c.isEnabled()) c.lateUpdate();
+   }}
+   public void earlyUpdate(){for (Component c: components) {
+      if(c.isEnabled()) c.earlyUpdate();
+   }}
+   public void onDestroy(){for (Component c: components) {
+      if(c.isEnabled()) c.onDestroy();
+   }}
+   public void onValidate(){for(Component c: components)
+      c.onValidate();
+   }
 
    /**
     * Removes the object and its references from the current state

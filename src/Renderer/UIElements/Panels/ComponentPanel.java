@@ -4,7 +4,7 @@ import Framework.Object.Annotations.DoNotEditWhilePlaying;
 import Component.Component;
 import Component.*;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
-import Framework.Object.Transform;
+
 import Input.InputEvents;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
@@ -47,12 +47,13 @@ public class ComponentPanel {
         Class<?> componentClass = c.getClass();
 
         JPanel namePanel = new JPanel();
+        setEnableButton(c, namePanel);
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.setBorder(new EmptyBorder(4,25,3,25));
         namePanel.setBackground(Color.decode("#5774b7"));
         JLabel nameLabel = new JLabel(StringUtils.splitPascalCase(c.getClass().getSimpleName()));
         JLabel nameIcon = new JLabel("");
-        nameIcon.setIcon(getComponentIcon(c));
+        nameIcon.setIcon(getComponentIcon(c.getClass()));
         namePanel.add(nameIcon);
         namePanel.add(Box.createVerticalStrut(30));
         namePanel.add(nameLabel);
@@ -70,19 +71,19 @@ public class ComponentPanel {
         panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
     }
 
-    private ImageIcon getComponentIcon(Component c) {
+    protected <T extends Component> ImageIcon getComponentIcon(Class<T> c) {
         ImageIcon icon;
-        if(Force.class.isAssignableFrom(c.getClass())) {
+        if(Force.class.isAssignableFrom(c)) {
             icon = new ImageIcon(loadImage("force.png"));
-        }else if(Mesh.class.isAssignableFrom(c.getClass())){
+        }else if(Mesh.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("mesh.png"));
-        }else if(Camera.class.isAssignableFrom(c.getClass())){
+        }else if(Camera.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("camera.png"));
-        }else if(ObjectRenderer.class.isAssignableFrom(c.getClass())){
+        }else if(ObjectRenderer.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("paint.png"));
-        }else if(SaveSystem.class.isAssignableFrom(c.getClass())){
+        }else if(SaveSystem.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("save.png"));
-        }else if(Transform.class.isAssignableFrom(c.getClass())){
+        }else if(Transform.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("axis.png"));
         }else{
             icon = new ImageIcon(loadImage("code.png"));
@@ -107,6 +108,14 @@ public class ComponentPanel {
             deleteButton.addActionListener(e -> SelectionEvents.onSelectionButtonPressed.invoke(c));
             namePanel.add(deleteButton);
         }
+    }
+
+    private void setEnableButton(Component c, JPanel namePanel){
+            JCheckBox checkBox = new JCheckBox();
+            checkBox.setSelected(c.isEnabled());
+            checkBox.setToolTipText("Enable/Disable");
+            checkBox.addActionListener(e -> c.setEnabled(checkBox.isSelected()));
+            namePanel.add(checkBox);
     }
 
     private void setDeleteButton(Component c, JPanel namePanel) {

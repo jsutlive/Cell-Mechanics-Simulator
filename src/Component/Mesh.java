@@ -2,7 +2,6 @@ package Component;
 
 import Framework.Events.EventHandler;
 import Framework.Object.Entity;
-import Framework.Object.Transform;
 import Annotations.Builder;
 import Annotations.DoNotEditInGUI;
 import Annotations.VirtualRenderer;
