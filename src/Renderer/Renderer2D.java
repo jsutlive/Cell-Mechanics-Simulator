@@ -13,8 +13,8 @@ public class Renderer2D extends Renderer {
     BufferStrategy bufferStrategy;
 
     public Renderer2D(String windowTitle) {
-        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
-        bounds = new Dimension(screensize.height/10*7, screensize.height/10*7);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        bounds = new Dimension(screenSize.height/10*7, screenSize.height/10*7);
         displayWindow = new DisplayWindow(windowTitle, bounds.width, bounds.height);
         IRender.onRendererAdded.subscribe(this::addGraphicToBatch);
         IRender.onRendererRemoved.subscribe(this::removeGraphicFromBatch);

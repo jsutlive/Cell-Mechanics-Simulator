@@ -39,6 +39,10 @@ public abstract class Renderer implements Runnable {
         }
     }
 
+    /**
+     * Exports an image of the simulation view area to file
+     * @param name file name given by user
+     */
     protected void exportImage(String name){
         BufferedImage screenshot = renderImage();
         ImageHandler writer = new ImageHandler(screenshot,

@@ -29,11 +29,9 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.*;
 import java.util.List;
 
-import static Framework.Data.FileBuilder.fullPathName;
 import static Framework.Data.ImageHandler.loadImage;
 import static Framework.Object.Tag.MODEL;
 
@@ -65,7 +63,7 @@ public class DisplayWindow
         createJMenuBar();
         frame.setJMenuBar(menuBar);
 
-        frame.add(canvas);
+
 
 
         ObjectPanel obj = new ObjectPanel();
@@ -118,11 +116,11 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
-        frame.addComponentListener(new ComponentAdapter() {
+        /*frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 createCanvas();
             }
-        });
+        });*/
     }
 
     private void createJMenuBar(){
@@ -130,6 +128,13 @@ public class DisplayWindow
         menuBar = new JMenuBar();
         menuBar.removeAll();
         JMenu menu = new JMenu("File");
+
+        JMenuItem newSceneItem = new JMenuItem("New Scene");
+        newSceneItem.addActionListener(e-> {
+            InputEvents.onLoadModel.invoke("");
+        });
+        menu.add(newSceneItem);
+
         JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
 
         JMenu loadMenu = new JMenu("Load Preset");
@@ -292,26 +297,30 @@ public class DisplayWindow
     }
 
 
-    private void CreateDisplay()
-    {
+    private void CreateDisplay() {
         frame = new JFrame(title);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //this line is necessary for the code to function.
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.getContentPane().setBackground( Color.black );
+        frame.setResizable(false);
+        frame.getContentPane().setBackground(Color.black);
     }
 
-
     private void createCanvas() {
+        if(canvas!=null){
+            frame.remove(canvas);
+        }
         canvas = new SimulationCanvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
+        frame.add(canvas);
     }
 
     public SimulationCanvas GetCanvas()
     {
+        if(canvas == null) createCanvas();
         return canvas;
     }
 }
