@@ -63,7 +63,7 @@ public class DisplayWindow
         createJMenuBar();
         frame.setJMenuBar(menuBar);
 
-        frame.add(canvas);
+
 
 
         ObjectPanel obj = new ObjectPanel();
@@ -116,7 +116,7 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
-        // Needs debugging
+
         /*frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 createCanvas();
@@ -130,9 +130,11 @@ public class DisplayWindow
         menuBar.removeAll();
         JMenu menu = new JMenu("File");
 
-        JMenuItem newSimulation = new JMenuItem("New Scene");
-        newSimulation.addActionListener(e->InputEvents.onLoadModel.invoke(""));
-        menu.add(newSimulation);
+        JMenuItem newSceneItem = new JMenuItem("New Scene");
+        newSceneItem.addActionListener(e-> {
+            InputEvents.onLoadModel.invoke("");
+        });
+        menu.add(newSceneItem);
 
         JMenu loadMenu = new JMenu("Load Preset");
         JMenuItem loadEmbryo = new JMenuItem("Embryo");
@@ -295,8 +297,7 @@ public class DisplayWindow
     }
 
 
-    private void CreateDisplay()
-    {
+    private void CreateDisplay() {
         frame = new JFrame(title);
         frame.setSize(width, height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //this line is necessary for the code to function.
@@ -304,18 +305,23 @@ public class DisplayWindow
         frame.setVisible(true);
         frame.setResizable(false); //Until after debugging
         frame.getContentPane().setBackground( Color.black );
+
     }
 
-
     private void createCanvas() {
+        if(canvas!=null){
+            frame.remove(canvas);
+        }
         canvas = new SimulationCanvas();
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setMinimumSize(new Dimension(width, height));
         canvas.setMaximumSize(new Dimension(width, height));
+        frame.add(canvas);
     }
 
     public SimulationCanvas GetCanvas()
     {
+        if(canvas == null) createCanvas();
         return canvas;
     }
 }
