@@ -121,7 +121,9 @@ public final class StateMachine {
 
     public void clearStateMachine(boolean keepCamera){
         SelectionEvents.clearGroups();
+        SelectionEvents.clearSelection();
         for(int i = allObjects.size()-1; i>= 0; i-- ){
+                if(i >= allObjects.size()) continue;
                 Tag tag = allObjects.get(i).getTag();
                 if(!( tag== CAMERA || tag == PHYSICS)) {
                     allObjects.get(i).destroy();

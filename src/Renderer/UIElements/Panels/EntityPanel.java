@@ -86,7 +86,9 @@ public class EntityPanel {
             }
             setDeleteButton(nameLabelPanel, entities);
         }
-        if(entities.size() == 0) return;
+        if(entities.size() == 0) {
+            return;
+        }
         if(entities.size() == 1) {
             for(Entity e: entities) createSingleEntityPanel(e);
         }else{
@@ -165,6 +167,7 @@ public class EntityPanel {
     }
 
     private void setComponentsMultipleEntity(HashSet<Entity> entities){
+        if(entities.size() == 0) return;
         boolean hasDifferentEntityTypes = false;
         List<Entity> e = new ArrayList<>(entities);
 
