@@ -5,23 +5,30 @@ import Framework.Utilities.Message;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.Flow;
 
 import static Framework.Data.ImageHandler.loadImage;
 
 public class ConsolePopUp {
     JDialog jd;
     JFrame jFrame;
+
+    JPanel panel;
     public ConsolePopUp(Debug debug){
         jFrame = new JFrame();
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(0,1,0,10));
+        panel.setBackground(Color.darkGray);
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setBorder(null);
 
         jd = new JDialog(jFrame);
+        jd.add(scrollPane);
         jd.getContentPane().setBackground(Color.darkGray);
         jd.setTitle("History");
         jFrame.setIconImage(loadImage("record.png"));
 
         jd.setBounds(500, 300, 400, 300);
-
-        jd.setLayout(new GridLayout(0,2));
 
         for(Message m : debug.messageLog){
             addLog(m);
@@ -36,8 +43,8 @@ public class ConsolePopUp {
         j.setForeground(m.getTypeColor());
         JLabel jt = new JLabel(m.getDateTime().toString());
         jt.setForeground(m.getTypeColor());
-        jd.add(j);
-        jd.add(jt);
+        panel.add(j);
+        panel.add(jt);
         jd.revalidate();
     }
 }

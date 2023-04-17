@@ -36,7 +36,6 @@ public class InputPanel {
         EntityPanel componentPanel = new EntityPanel();
 
         JScrollPane componentScroll = new JScrollPane(componentPanel.getPanel());
-//        componentScroll.setHorizontalScrollBar(null);
         componentScroll.setBorder(null);
         mouseLabel = new JLabel("TEST");
         panel.add(componentScroll);

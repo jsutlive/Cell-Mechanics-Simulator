@@ -13,13 +13,14 @@ public class DebugPanel {
 
     public DebugPanel(){
         panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
         Debug debug = new Debug();
         debug.onLog.subscribe(this::logMessage);
 
         panel.setBackground(Color.darkGray);
         msgLabel = new JButton();
-        msgLabel.setPreferredSize(new Dimension(800,25));
+        msgLabel.setMaximumSize(new Dimension(Short.MAX_VALUE,25));
         msgLabel.setBackground(Color.darkGray);
         msgLabel.setOpaque(true);
         msgLabel.addActionListener(e->
@@ -35,6 +36,10 @@ public class DebugPanel {
 
     public void logMessage(Message msg){
         msgLabel.setText(msg.getText());
+        msgLabel.setBackground(Color.darkGray);
+        msgLabel.setBorderPainted(false);
+        msgLabel.setFocusPainted(false);
+        msgLabel.setContentAreaFilled(false);
         msgLabel.setForeground(msg.getTypeColor());
     }
 }
