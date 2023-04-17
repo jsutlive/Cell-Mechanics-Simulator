@@ -10,10 +10,19 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public abstract class Component implements IBehavior, IExposeToGUI {
+    protected boolean enabled = true;
     public EventHandler<Component> onComponentChanged = new EventHandler<>();
     protected transient Entity parent;
     public void setParent(Entity mono){
         parent = mono;
+    }
+
+    public boolean isEnabled(){
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
     }
 
     /**

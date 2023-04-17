@@ -114,6 +114,7 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
+
         /*frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 createCanvas();
@@ -133,8 +134,6 @@ public class DisplayWindow
         });
         menu.add(newSceneItem);
 
-        JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
-
         JMenu loadMenu = new JMenu("Load Preset");
         JMenuItem loadEmbryo = new JMenuItem("Embryo");
         loadEmbryo.addActionListener(e->InputEvents.onLoadModel.invoke("Embryo"));
@@ -148,6 +147,7 @@ public class DisplayWindow
 
         menu.add(loadMenu);
 
+        JMenuItem exportItem = new JMenuItem("Export Image", KeyEvent.VK_P);
         exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
         JMenuItem quitMenuItem = new JMenuItem("Quit");
@@ -304,8 +304,9 @@ public class DisplayWindow
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       //this line is necessary for the code to function.
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setResizable(false);
-        frame.getContentPane().setBackground(Color.black);
+        frame.setResizable(false); //Until after debugging
+        frame.getContentPane().setBackground( Color.black );
+
     }
 
     private void createCanvas() {

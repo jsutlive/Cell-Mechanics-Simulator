@@ -1,7 +1,6 @@
 package Component;
 
 import Framework.Object.Tag;
-import Framework.Object.Transform;
 import Input.InputEvents;
 import Annotations.SetSlider;
 import Utilities.Geometry.Vector.Vector2f;

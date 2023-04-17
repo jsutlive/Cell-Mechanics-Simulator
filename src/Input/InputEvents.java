@@ -34,7 +34,6 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         if(keyCode == KeyEvent.VK_MINUS) {
             scale(1/1.2f);
         }
-
         if(keyCode == KeyEvent.VK_LEFT) {
             shift(new Vector2i(-25, 0));
         }

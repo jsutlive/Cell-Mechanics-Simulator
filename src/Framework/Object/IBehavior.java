@@ -12,7 +12,7 @@ public interface IBehavior
     void awake();
 
     /**
-     * Checks/ methods to be run prior to awake, typically via annotations, occurs just after the awake method is called
+     * Checks/ methods to be run just after awake and refreshes objects/ components after modification
      */
     void onValidate();
 
@@ -22,17 +22,17 @@ public interface IBehavior
     void start();
 
     /**
-     * This method is called once per frame to update the physics, only during the "Run State"
+     * This method is called once per "tick" to update the physics, only during the "Run State"
      */
     void update();
 
     /**
-     * This method is called once per frame after the update method, only during the "Run State"
+     * This method is called once per "tick" after the update method, only during the "Run State"
      */
     void lateUpdate();
 
     /**
-     * This method is called once per frame before the update method, only during the "Run State"
+     * This method is called once per "tick" before the update method, only during the "Run State"
      */
     void earlyUpdate();
 

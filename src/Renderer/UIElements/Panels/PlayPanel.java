@@ -5,7 +5,6 @@ import Framework.States.StateMachine;
 import Input.InputEvents;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;

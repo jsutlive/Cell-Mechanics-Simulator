@@ -29,9 +29,9 @@ public class SelectionEvents {
 
     public static void selectEntity(Entity e){
         if(!selectingMultiple) selectedEntities.clear();
-        onSelectGroup.invoke(-1);
         selectedEntities.add(e);
         onEntitySelected.invoke(selectedEntities);
+        onSelectGroup.invoke(-1);
     }
 
     public static void createGroup(List<Entity> e){

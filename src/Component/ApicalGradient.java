@@ -2,6 +2,7 @@ package Component;
 
 import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
+import Framework.Utilities.Debug;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
 
@@ -67,7 +68,12 @@ public class ApicalGradient extends Component {
 
     private void addCellsToGroup() {
         for(Entity cell: getChildren()){
-            int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
+            RingCellMesh ringCellMesh = cell.getComponent(RingCellMesh.class);
+            if(ringCellMesh == null){
+                Debug.LogError("Mesh type mismatch: cannot use this component without a RingCellMesh");
+                return;
+            }
+            int ringLocation = ringCellMesh.ringLocation;
             if( ringLocation <= numberOfConstrictingCells / 2){
                 ApicalConstrictingSpringForce apicalConstriction =
                         cell.getComponent(ApicalConstrictingSpringForce.class);

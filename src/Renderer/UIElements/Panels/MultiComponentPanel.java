@@ -6,6 +6,7 @@ import Component.Component;
 import Framework.Object.Entity;
 import Input.InputEvents;
 import Annotations.DoNotEditInGUI;
+import Utilities.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -33,10 +34,15 @@ public class MultiComponentPanel extends ComponentPanel{
 
 
         JPanel namePanel = new JPanel();
+        setEnableButton(entities, componentClass, namePanel);
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.setBorder(new EmptyBorder(4,25,2,25));
         namePanel.setBackground(Color.decode("#5774b7"));
-        JLabel nameLabel = new JLabel(componentClass.getSimpleName());
+        JLabel nameLabel = new JLabel(StringUtils.splitPascalCase(componentClass.getSimpleName()));
+        JLabel nameIcon = new JLabel("");
+        nameIcon.setIcon(getComponentIcon(componentClass));
+        namePanel.add(nameIcon);
+        namePanel.add(Box.createVerticalStrut(30));
         namePanel.add(nameLabel);
         nameLabel.setForeground(Color.white);
         nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(18f));
@@ -50,6 +56,22 @@ public class MultiComponentPanel extends ComponentPanel{
         panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
     }
 
+    private <T extends Component> void setEnableButton(List<Entity> entities, Class<T> componentClass, JPanel namePanel){
+        JCheckBox checkBox = new JCheckBox();
+        for(Entity entity: entities){
+            checkBox.addActionListener(e -> entity.getComponent(componentClass).setEnabled(checkBox.isSelected()));
+            if(entity.getComponent(componentClass).isEnabled()) {
+                checkBox.setSelected(true);
+                continue;
+            }
+            checkBox.setSelected(false);
+            break;
+        }
+        checkBox.setToolTipText("Enable/Disable");
+        namePanel.add(checkBox);
+    }
+
+
     private <T extends Component> void setDeleteButton(List<Entity> entities, Class<T> componentClass, JPanel namePanel) {
         if(componentClass.getAnnotation(DoNotDestroyInGUI.class)==null) {
             JButton deleteButton = new JButton("X");
@@ -58,6 +80,7 @@ public class MultiComponentPanel extends ComponentPanel{
             deleteButton.setPreferredSize(new Dimension(15, 15));
             deleteButton.setToolTipText("Delete " + componentClass.getSimpleName());
             deleteButton.setBackground(Color.red);
+            if(entities == null) return;
             for(Entity entity: entities) {
                 deleteButton.addActionListener(e -> entity.getComponent(componentClass).removeSelf());
             }

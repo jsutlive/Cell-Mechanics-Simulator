@@ -2,6 +2,7 @@ package Component;
 
 import Framework.Object.Entity;
 import Framework.Object.EntityGroup;
+import Framework.Utilities.Debug;
 import Input.SelectionEvents;
 import Annotations.GroupSelector;
 
@@ -63,7 +64,12 @@ public class LateralGradient extends Component {
                     getComponent(ApicalGradient.class).numberOfConstrictingCells/2);
         }
         for(Entity cell: getChildren()) {
-            int ringLocation = cell.getComponent(RingCellMesh.class).ringLocation;
+            RingCellMesh ringCellMesh = cell.getComponent(RingCellMesh.class);
+            if(ringCellMesh == null){
+                Debug.LogError("Mesh type mismatch: cannot use this component without a RingCellMesh");
+                return;
+            }
+            int ringLocation = ringCellMesh.ringLocation;
             if (ringLocation >= constrictingCellsStartLocation
                     && ringLocation < constrictingCellsStartLocation + numberOfConstrictingCells) {
                 if (cell.getComponent(LateralShorteningSpringForce.class) == null) {
@@ -71,6 +77,10 @@ public class LateralGradient extends Component {
                 }
                 cellGroup.add(cell);
                 LateralShorteningSpringForce shorteningSpringForce = cell.getComponent(LateralShorteningSpringForce.class);
+                if(shorteningSpringForce == null){
+                    Debug.LogError("Missing force: LateralShorteningSpringForce must be added");
+                    return;
+                }
                 shorteningSpringForce.constant = constantCeiling;
                 shorteningSpringForce.targetLengthRatio = ratioCeiling;
                 shorteningSpringForce.onsetTime = onsetTime;

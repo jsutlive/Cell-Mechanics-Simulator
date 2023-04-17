@@ -1,5 +1,6 @@
 package Component;
 
+import Annotations.DoNotEditInGUI;
 import Utilities.Geometry.Vector.Vector;
 import Framework.Rigidbodies.Edge;
 import java.util.List;
@@ -10,9 +11,17 @@ public class OsmosisForce extends Force {
 
     private transient List<Edge> edges;
     private transient float initialArea;
+    @DoNotEditInGUI
     public transient float desiredArea;
     public float osmosisConstant = 0.1f;
     public float internalPressure = 0f;
+
+    @Override
+    public void onValidate() {
+        this.edges = getComponent(Mesh.class).edges;
+        initialArea = getComponent(Mesh.class).getArea();
+        desiredArea = initialArea + (initialArea*internalPressure);
+    }
 
     @Override
     public void update() {
@@ -40,10 +49,4 @@ public class OsmosisForce extends Force {
         return osmosisConstant * (mesh.getArea() - desiredArea);
     }
 
-    @Override
-    public void onValidate() {
-        this.edges = getComponent(Mesh.class).edges;
-        initialArea = getComponent(Mesh.class).getArea();
-        desiredArea = initialArea + (initialArea*internalPressure);
-    }
 }
