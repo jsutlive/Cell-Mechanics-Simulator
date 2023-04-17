@@ -25,8 +25,6 @@ import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -152,6 +150,9 @@ public class DisplayWindow
 
         exportItem.addActionListener(e-> captureImageFromMenu());
         menu.add(exportItem);
+        JMenuItem quitMenuItem = new JMenuItem("Quit");
+        quitMenuItem.addActionListener(e-> System.exit(0));
+        menu.add(quitMenuItem);
         menuBar.add(menu);
 
         JMenu menu2 = new JMenu("Test");

@@ -24,7 +24,6 @@ import static Framework.Data.ImageHandler.loadImage;
 public class ComponentPanel {
 
     JPanel panel;
-    private int numFields;
     public JPanel getPanel() {
         return panel;
     }
@@ -41,23 +40,26 @@ public class ComponentPanel {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.white);
-        Class<?> type = null;
-        Object value = null;
-        String name = null;
-        Class<?> componentClass = c.getClass();
-
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
         namePanel.setBorder(new EmptyBorder(4,25,3,25));
         namePanel.setBackground(Color.decode("#5774b7"));
-        JLabel nameLabel = new JLabel(StringUtils.splitPascalCase(c.getClass().getSimpleName()));
+        String componentName =  StringUtils.splitPascalCase(c.getClass().getSimpleName());
+        JLabel nameLabel = new JLabel(componentName);
         JLabel nameIcon = new JLabel("");
         nameIcon.setIcon(getComponentIcon(c));
         namePanel.add(nameIcon);
         namePanel.add(Box.createVerticalStrut(30));
         namePanel.add(nameLabel);
         nameLabel.setForeground(Color.white);
-        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(18f));
+        float fontSize = 18.0f;
+        if(componentName.length()> 40){
+            fontSize = 14.0f;
+        }else if(componentName.length() > 25){
+            fontSize = 16.0f;
+        }
+        nameLabel.setFont(nameLabel.getFont().deriveFont(Collections.singletonMap(TextAttribute.WEIGHT, TextAttribute.WEIGHT_BOLD)).deriveFont(fontSize));
+
 
         namePanel.add(Box.createHorizontalGlue());
 
@@ -66,7 +68,7 @@ public class ComponentPanel {
         namePanel.setMaximumSize(new Dimension(Short.MAX_VALUE, 30));
 
         panel.add(namePanel);
-        setFields(c, type, value, name, componentClass);
+        setFields(c);
         panel.setPreferredSize(new Dimension(300, panel.getPreferredSize().height));
     }
 
@@ -129,7 +131,11 @@ public class ComponentPanel {
         }
     }
 
-    private void setFields(Component c, Class<?> type, Object value, String name, Class<?> componentClass) {
+    private void setFields(Component c) {
+        Class<?> type = null;
+        Object value = null;
+        String name = null;
+        Class<?> componentClass = c.getClass();
         for(Field f : componentClass.getFields()){
             if(Modifier.isTransient(f.getModifiers())){
                 f.setAccessible(true);
@@ -151,14 +157,12 @@ public class ComponentPanel {
                 if(staticFieldPanel.isSerializable){
 
                     panel.add(staticFieldPanel.getPanel());
-                    numFields++;
                 }
             }
             else {
                 FieldPanel fieldPanel = new FieldPanel(c, type, value, name);
                 if (fieldPanel.isSerializable) {
                     panel.add(fieldPanel.getPanel());
-                    numFields++;
                 }
             }
         }
