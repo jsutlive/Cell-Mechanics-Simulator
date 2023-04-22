@@ -13,7 +13,6 @@ public class RunState extends State
 {
     protected static float dt  = (float) Math.pow(2,-14);
     public static float deltaTime;
-    private int count;
 
     public RunState(StateMachine stateMachine) {
         super(stateMachine);
@@ -51,18 +50,9 @@ public class RunState extends State
         for (Entity obj :(stateMachine.allObjects)) {
             obj.lateUpdate();
         }
-        saveDataToCSV();
     }
 
-    private void saveDataToCSV() {
-        float currentTime = StateMachine.timer.elapsedTime;
-        float targetTime = count * FileBuilder.saveFrequency;
-        if (currentTime > targetTime){
-            float simpleTime = CustomMath.round(Time.fromNanoseconds((long)targetTime), 1);
-            StateMachine.onSaveStateInfo.invoke(String.valueOf(simpleTime));
-            count++;
-        }
-    }
+
 
     void exit()
     {

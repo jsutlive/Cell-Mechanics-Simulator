@@ -16,7 +16,7 @@ public class ConsolePopUp {
     public ConsolePopUp(Debug debug){
         jFrame = new JFrame();
         panel = new JPanel();
-        panel.setLayout(new GridLayout(0,1,0,10));
+        panel.setLayout(new GridLayout(0,2,0,10));
         panel.setBackground(Color.darkGray);
         JScrollPane scrollPane = new JScrollPane(panel);
         scrollPane.setBorder(null);

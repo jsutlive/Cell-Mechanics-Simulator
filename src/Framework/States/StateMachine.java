@@ -101,10 +101,7 @@ public final class StateMachine {
      * @param isPlaying is true if need to go to RunState.
      */
     private void handleSimulationToggle(boolean isPlaying){
-        if(Objects.requireNonNull(physics.getComponent(BatchManager.class)).useBatchTesting){
-            Objects.requireNonNull(physics.getComponent(BatchManager.class)).runNextBatch(isPlaying);
-            return;
-        }
+
         if(isPlaying) {
             Debug.Log("Starting simulation");
             changeState(new RunState(this));
@@ -114,7 +111,10 @@ public final class StateMachine {
             changeState(new EditorState(this));
             onStateMachineStateChange.invoke(false);
         }
-
+        if(Objects.requireNonNull(physics.getComponent(BatchManager.class)).useBatchTesting){
+            Objects.requireNonNull(physics.getComponent(BatchManager.class)).runNextBatch(isPlaying);
+            return;
+        }
     }
 
 

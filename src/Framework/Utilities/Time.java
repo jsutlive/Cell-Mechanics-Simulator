@@ -35,6 +35,7 @@ public final class Time {
      */
     public void reset(){
         initialTime = System.nanoTime();
+        elapsedTime = time - initialTime;
     }
 
     public static long asNanoseconds(float f){

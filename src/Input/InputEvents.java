@@ -116,7 +116,6 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
     public static EventHandler<MouseEvent> onRelease = new EventHandler<>();
 
     public static void toggleSimulation(boolean b) {
-        onToggleSimulation.invoke(b);
         if(!b) {
             try {
                 FileBuilder.saveCSV();
@@ -126,6 +125,7 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
         }else{
             FileBuilder.saveDictionary.clear();
         }
+        onToggleSimulation.invoke(b);
     }
 
     public void click(MouseEvent event){

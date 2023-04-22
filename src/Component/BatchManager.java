@@ -96,7 +96,7 @@ public class BatchManager extends Component {
             stateMachine.changeState(new EditorState(stateMachine));
             StateMachine.onStateMachineStateChange.invoke(false);
             currentBatch = 0;
-             Debug.Log("Batch process complete");
+            Debug.Log("Batch process complete");
 
         }
         // Run simulation on two cases: if the simulation has been toggled to stop, or if the simulation was triggered
@@ -104,9 +104,9 @@ public class BatchManager extends Component {
         else if(currentBatch == 0){
             alterParameters();
             stateMachine.changeState(new RunState(stateMachine));
-             StateMachine.onStateMachineStateChange.invoke(true);
-             currentBatch++;
-             Debug.Log("Running batch " + currentBatch + "/" + longestBatch);
+            StateMachine.onStateMachineStateChange.invoke(true);
+            currentBatch++;
+            Debug.Log("Running batch " + currentBatch + "/" + longestBatch);
          }else if (!isRunning){
              alterParameters();
              stateMachine.changeState(new RunState(stateMachine));
