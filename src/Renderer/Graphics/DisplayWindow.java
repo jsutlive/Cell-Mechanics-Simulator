@@ -13,6 +13,7 @@ import Input.InputEvents;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
+import Utilities.Web;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
 
@@ -195,7 +198,6 @@ public class DisplayWindow
         for(String[] subMenuValues : args){
             JMenuItem item = new JMenuItem(splitPascalCase(subMenuValues[0]));
             Class itemClass;
-            System.out.println("Component." + subMenuValues[0]);
             try {
                 itemClass = Class.forName("Component." + subMenuValues[0]);
             } catch (ClassNotFoundException e) {
@@ -229,49 +231,6 @@ public class DisplayWindow
         addComponentSubMenu.add(forceSubMenu);
         addComponentSubMenu.add(meshSubMenu);
         addComponentSubMenu.add(experimentSubMenu);
-            /*JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
-            elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
-            addComponentSubMenu.add(elasticForceOption);
-
-            JMenuItem basalLossOption = new JMenuItem("Elastic Force Basal Rigidity Loss");
-            basalLossOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new BasalRigidityLossSpringForce()));
-            addComponentSubMenu.add(basalLossOption);
-
-            JMenuItem osmosisForceOption = new JMenuItem("Osmosis Force");
-            osmosisForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new OsmosisForce()));
-            addComponentSubMenu.add(osmosisForceOption);
-
-            JMenuItem cornerStiffOption = new JMenuItem("Corner Stiffness");
-            cornerStiffOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new CornerStiffness2D()));
-            addComponentSubMenu.add(cornerStiffOption);
-
-            JMenuItem edgeStiffnessOption = new JMenuItem("Edge Stiffness");
-            edgeStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new EdgeStiffness2D()));
-            addComponentSubMenu.add(edgeStiffnessOption);
-
-            JMenuItem meshStiffnessOption = new JMenuItem("Mesh Stiffness");
-            meshStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new MeshStiffness2D()));
-            addComponentSubMenu.add(meshStiffnessOption);
-
-            JMenuItem apicalConstrictionForce = new JMenuItem("Apical Constricting Force");
-            apicalConstrictionForce.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
-            addComponentSubMenu.add(apicalConstrictionForce);
-
-            JMenuItem lateralConstrictionOption = new JMenuItem("Lateral Constricting Force");
-            lateralConstrictionOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
-            addComponentSubMenu.add(lateralConstrictionOption);
-
-            JMenuItem laserAblationOption = new JMenuItem("Laser Ablation");
-            laserAblationOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LaserAblation()));
-            addComponentSubMenu.add(laserAblationOption);
-
-            JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
-            apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
-            addComponentSubMenu.add(apicalGradientOption);
-
-            JMenuItem lateralGradientOption = new JMenuItem("Lateral Gradient");
-            lateralGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
-            addComponentSubMenu.add(lateralGradientOption);*/
 
         menu3.add(addComponentSubMenu);
 
@@ -307,6 +266,18 @@ public class DisplayWindow
         JMenuItem keysHelp = new JMenuItem("Keyboard Shortcuts");
         keysHelp.addActionListener(e-> new KeyCommandsHelpPopUp());
         helpMenu.add(keysHelp);
+
+        JMenuItem manual = new JMenuItem("Program Manual");
+        URL manualURL = null;
+        try {
+            manualURL = new URL("https://github.com/jsutlive/Cell-Mechanics-Simulator/wiki/Program-Manual");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        URL finalManualURL = manualURL;
+        manual.addActionListener(e-> Web.openWebpage(finalManualURL));
+        helpMenu.add(manual);
+
         menuBar.add(helpMenu);
     }
 
