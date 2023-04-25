@@ -15,22 +15,18 @@ import static Input.SelectionEvents.onSelectionButtonPressed;
 import static Renderer.Renderer.DEFAULT_COLOR;
 
 @GroupSelector
-public class LateralGradient extends Component {
+public class LateralGradient extends CellGradient {
 
-    transient EntityGroup cellGroup;
-
-    public int numberOfConstrictingCells = 35;
-
-    //@Tooltip(text = "number of cells away from center")
     public int constrictingCellsStartLocation = 7;
     public float constantCeiling = 15f;
     public float ratioCeiling = 0.7f;
-    public Color groupColor = Color.BLUE;
     public float onsetTime = 300f;
 
 
     @Override
     public void awake() {
+        numberOfConstrictingCells = 35;
+        groupColor = Color.BLUE;
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
     }
@@ -42,23 +38,19 @@ public class LateralGradient extends Component {
         }else{
             cellGroup.changeGroupColor(groupColor);
         }
-        calculateParameters();
+        addCellsToGroup();
         cellGroup.recolor();
     }
 
     private void recalculate(Mesh mesh){
         if(mesh == getComponent(Mesh.class)){
-            calculateParameters();
+            addCellsToGroup();
+            cellGroup.recolor();
         }
     }
 
-    private void selectAllInGroup(Component c){
-        if(c == this) {
-            SelectionEvents.selectGroup(cellGroup);
-        }
-    }
-
-    private void calculateParameters() {
+    @Override
+    protected void addCellsToGroup() {
         if(getComponent(ApicalGradient.class)!= null){
             constrictingCellsStartLocation = Math.max(constrictingCellsStartLocation,
                     getComponent(ApicalGradient.class).numberOfConstrictingCells/2);

@@ -21,4 +21,8 @@ public class StringUtils {
         }
         return words.toString();
     }
+
+    public static String[] parseCSV(String commandLine){
+        return commandLine.split(",");
+    }
 }

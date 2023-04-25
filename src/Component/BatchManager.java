@@ -1,5 +1,6 @@
 package Component;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Utilities.Debug;
 import Framework.Object.Entity;
 import Framework.States.EditorState;
@@ -14,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Utilities.StringUtils.parseCSV;
+
+@DoNotDestroyInGUI
 public class BatchManager extends Component {
 
     public boolean useBatchTesting;
@@ -35,7 +39,7 @@ public class BatchManager extends Component {
             Scanner scanner = new Scanner(batchFile);
 
             while (scanner.hasNextLine()) {
-                args.add(parseCommands(scanner.nextLine()));
+                args.add(parseCSV(scanner.nextLine()));
             }
 
             scanner.close();
@@ -50,9 +54,7 @@ public class BatchManager extends Component {
         }
     }
 
-    public String[] parseCommands(String commandLine){
-        return commandLine.split(",");
-    }
+
 
     public void alterParameters(){
         for(String[] s : args){

@@ -87,6 +87,8 @@ public class ComponentPanel {
             icon = new ImageIcon(loadImage("save.png"));
         }else if(Transform.class.isAssignableFrom(c)){
             icon = new ImageIcon(loadImage("axis.png"));
+        }else if(Experiment.class.isAssignableFrom(c)){
+            icon = new ImageIcon(loadImage("experiment.png"));
         }else{
             icon = new ImageIcon(loadImage("code.png"));
         }

@@ -14,22 +14,21 @@ import static Component.Mesh.onMeshRebuilt;
 import static Input.SelectionEvents.onSelectionButtonPressed;
 
 @GroupSelector
-public class ApicalGradient extends Component {
+public class ApicalGradient extends CellGradient {
 
-    transient EntityGroup cellGroup;
-    public int numberOfConstrictingCells = 12;
     public float mu = 0f;
     public float sigma = 0.8f;
     public float constantCeiling = 450f;
     public float constantFloor = 200f;
     public float ratioCeiling = 0.01f;
     public float ratioFloor = .05f;
-    public Color groupColor = Color.MAGENTA;
 
-    transient Gradient gradient = new GaussianGradient(mu, sigma);
 
     @Override
     public void awake() {
+        numberOfConstrictingCells = 12;
+        gradient = new GaussianGradient(mu, sigma);
+        groupColor = Color.MAGENTA;
         onMeshRebuilt.subscribe(this::recalculate);
         onSelectionButtonPressed.subscribe(this::selectAllInGroup);
     }
@@ -55,18 +54,13 @@ public class ApicalGradient extends Component {
         }
     }
 
-    private void selectAllInGroup(Component c){
-        if(c == this) {
-            SelectionEvents.selectGroup(cellGroup);
-        }
-    }
-
     public void calculateGradient(){
         gradient.calculate(numberOfConstrictingCells,
                 constantCeiling, ratioCeiling, constantFloor, ratioFloor);
     }
 
-    private void addCellsToGroup() {
+    @Override
+    protected void addCellsToGroup() {
         for(Entity cell: getChildren()){
             RingCellMesh ringCellMesh = cell.getComponent(RingCellMesh.class);
             if(ringCellMesh == null){

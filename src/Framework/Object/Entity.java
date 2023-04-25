@@ -105,8 +105,8 @@ public final class Entity implements IBehavior
    public <T extends Component> T addComponent(Component c){
       components.add(c);
       c.setParent(this);
-      c.onValidate();
       c.awake();
+      c.onValidate();
       return (T) c;
    }
 

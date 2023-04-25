@@ -3,35 +3,30 @@ package Renderer.Graphics;
 import Framework.Data.ImageHandler;
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Annotations.DoNotExposeInGUI;
+import Component.*;
 import Component.Component;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 
+import Framework.Utilities.Debug;
 import Input.InputEvents;
-import Component.BoxDebugMesh;
-import Component.HexMesh;
-import Component.RingMesh;
-import Component.CornerStiffness2D;
-import Component.EdgeStiffness2D;
-import Component.MeshStiffness2D;
-import Component.OsmosisForce;
-import Component.BasalRigidityLossSpringForce;
 import Renderer.UIElements.Panels.*;
 import Input.SelectionEvents;
-import Component.ApicalGradient;
-import Component.LateralGradient;
-import Component.ElasticForce;
 import Renderer.UIElements.Windows.KeyCommandsHelpPopUp;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.List;
 
 import static Framework.Data.ImageHandler.loadImage;
 import static Framework.Object.Tag.MODEL;
+import static Utilities.StringUtils.parseCSV;
+import static Utilities.StringUtils.splitPascalCase;
 
 public class DisplayWindow
 {
@@ -58,6 +53,7 @@ public class DisplayWindow
 
 
         createCanvas();
+        JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
 
@@ -175,7 +171,65 @@ public class DisplayWindow
         JMenu menu3 = new JMenu("Selection");
         JMenu addComponentSubMenu = new JMenu("Add Component");
 
-            JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
+        JMenu forceSubMenu = new JMenu("Force");
+        JMenu meshSubMenu = new JMenu("Mesh");
+        JMenu experimentSubMenu = new JMenu("Experiment");
+
+
+        List<String[]> args= new ArrayList<>();
+        try {
+            File file = new File("assets/UserComponents.csv");
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                args.add(parseCSV(scanner.nextLine()));
+            }
+
+            scanner.close();
+            Debug.Log("Loaded batch file to system");
+        } catch (FileNotFoundException e) {
+            // Alert user if file can't be used
+            Debug.LogError("Invalid File: Component Menu");
+        }
+
+        for(String[] subMenuValues : args){
+            JMenuItem item = new JMenuItem(splitPascalCase(subMenuValues[0]));
+            Class itemClass;
+            System.out.println("Component." + subMenuValues[0]);
+            try {
+                itemClass = Class.forName("Component." + subMenuValues[0]);
+            } catch (ClassNotFoundException e) {
+                Debug.LogWarning("Class " + splitPascalCase(subMenuValues[0]) + " not found, skipping");
+                continue;
+            }
+            item.addActionListener(e-> {
+                try {
+                    SelectionEvents.addComponentToSelected((Component)itemClass.newInstance());
+                } catch (InstantiationException | IllegalAccessException exc) {
+                    exc.printStackTrace();
+                }
+            });
+            String type = subMenuValues[1];
+            switch(type){
+                case "Force":
+                    forceSubMenu.add(item);
+                    break;
+                case "Mesh":
+                    meshSubMenu.add(item);
+                    break;
+                case "Experiment":
+                    experimentSubMenu.add(item);
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        addComponentSubMenu.add(forceSubMenu);
+        addComponentSubMenu.add(meshSubMenu);
+        addComponentSubMenu.add(experimentSubMenu);
+            /*JMenuItem elasticForceOption = new JMenuItem("Elastic Force");
             elasticForceOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ElasticForce()));
             addComponentSubMenu.add(elasticForceOption);
 
@@ -199,9 +253,17 @@ public class DisplayWindow
             meshStiffnessOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new MeshStiffness2D()));
             addComponentSubMenu.add(meshStiffnessOption);
 
-            /*JMenuItem testOption = new JMenuItem("Test component");
-            testOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new TestComponent()));
-            addComponentSubMenu.add(testOption);*/
+            JMenuItem apicalConstrictionForce = new JMenuItem("Apical Constricting Force");
+            apicalConstrictionForce.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
+            addComponentSubMenu.add(apicalConstrictionForce);
+
+            JMenuItem lateralConstrictionOption = new JMenuItem("Lateral Constricting Force");
+            lateralConstrictionOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
+            addComponentSubMenu.add(lateralConstrictionOption);
+
+            JMenuItem laserAblationOption = new JMenuItem("Laser Ablation");
+            laserAblationOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LaserAblation()));
+            addComponentSubMenu.add(laserAblationOption);
 
             JMenuItem apicalGradientOption = new JMenuItem("Apical Gradient");
             apicalGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new ApicalGradient()));
@@ -209,7 +271,7 @@ public class DisplayWindow
 
             JMenuItem lateralGradientOption = new JMenuItem("Lateral Gradient");
             lateralGradientOption.addActionListener(e -> SelectionEvents.addComponentToSelected(new LateralGradient()));
-            addComponentSubMenu.add(lateralGradientOption);
+            addComponentSubMenu.add(lateralGradientOption);*/
 
         menu3.add(addComponentSubMenu);
 

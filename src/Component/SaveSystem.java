@@ -1,6 +1,7 @@
 package Component;
 
 import Framework.Data.FileBuilder;
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Utilities.Debug;
 import Framework.States.StateMachine;
 import Framework.Utilities.Time;
@@ -11,6 +12,7 @@ import Utilities.Math.CustomMath;
 import static Framework.Data.FileBuilder.setFullPathName;
 import static Framework.Data.FileBuilder.setSaveFrequency;
 
+@DoNotDestroyInGUI
 public class SaveSystem extends Component {
     public StateMachine stateMachine;
     public String saveFolder = "";
