@@ -73,4 +73,4 @@ The following physics functions are currently implemented: (F = force and k = co
   -Active and passive springs: using Hooke's law F = k * (l - l0) where l/l0 = length/ initial length
       Note: this value can be compressed (i.e. after a certain threshold, output equals a set percentage of the input, lowering the overall force output)
   -Volume conservation: using a 2D interpretation of the spring function F = k * (a - a0), where a/a0 = area/ initial area
-  -2D Collision: uses the raycast algorithm to prevent meshes from colliding
+  -2D Collision: uses the raycast algorithm to prevent meshes from colliding.
