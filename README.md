@@ -46,15 +46,18 @@ Renderer: classes responsible for graphics
 
 Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readibility easier.
 
-Cell Mechanics Simulator Simulator:
-An animated physics simulator used to model folding of tissue during morphogenesis. Compatible with PC and Mac!
+## Cell Mechanics Simulator:
+
+A real-time, soft-body physics simulator used to model cell mechanics. Compatible with PC and Mac!
 <p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
      alt="Markdown Monster icon"
      width="750"
      style="float: left; margin-right: 10px;" />
 </p>
-Simulation framework:
+
+## Simulation framework:
+
 The simulation has unique editor and simulation states which you can use to tweak model parameters via the component inspector.
 Each state has behaviors it performs every physics update, which drive the simulation.
     
