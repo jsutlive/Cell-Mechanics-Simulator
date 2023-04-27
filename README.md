@@ -48,7 +48,7 @@ Utilities: Additional functions including custom math libraries, string utilitie
 
 ## Cell Mechanics Simulator:
 
-A real-time, soft-body physics simulator used to model cell mechanics. Compatible with PC and Mac!
+A real-time, 2D soft-body physics simulator used to model cell mechanics. Compatible with PC and Mac!
 <p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
      alt="Markdown Monster icon"
@@ -61,10 +61,9 @@ A real-time, soft-body physics simulator used to model cell mechanics. Compatibl
 The simulation has unique editor and simulation states which you can use to tweak model parameters via the component inspector.
 Each state has behaviors it performs every physics update, which drive the simulation.
     
-This simulation uses an object-oriented approach to break structures into cells, edges, and nodes. There are two current preset models available, a Drosophila embryo model and a Hexagon cell sheet model.
+This simulation uses an object-oriented approach to break structures into cells, edges, and nodes. There are two current preset models available, a Drosophila embryo model and a hexagon cell sheet model.
 
-An edge describes the connection between two nodes. 
-There is only one type of node at this time. There are multiple types of edges and cells that are constructed for the simulation. This allows higher-level functions to access any type of edge or cell, while allowing for different actions to occur when those functions are called. For instance, an ApicalConstrictingCell tells any ApicalEdges to actively constrict during its update() method, while other cells would not do this when update() is called.
+An edge describes the connection between two nodes. There is only one type of node at this time, this will change if 3D representations become supported.
 
 Nodes are the discrete units which the physics acts upon. For ease of understanding, physics calculations are often abstracted to act on edges and cells rather than just nodes themselves.
 For instance, a force acting on an edge describes that force acting upon two of its nodes. Likewise, a force acting on a cell is acting on all of the nodes.
