@@ -12,7 +12,7 @@ For in-depth information, please consult the [wiki](https://github.com/jsutlive/
 Note: The readme/ documentation currently describes the Master branch of the project.
 To have the most up-to-date, stable code, please refer to the Master branch.
 
-The Morphogenesis Simulator is a physics simulator initially constructed to simulate developing organisms as mechanical systems.
+The Morphogenesis Simulator is a physics simulator initially constructed to simulate developing organisms as mechanical systems. It is a soft-body dynamics representation and thus physics is typically represented as a spring-mass system. For more information about soft-body dynamics, this Wikipedia [article] https://en.wikipedia.org/wiki/Soft-body_dynamics is an excellent start.
 
 ## Features
 
@@ -32,9 +32,11 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 
 ## Folder organization:
 
-Framework: the base engine and base object classes of the simulation including states, entity/component modules, and data saving
+Component: All behaviors that can be attached to physics objects.
 
-Input: classes responsible for handling user input
+Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
+
+Input: classes responsible for handling user input and object selection
 
 General Physics: specific components for basic physics, such as gravity.
 
@@ -42,9 +44,9 @@ Morphogenesis: specific components to morphogenesis, such as cell osmosis and ce
 
 Renderer: classes responsible for graphics
 
-Utilities: Additional math/physics functions, i.e. vector mathematics and complex algorithms
+Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readibility easier.
 
-Morphogenesis Simulator:
+Cell Mechanics Simulator Simulator:
 An animated physics simulator used to model folding of tissue during morphogenesis. Compatible with PC and Mac!
 <p align="center">
 <img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/screenshot_hexmesh.png"
