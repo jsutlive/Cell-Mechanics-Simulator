@@ -4,8 +4,8 @@ Requires java installed for the standalone .jar to work! Get Java [here](https:/
 
 For in-depth information, please consult the [wiki](https://github.com/jsutlive/CellMechanicsSimulator/wiki)!
 <p align="center">
-<img src="https://github.com/jsutlive/MorphogenesisSimulationV2/blob/master/assets/reference/GUI.png"
-     alt="Markdown Monster icon"
+<img src="https://github.com/jsutlive/Cell-Mechanics-Simulator/blob/master/assets/reference/GUI.png"
+     alt="Cell Mechanics Simulator UI"
      width="750"
      style="float: left; margin-right: 10px;" />
 </p>
