@@ -23,6 +23,6 @@ public class StringUtils {
     }
 
     public static String[] parseCSV(String commandLine){
-        return commandLine.split(",");
+        return commandLine.replace("\uFEFF","").split(",");
     }
 }
