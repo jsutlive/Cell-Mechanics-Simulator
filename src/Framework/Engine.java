@@ -4,7 +4,11 @@ import Framework.States.StateMachine;
 import Framework.Utilities.Time;
 
 /**
- * Engine is the main physics driver which is responsible for
+ * Engine is the main physics driver which is responsible for handling the timing of the physics update loop and
+ * creation of the primary state machine
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
  */
 public final class Engine implements Runnable
 {

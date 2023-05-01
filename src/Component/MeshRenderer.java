@@ -2,6 +2,7 @@ package Component;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Entity;
+import Framework.Rigidbodies.Node2D;
 import Input.SelectionEvents;
 import Renderer.Graphics.IColor;
 import Framework.Rigidbodies.Edge;

@@ -43,7 +43,9 @@ public class BatchManager extends Component {
             }
 
             scanner.close();
-            Debug.Log("Loaded batch file to system");
+            if(!batchFile.getName().equals("")) {
+                Debug.Log("Loaded batch file to system");
+            }
         } catch (FileNotFoundException e) {
             // Alert user if file can't be used
             Debug.LogError("File invalid");

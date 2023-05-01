@@ -1,12 +1,19 @@
 import Framework.Engine;
 import Renderer.*;
 import Renderer.Renderer;
-
 import javax.swing.*;
 
 /**
- * Entry point for the program.
- * Creates a new Engine object and runs the "Start" function for it.
+ * Cell Mechanics Simulator Entry Point (start here)
+ * Creates simulation engine and renderer/GUI backends
+ *
+ * Information for new users of this codebase:
+ *
+ * FOR DETAILED API PLEASE VISIT:       https://github.com/jsutlive/Cell-Mechanics-Simulator/wiki/API
+ * FOR CODING EXAMPLES PLEASE VISIT:    https://github.com/jsutlive/Cell-Mechanics-Simulator/wiki/Examples
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
  */
 public final class Launcher
 {
@@ -17,7 +24,7 @@ public final class Launcher
         Engine sim = new Engine();
         Thread physics = new Thread(sim);
         if(args.length > 0) {
-            if (args[0] == "-h") {
+            if (args[0].equals("-h")) {
 
 
                 // Have engine start threads
@@ -37,6 +44,7 @@ public final class Launcher
         }
     }
 
+    // Application adjustments for OSX systems
     private static void setApplicationWindowLookAndFeel() {
         System.setProperty( "apple.laf.useScreenMenuBar", "true" );
         System.setProperty("apple.awt.application.name", PROGRAM_NAME);

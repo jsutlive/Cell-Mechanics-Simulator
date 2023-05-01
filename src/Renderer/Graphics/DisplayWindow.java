@@ -177,6 +177,7 @@ public class DisplayWindow
         JMenu forceSubMenu = new JMenu("Force");
         JMenu meshSubMenu = new JMenu("Mesh");
         JMenu experimentSubMenu = new JMenu("Experiment");
+        JMenu otherSubMenu = new JMenu("Other");
 
 
         List<String[]> args= new ArrayList<>();
@@ -223,6 +224,7 @@ public class DisplayWindow
                     experimentSubMenu.add(item);
                     break;
                 default:
+                    otherSubMenu.add(item);
                     break;
             }
 
@@ -231,6 +233,7 @@ public class DisplayWindow
         addComponentSubMenu.add(forceSubMenu);
         addComponentSubMenu.add(meshSubMenu);
         addComponentSubMenu.add(experimentSubMenu);
+        addComponentSubMenu.add(otherSubMenu);
 
         menu3.add(addComponentSubMenu);
 
