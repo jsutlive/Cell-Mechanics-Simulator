@@ -6,10 +6,8 @@ import Framework.Object.Tag;
 import Framework.States.StateMachine;
 import Input.InputEvents;
 import Input.SelectionEvents;
-import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 @DoNotDestroyInGUI
 public class MouseSelector extends Component {
@@ -102,7 +100,7 @@ public class MouseSelector extends Component {
 
     /**
      * If a selected entity exists in the current mousePosition, deselect it.
-     * @param mousePosition
+     * @param mousePosition location of mouse as given by mouse events system
      */
     private void deselectEntity(Vector2i mousePosition){
         for(Entity e:SelectionEvents.getSelectedEntities()){
