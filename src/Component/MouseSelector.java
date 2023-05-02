@@ -6,8 +6,10 @@ import Framework.Object.Tag;
 import Framework.States.StateMachine;
 import Input.InputEvents;
 import Input.SelectionEvents;
+import Renderer.Graphics.IRender;
 import Utilities.Geometry.Vector.Vector2i;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 @DoNotDestroyInGUI
 public class MouseSelector extends Component {
@@ -25,6 +27,10 @@ public class MouseSelector extends Component {
         InputEvents.onRelease.subscribe(this::onMouseReleased);
         InputEvents.onAlt.subscribe(this::setAlt);
         InputEvents.onShiftKey.subscribe(this::setShiftModifier);
+    }
+
+    @Override
+    public void onValidate() {
 
     }
 
@@ -114,6 +120,8 @@ public class MouseSelector extends Component {
 
     @Override
     public void onDestroy() {
+        // Since the object with this attached is only destroyed upon simulation exit, close events instead of simply
+        // unsubscribing from them.
         InputEvents.onPress.close();
         InputEvents.onDrag.close();
         InputEvents.onRelease.close();

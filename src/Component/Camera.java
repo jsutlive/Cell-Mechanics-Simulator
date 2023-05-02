@@ -2,11 +2,11 @@ package Component;
 
 import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Tag;
-import Input.InputEvents;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.event.MouseEvent;
+import static Input.InputEvents.*;
 
 /**
  * Camera: main interface for determining what will be visible in the canvas. Exists as a behavior on its own object
@@ -16,27 +16,57 @@ import java.awt.event.MouseEvent;
  */
 @DoNotDestroyInGUI
 public class Camera extends Component {
+    // Primary camera for rendering
     public static Camera main;
+
+    // Camera field of view
     private final int width = 800, height = 800;
+
+    // X - Y offset
     private Vector2i shift = new Vector2i(0);
+
+    public void setShift(Vector2i newShift) {
+        shift.add(newShift);
+        getComponent(Transform.class).position = shift.asFloat();
+    }
+
+    public Vector2i getShift(){
+        return shift;
+    }
+
+    private void overrideShift(Vector2f vec){
+        shift = vec.asInt();
+    }
+
+
+    // Zoom
     public float scale = 1f;
+
+    public void setScale(float newScale)
+    {
+        scale *= newScale;
+    }
+
+    public float getScale(){
+        return scale;
+    }
+
     private boolean isMovingCamera;
     private Vector2i mouseStartingClickPosition = new Vector2i();
 
     @Override
     public void awake() {
+        // Default: set camera as "main camera", tag object as a camera
         if(main == null) main = this;
         if(parent.getTag()!= Tag.CAMERA) parent.addTag(Tag.CAMERA);
-        getComponent(Transform.class).onPositionChanged.subscribe(this::overrideShift);
-        InputEvents.onShift.subscribe(this::setShift);
-        InputEvents.onScale.subscribe(this::setScale);
-        InputEvents.onPress.subscribe(this::mousePressed);
-        InputEvents.onRelease.subscribe(this::mouseReleased);
-        InputEvents.onDrag.subscribe(this::mouseDragged);
-    }
 
-    private void overrideShift(Vector2f vec){
-        shift = vec.asInt();
+        //Subscribe to events
+        getComponent(Transform.class).onPositionChanged.subscribe(this::overrideShift);
+        onShift.subscribe(this::setShift);
+        onScale.subscribe(this::setScale);
+        onPress.subscribe(this::mousePressed);
+        onRelease.subscribe(this::mouseReleased);
+        onDrag.subscribe(this::mouseDragged);
     }
 
     private void mousePressed(MouseEvent e){
@@ -58,25 +88,6 @@ public class Camera extends Component {
         if(e.getButton() == MouseEvent.BUTTON2){
             isMovingCamera = false;
         }
-    }
-
-    public void setScale(float newScale)
-    {
-        scale *= newScale;
-    }
-
-    public float getScale(){
-        return scale;
-    }
-
-    public void setShift(Vector2i newShift)
-    {
-        shift.add(newShift);
-        getComponent(Transform.class).position = shift.asFloat();
-    }
-
-    public Vector2i getShift(){
-        return shift;
     }
 
     /**
@@ -117,15 +128,12 @@ public class Camera extends Component {
 
     @Override
     public void onDestroy() {
-        clearAllEvents();
-    }
-
-    public void clearAllEvents(){
-        InputEvents.onShift.close();
-        InputEvents.onScale.close();
-        InputEvents.onPress.unSubscribe(this::mousePressed);
-        InputEvents.onRelease.unSubscribe(this::mouseReleased);
-        InputEvents.onDrag.unSubscribe(this::mouseDragged);
+        onShift.unSubscribe(this::setShift);
+        onScale.unSubscribe(this::setScale);
+        onPress.unSubscribe(this::mousePressed);
+        onRelease.unSubscribe(this::mouseReleased);
+        onDrag.unSubscribe(this::mouseDragged);
         getComponent(Transform.class).onPositionChanged.unSubscribe(this::overrideShift);
+
     }
 }

@@ -44,6 +44,10 @@ public class MeshRenderer extends ObjectRenderer
         alterColors(color);
     }
 
+    /**
+     * Changes selected entity to a specific highlighted color
+     * @param entities
+     */
     public void highlightColor(HashSet<Entity> entities){
         if(!entities.contains(parent)){
             resetToDefaultColor();

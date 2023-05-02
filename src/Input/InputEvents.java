@@ -9,7 +9,7 @@ import Utilities.Geometry.Vector.Vector2i;
 import java.awt.event.*;
 import java.io.IOException;
 /**
- * InputEvents: Repository for events used to bridge GUI/ user input layer and simulation engine.
+ * InputEvents: Collection of events used to bridge GUI/ user input layer and simulation engine.
  *
  * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
  * All rights reserved
