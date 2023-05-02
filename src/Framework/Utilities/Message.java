@@ -3,8 +3,17 @@ package Framework.Utilities;
 import java.awt.*;
 import java.time.LocalDateTime;
 
+/**
+ * Message is the system by which stored log strings are encapsulated in the system.
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
+ */
 public class Message {
 
+    /**
+     * Type of message: Log, Warning, or Error.
+     */
     public enum Type{
         Log,
         Warning,
@@ -29,6 +38,10 @@ public class Message {
         return type;
     }
 
+    /**
+     * Returns color associated with a given message type
+     * @return
+     */
     public Color getTypeColor(){
         switch (type){
             case Log:

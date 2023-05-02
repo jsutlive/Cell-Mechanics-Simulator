@@ -11,8 +11,9 @@ import java.util.List;
 
 /**
  * Edge: A container of two nodes which acts as a mechanism to apply physics forces between them.
- * This class is abstract, different physics characteristics can be configured depending on the type of edge
- * selected.
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
  */
 public class Edge implements IRigidbody, IColor
 {

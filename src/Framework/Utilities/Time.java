@@ -1,5 +1,11 @@
 package Framework.Utilities;
-
+/**
+ * Time is the custom timer class used to control the physics and render loops of the program. It is recommended that
+ * separate timers are used for these components
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
+ */
 public final class Time {
     // Set frame rate and physics update rate
     private float fps;

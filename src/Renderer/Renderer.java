@@ -14,6 +14,9 @@ import static Framework.Data.FileBuilder.fullPathName;
 
 /**
  * Render object responsible for updating canvas
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
  */
 public abstract class Renderer implements Runnable {
 

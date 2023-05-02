@@ -20,7 +20,12 @@ import java.util.Objects;
 
 import static Framework.Object.Tag.PHYSICS;
 import static Framework.Object.Tag.CAMERA;
-
+/**
+ * StateMachine: State handler for the simulation engine, also manages objects.
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 public final class StateMachine {
 
     public State currentState;
@@ -29,7 +34,7 @@ public final class StateMachine {
     public static EventHandler<String> onSaveStateInfo = new EventHandler<>();
     public static EventHandler<Boolean> onStateMachineStateChange = new EventHandler<>();
 
-    private Entity physics;
+    private final Entity physics;
 
     public StateMachine(Time referenceTime, boolean launchOnStart){
         timer = referenceTime;
@@ -46,7 +51,6 @@ public final class StateMachine {
                 with(new SaveSystem());
         Objects.requireNonNull(physics.getComponent(MouseSelector.class)).stateMachine = this;
         Objects.requireNonNull(physics.getComponent(BatchManager.class)).stateMachine = this;
-        Objects.requireNonNull(physics.getComponent(SaveSystem.class)).stateMachine = this;
 
         if(launchOnStart){
             changeState(new RunState(this));
@@ -113,7 +117,6 @@ public final class StateMachine {
         }
         if(Objects.requireNonNull(physics.getComponent(BatchManager.class)).useBatchTesting){
             Objects.requireNonNull(physics.getComponent(BatchManager.class)).runNextBatch(isPlaying);
-            return;
         }
     }
 

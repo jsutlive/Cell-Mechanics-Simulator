@@ -5,7 +5,13 @@ import Utilities.Geometry.Vector.Vector;
 import static Framework.States.RunState.deltaTime;
 
 import java.util.*;
-
+/**
+ * Node is the base class for independent physics agents ultimately responsible for driving the simulation forward. As
+ * of May 2023 only 2D nodes have been implemented.
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
+ */
 public abstract class Node implements IRigidbody {
     protected Vector position;
     protected transient Vector initialPosition;
@@ -15,6 +21,21 @@ public abstract class Node implements IRigidbody {
     public abstract Vector getPosition();
     protected  abstract void setPosition(Vector vector);
 
+    /**
+     * Make a copy of this node
+     * @return a new Node instance with the same parameters as this
+     */
+    public abstract Node clone();
+
+    /**
+     * Make a copy of this node, mirrored across the y-axis plane
+     */
+    public abstract void mirrorAcrossYAxis();
+
+
+    /**
+     * Return the node to its original position
+     */
     public void reset(){
         try {
             position = initialPosition;
@@ -23,16 +44,13 @@ public abstract class Node implements IRigidbody {
         }
     }
 
-    public abstract Node clone();
-
-    public abstract void mirrorAcrossYAxis();
-
     @Override
     public void addForceVector(Vector forceVector) {
         forceVectors.put("", forceVector);
         resultantForceVector = resultantForceVector.add(forceVector);
     }
 
+    @Override
     public void addForceVector(String type, Vector forceVector){
         resultantForceVector = resultantForceVector.add(forceVector);
         forceVectors.put(type, forceVector);
@@ -47,13 +65,14 @@ public abstract class Node implements IRigidbody {
     }
 
     /**
-     * Move the node based on its resultant force
+     * Move the node based on its resultant force, limited to avoid major "spikes"
      */
     @Override
     public void move() {
         Vector moveVector = resultantForceVector.mul(deltaTime);
-        if(moveVector.mag() > 3) return;
-        else position = position.add(moveVector);
+        if (!(moveVector.mag() > 3)) {
+            position = position.add(moveVector);
+        }
     }
 
     /**

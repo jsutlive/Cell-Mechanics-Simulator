@@ -1,16 +1,18 @@
 package Framework.States;
 
-import Framework.Data.FileBuilder;
 import Framework.Object.Entity;
-import Framework.Utilities.Time;
-import Utilities.Math.CustomMath;
-
 import java.util.Collections;
-
 import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
 
+/**
+ * RunState is the main physics state where behaviors are updating with changes in the update loop.
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 public class RunState extends State
 {
+    // Little bit hacky method used to manage force timestep.
     protected static float dt  = (float) Math.pow(2,-14);
     public static float deltaTime;
 
@@ -35,7 +37,7 @@ public class RunState extends State
     }
 
     /**
-     * Physics Loop. All physics objects updated here
+     * Physics Loop. All physics objects updated here (earlyUpdate, update, and lateUpdate methods)
      */
     @Override
     public void tick() {
@@ -51,8 +53,6 @@ public class RunState extends State
             obj.lateUpdate();
         }
     }
-
-
 
     void exit()
     {

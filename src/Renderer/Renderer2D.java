@@ -8,6 +8,14 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+/**
+ * Renderer2D: 2D canvas representation of physics simulations. Contains graphics objects and image capture
+ * implementations
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
+
 public class Renderer2D extends Renderer {
     DisplayWindow displayWindow;
     BufferStrategy bufferStrategy;

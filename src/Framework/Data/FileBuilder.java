@@ -30,13 +30,8 @@ public class FileBuilder {
 
     private static final String BASEPATH = System.getProperty("user.dir") + "//export//";
     public static String fullPathName;
-    public static float saveFrequency = Time.asNanoseconds(20);
     public static List<Entity> saveEntities = new ArrayList<>();
     public static HashMap<Entity, List<String[]>> saveDictionary = new HashMap<>();
-
-    public static void setSaveFrequency(float seconds){
-        saveFrequency = Time.asNanoseconds(seconds);
-    }
 
 
     public static void setFullPathName(String endPath){

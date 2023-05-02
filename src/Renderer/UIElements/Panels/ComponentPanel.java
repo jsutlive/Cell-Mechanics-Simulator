@@ -20,7 +20,13 @@ import java.lang.reflect.Modifier;
 import java.util.Collections;
 
 import static Framework.Data.ImageHandler.loadImage;
-
+/**
+ * Component Panel is a GUI representation of the physics behaviors and their respective fields (through the use of
+ * field panels)
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 public class ComponentPanel {
 
     JPanel panel;

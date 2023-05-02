@@ -7,7 +7,14 @@ import java.util.List;
 
 import static Framework.Utilities.Message.Type.*;
 
+/**
+ * Debug is a custom logger for sending messages, mainly helpful for interfacing with the GUI.
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
+ */
 public final class Debug {
+    // logger event
     public EventHandler<Message> onLog = new EventHandler<>();
 
     public static Debug INSTANCE;
@@ -19,6 +26,10 @@ public final class Debug {
         }
     }
 
+    /**
+     * Log a simple message that is not a warning or error, and store that in the program's message log.
+     * @param msg string to be logged to the system.
+     */
     public static void Log(String msg){
         if(INSTANCE == null) return;
         Message m = new Message(msg, Log);
@@ -26,6 +37,11 @@ public final class Debug {
         INSTANCE.onLog.invoke(m);
     }
 
+
+    /**
+     * Log a warning message, and store that in the program's message log.
+     * @param msg string to be logged to the system.
+     */
     public static void LogWarning(String msg){
         if(INSTANCE == null) return;
         Message m = new Message(msg, Warning);
@@ -33,6 +49,11 @@ public final class Debug {
         INSTANCE.onLog.invoke(m);
     }
 
+    /**
+     * Log an error message (indicates a problem has occurred but will not crash the program), and store that in the
+     * program's message log.
+     * @param msg string to be logged to the system.
+     */
     public static void LogError(String msg){
         if(INSTANCE == null) return;
         Message m = new Message(msg, Error);

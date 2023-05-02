@@ -1,18 +1,24 @@
 package Component;
 
+import Framework.Object.Annotations.DoNotDestroyInGUI;
 import Framework.Object.Tag;
 import Input.InputEvents;
-import Annotations.SetSlider;
 import Utilities.Geometry.Vector.Vector2f;
 import Utilities.Geometry.Vector.Vector2i;
 
 import java.awt.event.MouseEvent;
 
+/**
+ * Camera: main interface for determining what will be visible in the canvas. Exists as a behavior on its own object
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
+@DoNotDestroyInGUI
 public class Camera extends Component {
     public static Camera main;
-    private int width = 800, height = 800;
+    private final int width = 800, height = 800;
     private Vector2i shift = new Vector2i(0);
-    @SetSlider(min = 0.1f, max = 2)
     public float scale = 1f;
     private boolean isMovingCamera;
     private Vector2i mouseStartingClickPosition = new Vector2i();
@@ -75,7 +81,7 @@ public class Camera extends Component {
 
     /**
      * Returns pixel viewing coordinates of a data (world) position
-     * @param pos scene (engine/data) position of an object
+     * @param pos scene (engine/data) position of an object (int)
      * @return pixel/viewport coordinates of the object
      */
     public Vector2i transformToView(Vector2i pos){
@@ -85,13 +91,17 @@ public class Camera extends Component {
         );
     }
 
+    /**
+     * Returns pixel viewing coordinates of a data (world) position
+     * @param pos scene (engine/data) position of an object (float)
+     * @return pixel/viewport coordinates of the object
+     */
     public Vector2i transformToView(Vector2f pos){
         return new Vector2i(
                 Math.round((pos.x + shift.x) * scale + width/2f),
                 Math.round((pos.y + shift.y) * scale + height/2f)
         );
     }
-
 
     /**
      * Returns data (world) coordinates from given pixel location

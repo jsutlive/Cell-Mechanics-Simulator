@@ -7,9 +7,16 @@ import Renderer.UIElements.Windows.ConsolePopUp;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * DebugPanel is a simple panel to interface with the debugger/logger system. Clicking its button will launch a small
+ * console log window for viewing past messages.
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 public class DebugPanel {
-    private JPanel panel;
-    private JButton msgLabel;
+    private final JPanel panel;
+    private final JButton msgLabel;
 
     public DebugPanel(){
         panel = new JPanel();
@@ -23,10 +30,10 @@ public class DebugPanel {
         msgLabel.setMaximumSize(new Dimension(Short.MAX_VALUE,25));
         msgLabel.setBackground(Color.darkGray);
         msgLabel.setOpaque(true);
-        msgLabel.addActionListener(e->
-        {
-            new ConsolePopUp(debug);
-        });
+
+        // Launch new console debug with reference to logger system upon button press.
+        msgLabel.addActionListener(e-> new ConsolePopUp(debug));
+
         panel.add(msgLabel);
     }
 
@@ -34,6 +41,10 @@ public class DebugPanel {
         return panel;
     }
 
+    /**
+     * Write most recent message to the logger panel to be displayed
+     * @param msg a message to be displayed
+     */
     public void logMessage(Message msg){
         msgLabel.setText(msg.getText());
         msgLabel.setBackground(Color.darkGray);

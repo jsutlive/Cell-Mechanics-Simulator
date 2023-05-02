@@ -3,14 +3,16 @@ package Framework.States;
 import Framework.Object.Entity;
 import Framework.Object.Tag;
 
-import static Framework.Data.FileBuilder.load;
-import static Framework.Data.FileBuilder.save;
-
-
+/**
+ * State is an abstract class which determines what is done in the update (physics) loop. Each state has actions which
+ * occur when the state is entered, exited, and during each update cycle.
+ *
+ * Copyright (c) 2023 Joseph Sutlive
+ * All rights reserved
+ */
 public abstract class State
 {
     protected StateMachine stateMachine;
-    private static int _ID_COUNTER = 0;
 
     public State(StateMachine stateMachine){
         this.stateMachine = stateMachine;
@@ -50,12 +52,5 @@ public abstract class State
      */
     protected void saveInitial(){
         //save(findObjectWithTag(Tag.MODEL), "scene");
-    }
-
-    /**
-     * load objects from json file
-     */
-    protected void loadModel(){
-        load();
     }
 }
