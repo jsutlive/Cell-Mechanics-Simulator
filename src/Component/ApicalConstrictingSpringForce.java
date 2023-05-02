@@ -5,9 +5,11 @@ import Utilities.Geometry.Vector.Vector;
 import Framework.Rigidbodies.Edge;
 
 import static Framework.States.StateMachine.timer;
+import static Framework.Utilities.Time.asNanoseconds;
 
 
 public class ApicalConstrictingSpringForce extends SpringForce {
+    public float onsetTime;
     public float rampTime = 300f;
 
     @Override
@@ -18,6 +20,7 @@ public class ApicalConstrictingSpringForce extends SpringForce {
 
     @Override
     public void update() {
+        if(timer.elapsedTime < asNanoseconds(onsetTime)) return;
         Vector force;
         for(Edge edge: edges){
             if(timer.elapsedTime <  Time.asNanoseconds(rampTime)) {

@@ -1,5 +1,9 @@
 package Component;
 
+import Framework.Rigidbodies.Edge;
+import Framework.Utilities.Time;
+import Utilities.Geometry.Vector.Vector;
+
 import static Framework.States.StateMachine.timer;
 import static Framework.Utilities.Time.asNanoseconds;
 
@@ -7,6 +11,7 @@ import static Framework.Utilities.Time.asNanoseconds;
 public class LateralShorteningSpringForce extends SpringForce {
 
     public float onsetTime;
+    public float rampTime;
 
     @Override
     public void awake() {
@@ -26,6 +31,14 @@ public class LateralShorteningSpringForce extends SpringForce {
     @Override
     public void update() {
         if(timer.elapsedTime < asNanoseconds(onsetTime)) return;
-        super.update();
+        Vector force;
+        for(Edge edge: edges) {
+            if (timer.elapsedTime < Time.asNanoseconds(rampTime)) {
+                    force = calculateSpringForce(edge, constant * timer.elapsedTime / Time.asNanoseconds(rampTime));
+            } else {
+                force = calculateSpringForce(edge, constant);
+            }
+            edge.addConstrictionForceVector(getClass().getSimpleName(), force);
+        }
     }
 }
