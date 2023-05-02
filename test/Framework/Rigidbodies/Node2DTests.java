@@ -27,17 +27,4 @@ public class Node2DTests {
         assertEquals(1, n.getPosition().x);
         assertEquals(1, n.getPosition().y);
     }
-/*
-    @Test
-    void reset_Resultant_Force_Sets_Values_To_Zero()
-    {
-        Node2D n = new Node2D(0, 0);
-        assertEquals(n.getResultantForce().x, 0f);
-        assertEquals(n.getResultantForce().x, 0f);
-        n.addForceVector(new Vector2f(5));
-        n.resetResultantForce();
-        assertEquals(n.getResultantForce().x, 0f);
-        assertEquals(n.getResultantForce().x, 0f);
-
-    }*/
 }

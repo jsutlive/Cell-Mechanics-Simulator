@@ -2,15 +2,18 @@ package Input;
 
 import Framework.Data.FileBuilder;
 import Framework.Events.EventHandler;
-import Framework.Object.Entity;
 import Framework.Utilities.Debug;
 import Renderer.UIElements.Windows.ConsolePopUp;
 import Utilities.Geometry.Vector.Vector2i;
 
-import javax.swing.event.MouseInputAdapter;
 import java.awt.event.*;
 import java.io.IOException;
-
+/**
+ * InputEvents: Repository for events used to bridge GUI/ user input layer and simulation engine.
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 public class InputEvents implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
     public static EventHandler<String> onLoadModel = new EventHandler<>();

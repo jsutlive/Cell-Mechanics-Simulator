@@ -48,13 +48,6 @@ public class Edge implements IRigidbody, IColor
         nodes[1].addForceVector("", forceNeg);
     }
 
-    public void flip()
-    {
-        Node a = nodes[0];
-        nodes[0] = nodes[1];
-        nodes[1] = a;
-    }
-
     public List<Vector2f> getCollisionBox(float boundaryDistance){
         List<Vector2f> collisionPoints = new ArrayList<>();
         Vector norm = CustomMath.normal(this).mul(boundaryDistance);
@@ -152,7 +145,11 @@ public class Edge implements IRigidbody, IColor
         return false;
     }
 
-    public Edge clone(){
+    /**
+     * Create a copy of this edge with references to two clones of this edge's nodes
+     * @return a copy of this edge sharing identical parameters but different object references.
+     */
+    public Edge cloneEdge(){
         return new Edge(this.getNodes()[0].clone(), this.getNodes()[1].clone() );
     }
 
