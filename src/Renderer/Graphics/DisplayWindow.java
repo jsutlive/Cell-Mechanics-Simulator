@@ -19,8 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -113,12 +112,6 @@ public class DisplayWindow
         frame.setJMenuBar(null);
         createJMenuBar();
         frame.setJMenuBar(menuBar);
-
-        /*frame.addComponentListener(new ComponentAdapter() {
-            public void componentResized(ComponentEvent componentEvent) {
-                createCanvas();
-            }
-        });*/
     }
 
     private void createJMenuBar(){
@@ -128,9 +121,7 @@ public class DisplayWindow
         JMenu menu = new JMenu("File");
 
         JMenuItem newSceneItem = new JMenuItem("New Scene");
-        newSceneItem.addActionListener(e-> {
-            InputEvents.onLoadModel.invoke("");
-        });
+        newSceneItem.addActionListener(e-> InputEvents.onLoadModel.invoke(""));
         menu.add(newSceneItem);
 
         JMenu loadMenu = new JMenu("Load Preset");
@@ -181,24 +172,21 @@ public class DisplayWindow
 
 
         List<String[]> args= new ArrayList<>();
-        try {
-            File file = new File("assets/UserComponents.csv");
-            Scanner scanner = new Scanner(file);
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("UserComponents.csv");
+        assert in != null;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        Scanner scanner = new Scanner(reader);
 
-            while (scanner.hasNextLine()) {
-                args.add(parseCSV(scanner.nextLine()));
-            }
-
-            scanner.close();
-            Debug.Log("Loaded batch file to system");
-        } catch (FileNotFoundException e) {
-            // Alert user if file can't be used
-            Debug.LogError("Invalid File: Component Menu");
+        while (scanner.hasNextLine()) {
+            args.add(parseCSV(scanner.nextLine()));
         }
+
+        scanner.close();
+        Debug.Log("Loaded batch file to system");
 
         for(String[] subMenuValues : args){
             JMenuItem item = new JMenuItem(splitPascalCase(subMenuValues[0]));
-            Class itemClass;
+            Class<?> itemClass;
             try {
                 itemClass = Class.forName("Component." + subMenuValues[0]);
             } catch (ClassNotFoundException e) {
@@ -330,6 +318,7 @@ public class DisplayWindow
         int x = frame.getX() + canvas.getX();
         int y = frame.getY() +canvas.getY();
         Rectangle rect = new Rectangle(x, y, width, height);
+        assert robot != null;
         return robot.createScreenCapture(rect);
     }
 
