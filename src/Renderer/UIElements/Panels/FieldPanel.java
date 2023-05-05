@@ -11,10 +11,12 @@ import Utilities.StringUtils;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static Renderer.UIElements.Panels.MultiComponentPanel.PLACEHOLDER_FIELD;
 
@@ -101,7 +103,7 @@ public class FieldPanel {
             panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             for(Component c: components)
                 colorDropDownMenu.getMenu().addActionListener(e->
-                        changeGUI(c, (String) colorDropDownMenu.getMenu().getSelectedItem(), type));
+                        changeGUI(c, (String) Objects.requireNonNull(colorDropDownMenu.getMenu().getSelectedItem()), type));
             panel.add(colorDropDownMenu.getMenu());
         }
         else if(type == Vector2i.class){
@@ -184,10 +186,18 @@ public class FieldPanel {
     private void getFileFromParams(Component c){
         if(! (c instanceof BatchManager)) return;
         JFileChooser chooser = new JFileChooser();
-        int choice = chooser.showSaveDialog(null);
+
+        // Create and set file extension filters, we'll mainly be importing csv and text files
+        FileNameExtensionFilter textFilter = new FileNameExtensionFilter("*.txt", "txt");
+        FileNameExtensionFilter csvFilter = new FileNameExtensionFilter("*.csv", "csv");
+        chooser.addChoosableFileFilter(textFilter);
+        chooser.addChoosableFileFilter(csvFilter);
+        chooser.setFileFilter(csvFilter);
+
+        chooser.setDialogTitle("Select File");
+        int choice = chooser.showOpenDialog(null);
         if (choice == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
-            String extension = StringUtils.getExtensionByStringHandling(file.getName()).toString();
             c.changeFieldOnGUI(name, file);
         }
     }
@@ -207,7 +217,7 @@ public class FieldPanel {
     }
 
     public void changeGUI(Component c, String field, Class<?> type){
-        if(field == PLACEHOLDER_FIELD) return;
+        if(field.equals(PLACEHOLDER_FIELD)) return;
         if(type == int.class){
             int value = Integer.parseInt(field);
             c.changeFieldOnGUI(name, value);
