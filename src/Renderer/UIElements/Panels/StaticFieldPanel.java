@@ -1,5 +1,7 @@
 package Renderer.UIElements.Panels;
 
+import Utilities.StringUtils;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -22,7 +24,7 @@ public class StaticFieldPanel {
         panel.setMaximumSize(new Dimension(400, 30));
         panel.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.decode("#e4e4e4")),new EmptyBorder(4,25,2,25)));
         this.name = name;
-        panel.add(new JLabel(name));
+        panel.add(new JLabel(StringUtils.splitCamelCase(name)));
         if (type == int.class) {
             int val;
             JLabel field;

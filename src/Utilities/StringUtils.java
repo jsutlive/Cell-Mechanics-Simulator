@@ -22,6 +22,17 @@ public class StringUtils {
         return words.toString();
     }
 
+    public static String splitCamelCase(String camelString){
+        Pattern WORD_FINDER = Pattern.compile("(([A-Z]?[a-z]+)|([A-Z]))");
+        Matcher matcher = WORD_FINDER.matcher(camelString);
+        StringBuilder words = new StringBuilder("");
+        while (matcher.find()) {
+            words.append(matcher.group(0));
+            words.append(" ");
+        }
+        return words.toString();
+    }
+
     public static String[] parseCSV(String commandLine){
         return commandLine.replace("\uFEFF","").split(",");
     }

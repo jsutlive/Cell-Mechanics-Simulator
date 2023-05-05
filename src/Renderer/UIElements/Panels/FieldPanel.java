@@ -41,7 +41,7 @@ public class FieldPanel {
         panel.setBorder(new CompoundBorder(BorderFactory.createMatteBorder(0,0,1,0,Color.decode("#e4e4e4")),new EmptyBorder(4,25,2,25)));
         this.name = name;
         if(type == int.class){
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             int val;
             JTextField field;
             if(value!=PLACEHOLDER_FIELD) {
@@ -53,7 +53,7 @@ public class FieldPanel {
             for(Component c: components) field.addActionListener(e -> changeGUI(c, field.getText(), type));
             panel.add(field);
         }else if(type == float.class){
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             float val;
             JTextField field;
             if (value != PLACEHOLDER_FIELD) {
@@ -67,7 +67,7 @@ public class FieldPanel {
 
         }
         else if(type == boolean.class) {
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             boolean val;
             JCheckBox checkBox = new JCheckBox("");
             if(value != PLACEHOLDER_FIELD) {
@@ -78,7 +78,7 @@ public class FieldPanel {
             panel.add(checkBox);
         }
         else if(type == String.class){
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             String val;
             JTextField field;
             if(value!=PLACEHOLDER_FIELD) {
@@ -98,7 +98,7 @@ public class FieldPanel {
             }else{
                 colorDropDownMenu = new ColorDropDownMenu();
             }
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             for(Component c: components)
                 colorDropDownMenu.getMenu().addActionListener(e->
                         changeGUI(c, (String) colorDropDownMenu.getMenu().getSelectedItem(), type));
@@ -106,7 +106,7 @@ public class FieldPanel {
         }
         else if(type == Vector2i.class){
             panel.setLayout(new GridLayout(0, 5));
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             Vector2i val;
             JTextField fieldX,fieldY;
             if(value!=PLACEHOLDER_FIELD) {
@@ -130,7 +130,7 @@ public class FieldPanel {
         }
         else if(type == Vector2f.class){
             panel.setLayout(new GridLayout(0, 5));
-            panel.add(new JLabel(name));
+            panel.add(new JLabel(StringUtils.splitCamelCase(name)));
             Vector2f val;
             JTextField fieldX,fieldY;
             if(value!=PLACEHOLDER_FIELD) {
