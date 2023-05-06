@@ -44,7 +44,7 @@ Morphogenesis: specific components to morphogenesis, such as cell osmosis and ce
 
 Renderer: classes responsible for graphics
 
-Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readibility easier.
+Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
 
 ## Cell Mechanics Simulator:
 
