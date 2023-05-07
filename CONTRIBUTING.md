@@ -1,5 +1,22 @@
 # Guide to contributing to the Cell Mechanics Simulator
 
+## Folder organization:
+
+- Component: All behaviors that can be attached to physics objects.
+
+- Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
+
+- Input: classes responsible for handling user input and object selection
+
+- General Physics: specific components for basic physics, such as gravity.
+
+- Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
+
+- Renderer: classes responsible for graphics
+
+- Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
+
+
 ## Adding behaviors/ new objects
 
 Please use [this tutorial](https://github.com/jsutlive/Cell-Mechanics-Simulator/wiki/Example:-Writing-a-New-Component) to learn how to add new components to the system. If you would like to make it possible to add your new component from the GUI, please make sure to update the [user components spreadsheet](https://github.com/jsutlive/Cell-Mechanics-Simulator/blob/master/assets/UserComponents.csv). Additionally, please only add components in the base directory of the component package. If either the sheet is not updated or the component is in the wrong folder, the component _will not_ be available in the GUI but may be added via code. 
