@@ -1,12 +1,12 @@
-package Framework.Object;
+package framework.object;
 
-import Component.*;
-import Framework.Utilities.Debug;
-import Input.SelectionEvents;
-import Component.ElasticForce;
-import Component.Yolk;
+import component.*;
+import framework.utilities.Debug;
+import input.SelectionEvents;
+import component.ElasticForce;
+import component.Yolk;
 
-import static Framework.Object.Tag.MODEL;
+import static framework.object.Tag.MODEL;
 
 public class ModelLoader {
 

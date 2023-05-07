@@ -1,4 +1,4 @@
-package Framework.Events;
+package framework.events;
 
 @FunctionalInterface
 public interface IEvent<TEventArgs extends Object> {

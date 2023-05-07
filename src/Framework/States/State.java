@@ -1,7 +1,7 @@
-package Framework.States;
+package framework.states;
 
-import Framework.Object.Entity;
-import Framework.Object.Tag;
+import framework.object.Entity;
+import framework.object.Tag;
 
 /**
  * State is an abstract class which determines what is done in the update (physics) loop. Each state has actions which

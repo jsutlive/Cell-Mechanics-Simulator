@@ -1,25 +1,25 @@
-package Framework.States;
+package framework.states;
 
-import Component.BatchManager;
-import Component.SaveSystem;
-import Framework.Utilities.Debug;
-import Framework.Events.EventHandler;
-import Framework.Object.Entity;
-import Framework.Object.Tag;
-import Framework.Object.ModelLoader;
-import Framework.Utilities.Time;
-import Input.InputEvents;
-import Input.SelectionEvents;
-import Component.MouseSelector;
-import Component.Camera;
+import component.BatchManager;
+import component.SaveSystem;
+import framework.utilities.Debug;
+import framework.events.EventHandler;
+import framework.object.Entity;
+import framework.object.Tag;
+import framework.object.ModelLoader;
+import framework.utilities.Time;
+import input.InputEvents;
+import input.SelectionEvents;
+import component.MouseSelector;
+import component.Camera;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static Framework.Object.Tag.PHYSICS;
-import static Framework.Object.Tag.CAMERA;
+import static framework.object.Tag.PHYSICS;
+import static framework.object.Tag.CAMERA;
 /**
  * StateMachine: State handler for the simulation engine, also manages objects.
  *

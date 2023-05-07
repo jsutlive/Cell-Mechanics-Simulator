@@ -1,4 +1,4 @@
-package Framework.Data.Json.Exclusion;
+package framework.data.json.exclusion;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

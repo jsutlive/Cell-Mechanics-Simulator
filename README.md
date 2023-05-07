@@ -18,7 +18,7 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 
 ## Features
 
-### Component-based physics system
+### component-based physics system
 
 - Easily change behaviors of physics objects by adding and removing components.
 

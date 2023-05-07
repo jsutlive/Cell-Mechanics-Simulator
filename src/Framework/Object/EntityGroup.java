@@ -1,9 +1,9 @@
-package Framework.Object;
+package framework.object;
 
-import Component.Component;
-import Input.SelectionEvents;
-import Renderer.Graphics.IColor;
-import Renderer.Renderer;
+import component.Component;
+import input.SelectionEvents;
+import renderer.graphics.IColor;
+import renderer.Renderer;
 
 import java.awt.*;
 import java.util.List;

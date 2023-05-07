@@ -1,6 +1,6 @@
-package Framework.Data.Json;
+package framework.data.json;
 
-import Framework.Rigidbodies.Node;
+import framework.rigidbodies.Node;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

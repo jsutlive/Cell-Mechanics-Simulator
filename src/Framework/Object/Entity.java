@@ -1,8 +1,8 @@
-package Framework.Object;
+package framework.object;
 
-import Component.Component;
-import Component.Transform;
-import Framework.Events.EventHandler;
+import component.Component;
+import component.Transform;
+import framework.events.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,11 +1,11 @@
-package Framework.Utilities;
+package framework.utilities;
 
-import Framework.Events.EventHandler;
+import framework.events.EventHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static Framework.Utilities.Message.Type.*;
+import static framework.utilities.Message.Type.*;
 
 /**
  * Debug is a custom logger for sending messages, mainly helpful for interfacing with the GUI.

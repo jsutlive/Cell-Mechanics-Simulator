@@ -1,8 +1,8 @@
-package Framework.Data.Json;
+package framework.data.json;
 
-import Component.Component;
-import Framework.Object.Entity;
-import Framework.Object.Tag;
+import component.Component;
+import framework.object.Entity;
+import framework.object.Tag;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

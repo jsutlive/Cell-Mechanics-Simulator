@@ -1,4 +1,4 @@
-package Framework.Object;
+package framework.object;
 
 public enum Tag
 {

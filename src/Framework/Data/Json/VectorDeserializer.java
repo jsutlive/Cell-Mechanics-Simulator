@@ -1,6 +1,6 @@
-package Framework.Data.Json;
+package framework.data.json;
 
-import Utilities.Geometry.Vector.Vector;
+import utilities.geometry.Vector.Vector;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

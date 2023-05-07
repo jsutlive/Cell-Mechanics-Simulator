@@ -1,6 +1,6 @@
-import Framework.Engine;
-import Renderer.*;
-import Renderer.Renderer;
+import framework.Engine;
+import renderer.*;
+import renderer.Renderer;
 import javax.swing.*;
 
 /**

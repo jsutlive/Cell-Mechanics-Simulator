@@ -1,8 +1,10 @@
-package Framework.States;
+package framework.states;
 
-import Framework.Object.Entity;
+
+import framework.object.Entity;
+
 import java.util.Collections;
-import static Renderer.UIElements.Panels.PlayPanel.onTimestepSliderChanged;
+import static renderer.uiElements.panels.PlayPanel.onTimestepSliderChanged;
 
 /**
  * RunState is the main physics state where behaviors are updating with changes in the update loop.
@@ -37,7 +39,7 @@ public class RunState extends State
     }
 
     /**
-     * Physics Loop. All physics objects updated here (earlyUpdate, update, and lateUpdate methods)
+     * utilities.Physics Loop. All physics objects updated here (earlyUpdate, update, and lateUpdate methods)
      */
     @Override
     public void tick() {

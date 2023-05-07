@@ -1,11 +1,9 @@
-package Framework.States;
+package framework.states;
 
+import framework.object.Entity;
+import component.Mesh;
 
-import Framework.Object.Entity;
-import Component.Mesh;
-
-
-import static Framework.Object.Tag.MODEL;
+import static framework.object.Tag.MODEL;
 /**
  * Editor State: Main state for changing parameters, no physics functions running in this state.
  *

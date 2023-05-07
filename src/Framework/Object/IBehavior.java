@@ -1,4 +1,4 @@
-package Framework.Object;
+package framework.object;
 
 /**
  * Interface for any object which will be responding to physics loop states such as update, late update, start, and awake

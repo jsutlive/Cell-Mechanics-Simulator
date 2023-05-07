@@ -1,16 +1,15 @@
-package Framework.Data;
+package framework.data;
 
-import Framework.Data.Json.ComponentSerializer;
-import Framework.Data.Json.EntitySerializer;
-import Framework.Data.Json.NodeSerializer;
-import Framework.Data.Json.VectorDeserializer;
-import Component.Component;
-import Framework.Utilities.Debug;
-import Framework.Object.Entity;
-import Framework.Rigidbodies.Node;
-import Framework.Utilities.Time;
-import Component.Mesh;
-import Utilities.Geometry.Vector.Vector;
+import framework.data.json.ComponentSerializer;
+import framework.data.json.EntitySerializer;
+import framework.data.json.NodeSerializer;
+import framework.data.json.VectorDeserializer;
+import component.Component;
+import framework.utilities.Debug;
+import framework.object.Entity;
+import framework.rigidbodies.Node;
+import component.Mesh;
+import utilities.geometry.Vector.Vector;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.opencsv.CSVWriter;

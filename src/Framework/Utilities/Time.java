@@ -1,4 +1,4 @@
-package Framework.Utilities;
+package framework.utilities;
 /**
  * Time is the custom timer class used to control the physics and render loops of the program. It is recommended that
  * separate timers are used for these components

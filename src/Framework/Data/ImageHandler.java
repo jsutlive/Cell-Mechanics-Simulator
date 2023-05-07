@@ -1,6 +1,6 @@
-package Framework.Data;
+package framework.data;
 
-import Framework.Utilities.Debug;
+import framework.utilities.Debug;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

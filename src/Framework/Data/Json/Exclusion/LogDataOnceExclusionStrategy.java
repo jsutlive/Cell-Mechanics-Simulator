@@ -1,6 +1,6 @@
-package Framework.Data.Json.Exclusion;
+package framework.data.json.exclusion;
 
-import Component.CellRingCollider;
+import component.CellRingCollider;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 

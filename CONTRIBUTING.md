@@ -2,19 +2,19 @@
 
 ## Folder organization:
 
-- Component: All behaviors that can be attached to physics objects.
+- component: All behaviors that can be attached to physics objects.
 
-- Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
+- framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
 
-- Input: classes responsible for handling user input and object selection
+- input: classes responsible for handling user input and object selection
 
-- General Physics: specific components for basic physics, such as gravity.
+- General utilities.physics: specific components for basic physics, such as gravity.
 
 - Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
 
-- Renderer: classes responsible for graphics
+- renderer: classes responsible for graphics
 
-- Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
+- utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
 
 
 ## Adding behaviors/ new objects
