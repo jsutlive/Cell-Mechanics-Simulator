@@ -32,22 +32,6 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 
 - Group objects
 
-## Folder organization:
-
-- Component: All behaviors that can be attached to physics objects.
-
-- Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
-
-- Input: classes responsible for handling user input and object selection
-
-- General Physics: specific components for basic physics, such as gravity.
-
-- Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
-
-- Renderer: classes responsible for graphics
-
-- Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
-
 ## Cell Mechanics Simulator:
 
 A real-time, 2D soft-body physics simulator used to model cell mechanics. Compatible with PC and Mac!
