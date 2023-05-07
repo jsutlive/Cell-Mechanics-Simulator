@@ -32,10 +32,16 @@ If making a system-level change that drastically alters any of the following:
 
 please create a new branch and make all changes to a new branch before merging with the master branch.
 
+## Semantic versioning in releases
+
+Release numbering follows the _MAJOR_ . _MINOR_ . _PATCH_ format. In this context:
+ - Major: Significant features added, i.e., new model applications, many new behaviors and systems.
+ - Minor: Features added including new behaviors, UI elements, subsystems
+ - Patch: Fix or derivative behaviors added, or new documentation notes.
+
 ## Suggested updates to repository:
 
 - use final variables whenever possible
-- use semantic versioning for releases
 - add GitHub actions to run tests and add coverage percentage badge on README
 - add quick setup instructions in README
 - iml file opencsv fix
