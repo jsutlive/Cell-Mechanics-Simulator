@@ -31,3 +31,11 @@ If making a system-level change that drastically alters any of the following:
 - How the update loop is managed/ how the engine perceives time
 
 please create a new branch and make all changes to a new branch before merging with the master branch.
+
+## Suggested updates to repository:
+
+- use final variables whenever possible
+- use semantic versioning for releases
+- add GitHub actions to run tests and add coverage percentage badge on README
+- add quick setup instructions in README
+- iml file opencsv fix
