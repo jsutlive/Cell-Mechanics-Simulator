@@ -26,27 +26,27 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 
 ### Functional GUI with object inspector
 
--Change parameters of models without needing to code with the object inspector. 
+- Change parameters of models without needing to code with the object inspector. 
 
--Mouse select/multi-select objects
+- Mouse select/multi-select objects
 
--Group objects
+- Group objects
 
 ## Folder organization:
 
-Component: All behaviors that can be attached to physics objects.
+- Component: All behaviors that can be attached to physics objects.
 
-Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
+- Framework: the base engine and base object classes of the simulation including states, entities/physics objects, and data saving
 
-Input: classes responsible for handling user input and object selection
+- Input: classes responsible for handling user input and object selection
 
-General Physics: specific components for basic physics, such as gravity.
+- General Physics: specific components for basic physics, such as gravity.
 
-Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
+- Morphogenesis: specific components to morphogenesis, such as cell osmosis and cell stiffness.
 
-Renderer: classes responsible for graphics
+- Renderer: classes responsible for graphics
 
-Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
+- Utilities: Additional functions including custom math libraries, string utilities, and other miscellaneous functions for making code readability easier.
 
 ## Cell Mechanics Simulator:
 
