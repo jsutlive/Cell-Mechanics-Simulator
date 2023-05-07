@@ -3,6 +3,8 @@
 Requires java installed for the standalone .jar to work! Get Java [here](https://www.java.com/download/ie_manual.jsp).
 
 For in-depth information, please consult the [wiki](https://github.com/jsutlive/CellMechanicsSimulator/wiki)!
+
+Contributors, please check [CONTRIBUTING.md](https://github.com/jsutlive/Cell-Mechanics-Simulator/blob/master/CONTRIBUTING.md) for updates on how to best contribute to the project.
 <p align="center">
 <img src="https://github.com/jsutlive/Cell-Mechanics-Simulator/blob/master/assets/reference/GUI.png"
      alt="Cell Mechanics Simulator UI"
