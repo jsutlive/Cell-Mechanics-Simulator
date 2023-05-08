@@ -16,6 +16,17 @@ To have the most up-to-date, stable code, please refer to the Master branch.
 
 The Morphogenesis Simulator is a physics simulator initially constructed to simulate developing organisms as mechanical systems. It is a soft-body dynamics representation and thus physics is typically represented as a spring-mass system. For more information about soft-body dynamics, this Wikipedia [article] https://en.wikipedia.org/wiki/Soft-body_dynamics is an excellent start.
 
+## Quick start
+
+### Within a Java IDE:
+
+Build and run the "Launcher.java" file, which acts as the entry point. 
+
+### Using the standalone .jar:
+
+Double click and run (requires Java 8 or later install). Find the latest releases [here](https://github.com/jsutlive/Cell-Mechanics-Simulator/releases). Here you can download the compiled versions of the program as well as a .zip file of the source code.
+
+
 ## Features
 
 ### component-based physics system
