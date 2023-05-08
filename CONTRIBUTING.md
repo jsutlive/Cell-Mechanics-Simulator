@@ -34,7 +34,7 @@ please create a new branch and make all changes to a new branch before merging w
 
 ## Semantic versioning in releases
 
-Release numbering follows the _MAJOR_ . _MINOR_ . _PATCH_ format. In this context:
+Release numbering follows the **MAJOR**._Minor_.patch format. In this context:
  - Major: Significant features added, i.e., new model applications, many new behaviors and systems.
  - Minor: Features added including new behaviors, UI elements, subsystems
  - Patch: Fix or derivative behaviors added, or new documentation notes.
