@@ -20,7 +20,7 @@ The Morphogenesis Simulator is a physics simulator initially constructed to simu
 
 ### Within a Java IDE:
 
-Build and run the "Launcher.java" file, which acts as the entry point. 
+Download files, you may need to install [opencsv](https://sourceforge.net/projects/opencsv/files/opencsv/5.7.1/opencsv-5.7.1.jar/download). Build and run the "Launcher.java" file, which acts as the entry point. 
 
 ### Using the standalone .jar:
 
