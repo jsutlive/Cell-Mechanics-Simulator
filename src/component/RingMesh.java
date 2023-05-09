@@ -13,6 +13,7 @@ import utilities.math.Gauss;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 import static utilities.math.CustomMath.TransformToWorldSpace;
 import static utilities.math.CustomMath.GetUnitVectorOnCircle;
@@ -69,6 +70,7 @@ public class RingMesh extends Mesh {
         for(Entity cell: parent.children)
         {
             RingCellMesh mesh = cell.getComponent(RingCellMesh.class);
+            assert mesh != null;
             for(Node2D node: mesh.nodes){
                 if(!node.getPosition().isNull()) {
                     if (!contains(node)) nodes.add(node);

@@ -5,6 +5,7 @@ import component.Transform;
 import framework.events.EventHandler;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Entity: physics object for use in engine
@@ -124,7 +125,7 @@ public final class Entity implements IBehavior
       for (Component c : components) {
          if (componentClass.isAssignableFrom(c.getClass())) {
             try {
-               return componentClass.cast(c);
+               return Objects.requireNonNull(componentClass.cast(c));
             } catch (ClassCastException e) {
                e.printStackTrace();
                assert false : "Error: Casting component.";

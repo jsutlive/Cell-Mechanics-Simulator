@@ -43,12 +43,6 @@ public class Yolk extends Component {
         }
     }
 
-    public Entity checkSelection(Vector2f point){
-        Entity selected = yolk.getComponent(CircleMesh.class).returnCellContainingPoint(point);
-        return selected;
-
-    }
-
     @Override
     public void onDestroy() {
         onMeshRebuilt.unSubscribe(this::rebuildYolk);

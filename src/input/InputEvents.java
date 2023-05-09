@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class InputEvents implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
-    public static EventHandler<String> onLoadModel = new EventHandler<>();
+    public static final EventHandler<String> onLoadModel = new EventHandler<>();
     private boolean spaceToggle = false;
 
     @Override
@@ -105,18 +105,18 @@ public class InputEvents implements KeyListener, MouseListener, MouseMotionListe
 
     }
 
-    public static EventHandler<Boolean> onClear = new EventHandler<>();
-    public static EventHandler<Vector2i> onShift = new EventHandler<>();
-    public static EventHandler<Float> onScale = new EventHandler<>();
+    public static final EventHandler<Boolean> onClear = new EventHandler<>();
+    public static final EventHandler<Vector2i> onShift = new EventHandler<>();
+    public static final EventHandler<Float> onScale = new EventHandler<>();
 
-    public static EventHandler<Boolean> onAlt = new EventHandler<>();
-    public static EventHandler<Boolean> onShiftKey = new EventHandler<>();
-    public static EventHandler<Boolean> onToggleSimulation = new EventHandler<>();
-    public static EventHandler<MouseEvent> onClick = new EventHandler<>();
-    public static EventHandler<MouseEvent> onMove = new EventHandler<>();
-    public static EventHandler<MouseEvent> onDrag = new EventHandler<>();
-    public static EventHandler<MouseEvent> onPress = new EventHandler<>();
-    public static EventHandler<MouseEvent> onRelease = new EventHandler<>();
+    public static final EventHandler<Boolean> onAlt = new EventHandler<>();
+    public static final EventHandler<Boolean> onShiftKey = new EventHandler<>();
+    public static final EventHandler<Boolean> onToggleSimulation = new EventHandler<>();
+    public static final EventHandler<MouseEvent> onClick = new EventHandler<>();
+    public static final EventHandler<MouseEvent> onMove = new EventHandler<>();
+    public static final EventHandler<MouseEvent> onDrag = new EventHandler<>();
+    public static final EventHandler<MouseEvent> onPress = new EventHandler<>();
+    public static final EventHandler<MouseEvent> onRelease = new EventHandler<>();
 
     public static void toggleSimulation(boolean b) {
         if(!b) {

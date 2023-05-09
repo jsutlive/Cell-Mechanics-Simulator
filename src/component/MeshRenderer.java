@@ -22,10 +22,6 @@ public class MeshRenderer extends ObjectRenderer
 
     public boolean showEdgeNormals = false;
 
-    public MeshRenderer(boolean active){
-        enabled = active;
-    }
-
     @Override
     public void awake() {
         SelectionEvents.onEntitySelected.subscribe(this::highlightColor);

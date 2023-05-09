@@ -10,11 +10,12 @@ import utilities.physics.Collision2D;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @DoNotDestroyInGUI
 public class MeshCollider extends Collider{
-    transient List<Entity> cells;
-    transient List<Node2D> nodes;
+    private transient List<Entity> cells;
+    private transient List<Node2D> nodes;
     private List<Node2D> collision;
 
     @Override
@@ -43,12 +44,11 @@ public class MeshCollider extends Collider{
         if(nodes.size() < 1) return new ArrayList<>();
         List<Node2D> collidingNodes = new ArrayList<>();
         for(Entity cell: cells){
-            Mesh mesh = cell.getComponent(Mesh.class);
+            Mesh mesh = Objects.requireNonNull(cell.getComponent(Mesh.class));
             for(Node2D node: nodes){
                 if(!mesh.contains(node) && mesh.collidesWithNode(node)) {
                     Vector2f closestPoint = new Vector2f();
                     Vector2f secondClosestPoint = new Vector2f();
-                    Vector2f thirdClosestPoint = new Vector2f();
                     float closestDistance = Float.POSITIVE_INFINITY;
                     float secondClosestDistance = Float.POSITIVE_INFINITY;
                     float thirdClosestDistance = Float.POSITIVE_INFINITY;

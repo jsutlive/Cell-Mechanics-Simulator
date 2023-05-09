@@ -39,7 +39,7 @@ public class DisplayWindow
     private JMenuBar menuBar;
     private final String title;
     private final int width, height;
-    static InputEvents input;
+    private static final InputEvents input = new InputEvents();
 
     JMenuItem playItem;
     JMenuItem stopItem;
@@ -79,7 +79,6 @@ public class DisplayWindow
         frame.add(debug.getPanel(), BorderLayout.SOUTH);
 
 
-        input = new InputEvents();
         canvas.addKeyListener(input);
         canvas.addMouseListener(input);
         canvas.addMouseMotionListener(input);
@@ -268,7 +267,7 @@ public class DisplayWindow
             e.printStackTrace();
         }
         URL finalManualURL = manualURL;
-        manual.addActionListener(e-> Web.openWebpage(finalManualURL));
+        manual.addActionListener(e-> Web.openWebpage(Objects.requireNonNull(finalManualURL)));
         helpMenu.add(manual);
 
         menuBar.add(helpMenu);

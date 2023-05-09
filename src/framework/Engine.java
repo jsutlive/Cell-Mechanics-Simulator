@@ -19,17 +19,16 @@ public final class Engine implements Runnable
     private Thread thread;
 
     // application (physics) timer
-    private Time physicsClock;
+    private final Time physicsClock = Time.getTime(50f);
 
     private boolean applicationIsRunning = false;
 
-    String[] runtimeArgs;
+    private String[] runtimeArgs;
 
     /**
      * Prepare state loading and timer system
      */
     private void init() {
-        physicsClock = Time.getTime(50f);
         stateMachine = new StateMachine(physicsClock, runtimeArgs[0].equals("-h"));
     }
 
@@ -37,8 +36,7 @@ public final class Engine implements Runnable
      * Main physics loop
      */
     @Override
-    public void run()
-    {
+    public void run() {
         init();
 
         // advance clock and perform physics update

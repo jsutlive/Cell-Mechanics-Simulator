@@ -20,7 +20,7 @@ import static framework.data.FileBuilder.fullPathName;
  */
 public abstract class Renderer implements Runnable {
 
-    public static Color DEFAULT_COLOR = Color.white;
+    public static final Color DEFAULT_COLOR = Color.white;
     //Graphics object that our painter class references to draw objects
     protected Graphics graphics;
 

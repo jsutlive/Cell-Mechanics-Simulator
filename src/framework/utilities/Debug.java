@@ -15,10 +15,10 @@ import static framework.utilities.Message.Type.*;
  */
 public final class Debug {
     // logger event
-    public EventHandler<Message> onLog = new EventHandler<>();
+    public final EventHandler<Message> onLog = new EventHandler<>();
 
     public static Debug INSTANCE;
-    public List<Message> messageLog = new ArrayList<>();
+    public final List<Message> messageLog = new ArrayList<>();
 
     public Debug(){
         if(INSTANCE == null) {

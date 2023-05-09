@@ -55,6 +55,7 @@ public final class Time {
      */
     private Time(float fps) {
         timePerTickNanoseconds = 1000000000f / fps;
+        this.fps = fps;
         resetCounters();
     }
 

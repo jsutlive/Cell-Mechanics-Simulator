@@ -4,7 +4,6 @@ import framework.events.EventHandler;
 import framework.object.Entity;
 import framework.object.IBehavior;
 import framework.object.IExposeToGUI;
-import annotations.ReloadEntityOnChange;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -83,11 +82,6 @@ public abstract class Component implements IBehavior, IExposeToGUI {
                     e.printStackTrace();
                 }
                 c.onValidate();
-                // for certain changes, trigger reload of ALL behaviors
-                if(f.getDeclaredAnnotation(ReloadEntityOnChange.class)!=null){
-                    c.parent.awake();
-                    c.parent.onValidate();
-                }
                 c.onComponentChanged.invoke(this);
             }
         }

@@ -7,10 +7,12 @@ import java.util.HashMap;
 import static java.awt.Color.*;
 
 public class ColorDropDownMenu {
-    static String[] colorStrings = new String[]{"--", "Blue", "Cyan", "Green", "Magenta", "Orange", "Pink", "Red", "White"};
-    static Color[] colors = new Color[]{null, BLUE, CYAN, GREEN, MAGENTA, ORANGE, PINK, RED, WHITE};
+    private final static String[] colorStrings = new String[]
+            {"--", "Blue", "Cyan", "Green", "Magenta", "Orange", "Pink", "Red", "White"};
+    private final static Color[] colors = new Color[]
+            {null, BLUE, CYAN, GREEN, MAGENTA, ORANGE, PINK, RED, WHITE};
 
-    public static HashMap<String, Color> colorDictionary = new HashMap<>();
+    public final static HashMap<String, Color> colorDictionary = new HashMap<>();
 
     private JComboBox<String> menu;
 

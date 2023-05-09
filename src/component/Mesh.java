@@ -4,7 +4,6 @@ import framework.events.EventHandler;
 import framework.object.Entity;
 import annotations.Builder;
 import annotations.DoNotEditInGUI;
-import annotations.VirtualRenderer;
 import framework.rigidbodies.Edge;
 import framework.rigidbodies.Node;
 import framework.rigidbodies.Node2D;
@@ -121,10 +120,7 @@ public abstract class Mesh extends Component {
                 }
             }
         }
-        if(parent.getClass().isAnnotationPresent(VirtualRenderer.class)){
-            parent.addComponent(new MeshRenderer(false));
-        }
-        else parent.addComponent(new MeshRenderer(true));
+        parent.addComponent(new MeshRenderer());
     }
 
     public Entity returnCellContainingPoint(Vector2f vector2f){

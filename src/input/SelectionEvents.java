@@ -24,13 +24,13 @@ public class SelectionEvents {
 
     private static boolean selectingMultiple;
     // Event handler for when this object selects an entity
-    public static EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
-    public static EventHandler<Component> onSelectionButtonPressed = new EventHandler<>();
-    public static EventHandler<Tag> onTagSelected = new EventHandler<>();
-    public static EventHandler<Integer> onCreateGroup = new EventHandler<>();
-    public static EventHandler<Integer> onSelectGroup = new EventHandler<>();
-    public static EventHandler<Integer> onDeleteGroup = new EventHandler<>();
-    public static EventHandler<Boolean> onClearGroups = new EventHandler<>();
+    public static final EventHandler<HashSet<Entity>> onEntitySelected = new EventHandler<>();
+    public static final EventHandler<Component> onSelectionButtonPressed = new EventHandler<>();
+    public static final EventHandler<Tag> onTagSelected = new EventHandler<>();
+    public static final EventHandler<Integer> onCreateGroup = new EventHandler<>();
+    public static final EventHandler<Integer> onSelectGroup = new EventHandler<>();
+    public static final EventHandler<Integer> onDeleteGroup = new EventHandler<>();
+    public static final EventHandler<Boolean> onClearGroups = new EventHandler<>();
 
 
     public static List<EntityGroup> groups = new ArrayList<>();
@@ -83,7 +83,7 @@ public class SelectionEvents {
     }
 
     /**
-     * Add an existing entity group to this objects groups pool
+     * Add an existing entity group to this object group pool
      * @param group an EntityGroup object not currently part of this object's groups list.
      */
     public static void createGroup(EntityGroup group){
@@ -172,7 +172,7 @@ public class SelectionEvents {
      * @param c a new component
      */
     public static void addComponentToSelected(Component c){
-        if(selectedEntities == null)return;
+        if(selectedEntities.size() == 0)return;
         for(Entity e: selectedEntities) {
             e.addComponent(c);
         }
