@@ -6,18 +6,30 @@ import utilities.geometry.Vector.Vector2i;
 import utilities.geometry.Vector.Vector2f;
 
 import java.awt.*;
+/**
+ * IRender is the main interface responsible for rendering objects to the screen and
+ * contains default methods for rendering basic shapes
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
 
 public interface IRender {
 
+    // Events to handle object addition/ removal
     EventHandler<IRender> onRendererAdded = new EventHandler<>();
     EventHandler<IRender> onRendererRemoved = new EventHandler<>();
 
+    // These methods are responsible for adding and removing render objects from the
+    // renderer's render batch.
     default void add(IRender rend){
         onRendererAdded.invoke(rend);
     }
     default void remove(IRender rend){
         onRendererRemoved.invoke(rend);
     }
+
+
     void render(Graphics g);
 
      default void drawLine(Vector2f pointA, Vector2f pointB, Graphics g){

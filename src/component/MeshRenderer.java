@@ -12,20 +12,24 @@ import java.awt.*;
 import java.util.HashSet;
 
 /**
- * Cell Renderer class handles all drawing functions for the cells.
+ * MeshRenderer is responsible for rendering objects with complex polygon shapes
+ * and manages click-select
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
  */
 @DoNotDestroyInGUI
 public class MeshRenderer extends ObjectRenderer
 {
     private transient Mesh cellMesh;
-    private Color highlightColor = Color.yellow;
+    private final Color highlightColor = Color.yellow;
 
     public boolean showEdgeNormals = false;
 
     @Override
     public void awake() {
         SelectionEvents.onEntitySelected.subscribe(this::highlightColor);
-        onRendererAdded.invoke(this);
+        add(this);
         cellMesh = parent.getComponent(Mesh.class);
     }
 
@@ -40,8 +44,8 @@ public class MeshRenderer extends ObjectRenderer
     }
 
     /**
-     * Changes selected entity to a specific highlighted color
-     * @param entities
+     * Changes selected entities to a specific highlighted color
+     * @param entities list of entities to be colored
      */
     public void highlightColor(HashSet<Entity> entities){
         if(!entities.contains(parent)){
@@ -53,6 +57,10 @@ public class MeshRenderer extends ObjectRenderer
         }
     }
 
+    /**
+     * Override edge colors to a new color
+     * @param color
+     */
     private void alterColors(Color color) {
         for (Edge edge : cellMesh.edges) {
             if (edge != null) {
@@ -120,7 +128,7 @@ public class MeshRenderer extends ObjectRenderer
 
     @Override
     public void onDestroy() {
-        onRendererRemoved.invoke(this);
+        remove(this);
         SelectionEvents.onEntitySelected.unSubscribe(this::highlightColor);
     }
 }
