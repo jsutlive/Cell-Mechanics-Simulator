@@ -19,7 +19,7 @@ public class EditorState extends State
     @Override
     public void enter() {
         // if a physics model is present, reset all objects
-        if(findObjectWithTag(MODEL) != null){
+        if(stateMachine.findObjectWithTag(MODEL) != null){
             //ensure mesh object is not null, then reset
             for(Entity obj: stateMachine.allObjects) {
                 if(obj.getComponent(Mesh.class) == null) continue;

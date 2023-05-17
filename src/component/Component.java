@@ -8,18 +8,31 @@ import framework.object.IExposeToGUI;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+/**
+ * Component is the primary base class for behaviors in the physics system.
+ * Components that are attached to physics objects will be tied to the same
+ * state-level function calls (start, update, etc.) as the entities they are
+ * attached to. Components may be disabled to eliminate all interactions during
+ * editor and play mode simulation loops.
+ *
+ * Copyright (c) 2023 Joseph Sutlive and Tony Zhang
+ * All rights reserved
+ */
+
 public abstract class Component implements IBehavior, IExposeToGUI {
-    protected boolean enabled = true;
     public EventHandler<Component> onComponentChanged = new EventHandler<>();
+
+    // This is the entity that the component is tied to for system updates
     protected transient Entity parent;
     public void setParent(Entity mono){
         parent = mono;
     }
 
+    // Enable and disable the component with the following methods
+    protected boolean enabled = true;
     public boolean isEnabled(){
         return enabled;
     }
-
     public void setEnabled(boolean enabled){
         this.enabled = enabled;
     }
@@ -62,27 +75,38 @@ public abstract class Component implements IBehavior, IExposeToGUI {
         return parent.children;
     }
 
+    /**
+     * Accessed from GUI system to change values of variables in a component
+     * @param name the name (as a string) of the field to be changed
+     * @param value the value (as a base java object) to change the field to.
+     */
     @Override
     public void changeFieldOnGUI(String name, Object value){
-        Component c = this;
+        // Loop through all fields to find the field that we are looking for
         for(Field f: getClass().getFields()){
             if(f.getName().equals(name)){
                 try {
+                    // override accessibility issues, get field from a superclass
+                    // if necessary, and set value
                     boolean accessible = f.isAccessible();
                     f.setAccessible(true);
                     if(f.getDeclaringClass() == this.getClass().getSuperclass()) {
-                        f.set(c.reflect(), value);
+                        f.set(this.reflect(), value);
                     }
                     else {
                         f.set(this, value);
                     }
+                    // reset accessibility to default after use
                     f.setAccessible(accessible);
                 }
+                // throw error if we can't change field value
                 catch (IllegalAccessException e){
                     e.printStackTrace();
                 }
-                c.onValidate();
-                c.onComponentChanged.invoke(this);
+                // alert GUI that the component has been changed, and run the
+                // onValidate() method
+                onValidate();
+                onComponentChanged.invoke(this);
             }
         }
     }

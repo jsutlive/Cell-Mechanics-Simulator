@@ -71,22 +71,35 @@ public final class StateMachine {
         e.onValidate();
     }
 
-    public void cycle(){
-        Collections.reverse(allObjects);
-    }
-
-    private void selectEntityWithTag(Tag t){
-        Entity e = currentState.findObjectWithTag(t);
-        if(e!=null) SelectionEvents.selectEntity(e);
-        else SelectionEvents.clearSelection();
-    }
-
     /**
      * Remove entity to state
      * @param e entity removed
      */
     private void removeEntityFromList(Entity e){
         allObjects.remove(e);
+    }
+
+    public void cycle(){
+        Collections.reverse(allObjects);
+    }
+
+    private void selectEntityWithTag(Tag t){
+        Entity e = findObjectWithTag(t);
+        if(e!=null) SelectionEvents.selectEntity(e);
+        else SelectionEvents.clearSelection();
+    }
+
+    /**
+     * Look for a tagged object and return the first object with that tag
+     * @param tag specified tag to search all state entities for
+     * @return the first entity found with the specified tag
+     */
+    public Entity findObjectWithTag(Tag tag)
+    {
+        for (Entity mono: allObjects) {
+            if(mono.getTag() == tag) return mono;
+        }
+        return null;
     }
 
     /**

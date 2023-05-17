@@ -33,20 +33,6 @@ public abstract class State
      */
     abstract void exit();
 
-
-    /**
-     * Look for a tagged object and return the first object with that tag
-     * @param tag specified tag to search all state entities for
-     * @return the first entity found with the specified tag
-     */
-    public Entity findObjectWithTag(Tag tag)
-    {
-        for (Entity mono: stateMachine.allObjects) {
-            if(mono.getTag() == tag) return mono;
-        }
-        return null;
-    }
-
     /**
      * save a json file with initial position
      */
