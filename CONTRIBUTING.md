@@ -43,3 +43,4 @@ Release numbering follows the **MAJOR**._Minor_.patch format. In this context:
 
 - use final variables whenever possible
 - add GitHub actions to run tests and add coverage percentage badge on README
+- used json for file organization
